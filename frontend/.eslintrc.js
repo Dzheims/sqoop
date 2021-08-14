@@ -24,6 +24,13 @@ module.exports = {
     '@typescript-eslint/no-floating-promises': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'graphql/template-strings': [
+      'error',
+      {
+        env: 'apollo',
+        schemaString: fs.readFileSync('./schema.graphql').toString(),
+      },
+    ],
   },
   overrides: [
     {
