@@ -12,7 +12,6 @@ extensions:
             Date: string
             Datetime: string
             Float: number
-            BigFloat: number
       ./src:
         preset: near-operation-file
         presetConfig:

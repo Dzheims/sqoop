@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 module.exports = {
   env: {
     browser: true,
@@ -19,7 +21,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', 'graphql'],
   rules: {
     '@typescript-eslint/no-floating-promises': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],

@@ -12,14 +12,13 @@ const app = express();
 
 app
   .use(
-    '/graphql',
     postgraphile(process.env.DATABASE_URL, 'public', {
       watchPg: Environment.isDev,
       dynamicJson: true,
       ignoreRBAC: false,
       ignoreIndexes: false,
       showErrorStack: Environment.isDev,
-      appendPlugins: [PgSimplifyInflector, TagsFilePlugin],
+      appendPlugins: [PgSimplifyInflector],
       graphqlRoute: '/graphql',
       graphiqlRoute: '/graphiql',
       graphiql: Environment.isDev,
