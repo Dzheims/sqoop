@@ -1,8 +1,22 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useGetUsersQuery } from './dummyQuery.generated';
 
 function App() {
+  const { data, loading, error } = useGetUsersQuery();
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
+
+  if (error) {
+    return <div>error</div>;
+  }
+
+  if (!data?.users) {
+    return <div>none</div>;
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +32,9 @@ function App() {
         >
           Sqoopify
         </a>
+        <div>
+          <div>{data.users[0]}</div>
+        </div>
       </header>
     </div>
   );
