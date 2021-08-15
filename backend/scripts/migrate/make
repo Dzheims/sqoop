@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/bash
 
 [[ -z $1 ]] && { echo 'Please provide a description'; exit 1; }
 

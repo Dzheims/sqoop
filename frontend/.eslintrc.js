@@ -6,6 +6,7 @@ module.exports = {
     es2021: true,
   },
   extends: [
+    'plugin:jest-dom/recommended',
     'plugin:react/recommended',
     'airbnb-typescript',
     'plugin:@typescript-eslint/recommended',
@@ -21,7 +22,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: ['react', '@typescript-eslint', 'graphql'],
+  plugins: ['react', '@typescript-eslint', 'graphql', 'jest-dom'],
   rules: {
     '@typescript-eslint/no-floating-promises': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],

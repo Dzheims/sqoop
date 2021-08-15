@@ -62,6 +62,42 @@ type Query implements Node {
     """
     condition: FlywaySchemaHistoryCondition
   ): [FlywaySchemaHistory!]
+
+  """Reads and enables pagination through a set of `User`."""
+  usersConnection(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `User`."""
+    orderBy: [UsersOrderBy!] = [NATURAL]
+  ): UsersConnection
+
+  """Reads a set of `User`."""
+  users(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Skip the first `n` values."""
+    offset: Int
+
+    """The method to use when ordering `User`."""
+    orderBy: [UsersOrderBy!]
+  ): [User!]
   flywaySchemaHistory(installedRank: Int!): FlywaySchemaHistory
 
   """Reads a single `FlywaySchemaHistory` using its globally unique `ID`."""
@@ -173,6 +209,41 @@ input FlywaySchemaHistoryCondition {
   success: Boolean
 }
 
+"""A connection to a list of `User` values."""
+type UsersConnection {
+  """A list of `User` objects."""
+  nodes: [User]!
+
+  """
+  A list of edges which contains the `User` and cursor to aid in pagination.
+  """
+  edges: [UsersEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `User` you could get from the connection."""
+  totalCount: Int!
+}
+
+type User {
+  name: String!
+}
+
+"""A `User` edge in the connection."""
+type UsersEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `User` at the end of the edge."""
+  node: User
+}
+
+"""Methods to use when ordering `User`."""
+enum UsersOrderBy {
+  NATURAL
+}
+
 """
 The root mutation type which contains root level fields which mutate data.
 """
@@ -184,6 +255,14 @@ type Mutation {
     """
     input: CreateFlywaySchemaHistoryInput!
   ): CreateFlywaySchemaHistoryPayload
+
+  """Creates a single `User`."""
+  createUser(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateUserInput!
+  ): CreateUserPayload
 
   """
   Updates a single `FlywaySchemaHistory` using its globally unique id and a patch.
@@ -267,6 +346,46 @@ input FlywaySchemaHistoryInput {
   installedOn: Datetime
   executionTime: Int!
   success: Boolean!
+}
+
+"""The output of our create `User` mutation."""
+type CreateUserPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `User` that was created by this mutation."""
+  user: User
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `User`. May be used by Relay 1."""
+  userEdge(
+    """The method to use when ordering `User`."""
+    orderBy: [UsersOrderBy!] = [NATURAL]
+  ): UsersEdge
+}
+
+"""All input for the create `User` mutation."""
+input CreateUserInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `User` to be created by this mutation."""
+  user: UserInput!
+}
+
+"""An input for mutations affecting `User`"""
+input UserInput {
+  name: String!
 }
 
 """The output of our update `FlywaySchemaHistory` mutation."""
