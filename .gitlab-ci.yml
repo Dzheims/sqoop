@@ -1,0 +1,22 @@
+backend:
+  image: node:latest
+  cache:
+    paths:
+      - backend/node_modules/
+  before_script:
+    - cd backend
+    - npm install
+  script:
+    - npm run test
+
+frontend:
+  image: node:latest
+  cache:
+    paths:
+      - frontend/node_modules/
+  before_script:
+    - cd frontend
+    - npm install
+    - npx graphql codegen
+  script:
+    - npm run test
