@@ -18,7 +18,7 @@ app
       ignoreRBAC: false,
       ignoreIndexes: false,
       showErrorStack: Environment.isDev,
-      appendPlugins: [PgSimplifyInflector],
+      appendPlugins: [PgSimplifyInflector, TagsFilePlugin],
       graphqlRoute: '/graphql',
       graphiqlRoute: '/graphiql',
       graphiql: Environment.isDev,
