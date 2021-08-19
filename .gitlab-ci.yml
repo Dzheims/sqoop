@@ -17,6 +17,6 @@ frontend:
   before_script:
     - cd frontend
     - npm install
-    - npx graphql codegen
+    - npm run generate
   script:
     - npm run test

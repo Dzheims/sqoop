@@ -8,7 +8,8 @@
     "migrate": "flyway -c flyway.conf.js migrate",
     "migrate:make": "scripty",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "generate": "kanel"
   },
   "keywords": [],
   "author": "",

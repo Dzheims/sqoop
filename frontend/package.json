@@ -49,7 +49,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "eject": "react-scripts eject",
-    "graphql:codegen": "graphql codegen",
+    "generate": "graphql-codegen",
     "lint": "eslint src/"
   },
   "eslintConfig": {
