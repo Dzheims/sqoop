@@ -24,7 +24,12 @@ export const typeDefs = gql`
   ${article}
   ${source}
   extend type Query {
-    news: [article!]!
+    topHeadlines(
+      country: String = "ph"
+      sources: String
+      category: String
+      keyword: String
+    ): [article!]!
   }
 `;
 

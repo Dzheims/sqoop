@@ -134,7 +134,12 @@ type Query implements Node {
     """
     orderBy: [UsersOrderBy!]
   ): [User!]
-  topHeadlines: [article!]!
+  topHeadlines(
+    country: String = "ph"
+    sources: String
+    category: String
+    keyword: String
+  ): [article!]!
 }
 
 """
