@@ -33,6 +33,8 @@ app
       graphileBuildOptions: {
         pgOmitListSuffix: true,
       },
+      jwtSecret: process.env.JWT_SECRET,
+      jwtPgTypeIdentifier: 'public.jwt_token',
     })
   )
   .listen(port, () => {

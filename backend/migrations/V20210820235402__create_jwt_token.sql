@@ -1,0 +1,1 @@
+CREATE TYPE public.jwt_token AS (role TEXT, user_id INTEGER, username TEXT, exp BIGINT)
