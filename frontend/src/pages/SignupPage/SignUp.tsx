@@ -50,6 +50,7 @@ function SignUp() {
             <TextField
               id="username"
               label="Username"
+              placeholder="Username"
               variant="outlined"
               margin="normal"
               required
@@ -57,8 +58,10 @@ function SignUp() {
               autoFocus
             />
             <TextField
+              inputProps={{ 'data-testid': 'Password' }}
               label="Password"
               type="password"
+              placeholder="Password"
               id="password"
               variant="outlined"
               margin="normal"
