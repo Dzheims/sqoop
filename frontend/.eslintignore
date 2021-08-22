@@ -1,3 +1,6 @@
 apollo.config.js
 .eslintrc.js
 src/**/*.generated.ts
+src/pages/Boards/Board.tsx
+src/pages/Boards/BoardColumn.tsx
+src/pages/Boards/BoardItem.tsx
