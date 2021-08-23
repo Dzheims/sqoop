@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { useMutation } from '@apollo/client';
+import SIGN_UP_MUTATION from './query';
+import AUTH_TOKEN from '../../constants';
+import { SignupMutation, SignupMutationVariables } from './query.generated';
+import { SignupInput } from '../../types.generated';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,8 +41,58 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignUp() {
+export interface SignUpProps {
+  onUserNameChange: (userName: string) => void;
+  onPasswordChange: (password: string) => void;
+}
+
+const SignUp = (props: SignUpProps) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const [loginInput, setLoginInput] = useState<SignupInput>({
+    userName: '',
+    password: '',
+  });
+
+  const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { value } = e.target;
+    setLoginInput({
+      ...loginInput,
+      userName: value,
+    });
+  };
+
+  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { value } = e.target;
+    setLoginInput({
+      ...loginInput,
+      password: value,
+    });
+  };
+
+  const [signUp] = useMutation<SignupMutation, SignupMutationVariables>(
+    SIGN_UP_MUTATION,
+    {
+      onCompleted: ({ signup }) => {
+        localStorage.setItem(AUTH_TOKEN, signup?.jwtToken);
+        history.push('/');
+      },
+    }
+  );
+
+  const handleSubmit = () => {
+    signUp({
+      variables: {
+        input: {
+          userName: loginInput.userName,
+          password: loginInput.password,
+        },
+      },
+    });
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -56,6 +112,7 @@ function SignUp() {
               required
               fullWidth
               autoFocus
+              onChange={onUserNameChange}
             />
             <TextField
               inputProps={{ 'data-testid': 'Password' }}
@@ -67,6 +124,7 @@ function SignUp() {
               margin="normal"
               required
               fullWidth
+              onChange={onPasswordChange}
             />
             <Button
               type="submit"
@@ -74,6 +132,7 @@ function SignUp() {
               variant="contained"
               color="secondary"
               className={classes.submit}
+              onClick={handleSubmit}
             >
               Sign Up
             </Button>
@@ -89,6 +148,6 @@ function SignUp() {
       </Grid>
     </Grid>
   );
-}
+};
 
 export default SignUp;

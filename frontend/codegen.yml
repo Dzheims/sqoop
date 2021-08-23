@@ -1,0 +1,21 @@
+schema: ./schema.graphql
+documents:
+  - './src/**/!(*.generated).ts'
+generates:
+  ./src/types.generated.ts:
+    plugins:
+      - typescript
+    config:
+      declarationKind: 'interface'
+      scalars:
+        Date: string
+        Datetime: string
+        Float: number
+  ./src:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.ts
+      baseTypesPath: ./types.generated.ts
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo

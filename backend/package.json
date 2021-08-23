@@ -9,7 +9,8 @@
     "migrate:make": "scripty",
     "test": "jest",
     "test:watch": "jest --watch",
-    "repair": "flyway -c flyway.conf.js repair"
+    "repair": "flyway -c flyway.conf.js repair",
+    "generate": "kanel"
   },
   "keywords": [],
   "author": "",
