@@ -7,10 +7,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useMutation } from '@apollo/client';
-import SIGN_UP_MUTATION from './query';
+import SIGN_IN_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
-import { SignupMutation, SignupMutationVariables } from './query.generated';
-import { SignupInput } from '../../types.generated';
+import { SigninMutation, SigninMutationVariables } from './query.generated';
+import { SigninInput } from '../../types.generated';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,11 +41,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = () => {
+const SignIn = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [loginInput, setLoginInput] = useState<SignupInput>({
+  const [loginInput, setLoginInput] = useState<SigninInput>({
     userName: '',
     password: '',
   });
@@ -68,18 +68,18 @@ const SignUp = () => {
     });
   };
 
-  const [signUp] = useMutation<SignupMutation, SignupMutationVariables>(
-    SIGN_UP_MUTATION,
+  const [signIn] = useMutation<SigninMutation, SigninMutationVariables>(
+    SIGN_IN_MUTATION,
     {
-      onCompleted: ({ signup }) => {
-        localStorage.setItem(AUTH_TOKEN, signup?.jwtToken);
-        history.push('/signin');
+      onCompleted: ({ signin }) => {
+        localStorage.setItem(AUTH_TOKEN, signin?.jwtToken);
+        history.push('/');
       },
     }
   );
 
   const handleSubmit = () => {
-    signUp({
+    signIn({
       variables: {
         input: {
           userName: loginInput.userName,
@@ -94,8 +94,8 @@ const SignUp = () => {
       <Grid item xs={false} sm={5} md={7} className={classes.image} />
       <Grid item xs={12} sm={7} md={5}>
         <div className={classes.paper}>
-          <Typography className={classes.welcome} color="primary" variant="h3">
-            Welcome to <br /> Sqoop
+          <Typography className={classes.welcome} color="primary" variant="h2">
+            Sqoop
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -129,12 +129,12 @@ const SignUp = () => {
               className={classes.submit}
               onClick={handleSubmit}
             >
-              Sign Up
+              Sign In
             </Button>
             <Grid container>
               <Grid item>
                 <Link href="/" variant="body2">
-                  Already have an account? Sign In
+                  Don&apos;t have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>
@@ -145,4 +145,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
