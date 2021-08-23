@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import BoardColumn from './BoardColumn';
-import initialBoardData from './initialData';
+import BoardData from './BoardData';
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ const BoardWrapper = styled.div`
 `;
 
 class Board extends React.Component {
-  state = initialBoardData;
+  state = BoardData;
 
   onDragStart = (result: any) => {
     const homeIndex = this.state.columnsOrder.indexOf(

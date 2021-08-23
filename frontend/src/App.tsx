@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import theme from './theme';
 import Homepage from './pages/Homepage';
 import Board from './pages/Boards/Board';
+import NewsAPIColumnData from './pages/Boards/NewsAPIColumnData';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Homepage} />
             <Route path="/board" exact component={Board} />
+            <Route path="/news" exact component={NewsAPIColumnData} />
           </Switch>
         </ThemeProvider>
       </div>

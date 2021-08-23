@@ -18,13 +18,13 @@ const theme = createTheme({
     },
     text: {
       primary: '#303030',
-      secondary: '#fff'
-    }
+      secondary: '#fff',
+    },
   },
   typography: {
-      fontFamily: 'Roboto',
-      fontSize: 14,
-  }
+    fontFamily: 'Roboto',
+    fontSize: 14,
+  },
 });
 
 export default theme;

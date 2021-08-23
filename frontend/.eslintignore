@@ -4,3 +4,4 @@ src/**/*.generated.ts
 src/pages/Boards/Board.tsx
 src/pages/Boards/BoardColumn.tsx
 src/pages/Boards/BoardItem.tsx
+src/pages/Boards/NewsAPIColumn.tsx
