@@ -5,7 +5,7 @@ interface searchParams {
   query: string;
 }
 
-export const sources = ['cnnphilippines', 'inquirerdotnet', 'DOHgovph']; //from datababse
+export const sources = ['cnnphilippines', 'inquirerdotnet', 'DOHgovph']; //retrieve from datababse
 export const querySourceFormatter = (sources: string[]) => {
   return sources.map((value) => `from:${value}`).join(' OR ');
 };
