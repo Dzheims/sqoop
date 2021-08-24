@@ -19,6 +19,7 @@ const Container = styled.div<BoardItemStylesProps>`
   & + & {
     margin-top: 4px;
   }
+  border: thin solid lightgray;
 `;
 type BoardItemProps = {
   index: number;

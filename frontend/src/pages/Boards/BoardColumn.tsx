@@ -11,7 +11,8 @@ type BoardColumnContentStylesProps = {
 const Container = styled.div`
   flex: 1;
   padding: 8px;
-  background-color: lightblue;
+  background-color: #f7fafc;
+  border: 2px;
   border-radius: 4px;
   & + & {
     margin-left: 12px;
@@ -27,7 +28,7 @@ const Title = styled.h2`
 
 const Item = styled.div<BoardColumnContentStylesProps>`
   background-color: ${(props: any) =>
-    props.isDraggingOver ? 'skyblue' : null};
+    props.isDraggingOver ? '#f7fafc' : null};
   transition: background-color 0.2s ease;
   padding: 8px;
   flex-grow: 1;

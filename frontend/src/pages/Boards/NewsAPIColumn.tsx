@@ -3,15 +3,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { GetNewsApiContentsQuery } from './query.generated';
 import styled from 'styled-components';
-import { Link } from '@material-ui/core';
+import { Link, Typography, Avatar } from '@material-ui/core';
 
 type BoardColumnContentStylesProps = {
   isDragging: boolean;
 };
 
-const Item = styled.div<BoardColumnContentStylesProps>`
-  padding: 8px;
-  background-color: ${(props: any) => (props.isDragging ? '#d3e4ee' : '#fff')};
+const Item = styled.div`
+  padding: 15px;
+  background-color: ${(isDragging: BoardColumnContentStylesProps) =>
+    isDragging ? '#fff' : '#d3e4ee'};
   border-radius: 4px;
   transition: background-color 0.25s ease-out;
   &:hover {
@@ -20,18 +21,17 @@ const Item = styled.div<BoardColumnContentStylesProps>`
   & + & {
     margin-top: 4px;
   }
+  border: thin solid lightgray;
 `;
-
 const Title = styled.h2`
   font: 18px sans-serif;
   margin-bottom: 12px;
   margin-left: 12px;
 `;
-
 const ColumnContainer = styled.div`
   flex: 1;
   padding: 8px;
-  background-color: skyblue;
+  background-color: #f7fafc;
   border-radius: 4px;
   & + & {
     margin-left: 12px;
@@ -39,13 +39,15 @@ const ColumnContainer = styled.div`
   width: 120px;
   margin-right: 15px;
 `;
-const ItemContainer = styled.div<BoardColumnContentStylesProps>`
-  background-color: ${(props: any) =>
-    props.isDraggingOver ? 'skyblue' : null};
+const ItemContainer = styled.div`
+  background-color: ${(isDraggingOver: BoardColumnContentStylesProps) =>
+    isDraggingOver ? '#f7fafc' : null};
   transition: background-color 0.2s ease;
   padding: 8px;
   flex-grow: 1;
   min-height: 100px;
+  max-height: 450px;
+  overflow: auto;
 `;
 
 interface NewsAPIDataProps {
@@ -88,8 +90,25 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
                           {...provided.dragHandleProps}
                           isDragging={snapshot.isDragging}
                         >
-                          <div>{value.source?.name}</div>
-                          {value.title}
+                          <Typography variant="h6">
+                            {value.source?.name}
+                          </Typography>
+                          <Typography variant="caption">
+                            {value.publishedAt}
+                          </Typography>
+                          <br />
+                          <Typography variant="body2">{value.title}</Typography>
+                          <div
+                            style={{
+                              backgroundImage: `url(${value.urlToImage})`,
+                              height: '120px',
+                              width: 'auto',
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                              marginTop: '10px',
+                            }}
+                          />
+                          <br />
                           <Link href={value?.url as string}>See Link</Link>
                         </Item>
                       )}
