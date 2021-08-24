@@ -2,6 +2,7 @@ import express from 'express';
 import { postgraphile } from 'postgraphile';
 import { TagsFilePlugin } from 'postgraphile/plugins';
 import PgSimplifyInflector from '@graphile-contrib/pg-simplify-inflector';
+import NewsApiPlugin from './api/newsApi/newsApi';
 import path from 'path';
 import * as Environment from './Environment';
 
@@ -18,7 +19,7 @@ app
       ignoreRBAC: false,
       ignoreIndexes: false,
       showErrorStack: Environment.isDev,
-      appendPlugins: [PgSimplifyInflector, TagsFilePlugin],
+      appendPlugins: [PgSimplifyInflector, TagsFilePlugin, NewsApiPlugin],
       graphqlRoute: '/graphql',
       graphiqlRoute: '/graphiql',
       graphiql: Environment.isDev,

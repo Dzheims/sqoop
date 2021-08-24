@@ -1,7 +1,0 @@
-#!/bin/sh
-
-[[ -z $1 ]] && { echo 'Please provide a description'; exit 1; }
-
-filename="./migrations/V$(date +'%Y%m%d%H%M%S')__$1.sql"
-echo "Creating migration file: $filename"
-touch $filename
