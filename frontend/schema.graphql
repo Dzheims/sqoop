@@ -106,6 +106,7 @@ type Query implements Node {
     category: String
     keyword: String
   ): [Article!]!
+  searchTweets(query: String): [Tweet!]!
 }
 
 """
@@ -240,6 +241,11 @@ type Article {
 type Source {
   id: String
   name: String
+}
+
+type Tweet {
+  id: String
+  text: String
 }
 
 """
