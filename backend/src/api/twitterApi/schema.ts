@@ -8,7 +8,7 @@ export const tweet = gql`
 export const typeDefs = gql`
   ${tweet}
   extend type Query {
-    searchTweets(query: String!): [Tweet!]!
+    searchTweets(query: String): [Tweet!]!
   }
 `;
 
