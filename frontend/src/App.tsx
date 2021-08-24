@@ -6,7 +6,6 @@ import Homepage from './pages/Homepage';
 import SignUp from './pages/SignupPage/SignUp';
 import SignIn from './pages/SignInPage/SignIn';
 import Board from './pages/Boards/Board';
-import NewsAPIColumnData from './pages/Boards/NewsAPIColumnData';
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
             <Route path="/signup" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />
             <Route path="/board" exact component={Board} />
-            <Route path="/news" exact component={NewsAPIColumnData} />
           </Switch>
         </ThemeProvider>
       </div>
