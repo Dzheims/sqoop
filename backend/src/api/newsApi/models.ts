@@ -1,5 +1,5 @@
 export interface article {
-  source: Source;
+  source: source;
   author: string;
   title: string;
   description: string;
@@ -9,7 +9,7 @@ export interface article {
   content: string;
 }
 
-export interface Source {
+export interface source {
   id: string;
   name: string;
 }

@@ -1,12 +1,6 @@
+import { userSchema } from '../helpers/setupEasyGraphqlTester';
 import { gql } from 'graphile-utils';
-import path from 'path';
 const EasyGraphQLTester = require('easygraphql-tester');
-const fs = require('fs');
-
-const userSchema = fs.readFileSync(
-  path.join(__dirname, '../../../../frontend', 'schema.graphql'),
-  'utf8'
-);
 
 describe('test topheadlines schema', () => {
   let tester: any;
@@ -107,7 +101,7 @@ describe('mock topHeadline query', () => {
     const {
       data: { topHeadlines },
     } = await tester.mock({ query, fixture });
-    expect(topHeadlines).toBeArray;
+    expect(topHeadlines).toBeArray();
     expect(topHeadlines[0].author).toBe('Science X staff');
     expect(topHeadlines[0].title).toBe(
       'Breakthrough in actinide metal-metal bonding - Phys.org'
