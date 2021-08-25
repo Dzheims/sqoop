@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { GetNewsApiContentsQuery } from './query.generated';
+import { GetTwitterApiContentsQuery } from './query.generated';
 import styled from 'styled-components';
 import { Link, Typography, Avatar } from '@material-ui/core';
 
@@ -50,12 +50,12 @@ const ItemContainer = styled.div`
   overflow: auto;
 `;
 
-interface NewsAPIDataProps {
-  data: GetNewsApiContentsQuery;
+interface TwitterAPIDataProps {
+  data: GetTwitterApiContentsQuery;
 }
-const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
+const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
   data,
-}: NewsAPIDataProps) => {
+}: TwitterAPIDataProps) => {
   const onDragEnd = (result: any) => {
     if (!result.destination) {
       return;
@@ -70,7 +70,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
       <Draggable draggableId="draggable" isDragDisabled={true} index={0}>
         {(provided) => (
           <ColumnContainer {...provided.draggableProps} ref={provided.innerRef}>
-            <Title {...provided.dragHandleProps}>News API Feed</Title>
+            <Title {...provided.dragHandleProps}>Twitter API Feed</Title>
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
                 <ItemContainer
@@ -78,11 +78,8 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
                   ref={provided.innerRef}
                   isDragging={snapshot.isDraggingOver}
                 >
-                  {data?.topHeadlines?.map((value, index) => (
-                    <Draggable
-                      draggableId={value.publishedAt as string}
-                      index={index}
-                    >
+                  {data?.searchTweets?.map((value, index) => (
+                    <Draggable draggableId={value.id as string} index={index}>
                       {(provided, snapshot) => (
                         <Item
                           ref={provided.innerRef}
@@ -90,26 +87,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
                           {...provided.dragHandleProps}
                           isDragging={snapshot.isDragging}
                         >
-                          <Typography variant="h6">
-                            {value.source?.name}
-                          </Typography>
-                          <Typography variant="caption">
-                            {value.publishedAt}
-                          </Typography>
-                          <br />
-                          <Typography variant="body2">{value.title}</Typography>
-                          <div
-                            style={{
-                              backgroundImage: `url(${value.urlToImage})`,
-                              height: '120px',
-                              width: 'auto',
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
-                              marginTop: '10px',
-                            }}
-                          />
-                          <br />
-                          <Link href={value?.url as string}>See Link</Link>
+                          <Typography variant="body2">{value.text}</Typography>
                         </Item>
                       )}
                     </Draggable>
@@ -125,4 +103,4 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
   );
 };
 
-export default NewsAPIColumn;
+export default TwitterAPIColumn;

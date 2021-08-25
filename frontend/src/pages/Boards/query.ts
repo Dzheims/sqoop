@@ -18,4 +18,11 @@ export const GET_NEWS_API_CONTENTS_QUERY = gql`
   }
 `;
 
-export default GET_NEWS_API_CONTENTS_QUERY;
+export const GET_TWITTER_API_CONTENTS_QUERY = gql`
+  query getTwitterAPIContents {
+    searchTweets {
+      id
+      text
+    }
+  }
+`;

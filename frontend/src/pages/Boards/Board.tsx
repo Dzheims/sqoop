@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import BoardColumn from './BoardColumn';
 import BoardData from './BoardData';
 import NewsAPIColumnData from './NewsAPIColumnData';
+import TwitterAPIColumnData from './TwitterAPIColumnData';
 
 const Container = styled.div`
   display: flex;
@@ -101,6 +102,7 @@ const Board: React.FC = () => {
           {(provided) => (
             <Container {...provided.droppableProps} ref={provided.innerRef}>
               <NewsAPIColumnData />
+              <TwitterAPIColumnData />
               {state.columnsOrder.map((columnId, index) => {
                 const column = (state.columns as any)[columnId];
                 const items = column.itemsIds.map(
