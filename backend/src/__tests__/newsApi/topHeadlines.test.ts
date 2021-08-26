@@ -8,7 +8,7 @@ describe('test topheadlines schema', () => {
     tester = new EasyGraphQLTester(userSchema);
   });
 
-  test('check if valid query', async () => {
+  test('check if valid query', () => {
     const query = gql`
       query TESTQUERY {
         topHeadlines {
@@ -28,7 +28,7 @@ describe('test topheadlines schema', () => {
     `;
     tester.test(true, query);
   });
-  test('check if an invalid query', async () => {
+  test('check if an invalid query', () => {
     const query = gql`
       query TESTQUERY {
         topHeadlines {

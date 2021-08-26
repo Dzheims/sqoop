@@ -8,7 +8,7 @@ describe('test searchTweets schema', () => {
     tester = new EasyGraphQLTester(userSchema);
   });
 
-  test('check if valid query', async () => {
+  test('check if valid query', () => {
     const query = gql`
       query TESTQUERY {
         searchTweets {
@@ -19,7 +19,7 @@ describe('test searchTweets schema', () => {
     `;
     tester.test(true, query);
   });
-  test('check if an invalid query', async () => {
+  test('check if an invalid query', () => {
     const query = gql`
       query TESTQUERY {
         searchTweet {

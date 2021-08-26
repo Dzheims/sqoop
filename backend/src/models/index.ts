@@ -1,34 +1,36 @@
 // @generated
 // Automatically generated. Don't change this file manually.
 
-import users, { usersInitializer } from './users';
+import users, { usersInitializer, usersId } from './users';
+import jwt_token from './jwt_token';
 
-type Model =
-  | users
+type Model = users;
 
 interface ModelTypeMap {
-  'users': users;
+  users: users;
 }
 
-type ModelId =
+type ModelId = usersId;
 
 interface ModelIdTypeMap {
+  users: usersId;
 }
 
-type Initializer =
-  | usersInitializer
+type Initializer = usersInitializer;
 
 interface InitializerTypeMap {
-  'users': usersInitializer;
+  users: usersInitializer;
 }
 
 export type {
-  users, usersInitializer,
-
+  users,
+  usersInitializer,
+  usersId,
+  jwt_token,
   Model,
   ModelTypeMap,
   ModelId,
   ModelIdTypeMap,
   Initializer,
-  InitializerTypeMap
+  InitializerTypeMap,
 };
