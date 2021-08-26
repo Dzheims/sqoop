@@ -6,7 +6,7 @@ BEGIN
   INSERT INTO users (username, hashed_password)
     VALUES ($1, crypt($2, gen_salt('bf', 8)));
   SELECT
-    'sqoop_users',
+    'sqoop_user',
     user_id,
     username,
     extract(epoch from (now() + interval '1 week')) INTO token_information
