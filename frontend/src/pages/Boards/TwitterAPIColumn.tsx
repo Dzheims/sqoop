@@ -67,38 +67,38 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Draggable draggableId="draggable" isDragDisabled={true} index={0}>
-        {(provided) => (
-          <ColumnContainer {...provided.draggableProps} ref={provided.innerRef}>
-            <Title {...provided.dragHandleProps}>Twitter API Feed</Title>
-            <Droppable droppableId="droppable">
-              {(provided, snapshot) => (
-                <ItemContainer
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  isDragging={snapshot.isDraggingOver}
+      <Droppable droppableId="droppable">
+        {(provided, snapshot) => (
+          <ColumnContainer {...provided.droppableProps} ref={provided.innerRef}>
+            <Title {...provided.droppableProps}>Twitter API Feed</Title>
+            <ItemContainer
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              isDragging={snapshot.isDraggingOver}
+            >
+              {data?.searchTweets?.map((value, index) => (
+                <Draggable
+                  draggableId={value.id as string}
+                  index={index}
+                  key={index}
                 >
-                  {data?.searchTweets?.map((value, index) => (
-                    <Draggable draggableId={value.id as string} index={index}>
-                      {(provided, snapshot) => (
-                        <Item
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          isDragging={snapshot.isDragging}
-                        >
-                          <Typography variant="body2">{value.text}</Typography>
-                        </Item>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </ItemContainer>
-              )}
-            </Droppable>
+                  {(provided, snapshot) => (
+                    <Item
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      isDragging={snapshot.isDragging}
+                    >
+                      <Typography variant="body2">{value.text}</Typography>
+                    </Item>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </ItemContainer>
           </ColumnContainer>
         )}
-      </Draggable>
+      </Droppable>
     </DragDropContext>
   );
 };
