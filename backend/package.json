@@ -6,6 +6,7 @@
   "scripts": {
     "start:dev": "ts-node-dev --respawn src/index.ts",
     "migrate": "flyway -c flyway.conf.js migrate",
+    "migrate:test": "flyway -c flyway.conf.test.js migrate",
     "migrate:make": "scripty",
     "test": "jest",
     "test:watch": "jest --watch",
