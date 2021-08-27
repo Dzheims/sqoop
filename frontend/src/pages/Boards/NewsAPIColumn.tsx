@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { GetNewsApiContentsQuery } from './query.generated';
 import styled from 'styled-components';
-import { Link, Typography, Avatar } from '@material-ui/core';
+import { Link, Typography } from '@material-ui/core';
 
 type BoardColumnContentStylesProps = {
   isDragging: boolean;
@@ -90,7 +90,9 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
                       {...provided.dragHandleProps}
                       isDragging={snapshot.isDragging}
                     >
-                      <Typography variant="h6">{value.source?.name}</Typography>
+                      <Typography variant="h6">
+                        {value.source?.name as string}
+                      </Typography>
                       <Typography variant="caption">
                         {value.publishedAt}
                       </Typography>
