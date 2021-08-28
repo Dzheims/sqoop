@@ -38,11 +38,15 @@ const withDbFromUrl = async (url: string, fn: DbTestFn) => {
 
   try {
     await fn(client);
-  } catch (e) {
-    if (typeof e.code === 'string' && e.code.match(/^[0-9A0Z]{5}$/)) {
-      console.error([e.message, e.code, e.detail, e.hint, e.where].join('\\n'));
+  } catch (error) {
+    if (typeof error.code === 'string' && error.code.match(/^[0-9A0Z]{5}$/)) {
+      console.error(
+        [error.message, error.code, error.detail, error.hint, error.where].join(
+          '\\n'
+        )
+      );
     }
-    fail('error');
+    throw error;
   } finally {
     await client.query(`ROLLBACK`);
     await client.query(`RESET ALL`);
