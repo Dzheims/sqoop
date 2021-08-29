@@ -1,6 +1,5 @@
 import { jwt_token } from '../../models';
 import { withRootDb } from '../helpers/dbTestHelpers';
-import { PoolClient } from 'pg';
 
 describe('sign in user', () => {
   test('sign in using incorrect credentials', async () => {

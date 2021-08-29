@@ -1,11 +1,11 @@
 import { Pool, PoolClient } from 'pg';
 require('dotenv').config();
 
-if (typeof process.env.DATABASE_URL !== 'string') {
-  throw new Error('DATABASE_URL is not set');
+if (typeof process.env.DATABASE_URL_TEST !== 'string') {
+  throw new Error('DATABASE_URL_TEST is not set');
 }
 
-export const DATABASE_URL_TEST: string = process.env.DATABASE_URL; // change to test db
+export const DATABASE_URL_TEST: string = process.env.DATABASE_URL_TEST;
 
 interface PoolMap {
   [key: string]: Pool;

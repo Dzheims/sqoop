@@ -1,11 +1,16 @@
 const { parse } = require('pg-connection-string');
 require('dotenv').config();
 
-if (typeof process.env.DATABASE_URL !== 'string') {
-  throw new Error('DATABASE_URL must be a string, or must be set');
+const [databaseUrl, environment] =
+  process.env.NODE_ENV === 'test'
+    ? [process.env.DATABASE_URL_TEST, 'test']
+    : [process.env.DATABASE_URL, 'development'];
+
+if (typeof databaseUrl !== 'string') {
+  throw new Error(`${environment} DATABASE_URL is not set`);
 }
 
-const dbConfig = parse(process.env.DATABASE_URL);
+const dbConfig = parse(databaseUrl);
 const jdbcUrl = `jdbc:postgresql://${dbConfig.host}/${dbConfig.database}`;
 
 module.exports = {
