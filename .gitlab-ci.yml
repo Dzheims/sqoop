@@ -1,11 +1,19 @@
 backend:
   image: node:latest
+  services:
+    - postgres:latest
+  variables:
+    POSTGRES_DB: 'sqoop_database_test'
+    POSTGRES_USER: 'postgres'
+    POSTGRES_PASSWORD: 'postgres'
+    POSTGRES_HOST_AUTH_METHOD: trust
   cache:
     paths:
       - backend/node_modules/
   before_script:
     - cd backend
     - npm install
+    - npm run migrate:test
   script:
     - npm run test
 
