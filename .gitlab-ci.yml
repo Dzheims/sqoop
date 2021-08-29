@@ -7,13 +7,17 @@ backend:
     POSTGRES_USER: 'postgres'
     POSTGRES_PASSWORD: 'postgres'
     POSTGRES_HOST_AUTH_METHOD: trust
+  connect:
+    image: postgres
+    script:
+      - export PGPASSWORD=$POSTGRES_PASSWORD
+      - psql -h "postgres" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT 'OK' AS status;"
   cache:
     paths:
       - backend/node_modules/
   before_script:
-    - psql -h "postgres" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT 'OK' AS status;"
-    - DATABSE_URL_TEST=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB}
     - cd backend
+    - DATABSE_URL_TEST=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB}
     - npm install
     - npm run migrate:test
   script:
