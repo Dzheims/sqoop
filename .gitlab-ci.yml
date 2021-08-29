@@ -2,6 +2,11 @@ backend:
   image: node:latest
   services:
     - postgres:latest
+  variables:
+    POSTGRES_DB: 'postgres'
+    POSTGRES_USER: 'postgres'
+    POSTGRES_PASSWORD: ''
+    POSTGRES_HOST_AUTH_METHOD: trust
   cache:
     paths:
       - backend/node_modules/
