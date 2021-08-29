@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +11,7 @@ import SIGN_UP_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
 import { SignupMutation, SignupMutationVariables } from './query.generated';
 import { SignupInput } from '../../types.generated';
+import { FormValues, validate } from './SignUpValidation';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,28 +45,30 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = () => {
   const classes = useStyles();
   const history = useHistory();
-
-  const [loginInput, setLoginInput] = useState<SignupInput>({
+  const [errors, setErrors] = useState<FormValues>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validForm, setValidForm] = useState(false);
+  const [signupInput, setSignupInput] = useState<SignupInput>({
     userName: '',
     password: '',
   });
 
-  const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const { value } = e.target;
-    setLoginInput({
-      ...loginInput,
-      userName: value,
-    });
+  const setErrorInForm = (input: string | undefined): boolean => {
+    if (input === '') return false;
+    if (input === undefined) return false;
+    return true;
   };
 
-  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const { value } = e.target;
-    setLoginInput({
-      ...loginInput,
-      password: value,
-    });
+  const containsError = () => {
+    if (errors) {
+      Object.values(errors).forEach((error) => {
+        if (error === '') {
+          setValidForm(true);
+        } else if (error === undefined) {
+          setValidForm(true);
+        }
+      });
+    }
   };
 
   const [signUp] = useMutation<SignupMutation, SignupMutationVariables>(
@@ -78,14 +81,46 @@ const SignUp = () => {
     }
   );
 
+  useEffect(() => {
+    if (isSubmitting) {
+      containsError();
+    }
+  }, [errors]);
+
   const handleSubmit = () => {
-    signUp({
-      variables: {
-        input: {
-          userName: loginInput.userName,
-          password: loginInput.password,
+    setErrors(validate(signupInput));
+    setIsSubmitting(true);
+
+    if (validForm) {
+      setValidForm(false);
+      signUp({
+        variables: {
+          input: {
+            userName: signupInput.userName,
+            password: signupInput.password,
+          },
         },
-      },
+      });
+    }
+  };
+
+  const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (isSubmitting) setErrors(validate(signupInput));
+    const { value } = e.target;
+    setSignupInput({
+      ...signupInput,
+      userName: value,
+    });
+  };
+
+  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (isSubmitting) setErrors(validate(signupInput));
+    const { value } = e.target;
+    setSignupInput({
+      ...signupInput,
+      password: value,
     });
   };
 
@@ -97,29 +132,33 @@ const SignUp = () => {
           <Typography className={classes.welcome} color="primary" variant="h3">
             Welcome to <br /> Sqoop
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form}>
             <TextField
               id="username"
               label="Username"
-              placeholder="Username"
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               autoFocus
+              value={signupInput.userName || ''}
+              placeholder="Username"
               onChange={onUserNameChange}
+              error={setErrorInForm(errors?.userName || '')}
+              helperText={errors?.userName}
             />
             <TextField
               inputProps={{ 'data-testid': 'Password' }}
               label="Password"
               type="password"
-              placeholder="Password"
               id="password"
               variant="outlined"
               margin="normal"
-              required
               fullWidth
+              value={signupInput.password || ''}
+              placeholder="Password"
               onChange={onPasswordChange}
+              error={setErrorInForm(errors?.password || '')}
+              helperText={errors?.password}
             />
             <Button
               type="submit"

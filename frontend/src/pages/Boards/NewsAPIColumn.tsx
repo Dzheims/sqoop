@@ -90,9 +90,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
                       {...provided.dragHandleProps}
                       isDragging={snapshot.isDragging}
                     >
-                      <Typography variant="h6">
-                        {value.source?.name as string}
-                      </Typography>
+                      <Typography variant="h6">{value.source?.name}</Typography>
                       <Typography variant="caption">
                         {value.publishedAt}
                       </Typography>

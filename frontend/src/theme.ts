@@ -16,10 +16,6 @@ const theme = createTheme({
       black: '#000',
       white: '#fff',
     },
-    text: {
-      primary: '#303030',
-      secondary: '#fff',
-    },
   },
   typography: {
     fontFamily: 'Roboto',
