@@ -22,16 +22,16 @@ describe('with and without user input', () => {
 
 describe('empty username and invalid password', () => {
   test('password less than minimum', () => {
-    let values: FormValues = { userName: '', password: 'abc123' };
-    let errors = {
+    const values: FormValues = { userName: '', password: 'abc123' };
+    const errors = {
       userName: 'Please enter your username',
       password: 'Password must be a minimum of 8 characters',
     };
     expect(validate(values)).toStrictEqual(errors);
   });
   test('password complexity', () => {
-    let values: FormValues = { userName: '', password: 'abc123ABC' };
-    let errors = {
+    const values: FormValues = { userName: '', password: 'abc123ABC' };
+    const errors = {
       userName: 'Please enter your username',
       password:
         'Password must include numbers, uppercased and lowercased letters and atleast a special character (! @ # $ & % + -)',
@@ -39,8 +39,8 @@ describe('empty username and invalid password', () => {
     expect(validate(values)).toStrictEqual(errors);
   });
   test('password has white spaces', () => {
-    let values: FormValues = { userName: '', password: 'abc   123A_BC@' };
-    let errors = {
+    const values: FormValues = { userName: '', password: 'abc   123A_BC@' };
+    const errors = {
       userName: 'Please enter your username',
       password: 'Password must not have whitespaces or underscores',
     };
@@ -50,16 +50,16 @@ describe('empty username and invalid password', () => {
 
 describe('valid username and invalid password', () => {
   test('password less than minimum', () => {
-    let values: FormValues = { userName: 'sqoopUser', password: 'abc123' };
-    let errors = {
+    const values: FormValues = { userName: 'sqoopUser', password: 'abc123' };
+    const errors = {
       userName: '',
       password: 'Password must be a minimum of 8 characters',
     };
     expect(validate(values)).toStrictEqual(errors);
   });
   test('password complexity', () => {
-    let values: FormValues = { userName: 'sqoopUser', password: 'abc123ABC' };
-    let errors = {
+    const values: FormValues = { userName: 'sqoopUser', password: 'abc123ABC' };
+    const errors = {
       userName: '',
       password:
         'Password must include numbers, uppercased and lowercased letters and atleast a special character (! @ # $ & % + -)',
@@ -67,11 +67,11 @@ describe('valid username and invalid password', () => {
     expect(validate(values)).toStrictEqual(errors);
   });
   test('password less than minimum', () => {
-    let values: FormValues = {
+    const values: FormValues = {
       userName: 'sqoopUser',
       password: 'abc   123A_BC@',
     };
-    let errors = {
+    const errors = {
       userName: '',
       password: 'Password must not have whitespaces or underscores',
     };

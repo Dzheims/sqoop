@@ -1,29 +1,30 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import {
   render,
-  screen,
   fireEvent,
   RenderResult,
   cleanup,
+  screen,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import SignUp from '../pages/SignupPage/SignUp';
+import SignIn from '../pages/SignInPage/SignIn';
 
 let documentBody: RenderResult;
 
-describe('Sign up', () => {
+describe('Login page placeholders and tags', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={[]}>
-        <SignUp />
+        <SignIn />
       </MockedProvider>
     );
   });
   afterEach(cleanup);
-  test('signup texts', () => {
-    expect(documentBody.getByText('Welcome to Sqoop')).toBeInTheDocument();
+  test('sign in text', () => {
+    expect(documentBody.getByText('Sqoop')).toBeInTheDocument();
   });
-  test('signup form textfields', () => {
+  test('signin form text fields', () => {
     expect(documentBody.getByPlaceholderText('Username')).toBeInTheDocument();
     expect(documentBody.getByPlaceholderText('Password')).toBeInTheDocument();
   });
@@ -39,8 +40,8 @@ describe('Sign up', () => {
     const passwordTextfield = screen.getByTestId('Password');
     expect(passwordTextfield).toHaveValue('');
     fireEvent.change(passwordTextfield, {
-      target: { value: 'Sqoop User Password' },
+      target: { value: 'SqoopUserPassword' },
     });
-    expect(passwordTextfield).toHaveValue('Sqoop User Password');
+    expect(passwordTextfield).toHaveValue('SqoopUserPassword');
   });
 });
