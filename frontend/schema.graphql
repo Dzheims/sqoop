@@ -409,8 +409,13 @@ type Source {
 }
 
 type Tweet {
+  author_id: String
+  created_at: String
   id: String
   text: String
+  name: String
+  profile_image_url: String
+  username: String
 }
 
 """
