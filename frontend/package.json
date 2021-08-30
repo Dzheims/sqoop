@@ -54,7 +54,8 @@
     "test:watch": "jest --watch",
     "eject": "react-scripts eject",
     "generate": "graphql-codegen",
-    "lint": "eslint src/"
+    "lint": "eslint src/",
+    "watch": "graphql-codegen --watch"
   },
   "eslintConfig": {
     "extends": [
