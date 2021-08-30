@@ -8,12 +8,15 @@ const NewsAPIColumnData: React.FC = () => {
   const { data, loading, error } = useQuery<GetNewsApiContentsQuery>(
     GET_NEWS_API_CONTENTS_QUERY
   );
-  if (loading) return <div>loading</div>;
-
-  if (error) return <div>error</div>;
-
-  if (!data) return <div>data</div>;
-
+  if (error) {
+    return <div>error</div>;
+  }
+  if (loading) {
+    return <div>loading</div>;
+  }
+  if (!data) {
+    return <div>data</div>;
+  }
   return <NewsAPIColumn data={data} />;
 };
 

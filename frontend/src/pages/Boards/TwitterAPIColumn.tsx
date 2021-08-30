@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { GetNewsApiContentsQuery } from './query.generated';
+import { GetTwitterApiContentsQuery } from './query.generated';
 import styled from 'styled-components';
-import { Link, Typography } from '@material-ui/core';
+import { Link, Typography, Avatar } from '@material-ui/core';
 
 type BoardColumnContentStylesProps = {
   isDragging: boolean;
@@ -50,12 +50,12 @@ const ItemContainer = styled.div`
   overflow: auto;
 `;
 
-interface NewsAPIDataProps {
-  data: GetNewsApiContentsQuery;
+interface TwitterAPIDataProps {
+  data: GetTwitterApiContentsQuery;
 }
-const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
+const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
   data,
-}: NewsAPIDataProps) => {
+}: TwitterAPIDataProps) => {
   const onDragEnd = (result: any) => {
     if (!result.destination) {
       return;
@@ -70,16 +70,15 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
           <ColumnContainer {...provided.droppableProps} ref={provided.innerRef}>
-            <Title {...provided.droppableProps}>News API Feed</Title>
-
+            <Title {...provided.droppableProps}>Twitter API Feed</Title>
             <ItemContainer
               {...provided.droppableProps}
               ref={provided.innerRef}
               isDragging={snapshot.isDraggingOver}
             >
-              {data?.topHeadlines?.map((value, index) => (
+              {data?.searchTweets?.map((value, index) => (
                 <Draggable
-                  draggableId={value.publishedAt as string}
+                  draggableId={value.id as string}
                   index={index}
                   key={index}
                 >
@@ -90,25 +89,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
                       {...provided.dragHandleProps}
                       isDragging={snapshot.isDragging}
                     >
-                      <Typography variant="h6">{value.source?.name}</Typography>
-                      <Typography variant="caption">
-                        {value.publishedAt}
-                      </Typography>
-                      <br />
-                      <Typography variant="body2">{value.title}</Typography>
-                      <div
-                        data-testid="Image"
-                        style={{
-                          backgroundImage: `url(${value.urlToImage})`,
-                          height: '120px',
-                          width: 'auto',
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center',
-                          marginTop: '10px',
-                        }}
-                      />
-                      <br />
-                      <Link href={value?.url as string}>See Link</Link>
+                      <Typography variant="body2">{value.text}</Typography>
                     </Item>
                   )}
                 </Draggable>
@@ -122,4 +103,4 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
   );
 };
 
-export default NewsAPIColumn;
+export default TwitterAPIColumn;

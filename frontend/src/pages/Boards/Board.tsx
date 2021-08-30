@@ -1,8 +1,10 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import BoardColumn from './BoardColumn';
 import BoardData from './BoardData';
+import NewsAPIColumnData from './NewsAPIColumnData';
+import TwitterAPIColumnData from './TwitterAPIColumnData';
 
 const Container = styled.div`
   display: flex;
@@ -14,17 +16,10 @@ const BoardWrapper = styled.div`
   margin: 50px;
 `;
 
-class Board extends React.Component {
-  state = BoardData;
+const Board: React.FC = () => {
+  const [state, setState] = useState(BoardData);
 
-  onDragStart = (result: any) => {
-    const homeIndex = this.state.columnsOrder.indexOf(
-      result.source.droppableId
-    );
-    this.setState({ homeIndex });
-  };
-
-  onDragEnd = (result: any) => {
+  const onDragEnd = (result: any) => {
     const { source, destination, draggableId, type } = result;
 
     if (!destination) {
@@ -38,18 +33,18 @@ class Board extends React.Component {
     }
 
     if (type === 'column') {
-      const newColumnOrder = Array.from(this.state.columnsOrder);
+      const newColumnOrder = Array.from(state.columnsOrder);
       newColumnOrder.splice(source.index, 1);
       newColumnOrder.splice(destination.index, 0, draggableId);
 
-      this.setState({
-        ...this.state,
+      setState({
+        ...state,
         columnsOrder: newColumnOrder,
       });
       return;
     }
-    const columnStart = (this.state.columns as any)[source.droppableId];
-    const columnFinish = (this.state.columns as any)[destination.droppableId];
+    const columnStart = (state.columns as any)[source.droppableId];
+    const columnFinish = (state.columns as any)[destination.droppableId];
 
     if (columnStart === columnFinish) {
       const newItemsIds = Array.from(columnStart.itemsIds);
@@ -62,13 +57,13 @@ class Board extends React.Component {
       };
 
       const newState = {
-        ...this.state,
+        ...state,
         columns: {
-          ...this.state.columns,
+          ...state.columns,
           [newColumnStart.id]: newColumnStart,
         },
       };
-      this.setState(newState);
+      setState(newState);
     } else {
       const newStartItemsIds = Array.from(columnStart.itemsIds);
       newStartItemsIds.splice(source.index, 1);
@@ -85,54 +80,50 @@ class Board extends React.Component {
       };
 
       const newState = {
-        ...this.state,
+        ...state,
         columns: {
-          ...this.state.columns,
+          ...state.columns,
           [newColumnStart.id]: newColumnStart,
           [newColumnFinish.id]: newColumnFinish,
         },
       };
-
-      this.setState(newState);
+      setState(newState);
     }
   };
 
-  render() {
-    return (
-      <BoardWrapper>
-        <DragDropContext
-          onDragEnd={this.onDragEnd}
-          onDragStart={this.onDragStart}
+  return (
+    <BoardWrapper>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable
+          droppableId="all-column"
+          direction="horizontal"
+          type="column"
         >
-          <Droppable
-            droppableId="all-column"
-            direction="horizontal"
-            type="column"
-          >
-            {(provided) => (
-              <Container {...provided.droppableProps} ref={provided.innerRef}>
-                {this.state.columnsOrder.map((columnId, index) => {
-                  const column = (this.state.columns as any)[columnId];
-                  const items = column.itemsIds.map(
-                    (itemId: string) => (this.state.items as any)[itemId]
-                  );
-                  return (
-                    <BoardColumn
-                      key={column.id}
-                      column={column}
-                      items={items}
-                      index={index}
-                    />
-                  );
-                })}
-                {provided.placeholder}
-              </Container>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </BoardWrapper>
-    );
-  }
-}
+          {(provided) => (
+            <Container {...provided.droppableProps} ref={provided.innerRef}>
+              <NewsAPIColumnData />
+              <TwitterAPIColumnData />
+              {state.columnsOrder.map((columnId, index) => {
+                const column = (state.columns as any)[columnId];
+                const items = column.itemsIds.map(
+                  (itemId: string) => (state.items as any)[itemId]
+                );
+                return (
+                  <BoardColumn
+                    key={column.id}
+                    column={column}
+                    items={items}
+                    index={index}
+                  />
+                );
+              })}
+              {provided.placeholder}
+            </Container>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </BoardWrapper>
+  );
+};
 
 export default Board;

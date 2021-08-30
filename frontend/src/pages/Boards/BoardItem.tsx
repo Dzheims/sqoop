@@ -2,11 +2,6 @@ import * as React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 
-type BoardItemProps = {
-  index: number;
-  item: any;
-};
-
 type BoardItemStylesProps = {
   isDragging: boolean;
 };
@@ -24,10 +19,15 @@ const Container = styled.div<BoardItemStylesProps>`
   & + & {
     margin-top: 4px;
   }
+  border: thin solid lightgray;
 `;
+type BoardItemProps = {
+  index: number;
+  item: any;
+};
 
-const BoardItem = (props: BoardItemProps) => (
-  <Draggable draggableId={props.item.id} index={props.index}>
+const BoardItem = ({ index, item }: BoardItemProps) => (
+  <Draggable draggableId={item.id} index={index}>
     {(provided, snapshot) => (
       <Container
         {...provided.draggableProps}
@@ -35,7 +35,7 @@ const BoardItem = (props: BoardItemProps) => (
         ref={provided.innerRef}
         isDragging={snapshot.isDragging}
       >
-        {props.item.content}
+        {item.content}
       </Container>
     )}
   </Draggable>
