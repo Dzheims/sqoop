@@ -13,15 +13,18 @@ const initialBoardData = {
     'column-1': {
       id: 'column-1',
       title: 'Column 1',
-      itemsIds: ['item-3', 'item-4', 'item-5'],
-    },
-    'column-2': {
-      id: 'column-2',
-      title: 'Column 2',
-      itemsIds: ['item-1', 'item-2', 'item-6', 'item-7'],
+      itemsIds: [
+        'item-3',
+        'item-4',
+        'item-5',
+        'item-1',
+        'item-2',
+        'item-6',
+        'item-7',
+      ],
     },
   },
-  columnsOrder: ['column-1', 'column-2'],
+  columnsOrder: ['column-1'],
 };
 
 export default initialBoardData;
