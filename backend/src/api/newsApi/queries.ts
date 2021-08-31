@@ -26,7 +26,14 @@ export const resolvers = {
         }
       );
       const result = await response.json();
-      return result.articles;
+      const articles = result.articles.map((article: any) => {
+        const { source, ...subArticle } = article;
+        return {
+          ...subArticle,
+          ...{ sourceId: source.id, sourceName: source.name },
+        };
+      });
+      return articles;
     },
   },
 };

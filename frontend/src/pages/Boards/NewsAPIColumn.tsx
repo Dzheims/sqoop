@@ -119,11 +119,11 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
                             marginRight: '10px',
                           }}
                         >
-                          {value.source?.name?.charAt(0)}
+                          {value.sourceName?.charAt(0)}
                         </Avatar>
                         <AccountNameContainer>
                           <Typography style={{ fontWeight: 600 }}>
-                            {value.source?.name}
+                            {value.sourceName}
                           </Typography>
                         </AccountNameContainer>
                       </HeaderContainer>

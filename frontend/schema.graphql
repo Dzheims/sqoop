@@ -1,4 +1,6 @@
-"""The root query type which gives access points into the data universe."""
+"""
+The root query type which gives access points into the data universe.
+"""
 type Query implements Node {
   """
   Exposes the root query type nested one level down. This is helpful for Relay 1
@@ -11,18 +13,28 @@ type Query implements Node {
   """
   nodeId: ID!
 
-  """Fetches an object given its globally unique `ID`."""
+  """
+  Fetches an object given its globally unique `ID`.
+  """
   node(
-    """The globally unique `ID`."""
+    """
+    The globally unique `ID`.
+    """
     nodeId: ID!
   ): Node
 
-  """Reads and enables pagination through a set of `User`."""
-  usersConnection(
-    """Only read the first `n` values of the set."""
+  """
+  Reads and enables pagination through a set of `TwitterAccount`.
+  """
+  twitterAccountsConnection(
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -31,13 +43,85 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `User`."""
+    """
+    The method to use when ordering `TwitterAccount`.
+    """
+    orderBy: [TwitterAccountsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TwitterAccountCondition
+  ): TwitterAccountsConnection
+
+  """
+  Reads a set of `TwitterAccount`.
+  """
+  twitterAccounts(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `TwitterAccount`.
+    """
+    orderBy: [TwitterAccountsOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TwitterAccountCondition
+  ): [TwitterAccount!]
+
+  """
+  Reads and enables pagination through a set of `User`.
+  """
+  usersConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `User`.
+    """
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -46,15 +130,23 @@ type Query implements Node {
     condition: UserCondition
   ): UsersConnection
 
-  """Reads a set of `User`."""
+  """
+  Reads a set of `User`.
+  """
   users(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `User`."""
+    """
+    The method to use when ordering `User`.
+    """
     orderBy: [UsersOrderBy!]
 
     """
@@ -62,20 +154,43 @@ type Query implements Node {
     """
     condition: UserCondition
   ): [User!]
+  twitterAccount(accountId: Int!): TwitterAccount
+  twitterAccountByAccountName(accountName: String!): TwitterAccount
+  twitterAccountByAccountUsername(accountUsername: String!): TwitterAccount
   user(userId: Int!): User
   userByUsername(username: String!): User
-  currentUserId: Int
 
-  """Reads a single `User` using its globally unique `ID`."""
+  """
+  Reads a single `TwitterAccount` using its globally unique `ID`.
+  """
+  twitterAccountByNodeId(
+    """
+    The globally unique `ID` to be used in selecting a single `TwitterAccount`.
+    """
+    nodeId: ID!
+  ): TwitterAccount
+
+  """
+  Reads a single `User` using its globally unique `ID`.
+  """
   userByNodeId(
-    """The globally unique `ID` to be used in selecting a single `User`."""
+    """
+    The globally unique `ID` to be used in selecting a single `User`.
+    """
     nodeId: ID!
   ): User
-  topHeadlines(country: String = "ph", sources: String, category: String, keyword: String): [Article!]!
+  topHeadlines(
+    country: String = "ph"
+    sources: String
+    category: String
+    keyword: String
+  ): [Article!]!
   searchTweets(query: String): [Tweet!]!
 }
 
-"""An object with a globally unique `ID`."""
+"""
+An object with a globally unique `ID`.
+"""
 interface Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -83,9 +198,129 @@ interface Node {
   nodeId: ID!
 }
 
-"""A connection to a list of `User` values."""
+"""
+A connection to a list of `TwitterAccount` values.
+"""
+type TwitterAccountsConnection {
+  """
+  A list of `TwitterAccount` objects.
+  """
+  nodes: [TwitterAccount]!
+
+  """
+  A list of edges which contains the `TwitterAccount` and cursor to aid in pagination.
+  """
+  edges: [TwitterAccountsEdge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `TwitterAccount` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type TwitterAccount implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  accountId: Int!
+  accountName: String!
+  accountUsername: String!
+}
+
+"""
+A `TwitterAccount` edge in the connection.
+"""
+type TwitterAccountsEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor
+
+  """
+  The `TwitterAccount` at the end of the edge.
+  """
+  node: TwitterAccount
+}
+
+"""
+A location in a connection that can be used for resuming pagination.
+"""
+scalar Cursor
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: Cursor
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: Cursor
+}
+
+"""
+Methods to use when ordering `TwitterAccount`.
+"""
+enum TwitterAccountsOrderBy {
+  NATURAL
+  ACCOUNT_ID_ASC
+  ACCOUNT_ID_DESC
+  ACCOUNT_NAME_ASC
+  ACCOUNT_NAME_DESC
+  ACCOUNT_USERNAME_ASC
+  ACCOUNT_USERNAME_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `TwitterAccount` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input TwitterAccountCondition {
+  """
+  Checks for equality with the object’s `accountId` field.
+  """
+  accountId: Int
+
+  """
+  Checks for equality with the object’s `accountName` field.
+  """
+  accountName: String
+
+  """
+  Checks for equality with the object’s `accountUsername` field.
+  """
+  accountUsername: String
+}
+
+"""
+A connection to a list of `User` values.
+"""
 type UsersConnection {
-  """A list of `User` objects."""
+  """
+  A list of `User` objects.
+  """
   nodes: [User]!
 
   """
@@ -93,10 +328,14 @@ type UsersConnection {
   """
   edges: [UsersEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
-  """The count of *all* `User` you could get from the connection."""
+  """
+  The count of *all* `User` you could get from the connection.
+  """
   totalCount: Int!
 }
 
@@ -110,34 +349,24 @@ type User implements Node {
   hashedPassword: String!
 }
 
-"""A `User` edge in the connection."""
+"""
+A `User` edge in the connection.
+"""
 type UsersEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `User` at the end of the edge."""
+  """
+  The `User` at the end of the edge.
+  """
   node: User
 }
 
-"""A location in a connection that can be used for resuming pagination."""
-scalar Cursor
-
-"""Information about pagination in a connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: Cursor
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: Cursor
-}
-
-"""Methods to use when ordering `User`."""
+"""
+Methods to use when ordering `User`.
+"""
 enum UsersOrderBy {
   NATURAL
   USER_ID_ASC
@@ -152,15 +381,18 @@ enum UsersOrderBy {
 A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input UserCondition {
-  """Checks for equality with the object’s `userId` field."""
+  """
+  Checks for equality with the object’s `userId` field.
+  """
   userId: Int
 
-  """Checks for equality with the object’s `username` field."""
+  """
+  Checks for equality with the object’s `username` field.
+  """
   username: String
 }
 
 type Article {
-  source: Source
   author: String
   title: String
   description: String
@@ -168,11 +400,8 @@ type Article {
   urlToImage: String
   publishedAt: String
   content: String
-}
-
-type Source {
-  id: String
-  name: String
+  sourceId: String
+  sourceName: String
 }
 
 type Tweet {
@@ -184,7 +413,19 @@ type Tweet {
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
-  """Creates a single `User`."""
+  """
+  Creates a single `TwitterAccount`.
+  """
+  createTwitterAccount(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateTwitterAccountInput!
+  ): CreateTwitterAccountPayload
+
+  """
+  Creates a single `User`.
+  """
   createUser(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -192,7 +433,49 @@ type Mutation {
     input: CreateUserInput!
   ): CreateUserPayload
 
-  """Updates a single `User` using its globally unique id and a patch."""
+  """
+  Updates a single `TwitterAccount` using its globally unique id and a patch.
+  """
+  updateTwitterAccountByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTwitterAccountByNodeIdInput!
+  ): UpdateTwitterAccountPayload
+
+  """
+  Updates a single `TwitterAccount` using a unique key and a patch.
+  """
+  updateTwitterAccount(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTwitterAccountInput!
+  ): UpdateTwitterAccountPayload
+
+  """
+  Updates a single `TwitterAccount` using a unique key and a patch.
+  """
+  updateTwitterAccountByAccountName(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTwitterAccountByAccountNameInput!
+  ): UpdateTwitterAccountPayload
+
+  """
+  Updates a single `TwitterAccount` using a unique key and a patch.
+  """
+  updateTwitterAccountByAccountUsername(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTwitterAccountByAccountUsernameInput!
+  ): UpdateTwitterAccountPayload
+
+  """
+  Updates a single `User` using its globally unique id and a patch.
+  """
   updateUserByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -200,7 +483,9 @@ type Mutation {
     input: UpdateUserByNodeIdInput!
   ): UpdateUserPayload
 
-  """Updates a single `User` using a unique key and a patch."""
+  """
+  Updates a single `User` using a unique key and a patch.
+  """
   updateUser(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -208,7 +493,9 @@ type Mutation {
     input: UpdateUserInput!
   ): UpdateUserPayload
 
-  """Updates a single `User` using a unique key and a patch."""
+  """
+  Updates a single `User` using a unique key and a patch.
+  """
   updateUserByUsername(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -216,7 +503,49 @@ type Mutation {
     input: UpdateUserByUsernameInput!
   ): UpdateUserPayload
 
-  """Deletes a single `User` using its globally unique id."""
+  """
+  Deletes a single `TwitterAccount` using its globally unique id.
+  """
+  deleteTwitterAccountByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTwitterAccountByNodeIdInput!
+  ): DeleteTwitterAccountPayload
+
+  """
+  Deletes a single `TwitterAccount` using a unique key.
+  """
+  deleteTwitterAccount(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTwitterAccountInput!
+  ): DeleteTwitterAccountPayload
+
+  """
+  Deletes a single `TwitterAccount` using a unique key.
+  """
+  deleteTwitterAccountByAccountName(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTwitterAccountByAccountNameInput!
+  ): DeleteTwitterAccountPayload
+
+  """
+  Deletes a single `TwitterAccount` using a unique key.
+  """
+  deleteTwitterAccountByAccountUsername(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTwitterAccountByAccountUsernameInput!
+  ): DeleteTwitterAccountPayload
+
+  """
+  Deletes a single `User` using its globally unique id.
+  """
   deleteUserByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -224,7 +553,9 @@ type Mutation {
     input: DeleteUserByNodeIdInput!
   ): DeleteUserPayload
 
-  """Deletes a single `User` using a unique key."""
+  """
+  Deletes a single `User` using a unique key.
+  """
   deleteUser(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -232,7 +563,9 @@ type Mutation {
     input: DeleteUserInput!
   ): DeleteUserPayload
 
-  """Deletes a single `User` using a unique key."""
+  """
+  Deletes a single `User` using a unique key.
+  """
   deleteUserByUsername(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -253,7 +586,65 @@ type Mutation {
   ): SignupPayload
 }
 
-"""The output of our create `User` mutation."""
+"""
+The output of our create `TwitterAccount` mutation.
+"""
+type CreateTwitterAccountPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterAccount` that was created by this mutation.
+  """
+  twitterAccount: TwitterAccount
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `TwitterAccount`. May be used by Relay 1.
+  """
+  twitterAccountEdge(
+    """
+    The method to use when ordering `TwitterAccount`.
+    """
+    orderBy: [TwitterAccountsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TwitterAccountsEdge
+}
+
+"""
+All input for the create `TwitterAccount` mutation.
+"""
+input CreateTwitterAccountInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterAccount` to be created by this mutation.
+  """
+  twitterAccount: TwitterAccountInput!
+}
+
+"""
+An input for mutations affecting `TwitterAccount`
+"""
+input TwitterAccountInput {
+  accountId: Int
+  accountName: String!
+  accountUsername: String!
+}
+
+"""
+The output of our create `User` mutation.
+"""
 type CreateUserPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -261,7 +652,9 @@ type CreateUserPayload {
   """
   clientMutationId: String
 
-  """The `User` that was created by this mutation."""
+  """
+  The `User` that was created by this mutation.
+  """
   user: User
 
   """
@@ -269,14 +662,20 @@ type CreateUserPayload {
   """
   query: Query
 
-  """An edge for our `User`. May be used by Relay 1."""
+  """
+  An edge for our `User`. May be used by Relay 1.
+  """
   userEdge(
-    """The method to use when ordering `User`."""
+    """
+    The method to use when ordering `User`.
+    """
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
 }
 
-"""All input for the create `User` mutation."""
+"""
+All input for the create `User` mutation.
+"""
 input CreateUserInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -284,18 +683,136 @@ input CreateUserInput {
   """
   clientMutationId: String
 
-  """The `User` to be created by this mutation."""
+  """
+  The `User` to be created by this mutation.
+  """
   user: UserInput!
 }
 
-"""An input for mutations affecting `User`"""
+"""
+An input for mutations affecting `User`
+"""
 input UserInput {
   userId: Int
   username: String!
   hashedPassword: String!
 }
 
-"""The output of our update `User` mutation."""
+"""
+The output of our update `TwitterAccount` mutation.
+"""
+type UpdateTwitterAccountPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterAccount` that was updated by this mutation.
+  """
+  twitterAccount: TwitterAccount
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `TwitterAccount`. May be used by Relay 1.
+  """
+  twitterAccountEdge(
+    """
+    The method to use when ordering `TwitterAccount`.
+    """
+    orderBy: [TwitterAccountsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TwitterAccountsEdge
+}
+
+"""
+All input for the `updateTwitterAccountByNodeId` mutation.
+"""
+input UpdateTwitterAccountByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `TwitterAccount` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `TwitterAccount` being updated.
+  """
+  patch: TwitterAccountPatch!
+}
+
+"""
+Represents an update to a `TwitterAccount`. Fields that are set will be updated.
+"""
+input TwitterAccountPatch {
+  accountId: Int
+  accountName: String
+  accountUsername: String
+}
+
+"""
+All input for the `updateTwitterAccount` mutation.
+"""
+input UpdateTwitterAccountInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `TwitterAccount` being updated.
+  """
+  patch: TwitterAccountPatch!
+  accountId: Int!
+}
+
+"""
+All input for the `updateTwitterAccountByAccountName` mutation.
+"""
+input UpdateTwitterAccountByAccountNameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `TwitterAccount` being updated.
+  """
+  patch: TwitterAccountPatch!
+  accountName: String!
+}
+
+"""
+All input for the `updateTwitterAccountByAccountUsername` mutation.
+"""
+input UpdateTwitterAccountByAccountUsernameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `TwitterAccount` being updated.
+  """
+  patch: TwitterAccountPatch!
+  accountUsername: String!
+}
+
+"""
+The output of our update `User` mutation.
+"""
 type UpdateUserPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -303,7 +820,9 @@ type UpdateUserPayload {
   """
   clientMutationId: String
 
-  """The `User` that was updated by this mutation."""
+  """
+  The `User` that was updated by this mutation.
+  """
   user: User
 
   """
@@ -311,14 +830,20 @@ type UpdateUserPayload {
   """
   query: Query
 
-  """An edge for our `User`. May be used by Relay 1."""
+  """
+  An edge for our `User`. May be used by Relay 1.
+  """
   userEdge(
-    """The method to use when ordering `User`."""
+    """
+    The method to use when ordering `User`.
+    """
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
 }
 
-"""All input for the `updateUserByNodeId` mutation."""
+"""
+All input for the `updateUserByNodeId` mutation.
+"""
 input UpdateUserByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -337,14 +862,18 @@ input UpdateUserByNodeIdInput {
   patch: UserPatch!
 }
 
-"""Represents an update to a `User`. Fields that are set will be updated."""
+"""
+Represents an update to a `User`. Fields that are set will be updated.
+"""
 input UserPatch {
   userId: Int
   username: String
   hashedPassword: String
 }
 
-"""All input for the `updateUser` mutation."""
+"""
+All input for the `updateUser` mutation.
+"""
 input UpdateUserInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -359,7 +888,9 @@ input UpdateUserInput {
   userId: Int!
 }
 
-"""All input for the `updateUserByUsername` mutation."""
+"""
+All input for the `updateUserByUsername` mutation.
+"""
 input UpdateUserByUsernameInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -374,7 +905,93 @@ input UpdateUserByUsernameInput {
   username: String!
 }
 
-"""The output of our delete `User` mutation."""
+"""
+The output of our delete `TwitterAccount` mutation.
+"""
+type DeleteTwitterAccountPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterAccount` that was deleted by this mutation.
+  """
+  twitterAccount: TwitterAccount
+  deletedTwitterAccountNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `TwitterAccount`. May be used by Relay 1.
+  """
+  twitterAccountEdge(
+    """
+    The method to use when ordering `TwitterAccount`.
+    """
+    orderBy: [TwitterAccountsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TwitterAccountsEdge
+}
+
+"""
+All input for the `deleteTwitterAccountByNodeId` mutation.
+"""
+input DeleteTwitterAccountByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `TwitterAccount` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteTwitterAccount` mutation.
+"""
+input DeleteTwitterAccountInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  accountId: Int!
+}
+
+"""
+All input for the `deleteTwitterAccountByAccountName` mutation.
+"""
+input DeleteTwitterAccountByAccountNameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  accountName: String!
+}
+
+"""
+All input for the `deleteTwitterAccountByAccountUsername` mutation.
+"""
+input DeleteTwitterAccountByAccountUsernameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  accountUsername: String!
+}
+
+"""
+The output of our delete `User` mutation.
+"""
 type DeleteUserPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -382,7 +999,9 @@ type DeleteUserPayload {
   """
   clientMutationId: String
 
-  """The `User` that was deleted by this mutation."""
+  """
+  The `User` that was deleted by this mutation.
+  """
   user: User
   deletedUserNodeId: ID
 
@@ -391,14 +1010,20 @@ type DeleteUserPayload {
   """
   query: Query
 
-  """An edge for our `User`. May be used by Relay 1."""
+  """
+  An edge for our `User`. May be used by Relay 1.
+  """
   userEdge(
-    """The method to use when ordering `User`."""
+    """
+    The method to use when ordering `User`.
+    """
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
 }
 
-"""All input for the `deleteUserByNodeId` mutation."""
+"""
+All input for the `deleteUserByNodeId` mutation.
+"""
 input DeleteUserByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -412,7 +1037,9 @@ input DeleteUserByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteUser` mutation."""
+"""
+All input for the `deleteUser` mutation.
+"""
 input DeleteUserInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -422,7 +1049,9 @@ input DeleteUserInput {
   userId: Int!
 }
 
-"""All input for the `deleteUserByUsername` mutation."""
+"""
+All input for the `deleteUserByUsername` mutation.
+"""
 input DeleteUserByUsernameInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -432,7 +1061,9 @@ input DeleteUserByUsernameInput {
   username: String!
 }
 
-"""The output of our `signin` mutation."""
+"""
+The output of our `signin` mutation.
+"""
 type SigninPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -453,7 +1084,9 @@ which securely represents claims between two parties.
 """
 scalar JwtToken
 
-"""All input for the `signin` mutation."""
+"""
+All input for the `signin` mutation.
+"""
 input SigninInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -464,7 +1097,9 @@ input SigninInput {
   password: String!
 }
 
-"""The output of our `signup` mutation."""
+"""
+The output of our `signup` mutation.
+"""
 type SignupPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -479,7 +1114,9 @@ type SignupPayload {
   query: Query
 }
 
-"""All input for the `signup` mutation."""
+"""
+All input for the `signup` mutation.
+"""
 input SignupInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the

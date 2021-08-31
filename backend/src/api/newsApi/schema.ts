@@ -2,7 +2,6 @@ import { gql } from 'graphile-utils';
 
 export const article = gql`
   type Article {
-    source: Source
     author: String
     title: String
     description: String
@@ -10,19 +9,13 @@ export const article = gql`
     urlToImage: String
     publishedAt: String
     content: String
-  }
-`;
-
-export const source = gql`
-  type Source {
-    id: String
-    name: String
+    sourceId: String
+    sourceName: String
   }
 `;
 
 export const typeDefs = gql`
   ${article}
-  ${source}
   extend type Query {
     topHeadlines(
       country: String = "ph"
