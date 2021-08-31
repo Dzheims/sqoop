@@ -1,2 +1,2 @@
-const AUTH_TOKEN = '';
+const AUTH_TOKEN = 'JWT_TOKEN';
 export default AUTH_TOKEN;
