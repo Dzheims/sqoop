@@ -28,6 +28,16 @@ const Title = styled.h2`
   margin-bottom: 12px;
   margin-left: 12px;
 `;
+
+const ContentContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  padding: 5px;
+`;
+const AccountNameContainer = styled.div`
+  display: block;
+  padding: 5px;
+`;
 const ColumnContainer = styled.div`
   flex: 1;
   padding: 8px;
@@ -65,6 +75,13 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
     }
   };
 
+  const formatTimeAndDate = (date: any) => {
+    const createdAtDate = new Date(date);
+    const formattedCreateDate =
+      createdAtDate.toLocaleTimeString() + ' ' + createdAtDate.toDateString();
+    return formattedCreateDate;
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -89,7 +106,49 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
                       {...provided.dragHandleProps}
                       isDragging={snapshot.isDragging}
                     >
+                      <ContentContainer>
+                        <Avatar
+                          alt={value.name as string}
+                          src={value.profile_image_url as string}
+                          style={{
+                            height: '40px',
+                            width: '40px',
+                            marginRight: '10px',
+                          }}
+                          variant="circle"
+                        />
+                        <div>
+                          <AccountNameContainer>
+                            <Typography style={{ fontWeight: 600 }}>
+                              {value.name}
+                            </Typography>
+                            <Typography
+                              style={{ fontSize: '14px', color: 'gray' }}
+                            >
+                              {'@' + value.username}
+                            </Typography>
+                          </AccountNameContainer>
+                        </div>
+                        <Avatar
+                          alt={value.name as string}
+                          src="https://static01.nyt.com/images/2014/08/10/magazine/10wmt/10wmt-superJumbo-v4.jpg"
+                          style={{
+                            height: '20px',
+                            width: '20px',
+                            marginLeft: 'auto',
+                          }}
+                        />
+                      </ContentContainer>
                       <Typography variant="body2">{value.text}</Typography>
+                      <Typography
+                        style={{
+                          marginTop: '10px',
+                          fontSize: '14px',
+                          color: 'gray',
+                        }}
+                      >
+                        {formatTimeAndDate(value.created_at)}
+                      </Typography>
                     </Item>
                   )}
                 </Draggable>
