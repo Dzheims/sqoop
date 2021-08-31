@@ -21,9 +21,10 @@ describe('Login page placeholders and tags', () => {
     );
   });
   afterEach(cleanup);
-  test('sign in text', () => {
-    expect(documentBody.getByText('Sqoop')).toBeInTheDocument();
+  test('displays greeting text', () => {
+    expect(documentBody.getByText('Welcome Back to Sqoop')).toBeInTheDocument();
   });
+
   test('signin form text fields', () => {
     expect(documentBody.getByPlaceholderText('Username')).toBeInTheDocument();
     expect(documentBody.getByPlaceholderText('Password')).toBeInTheDocument();
