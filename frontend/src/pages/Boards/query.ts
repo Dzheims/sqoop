@@ -23,11 +23,16 @@ export const GET_TWITTER_API_CONTENTS_QUERY = gql`
     searchTweets {
       author_id
       created_at
-      id
       name
+      photos {
+        media_key
+        type
+        url
+      }
       profile_image_url
       text
       username
+      verified
     }
   }
 `;
