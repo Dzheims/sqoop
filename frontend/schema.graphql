@@ -411,11 +411,18 @@ type Source {
 type Tweet {
   author_id: String
   created_at: String
-  id: String
   text: String
   name: String
   profile_image_url: String
   username: String
+  verified: Boolean
+  photos: [TwitterPhoto]
+}
+
+type TwitterPhoto {
+  media_key: String
+  type: String
+  url: String
 }
 
 """
