@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import SIGN_IN_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
 import { SigninMutation, SigninMutationVariables } from './query.generated';
@@ -63,21 +63,19 @@ const SignIn = () => {
   const [signIn] = useMutation<SigninMutation, SigninMutationVariables>(
     SIGN_IN_MUTATION,
     {
-      onCompleted: ({ signin }) => {
-        localStorage.setItem(AUTH_TOKEN, signin?.jwtToken);
-        history.push('/board');
-      },
-    }
-  );
-
-  const handleSubmit = () => {
-    signIn({
       variables: {
         input: {
           userName: loginInput.userName,
           password: loginInput.password,
         },
       },
+    }
+  );
+
+  const handleSubmit = () => {
+    signIn().then((res) => {
+      localStorage.setItem(AUTH_TOKEN, res.data?.signin?.jwtToken as string);
+      history.push('/board');
     });
   };
 
@@ -117,7 +115,7 @@ const SignIn = () => {
             variant="contained"
             color="secondary"
             className={classes.submit}
-            onClick={handleSubmit}
+            onMouseDown={handleSubmit}
           >
             Sign In
           </Button>
