@@ -130,22 +130,26 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
                             width: '40px',
                             marginRight: '10px',
                           }}
-                          variant="circle"
+                          variant="circular"
                         />
                         <AccountNameContainer>
                           <TitleContainer>
                             <Typography style={{ fontWeight: 600 }}>
                               {value.name}
                             </Typography>
-                            <Avatar
-                              alt="Verified"
-                              src="https://www.pngitem.com/pimgs/m/3-38867_twitter-verified-badge-twitter-verified-icon-svg-hd.png"
-                              style={{
-                                height: '18px',
-                                width: '18px',
-                                marginLeft: '10px',
-                              }}
-                            />
+                            {value.verified ? (
+                              <Avatar
+                                alt="Verified"
+                                src="https://www.pngitem.com/pimgs/m/3-38867_twitter-verified-badge-twitter-verified-icon-svg-hd.png"
+                                style={{
+                                  height: '18px',
+                                  width: '18px',
+                                  marginLeft: '10px',
+                                }}
+                              />
+                            ) : (
+                              <div />
+                            )}
                           </TitleContainer>
                           <Typography
                             style={{ fontSize: '14px', color: 'gray' }}

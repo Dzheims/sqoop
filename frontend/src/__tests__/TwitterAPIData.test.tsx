@@ -13,16 +13,57 @@ const mocks: ReadonlyArray<MockedResponse> = [
       data: {
         searchTweets: [
           {
-            id: 'abcdefg',
+            author_id: 'abcdefg',
+            created_at: '2021-09-02T15:13:49.000Z',
+            name: 'Sqoop News',
+            photos: [
+              {
+                media_key: '123456',
+                type: 'photo',
+                url: 'http://photoUrl.jpg',
+              },
+            ],
+            profile_image_url: 'http://profileImageUrl.jpg',
             text: 'A bird in the hand is worth two in the bush.',
+            username: 'sqoopnews',
+            verified: true,
           },
           {
-            id: 'x9y8z7',
+            author_id: 'x9y8z7',
+            created_at: '2021-09-02T16:13:49.000Z',
+            name: 'Google News',
+            photos: [
+              {
+                media_key: '213143',
+                type: 'photo',
+                url: 'http://photoUrl1.png',
+              },
+              {
+                media_key: '344567',
+                type: 'photo',
+                url: 'http://photoUrl2.png',
+              },
+            ],
+            profile_image_url: 'http://profileImageUrl.png',
             text: 'Friends are flowers in the garden of life.',
+            username: 'googleNews',
+            verified: true,
           },
           {
-            id: 'x9y8z7',
+            author_id: 'x9y8z7',
+            created_at: '2021-09-02T17:13:49.000Z',
+            name: 'ABS-CBN News',
+            photos: [
+              {
+                media_key: '09876',
+                type: 'photo',
+                url: 'http://photoUrl.gif',
+              },
+            ],
+            profile_image_url: 'http://profileImageUrl1.jpg',
             text: 'The grass is always greener on the other side.',
+            username: 'abscbn',
+            verified: true,
           },
         ],
       },
@@ -41,21 +82,37 @@ describe('Twitter API contents', () => {
     );
   });
   it('checks content text data 1', async () => {
-    const text1 = await documentBody.findByText(
+    const text = await documentBody.findByText(
       'A bird in the hand is worth two in the bush.'
     );
-    expect(text1).toBeInTheDocument();
+    expect(text).toBeInTheDocument();
   });
   it('checks content text data 2', async () => {
-    const text2 = await documentBody.findByText(
+    const text = await documentBody.findByText(
       'Friends are flowers in the garden of life.'
     );
-    expect(text2).toBeInTheDocument();
+    expect(text).toBeInTheDocument();
   });
   it('checks content text data 3', async () => {
-    const text3 = await documentBody.findByText(
+    const text = await documentBody.findByText(
       'The grass is always greener on the other side.'
     );
-    expect(text3).toBeInTheDocument();
+    expect(text).toBeInTheDocument();
+  });
+  it('checks content username', async () => {
+    const username = await documentBody.findByText('@abscbn');
+    expect(username).toBeInTheDocument();
+  });
+  it('checks content name', async () => {
+    const name = await documentBody.findByText('Google News');
+    expect(name).toBeInTheDocument();
+  });
+  it('checks content date 1', async () => {
+    const date = await documentBody.findByText('11:13:49 PM Thu Sep 02 2021');
+    expect(date).toBeInTheDocument();
+  });
+  it('checks content date 2', async () => {
+    const date = await documentBody.findByText('1:13:49 AM Fri Sep 03 2021');
+    expect(date).toBeInTheDocument();
   });
 });
