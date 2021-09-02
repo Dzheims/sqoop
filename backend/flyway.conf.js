@@ -17,6 +17,7 @@ module.exports = {
     locations: 'filesystem:./migrations',
     user: dbConfig.user,
     password: dbConfig.password,
+    outOfOrder: true,
   },
   downloads: {
     expirationTimeInMs: -1,

@@ -21,8 +21,18 @@ export const GET_NEWS_API_CONTENTS_QUERY = gql`
 export const GET_TWITTER_API_CONTENTS_QUERY = gql`
   query getTwitterAPIContents {
     searchTweets {
-      id
+      author_id
+      created_at
+      name
+      photos {
+        media_key
+        type
+        url
+      }
+      profile_image_url
       text
+      username
+      verified
     }
   }
 `;
