@@ -10,10 +10,8 @@ export const GET_NEWS_API_CONTENTS_QUERY = gql`
       urlToImage
       publishedAt
       content
-      source {
-        id
-        name
-      }
+      sourceId
+      sourceName
     }
   }
 `;

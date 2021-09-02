@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { GetNewsApiContentsQuery } from './query.generated';
 import styled from 'styled-components';
-import { Link, Typography } from '@material-ui/core';
+import { Link, Typography, Avatar } from '@material-ui/core';
 
 type BoardColumnContentStylesProps = {
   isDragging: boolean;
@@ -39,6 +39,20 @@ const ColumnContainer = styled.div`
   width: 120px;
   margin-right: 15px;
 `;
+const HeaderContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  padding: 5px;
+`;
+const ContentContainer = styled.div`
+  margin-top: 10px;
+  border: thin solid lightgray;
+  padding: 0px 0px 5px 0px;
+`;
+const AccountNameContainer = styled.div`
+  display: block;
+  padding: 5px;
+`;
 const ItemContainer = styled.div`
   background-color: ${(isDraggingOver: BoardColumnContentStylesProps) =>
     isDraggingOver ? '#f7fafc' : null};
@@ -63,6 +77,13 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
     if (result.destination.index === result.destination.source) {
       return;
     }
+  };
+
+  const formatTimeAndDate = (date: any) => {
+    const createdAtDate = new Date(date);
+    const formattedCreateDate =
+      createdAtDate.toLocaleTimeString() + ' ' + createdAtDate.toDateString();
+    return formattedCreateDate;
   };
 
   return (
@@ -90,25 +111,58 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
                       {...provided.dragHandleProps}
                       isDragging={snapshot.isDragging}
                     >
-                      <Typography variant="h6">{value.source?.name}</Typography>
-                      <Typography variant="caption">
-                        {value.publishedAt}
-                      </Typography>
-                      <br />
+                      <HeaderContainer>
+                        <Avatar
+                          style={{
+                            height: '40px',
+                            width: '40px',
+                            marginRight: '10px',
+                          }}
+                        >
+                          {value.sourceName?.charAt(0)}
+                        </Avatar>
+                        <AccountNameContainer>
+                          <Typography style={{ fontWeight: 600 }}>
+                            {value.sourceName}
+                          </Typography>
+                        </AccountNameContainer>
+                      </HeaderContainer>
                       <Typography variant="body2">{value.title}</Typography>
-                      <div
-                        data-testid="Image"
-                        style={{
-                          backgroundImage: `url(${value.urlToImage})`,
-                          height: '120px',
-                          width: 'auto',
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center',
-                          marginTop: '10px',
-                        }}
-                      />
+                      {value.urlToImage === null ? (
+                        <div />
+                      ) : (
+                        <ContentContainer>
+                          <div
+                            style={{
+                              backgroundImage: `url(${value.urlToImage})`,
+                              height: '120px',
+                              width: 'auto',
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                            }}
+                          />
+                          <Typography
+                            style={{
+                              padding: '10px',
+                              fontSize: '12px',
+                              color: 'gray',
+                            }}
+                          >
+                            {value.description}
+                          </Typography>
+                        </ContentContainer>
+                      )}
+
                       <br />
-                      <Link href={value?.url as string}>See Link</Link>
+                      <Typography
+                        style={{
+                          fontSize: '14px',
+                          color: 'gray',
+                        }}
+                      >
+                        {formatTimeAndDate(value.publishedAt)}
+                      </Typography>
+                      {/* <Link href={value?.url as string}>Visit Website</Link> */}
                     </Item>
                   )}
                 </Draggable>

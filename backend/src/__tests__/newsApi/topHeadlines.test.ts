@@ -19,10 +19,8 @@ describe('test topheadlines schema', () => {
           title
           url
           urlToImage
-          source {
-            id
-            name
-          }
+          sourceId
+          sourceName
         }
       }
     `;
@@ -38,10 +36,8 @@ describe('test topheadlines schema', () => {
           publishedAt
           title
           url
-          source {
-            id
-            name
-          }
+          sourceId
+          sourceName
         }
       }
     `;
@@ -72,10 +68,8 @@ describe('mock topHeadline query', () => {
             publishedAt: '2021-08-24T12:21:20Z',
             content:
               'Scientists from The University of Manchester have managed to successfully make actinide metals form molecular actinide-actinide bonds for the first time, opening up a new field of scientific study in… [+4526 chars]',
-            source: {
-              id: null,
-              name: 'Phys.Org',
-            },
+            sourceId: null,
+            sourceName: 'Phys.Org',
           },
         ],
       },
@@ -91,10 +85,8 @@ describe('mock topHeadline query', () => {
           title
           url
           urlToImage
-          source {
-            id
-            name
-          }
+          sourceId
+          sourceName
         }
       }
     `;
@@ -106,6 +98,7 @@ describe('mock topHeadline query', () => {
     expect(topHeadlines[0].title).toBe(
       'Breakthrough in actinide metal-metal bonding - Phys.org'
     );
-    expect(topHeadlines[0].source.id).toBe(null);
+    expect(topHeadlines[0].sourceId).toBe(null);
+    expect(topHeadlines[0].sourceName).toBe('Phys.Org');
   });
 });

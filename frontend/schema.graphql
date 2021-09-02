@@ -159,7 +159,6 @@ type Query implements Node {
   twitterAccountByAccountUsername(accountUsername: String!): TwitterAccount
   user(userId: Int!): User
   userByUsername(username: String!): User
-  currentUserId: Int
 
   """
   Reads a single `TwitterAccount` using its globally unique `ID`.
@@ -394,7 +393,6 @@ input UserCondition {
 }
 
 type Article {
-  source: Source
   author: String
   title: String
   description: String
@@ -402,11 +400,8 @@ type Article {
   urlToImage: String
   publishedAt: String
   content: String
-}
-
-type Source {
-  id: String
-  name: String
+  sourceId: String
+  sourceName: String
 }
 
 type Tweet {

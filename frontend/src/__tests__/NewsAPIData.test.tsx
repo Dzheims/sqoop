@@ -20,10 +20,8 @@ const mocks: ReadonlyArray<MockedResponse> = [
             urlToImage: 'http://urltoimage.com',
             publishedAt: '2021-08-26T10:09:00Z',
             content: 'The quick brown fox jumps over the lazy dog',
-            source: {
-              id: 'daily-news-updates',
-              name: 'John Doe News',
-            },
+            sourceId: 'daily-news-updates',
+            sourceName: 'John Doe News',
           },
           {
             author: 'Juan Dela Cruz',
@@ -33,10 +31,8 @@ const mocks: ReadonlyArray<MockedResponse> = [
             urlToImage: 'http://urltoimage.ph',
             publishedAt: '2021-08-27T12:04:00Z',
             content: 'The lazy dog jumps over the quick brown fox',
-            source: {
-              id: 'trending-news-updates',
-              name: 'JDC News',
-            },
+            sourceId: 'trending-news-updates',
+            sourceName: 'JDC News',
           },
           {
             author: 'Anonymous',
@@ -46,10 +42,8 @@ const mocks: ReadonlyArray<MockedResponse> = [
             urlToImage: 'http://urltoimage.anon',
             publishedAt: '2021-08-27T12:06:00Z',
             content: 'The quick brown dog jumps over the lazy fox',
-            source: {
-              id: 'anonymous-news-updates',
-              name: 'Anonymous News',
-            },
+            sourceId: 'anonymous-news-updates',
+            sourceName: 'Anonymous News',
           },
           {
             author: 'ABS-CNN',
@@ -59,10 +53,8 @@ const mocks: ReadonlyArray<MockedResponse> = [
             urlToImage: 'http://urltoimage.abscnn',
             publishedAt: '2021-08-27T12:08:00Z',
             content: 'The quick fox jumps over the lazy brown dog',
-            source: {
-              id: 'abscnn-news-updates',
-              name: 'ABS-CNN News Updates',
-            },
+            sourceId: 'abscnn-news-updates',
+            sourceName: 'ABS-CNN News Updates',
           },
           {
             author: 'GMA',
@@ -72,10 +64,8 @@ const mocks: ReadonlyArray<MockedResponse> = [
             urlToImage: 'http://urltoimage.gma',
             publishedAt: '2021-08-27T12:12:00Z',
             content: 'The quick lazy dog jumps over the brown fox',
-            source: {
-              id: 'gma-news-updates',
-              name: 'RGMA Daily News',
-            },
+            sourceId: 'gma-news-updates',
+            sourceName: 'RGMA Daily News',
           },
         ],
       },
