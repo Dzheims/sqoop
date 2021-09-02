@@ -96,15 +96,21 @@ describe('News API contents', () => {
     expect(title4).toBeInTheDocument();
   });
   it('checks content publishedAt data 1', async () => {
-    const publishedAt1 = await documentBody.findByText('2021-08-26T10:09:00Z');
+    const publishedAt1 = await documentBody.findByText(
+      '6:09:00 PM Thu Aug 26 2021'
+    );
     expect(publishedAt1).toBeInTheDocument();
   });
   it('checks content publishedAt data 2', async () => {
-    const publishedAt2 = await documentBody.findByText('2021-08-27T12:04:00Z');
+    const publishedAt2 = await documentBody.findByText(
+      '8:04:00 PM Fri Aug 27 2021'
+    );
     expect(publishedAt2).toBeInTheDocument();
   });
   it('checks content publishedAt data 3', async () => {
-    const publishedAt3 = await documentBody.findByText('2021-08-27T12:06:00Z');
+    const publishedAt3 = await documentBody.findByText(
+      '8:06:00 PM Fri Aug 27 2021'
+    );
     expect(publishedAt3).toBeInTheDocument();
   });
   it('checks content source name for data 1', async () => {
