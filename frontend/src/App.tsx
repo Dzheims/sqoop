@@ -6,12 +6,14 @@ import Homepage from './pages/Homepage';
 import SignUp from './pages/SignupPage/SignUp';
 import SignIn from './pages/SignInPage/SignIn';
 import Board from './pages/Boards/Board';
+import NavigationBar from './components/Navigation/NavigationBar';
 
 function App() {
   return (
     <Router>
       <div>
         <ThemeProvider theme={theme}>
+          <NavigationBar />
           <Switch>
             <Route path="/" exact component={Homepage} />
             <Route path="/signup" exact component={SignUp} />
