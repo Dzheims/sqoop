@@ -108,11 +108,11 @@ describe('Twitter API contents', () => {
     expect(name).toBeInTheDocument();
   });
   it('checks content date 1', async () => {
-    const date = await documentBody.findByText('11:13:49 PM Thu Sep 02 2021');
+    const date = await documentBody.findByText('3:13:49 PM Thu Sep 02 2021');
     expect(date).toBeInTheDocument();
   });
   it('checks content date 2', async () => {
-    const date = await documentBody.findByText('1:13:49 AM Fri Sep 03 2021');
+    const date = await documentBody.findByText('4:13:49 PM Thu Sep 02 2021');
     expect(date).toBeInTheDocument();
   });
 });
