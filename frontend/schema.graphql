@@ -159,6 +159,7 @@ type Query implements Node {
   twitterAccountByAccountUsername(accountUsername: String!): TwitterAccount
   user(userId: Int!): User
   userByUsername(username: String!): User
+  currentUserId: Int
 
   """
   Reads a single `TwitterAccount` using its globally unique `ID`.
@@ -182,7 +183,7 @@ type Query implements Node {
   topHeadlines(
     country: String = "ph"
     sources: String
-    category: String
+    category: Categories
     keyword: String
   ): [Article!]!
   searchTweets(query: String): [Tweet!]!
@@ -402,6 +403,16 @@ type Article {
   content: String
   sourceId: String
   sourceName: String
+}
+
+enum Categories {
+  business
+  entertainment
+  general
+  health
+  science
+  sports
+  technology
 }
 
 type Tweet {
