@@ -14,6 +14,18 @@ import { setContext } from '@apollo/client/link/context';
 
 import AUTH_TOKEN from './constants';
 
+// --->> conventional HTTP-based request
+
+// const token = localStorage.getItem(AUTH_TOKEN);
+
+// const client = new ApolloClient({
+//   uri: '/graphql',
+//   cache: new InMemoryCache(),
+//   headers: {
+//     authorization: token ? `Bearer ${token}` : '',
+//   },
+// });
+
 const httpLink = createHttpLink({
   uri: '/graphql',
   // fetch,
@@ -43,13 +55,8 @@ export const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-// export const client = new ApolloClient({
-//   link: from([errorLink, authMiddleware, httpLink]),
-//   cache: new InMemoryCache(),
-// });
-
-const client = new ApolloClient({
-  link: authMiddleware.concat(httpLink),
+export const client = new ApolloClient({
+  link: from([authMiddleware, httpLink]),
   cache: new InMemoryCache(),
 });
 
