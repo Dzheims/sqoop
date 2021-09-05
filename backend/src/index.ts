@@ -4,6 +4,8 @@ import { TagsFilePlugin } from 'postgraphile/plugins';
 import PgSimplifyInflector from '@graphile-contrib/pg-simplify-inflector';
 import NewsApiPlugin from './api/newsApi/newsApi';
 import TwitterApiPlugin from './api/twitterApi/twitterApi';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import path from 'path';
 import * as Environment from './Environment';
 
@@ -12,6 +14,13 @@ require('dotenv').config();
 const port = process.env.PORT || 5050;
 const app = express();
 
+const corsOptions = {
+  origin: '/graphql',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+// app.use(cookieParser(process.env.JWT_SECRET));
 app
   .use(
     postgraphile(process.env.DATABASE_URL, 'public', {
