@@ -10,9 +10,9 @@ const initialBoardData = {
   },
 
   columns: {
-    'column-1': {
-      id: 'column-1',
-      title: 'Column 1',
+    'news-api': {
+      id: 'news-api',
+      title: 'News API',
       itemsIds: [
         'item-3',
         'item-4',
@@ -24,7 +24,7 @@ const initialBoardData = {
       ],
     },
   },
-  columnsOrder: ['column-1'],
+  columnsOrder: ['news-api'],
 };
 
 export default initialBoardData;

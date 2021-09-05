@@ -23,11 +23,11 @@ const Container = styled.div<BoardItemStylesProps>`
 `;
 type BoardItemProps = {
   index: number;
-  item: any;
+  data: any;
 };
 
-const BoardItem = ({ index, item }: BoardItemProps) => (
-  <Draggable draggableId={item.id} index={index}>
+const BoardItem = ({ index, data }: BoardItemProps) => (
+  <Draggable draggableId={data.id} index={index}>
     {(provided, snapshot) => (
       <Container
         {...provided.draggableProps}
@@ -35,7 +35,7 @@ const BoardItem = ({ index, item }: BoardItemProps) => (
         ref={provided.innerRef}
         isDragging={snapshot.isDragging}
       >
-        {item.content}
+        {data.content}
       </Container>
     )}
   </Draggable>

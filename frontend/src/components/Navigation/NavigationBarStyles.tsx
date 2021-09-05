@@ -8,7 +8,7 @@ export const useStyles = makeStyles(() => ({
     width: '40px',
     color: 'lightGray',
     '&:hover': {
-      color: theme.palette.secondary.main,
+      color: theme.palette.primary.main,
     },
   },
   avatars: {
@@ -33,7 +33,7 @@ export const NavigationBarContainer = styled.div`
 export const IconContainer = styled.div`
   background-color: ${theme.palette.primary.main};
   &:hover {
-    background-color: ${theme.palette.background.paper};
+    background-color: white;
   }
   width: 75px;
   align-items: center;

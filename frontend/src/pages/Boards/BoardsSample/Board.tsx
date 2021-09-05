@@ -3,8 +3,8 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import BoardColumn from './BoardColumn';
 import BoardData from './BoardData';
-import NewsAPIColumnData from './NewsAPIColumnData';
-import TwitterAPIColumnData from './TwitterAPIColumnData';
+import NewsAPIColumnData from '../NewsAPIColumnData';
+import TwitterAPIColumnData from '../TwitterAPIColumnData';
 
 const Container = styled.div`
   display: flex;
@@ -108,7 +108,7 @@ const Board: React.FC = () => {
                 <BoardColumn
                   key={column.id}
                   column={column}
-                  items={items}
+                  data={items}
                   index={index}
                 />
               );

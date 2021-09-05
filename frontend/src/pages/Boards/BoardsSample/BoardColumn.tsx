@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
+import { GetNewsApiContentsQuery } from '../query.generated';
 import BoardItem from './BoardItem';
-import { GetNewsApiContentsQuery } from './query.generated';
 
 type BoardColumnContentStylesProps = {
   isDraggingOver: boolean;
@@ -38,13 +38,13 @@ const Item = styled.div<BoardColumnContentStylesProps>`
 type BoardColumnProps = {
   key: string;
   column: any;
-  items: any;
+  data: GetNewsApiContentsQuery;
   index: any;
 };
 const BoardColumn: React.FC<BoardColumnProps> = ({
   key,
   column,
-  items,
+  data,
   index,
 }: BoardColumnProps) => (
   <Draggable draggableId={column.id} index={index}>
@@ -58,8 +58,8 @@ const BoardColumn: React.FC<BoardColumnProps> = ({
               ref={provided.innerRef}
               isDraggingOver={snapshot.isDraggingOver}
             >
-              {items.map((item: any, index: number) => (
-                <BoardItem key={item.id} item={item} index={index} />
+              {data.topHeadlines?.map((item: any, index: number) => (
+                <BoardItem key={item.id} data={data} index={index} />
               ))}
               {provided.placeholder}
             </Item>

@@ -1,9 +1,10 @@
 apollo.config.js
 .eslintrc.js
 src/**/*.generated.ts
-src/pages/Boards/Board.tsx
-src/pages/Boards/BoardColumn.tsx
-src/pages/Boards/BoardItem.tsx
+src/pages/Boards/BoardsSample/Board.tsx
+src/pages/Boards/BoardsSample/BoardColumn.tsx
+src/pages/Boards/BoardsSample/BoardItem.tsx
 src/pages/Boards/NewsAPIColumn.tsx
 src/pages/Boards/TwitterAPIColumn.tsx
+
 src/apolloClient.ts

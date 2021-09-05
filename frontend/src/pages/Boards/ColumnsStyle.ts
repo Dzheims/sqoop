@@ -111,6 +111,12 @@ export const ColumnContainer = styled.div`
   & + & {
     margin-left: 12px;
   }
-  width: 100px;
+  width: 350px;
+  max-width: 400px;
   margin: 10px;
+  height: 570px;
+`;
+export const ColumnWrapper = styled.div`
+  display: flex;
+  margin-left: 75px;
 `;
