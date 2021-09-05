@@ -115,7 +115,7 @@ const SignIn = () => {
             variant="contained"
             color="secondary"
             className={classes.submit}
-            onMouseDown={handleSubmit}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>
