@@ -92,8 +92,8 @@ const SignUp = () => {
         },
       },
     }).then((data) => {
-      history.push('/board');
       localStorage.setItem(AUTH_TOKEN, data.data?.signup?.jwtToken as string);
+      history.push('/signin');
     });
     // .then(({ data }) => {
     //   localStorage.setItem('test', data?.signup?.jwtToken);
@@ -144,7 +144,7 @@ const SignUp = () => {
               variant="contained"
               color="secondary"
               className={classes.submit}
-              onMouseDown={handleSubmit}
+              onClick={handleSubmit}
             >
               Sign Up
             </Button>

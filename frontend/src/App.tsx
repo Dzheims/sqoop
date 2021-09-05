@@ -8,6 +8,7 @@ import SignIn from './pages/SignInPage/SignIn';
 import Board from './pages/Boards/BoardsSample/Board';
 import NavigationBar from './components/Navigation/NavigationBar';
 import Columns from './components/Columns/Column';
+import CurrentUser from './authentication/authentication';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/signin" exact component={SignIn} />
             <Route path="/board" exact component={Board} />
             <Route path="/column" exact component={Columns} />
+            {/* <Route path="/users" exact component={CurrentUser} /> */}
           </Switch>
         </ThemeProvider>
       </div>
