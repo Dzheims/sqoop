@@ -6,9 +6,9 @@ export const useStyles = makeStyles(() => ({
   icons: {
     height: '40px',
     width: '40px',
-    color: 'lightGray',
+    color: 'white',
     '&:hover': {
-      color: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
     },
   },
   avatars: {

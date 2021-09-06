@@ -42,6 +42,9 @@ export const useStyles = makeStyles(() => ({
     width: '18px',
     marginLeft: '10px',
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
 export const Item = styled.div`

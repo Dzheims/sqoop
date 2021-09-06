@@ -35,6 +35,11 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
     return formattedCreateDate;
   };
 
+  const truncateName = (name: any) => {
+    if (name.length < 18) return name;
+    else return name.substring(0, 17) + '...';
+  };
+
   return (
     <React.Fragment>
       {data?.searchTweets?.map((value, index) => (
@@ -60,7 +65,7 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
                 <AccountNameContainer>
                   <TwitterTitleContainer>
                     <Typography style={{ fontWeight: 600 }}>
-                      {value.name}
+                      {truncateName(value.name)}
                     </Typography>
                     {value.verified ? (
                       <Avatar

@@ -12,6 +12,7 @@ import {
   NewsAPITitleContainer,
   useStyles,
 } from './ColumnsStyle';
+import { Link } from 'react-router-dom';
 
 interface NewsAPIDataProps {
   data: GetNewsApiContentsQuery;
@@ -57,17 +58,19 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
               {value.urlToImage === null ? (
                 <div />
               ) : (
-                <NewsAPIContentContainer>
-                  <div
-                    style={{
-                      backgroundImage: `url(${value.urlToImage})`,
-                    }}
-                    className={classes.imageContainer}
-                  />
-                  <Typography className={classes.description}>
-                    {value.description}
-                  </Typography>
-                </NewsAPIContentContainer>
+                <Link className={classes.link} to={value?.url as string}>
+                  <NewsAPIContentContainer>
+                    <div
+                      style={{
+                        backgroundImage: `url(${value.urlToImage})`,
+                      }}
+                      className={classes.imageContainer}
+                    />
+                    <Typography className={classes.description}>
+                      {value.description}
+                    </Typography>
+                  </NewsAPIContentContainer>
+                </Link>
               )}
               <br />
               <Typography className={classes.dateAndUserName}>

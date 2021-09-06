@@ -13,6 +13,7 @@ import {
 import ColumnsData from './ColumnsData';
 import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from '../../pages/Boards/TwitterAPIColumnData';
+import CategoriesButtons from '../Categories/CategoriesButtons';
 
 const getFeedType = (feedType: string) => {
   if (feedType === 'news') return <NewsAPIColumnData />;
@@ -38,6 +39,7 @@ const Columns: React.FC = () => {
                     ref={provided.innerRef}
                   >
                     <Title>{value.title}</Title>
+                    <CategoriesButtons />
                     <ItemContainer
                       {...provided.droppableProps}
                       ref={provided.innerRef}
