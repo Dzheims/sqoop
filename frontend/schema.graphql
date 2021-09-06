@@ -24,6 +24,72 @@ type Query implements Node {
   ): Node
 
   """
+  Reads and enables pagination through a set of `Feed`.
+  """
+  feedsConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `Feed`.
+    """
+    orderBy: [FeedsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FeedCondition
+  ): FeedsConnection
+
+  """
+  Reads a set of `Feed`.
+  """
+  feeds(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `Feed`.
+    """
+    orderBy: [FeedsOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FeedCondition
+  ): [Feed!]
+
+  """
   Reads and enables pagination through a set of `TwitterAccount`.
   """
   twitterAccountsConnection(
@@ -154,12 +220,23 @@ type Query implements Node {
     """
     condition: UserCondition
   ): [User!]
+  feed(id: Int!): Feed
   twitterAccount(accountId: Int!): TwitterAccount
   twitterAccountByAccountName(accountName: String!): TwitterAccount
   twitterAccountByAccountUsername(accountUsername: String!): TwitterAccount
   user(userId: Int!): User
   userByUsername(username: String!): User
   currentUserId: Int
+
+  """
+  Reads a single `Feed` using its globally unique `ID`.
+  """
+  feedByNodeId(
+    """
+    The globally unique `ID` to be used in selecting a single `Feed`.
+    """
+    nodeId: ID!
+  ): Feed
 
   """
   Reads a single `TwitterAccount` using its globally unique `ID`.
@@ -197,6 +274,119 @@ interface Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
+}
+
+"""
+A connection to a list of `Feed` values.
+"""
+type FeedsConnection {
+  """
+  A list of `Feed` objects.
+  """
+  nodes: [Feed]!
+
+  """
+  A list of edges which contains the `Feed` and cursor to aid in pagination.
+  """
+  edges: [FeedsEdge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `Feed` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type Feed implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+}
+
+enum Category {
+  BUSINESS
+  ENTERTAINMENT
+  GENERAL
+  HEALTH
+  SCIENCE
+  SPORTS
+  TECHNOLOGY
+}
+
+"""
+A `Feed` edge in the connection.
+"""
+type FeedsEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor
+
+  """
+  The `Feed` at the end of the edge.
+  """
+  node: Feed
+}
+
+"""
+A location in a connection that can be used for resuming pagination.
+"""
+scalar Cursor
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: Cursor
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: Cursor
+}
+
+"""
+Methods to use when ordering `Feed`.
+"""
+enum FeedsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `Feed` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input FeedCondition {
+  """
+  Checks for equality with the object’s `id` field.
+  """
+  id: Int
 }
 
 """
@@ -247,36 +437,6 @@ type TwitterAccountsEdge {
   The `TwitterAccount` at the end of the edge.
   """
   node: TwitterAccount
-}
-
-"""
-A location in a connection that can be used for resuming pagination.
-"""
-scalar Cursor
-
-"""
-Information about pagination in a connection.
-"""
-type PageInfo {
-  """
-  When paginating forwards, are there more items?
-  """
-  hasNextPage: Boolean!
-
-  """
-  When paginating backwards, are there more items?
-  """
-  hasPreviousPage: Boolean!
-
-  """
-  When paginating backwards, the cursor to continue.
-  """
-  startCursor: Cursor
-
-  """
-  When paginating forwards, the cursor to continue.
-  """
-  endCursor: Cursor
 }
 
 """
@@ -437,6 +597,16 @@ The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
   """
+  Creates a single `Feed`.
+  """
+  createFeed(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateFeedInput!
+  ): CreateFeedPayload
+
+  """
   Creates a single `TwitterAccount`.
   """
   createTwitterAccount(
@@ -455,6 +625,26 @@ type Mutation {
     """
     input: CreateUserInput!
   ): CreateUserPayload
+
+  """
+  Updates a single `Feed` using its globally unique id and a patch.
+  """
+  updateFeedByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateFeedByNodeIdInput!
+  ): UpdateFeedPayload
+
+  """
+  Updates a single `Feed` using a unique key and a patch.
+  """
+  updateFeed(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateFeedInput!
+  ): UpdateFeedPayload
 
   """
   Updates a single `TwitterAccount` using its globally unique id and a patch.
@@ -525,6 +715,26 @@ type Mutation {
     """
     input: UpdateUserByUsernameInput!
   ): UpdateUserPayload
+
+  """
+  Deletes a single `Feed` using its globally unique id.
+  """
+  deleteFeedByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteFeedByNodeIdInput!
+  ): DeleteFeedPayload
+
+  """
+  Deletes a single `Feed` using a unique key.
+  """
+  deleteFeed(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteFeedInput!
+  ): DeleteFeedPayload
 
   """
   Deletes a single `TwitterAccount` using its globally unique id.
@@ -607,6 +817,64 @@ type Mutation {
     """
     input: SignupInput!
   ): SignupPayload
+}
+
+"""
+The output of our create `Feed` mutation.
+"""
+type CreateFeedPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `Feed` that was created by this mutation.
+  """
+  feed: Feed
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `Feed`. May be used by Relay 1.
+  """
+  feedEdge(
+    """
+    The method to use when ordering `Feed`.
+    """
+    orderBy: [FeedsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FeedsEdge
+}
+
+"""
+All input for the create `Feed` mutation.
+"""
+input CreateFeedInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The `Feed` to be created by this mutation.
+  """
+  feed: FeedInput!
+}
+
+"""
+An input for mutations affecting `Feed`
+"""
+input FeedInput {
+  id: Int
+  category: Category
+  country: String
+  keyword: String
+  sources: String
 }
 
 """
@@ -719,6 +987,86 @@ input UserInput {
   userId: Int
   username: String!
   hashedPassword: String!
+}
+
+"""
+The output of our update `Feed` mutation.
+"""
+type UpdateFeedPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `Feed` that was updated by this mutation.
+  """
+  feed: Feed
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `Feed`. May be used by Relay 1.
+  """
+  feedEdge(
+    """
+    The method to use when ordering `Feed`.
+    """
+    orderBy: [FeedsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FeedsEdge
+}
+
+"""
+All input for the `updateFeedByNodeId` mutation.
+"""
+input UpdateFeedByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Feed` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Feed` being updated.
+  """
+  patch: FeedPatch!
+}
+
+"""
+Represents an update to a `Feed`. Fields that are set will be updated.
+"""
+input FeedPatch {
+  id: Int
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+}
+
+"""
+All input for the `updateFeed` mutation.
+"""
+input UpdateFeedInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Feed` being updated.
+  """
+  patch: FeedPatch!
+  id: Int!
 }
 
 """
@@ -926,6 +1274,66 @@ input UpdateUserByUsernameInput {
   """
   patch: UserPatch!
   username: String!
+}
+
+"""
+The output of our delete `Feed` mutation.
+"""
+type DeleteFeedPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `Feed` that was deleted by this mutation.
+  """
+  feed: Feed
+  deletedFeedNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `Feed`. May be used by Relay 1.
+  """
+  feedEdge(
+    """
+    The method to use when ordering `Feed`.
+    """
+    orderBy: [FeedsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FeedsEdge
+}
+
+"""
+All input for the `deleteFeedByNodeId` mutation.
+"""
+input DeleteFeedByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Feed` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteFeed` mutation.
+"""
+input DeleteFeedInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: Int!
 }
 
 """

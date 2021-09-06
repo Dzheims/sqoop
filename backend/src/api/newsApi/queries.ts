@@ -15,11 +15,11 @@ export const resolvers = {
       if (!jwtClaims) throw new Error();
 
       const queryParams = new URLSearchParams();
+      queryParams.set('country', country || 'ph');
       if (sources) {
         country = '';
         category = '';
       }
-      queryParams.set('country', country || '');
       queryParams.set('category', category || '');
       queryParams.set('sources', sources || '');
       queryParams.set('q', keyword || '');
