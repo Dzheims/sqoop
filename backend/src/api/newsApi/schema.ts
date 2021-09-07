@@ -14,26 +14,13 @@ export const article = gql`
   }
 `;
 
-export const categories = gql`
-  enum Categories {
-    business
-    entertainment
-    general
-    health
-    science
-    sports
-    technology
-  }
-`;
-
 export const typeDefs = gql`
   ${article}
-  ${categories}
   extend type Query {
     topHeadlines(
       country: String = "ph"
       sources: String
-      category: Categories
+      category: Category
       keyword: String
     ): [Article!]!
   }
