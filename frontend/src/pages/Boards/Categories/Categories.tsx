@@ -2,10 +2,10 @@ import React from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { GET_NEWS_API_DATA_QUERY } from './query';
 import { GetNewsApiDataQuery } from './query.generated';
-import { Categories } from '../../../types.generated';
+import { Category } from '../../../types.generated';
 
 interface CategoriesProps {
-  category: Categories;
+  category: Category;
 }
 
 const NewsCategories = ({ category }: CategoriesProps) => {

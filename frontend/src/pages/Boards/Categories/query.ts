@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const GET_NEWS_API_DATA_QUERY = gql`
   query getNewsApiData(
-    $category: Categories
+    $category: Category
     $country: String
     $keyword: String
     $sources: String

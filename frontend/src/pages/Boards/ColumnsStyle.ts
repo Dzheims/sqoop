@@ -111,13 +111,10 @@ export const ColumnContainer = styled.div`
   padding: 8px;
   background-color: #f7fafc;
   border-radius: 4px;
-  & + & {
-    margin-left: 12px;
-  }
   width: 350px;
   max-width: 400px;
   margin: 10px;
-  height: 570px;
+  height: 560px;
 `;
 export const ColumnWrapper = styled.div`
   display: flex;
