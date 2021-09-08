@@ -30,7 +30,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       {data?.topHeadlines?.map((value, index) => (
         <Draggable
           draggableId={value.publishedAt as string}
@@ -54,11 +54,13 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
                   </Typography>
                 </AccountNameContainer>
               </NewsAPITitleContainer>
-              <Typography variant="body2">{value.title}</Typography>
+              <Typography variant="body2">{value.description}</Typography>
               {value.urlToImage === null ? (
-                <div />
+                <a className={classes.link} href={value?.url as string}>
+                  <Typography variant="body2">{value.title}</Typography>
+                </a>
               ) : (
-                <Link className={classes.link} to={value?.url as string}>
+                <a className={classes.link} href={value?.url as string}>
                   <NewsAPIContentContainer>
                     <div
                       style={{
@@ -67,10 +69,10 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
                       className={classes.imageContainer}
                     />
                     <Typography className={classes.description}>
-                      {value.description}
+                      {value.title}
                     </Typography>
                   </NewsAPIContentContainer>
-                </Link>
+                </a>
               )}
               <br />
               <Typography className={classes.dateAndUserName}>
@@ -80,7 +82,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
           )}
         </Draggable>
       ))}
-    </React.Fragment>
+    </>
   );
 };
 

@@ -17,11 +17,12 @@ export const useStyles = makeStyles(() => ({
     width: 'auto',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    backgroundColor: 'gray',
   },
   description: {
     padding: '10px',
-    fontSize: '12px',
-    color: 'gray',
+    fontSize: '14px',
+    color: 'black',
   },
   dateAndUserName: {
     fontSize: '14px',

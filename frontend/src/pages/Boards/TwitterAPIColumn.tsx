@@ -41,7 +41,7 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       {data?.searchTweets?.map((value, index) => (
         <Draggable
           draggableId={value.author_id as string}
@@ -88,7 +88,8 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
                 />
               </TwitterContentContainer>
               <Typography variant="body2">{value.text}</Typography>
-              {value.photos?.length === 0 ? (
+              {value.photos?.length === 0 ||
+              value.photos?.some((photo) => photo?.url === null) ? (
                 <div />
               ) : (
                 <ImageList
@@ -113,7 +114,7 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
           )}
         </Draggable>
       ))}
-    </React.Fragment>
+    </>
   );
 };
 
