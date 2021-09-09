@@ -20,7 +20,7 @@ const Logout = () => {
 
   const handleSubmit = () => {
     Cookies.remove(AUTH_TOKEN);
-    // history.push('/signin');
+    history.push('/signin');
   };
 
   return (
