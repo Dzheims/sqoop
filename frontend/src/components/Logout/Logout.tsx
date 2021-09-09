@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Logout = () => {
-  1;
   const classes = useStyles();
   const history = useHistory();
 
