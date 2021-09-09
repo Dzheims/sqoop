@@ -14,17 +14,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Logout = () => {
+  1;
   const classes = useStyles();
   const history = useHistory();
 
   const handleSubmit = () => {
     Cookies.remove(AUTH_TOKEN);
-    history.push('/signin');
+    // history.push('/signin');
   };
 
   return (
     <div className={classes.button}>
       <Button
+        data-testid="btn-logout"
         type="submit"
         fullWidth
         variant="contained"
