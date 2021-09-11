@@ -13,9 +13,11 @@ interface twitter_account_username {
 }
 
 export const queryFormatter = ({ keyword, sources }: searchParams) => {
+  if (!sources.length) return keyword;
   const formattedSources = sources
     .map((value) => `from:${value.replace(/^@*/, '')}`)
     .join(' OR ');
+  if (!keyword) return `(${formattedSources})`;
   return `${keyword} (${formattedSources})`;
 };
 
