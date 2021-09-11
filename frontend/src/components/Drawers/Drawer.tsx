@@ -4,8 +4,7 @@ import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    maxWidth: '400px',
-    width: '350px',
+    width: '320px',
     height: '560px',
     backgroundColor: '#f7fafc',
     margin: '10px',
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Drawer = () => {
+const DrawerContentContainer = () => {
   const classes = useStyles();
 
   return (
@@ -34,4 +33,4 @@ const Drawer = () => {
   );
 };
 
-export default Drawer;
+export default DrawerContentContainer;

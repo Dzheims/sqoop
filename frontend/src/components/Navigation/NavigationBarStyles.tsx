@@ -15,6 +15,17 @@ export const useStyles = makeStyles(() => ({
     height: '50px',
     width: '50px',
   },
+  drawerPaper: {
+    width: '375px',
+    backgroundColor: '#f7fafc',
+    marginLeft: '75px',
+    zIndex: 200,
+    display: 'flex',
+  },
+  backdrop: {
+    zIndex: 100,
+    color: '#fff',
+  },
 }));
 
 export const NavigationBarContainer = styled.div`
@@ -23,7 +34,7 @@ export const NavigationBarContainer = styled.div`
   width: 75px;
   background-color: ${theme.palette.primary.main};
   overflow-x: hidden;
-  z-index: 99;
+  z-index: 200;
   transition: all 0.5s ease;
   flex-direction: column;
   align-items: space-between;
