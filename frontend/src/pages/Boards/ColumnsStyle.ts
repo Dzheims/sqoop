@@ -70,7 +70,7 @@ export const ItemContainer = styled.div`
   padding: 8px;
   flex-grow: 1;
   min-height: 100px;
-  max-height: 510px;
+  max-height: 480px;
   overflow: auto;
 `;
 
@@ -116,8 +116,12 @@ export const ColumnContainer = styled.div`
   max-width: 400px;
   margin: 10px;
   height: 560px;
+  max-height: 570px;
 `;
 export const ColumnWrapper = styled.div`
   display: flex;
   margin-left: 75px;
+`;
+export const HomeContainer = styled.div`
+  display: flex;
 `;

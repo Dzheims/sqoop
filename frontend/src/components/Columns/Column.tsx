@@ -14,7 +14,6 @@ import ColumnsData from './ColumnsData';
 import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from '../../pages/Boards/TwitterAPIColumnData';
 import CategoriesButtons from '../Categories/CategoriesButtons';
-import Drawer from '../Drawers/Drawer';
 
 const getFeedType = (feedType: string) => {
   if (feedType === 'news') return <NewsAPIColumnData />;
@@ -30,7 +29,6 @@ const Columns: React.FC = () => {
   return (
     <ScrollMenu>
       <ColumnWrapper>
-        <Drawer />
         <DragDropContext onDragEnd={onDragEnd}>
           {state.columns.map((value, index) =>
             value.isVisible === true ? (
