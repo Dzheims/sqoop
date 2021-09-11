@@ -340,7 +340,7 @@ type Query implements Node {
     category: Category
     keyword: String
   ): [Article!]!
-  searchTweets(query: String): [Tweet!]!
+  searchTweets(keyword: [String], sources: [String]): [Tweet!]!
   getCustomNewsApiFeed(id: Int!): JSON
   getColumns: JSON
 }
