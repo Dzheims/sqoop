@@ -18,7 +18,7 @@ import { GetColumnsQuery } from './query.generated';
 import { Category } from '../../types.generated';
 
 interface filtersProps {
-  feedType: string;
+  feedType: string | undefined;
   keyword: string | null;
   country: string;
   category: string | null;
@@ -59,7 +59,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     <ScrollMenu>
       <ColumnWrapper>
         <DragDropContext onDragEnd={onDragEnd}>
-          {data.twitterFeeds?.map(
+          {data.getColumnResult?.map(
             (value, index) => (
               // value.isVisible === true ? (
               <Droppable droppableId="droppable">
@@ -75,20 +75,21 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                       ref={provided.innerRef}
                       isDragging={snapshot.isDraggingOver}
                     >
-                      {getFeedType({
-                        feedType: value.__typename || 'NewsFeed',
-                        keyword: value.keyword || null,
-                        sources: value.sources || null,
-                        country: '',
-                        category: null,
-                      })}
-                      {/* {getFeedType(
-                        value.__typename || 'NewsFeed',
-                        value.keyword || '',
-                        value.country || '',
-                        value.category || null,
-                        value.sources || ''
-                      )} */}
+                      {value.__typename === 'NewsFeed'
+                        ? getFeedType({
+                            feedType: value.__typename,
+                            keyword: value.keyword || '',
+                            sources: value.sources || '',
+                            country: value.country || '',
+                            category: value.category || null,
+                          })
+                        : getFeedType({
+                            feedType: value.__typename,
+                            keyword: value.keyword || null,
+                            country: '',
+                            category: null,
+                            sources: value.sources || null,
+                          })}
                     </ItemContainer>
                   </ColumnContainer>
                 )}

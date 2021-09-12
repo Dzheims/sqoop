@@ -27,13 +27,19 @@ export const twitterFeed = gql`
   }
 `;
 
+export const columnResult = gql`
+  union ColumnResult = NewsFeed | TwitterFeed
+`;
+
 export const typeDefs = gql`
   ${column}
   ${newsFeed}
   ${twitterFeed}
+  ${columnResult}
   extend type Query {
     getCustomNewsApiFeed(id: Int!): JSON
     getColumns: [Column!]!
+    getColumnResult: [ColumnResult!]!
   }
 `;
 

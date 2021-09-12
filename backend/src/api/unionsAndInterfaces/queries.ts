@@ -12,11 +12,27 @@ interface columnProps {
 export const resolvers = (getNamedType: any) => {
   return {
     Column: {
+      __resolveType({ category }: columnProps) {
+        return category ? 'NewsFeed' : 'TwitterFeed';
+      },
+    },
+    ColumnResult: {
       __resolveType(column: columnProps) {
         return column.category ? 'NewsFeed' : 'TwitterFeed';
       },
     },
     Query: {
+      getColumnResult: async (_: any, args: any, context: any) => {
+        const { pgClient } = context;
+        const { rows: newsFeeds } = await pgClient.query(
+          `SELECT * FROM news_feeds`
+        );
+        const { rows: twitterFeeds } = await pgClient.query(
+          `SELECT * FROM twitter_feeds`
+        );
+        const result = newsFeeds.concat(twitterFeeds);
+        return result;
+      },
       getColumns: async (_: any, args: any, context: any) => {
         const { pgClient } = context;
         const { rows: newsFeeds } = await pgClient.query(

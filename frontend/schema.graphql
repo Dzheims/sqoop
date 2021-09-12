@@ -343,6 +343,7 @@ type Query implements Node {
   searchTweets(keyword: [String], sources: [String]): [Tweet!]!
   getCustomNewsApiFeed(id: Int!): JSON
   getColumns: [Column!]!
+  getColumnResult: [ColumnResult!]!
 }
 
 """
@@ -745,6 +746,8 @@ interface Column {
   id: Int!
   title: String!
 }
+
+union ColumnResult = NewsFeed | TwitterFeed
 
 """
 The root mutation type which contains root level fields which mutate data.
