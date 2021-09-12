@@ -12,6 +12,7 @@ import {
   NewsAPITitleContainer,
   useStyles,
 } from './ColumnsStyle';
+import { Link } from 'react-router-dom';
 
 interface NewsAPIDataProps {
   data: GetNewsApiContentsQuery;
@@ -29,7 +30,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       {data?.topHeadlines?.map((value, index) => (
         <Draggable
           draggableId={value.publishedAt as string}
@@ -53,21 +54,25 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
                   </Typography>
                 </AccountNameContainer>
               </NewsAPITitleContainer>
-              <Typography variant="body2">{value.title}</Typography>
+              <Typography variant="body2">{value.description}</Typography>
               {value.urlToImage === null ? (
-                <div />
+                <a className={classes.link} href={value?.url as string}>
+                  <Typography variant="body2">{value.title}</Typography>
+                </a>
               ) : (
-                <NewsAPIContentContainer>
-                  <div
-                    style={{
-                      backgroundImage: `url(${value.urlToImage})`,
-                    }}
-                    className={classes.imageContainer}
-                  />
-                  <Typography className={classes.description}>
-                    {value.description}
-                  </Typography>
-                </NewsAPIContentContainer>
+                <a className={classes.link} href={value?.url as string}>
+                  <NewsAPIContentContainer>
+                    <div
+                      style={{
+                        backgroundImage: `url(${value.urlToImage})`,
+                      }}
+                      className={classes.imageContainer}
+                    />
+                    <Typography className={classes.description}>
+                      {value.title}
+                    </Typography>
+                  </NewsAPIContentContainer>
+                </a>
               )}
               <br />
               <Typography className={classes.dateAndUserName}>
@@ -77,7 +82,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
           )}
         </Draggable>
       ))}
-    </React.Fragment>
+    </>
   );
 };
 

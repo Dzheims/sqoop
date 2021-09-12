@@ -22,7 +22,7 @@ export const typeDefs = gql`
   ${tweet}
   ${twitterPhoto}
   extend type Query {
-    searchTweets(query: String): [Tweet!]!
+    searchTweets(keyword: [String], sources: [String]): [Tweet!]!
   }
 `;
 

@@ -35,8 +35,13 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
     return formattedCreateDate;
   };
 
+  const truncateName = (name: any) => {
+    if (name.length < 18) return name;
+    else return name.substring(0, 17) + '...';
+  };
+
   return (
-    <React.Fragment>
+    <>
       {data?.searchTweets?.map((value, index) => (
         <Draggable
           draggableId={value.author_id as string}
@@ -60,7 +65,7 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
                 <AccountNameContainer>
                   <TwitterTitleContainer>
                     <Typography style={{ fontWeight: 600 }}>
-                      {value.name}
+                      {truncateName(value.name)}
                     </Typography>
                     {value.verified ? (
                       <Avatar
@@ -83,7 +88,8 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
                 />
               </TwitterContentContainer>
               <Typography variant="body2">{value.text}</Typography>
-              {value.photos?.length === 0 ? (
+              {value.photos?.length === 0 ||
+              value.photos?.some((photo) => photo?.url === null) ? (
                 <div />
               ) : (
                 <ImageList
@@ -108,7 +114,7 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
           )}
         </Draggable>
       ))}
-    </React.Fragment>
+    </>
   );
 };
 

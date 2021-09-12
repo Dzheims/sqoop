@@ -17,11 +17,12 @@ export const useStyles = makeStyles(() => ({
     width: 'auto',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    backgroundColor: 'gray',
   },
   description: {
     padding: '10px',
-    fontSize: '12px',
-    color: 'gray',
+    fontSize: '14px',
+    color: 'black',
   },
   dateAndUserName: {
     fontSize: '14px',
@@ -41,6 +42,9 @@ export const useStyles = makeStyles(() => ({
     height: '18px',
     width: '18px',
     marginLeft: '10px',
+  },
+  link: {
+    textDecoration: 'none',
   },
 }));
 
@@ -66,7 +70,7 @@ export const ItemContainer = styled.div`
   padding: 8px;
   flex-grow: 1;
   min-height: 100px;
-  max-height: 510px;
+  max-height: 480px;
   overflow: auto;
 `;
 
@@ -108,15 +112,16 @@ export const ColumnContainer = styled.div`
   padding: 8px;
   background-color: #f7fafc;
   border-radius: 4px;
-  & + & {
-    margin-left: 12px;
-  }
   width: 350px;
   max-width: 400px;
   margin: 10px;
-  height: 570px;
+  height: 560px;
+  max-height: 570px;
 `;
 export const ColumnWrapper = styled.div`
   display: flex;
   margin-left: 75px;
+`;
+export const HomeContainer = styled.div`
+  display: flex;
 `;

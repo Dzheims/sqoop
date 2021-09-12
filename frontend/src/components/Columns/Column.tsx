@@ -10,18 +10,48 @@ import {
   ItemContainer,
   ColumnWrapper,
 } from '../../pages/Boards/ColumnsStyle';
-import ColumnsData from './ColumnsData';
+// import ColumnsData from './ColumnsData';
 import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from '../../pages/Boards/TwitterAPIColumnData';
+import CategoriesButtons from '../Categories/CategoriesButtons';
+import { GetColumnsQuery } from './query.generated';
+import { Category } from '../../types.generated';
 
-const getFeedType = (feedType: string) => {
-  if (feedType === 'news') return <NewsAPIColumnData />;
-  if (feedType === 'twitter') return <TwitterAPIColumnData />;
+interface filtersProps {
+  feedType: string | undefined;
+  keyword: string | null;
+  country: string;
+  category: string | null;
+  sources: string | null;
+}
+
+const getFeedType = ({
+  feedType,
+  keyword,
+  country,
+  category,
+  sources,
+}: filtersProps) => {
+  if (feedType === 'NewsFeed')
+    return (
+      <NewsAPIColumnData
+        keyword={keyword}
+        country={country}
+        category={category as Category}
+        sources={sources}
+      />
+    );
+  if (feedType === 'TwitterFeed')
+    return <TwitterAPIColumnData keyword={keyword} sources={sources} />;
   return <div />;
 };
 
-const Columns: React.FC = () => {
-  const [state, setState] = useState(ColumnsData);
+interface ColumnDataProps {
+  data: GetColumnsQuery;
+}
+
+const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
+  // const [state, setState] = useState(ColumnsData);
 
   const onDragEnd = () => {};
 
@@ -29,8 +59,9 @@ const Columns: React.FC = () => {
     <ScrollMenu>
       <ColumnWrapper>
         <DragDropContext onDragEnd={onDragEnd}>
-          {state.columns.map((value, index) =>
-            value.isVisible === true ? (
+          {data.getColumnResult?.map(
+            (value, index) => (
+              // value.isVisible === true ? (
               <Droppable droppableId="droppable">
                 {(provided, snapshot) => (
                   <ColumnContainer
@@ -38,19 +69,35 @@ const Columns: React.FC = () => {
                     ref={provided.innerRef}
                   >
                     <Title>{value.title}</Title>
+                    <CategoriesButtons />
                     <ItemContainer
                       {...provided.droppableProps}
                       ref={provided.innerRef}
                       isDragging={snapshot.isDraggingOver}
                     >
-                      {getFeedType(value.feedType)}
+                      {value.__typename === 'NewsFeed'
+                        ? getFeedType({
+                            feedType: value.__typename,
+                            keyword: value.keyword || '',
+                            sources: value.sources || '',
+                            country: value.country || '',
+                            category: value.category || null,
+                          })
+                        : getFeedType({
+                            feedType: value.__typename,
+                            keyword: value.keyword || null,
+                            country: '',
+                            category: null,
+                            sources: value.sources || null,
+                          })}
                     </ItemContainer>
                   </ColumnContainer>
                 )}
               </Droppable>
-            ) : (
-              <div />
             )
+            // ) : (
+            //   <div />
+            // )
           )}
         </DragDropContext>
       </ColumnWrapper>

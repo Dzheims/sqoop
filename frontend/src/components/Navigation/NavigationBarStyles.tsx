@@ -6,14 +6,25 @@ export const useStyles = makeStyles(() => ({
   icons: {
     height: '40px',
     width: '40px',
-    color: 'lightGray',
+    color: 'white',
     '&:hover': {
-      color: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
     },
   },
   avatars: {
     height: '50px',
     width: '50px',
+  },
+  drawerPaper: {
+    width: '375px',
+    backgroundColor: '#f7fafc',
+    marginLeft: '75px',
+    zIndex: 200,
+    display: 'flex',
+  },
+  backdrop: {
+    zIndex: 100,
+    color: '#fff',
   },
 }));
 
@@ -23,7 +34,7 @@ export const NavigationBarContainer = styled.div`
   width: 75px;
   background-color: ${theme.palette.primary.main};
   overflow-x: hidden;
-  z-index: 99;
+  z-index: 300;
   transition: all 0.5s ease;
   flex-direction: column;
   align-items: space-between;
@@ -60,4 +71,5 @@ export const MenuContainer = styled.div`
   padding: 5px;
   width: 75px;
   flex-direction: column;
+  z-index: 300;
 `;

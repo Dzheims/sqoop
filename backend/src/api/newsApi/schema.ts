@@ -20,7 +20,7 @@ export const typeDefs = gql`
     topHeadlines(
       country: String = "ph"
       sources: String
-      category: String
+      category: Category
       keyword: String
     ): [Article!]!
   }

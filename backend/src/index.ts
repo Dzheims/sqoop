@@ -6,6 +6,7 @@ import NewsApiPlugin from './api/newsApi/newsApi';
 import TwitterApiPlugin from './api/twitterApi/twitterApi';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import UnionAndInterfacesApiPlugin from './api/unionsAndInterfaces/unionsAndInterfaces';
 import path from 'path';
 import * as Environment from './Environment';
 
@@ -34,6 +35,7 @@ app
         TagsFilePlugin,
         NewsApiPlugin,
         TwitterApiPlugin,
+        UnionAndInterfacesApiPlugin,
       ],
       graphqlRoute: '/graphql',
       graphiqlRoute: '/graphiql',

@@ -10,20 +10,21 @@ import NavigationBar from './components/Navigation/NavigationBar';
 import Columns from './components/Columns/Column';
 import CurrentUser from './authentication/authentication';
 import UserProfile from './pages/User/UserProfile';
+import { ColumnsData } from './components/Columns/ColumnsData';
 
 function App() {
   return (
     <Router>
       <div>
         <ThemeProvider theme={theme}>
-          <NavigationBar />
           <Switch>
-            <Route path="/" exact component={Homepage} />
             <Route path="/signup" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />
             <Route path="/board" exact component={Board} />
             <Route path="/column" exact component={Columns} />
             <Route path="/users" exact component={UserProfile} />
+            <Route path="/" exact component={Homepage} />
+            <Route path="/column" exact component={ColumnsData} />
           </Switch>
         </ThemeProvider>
       </div>
