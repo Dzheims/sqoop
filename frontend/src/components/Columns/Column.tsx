@@ -10,19 +10,39 @@ import {
   ItemContainer,
   ColumnWrapper,
 } from '../../pages/Boards/ColumnsStyle';
-import ColumnsData from './ColumnsData';
+// import ColumnsData from './ColumnsData';
 import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from '../../pages/Boards/TwitterAPIColumnData';
 import CategoriesButtons from '../Categories/CategoriesButtons';
+import { GetColumnsQuery } from './query.generated';
+import { Category } from '../../types.generated';
 
-const getFeedType = (feedType: string) => {
-  if (feedType === 'news') return <NewsAPIColumnData />;
+const getFeedType = (
+  feedType: string,
+  keyword: string,
+  country: string,
+  category: string | null,
+  sources: string
+) => {
+  if (feedType === 'NewsFeed')
+    return (
+      <NewsAPIColumnData
+        keyword={keyword}
+        country={country}
+        category={category as Category}
+        sources={sources}
+      />
+    );
   if (feedType === 'twitter') return <TwitterAPIColumnData />;
   return <div />;
 };
 
-const Columns: React.FC = () => {
-  const [state, setState] = useState(ColumnsData);
+interface ColumnDataProps {
+  data: GetColumnsQuery;
+}
+
+const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
+  // const [state, setState] = useState(ColumnsData);
 
   const onDragEnd = () => {};
 
@@ -30,8 +50,9 @@ const Columns: React.FC = () => {
     <ScrollMenu>
       <ColumnWrapper>
         <DragDropContext onDragEnd={onDragEnd}>
-          {state.columns.map((value, index) =>
-            value.isVisible === true ? (
+          {data.newsFeeds?.map(
+            (value, index) => (
+              // value.isVisible === true ? (
               <Droppable droppableId="droppable">
                 {(provided, snapshot) => (
                   <ColumnContainer
@@ -45,14 +66,21 @@ const Columns: React.FC = () => {
                       ref={provided.innerRef}
                       isDragging={snapshot.isDraggingOver}
                     >
-                      {getFeedType(value.feedType)}
+                      {getFeedType(
+                        value.__typename || 'NewsFeed',
+                        value.keyword || '',
+                        value.country || '',
+                        value.category || null,
+                        value.sources || ''
+                      )}
                     </ItemContainer>
                   </ColumnContainer>
                 )}
               </Droppable>
-            ) : (
-              <div />
             )
+            // ) : (
+            //   <div />
+            // )
           )}
         </DragDropContext>
       </ColumnWrapper>

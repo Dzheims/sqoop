@@ -8,3 +8,4 @@ src/pages/Boards/NewsAPIColumn.tsx
 src/pages/Boards/TwitterAPIColumn.tsx
 
 src/apolloClient.ts
+src/components/Columns/Column.tsx

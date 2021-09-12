@@ -33,7 +33,7 @@ export const typeDefs = gql`
   ${twitterFeed}
   extend type Query {
     getCustomNewsApiFeed(id: Int!): JSON
-    getColumns: JSON
+    getColumns: [Column!]!
   }
 `;
 

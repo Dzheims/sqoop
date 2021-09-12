@@ -25,3 +25,5 @@ export const GET_NEWS_API_DATA_QUERY = gql`
     }
   }
 `;
+
+export default GET_NEWS_API_DATA_QUERY;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLazyQuery } from '@apollo/client';
+import { Button } from '@material-ui/core';
 import { GET_NEWS_API_DATA_QUERY } from './query';
 import { GetNewsApiDataQuery } from './query.generated';
 import { Category } from '../../../types.generated';
@@ -19,9 +20,9 @@ const NewsCategories = ({ category }: CategoriesProps) => {
   return (
     <div>
       {data}
-      <button onClick={() => getNewsByCategories({ variables: { category } })}>
+      <Button onClick={() => getNewsByCategories({ variables: { category } })}>
         {category}
-      </button>
+      </Button>
     </div>
   );
 };

@@ -342,7 +342,7 @@ type Query implements Node {
   ): [Article!]!
   searchTweets(keyword: [String], sources: [String]): [Tweet!]!
   getCustomNewsApiFeed(id: Int!): JSON
-  getColumns: JSON
+  getColumns: [Column!]!
 }
 
 """
@@ -740,6 +740,11 @@ type TwitterPhoto {
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSON
+
+interface Column {
+  id: Int!
+  title: String!
+}
 
 """
 The root mutation type which contains root level fields which mutate data.

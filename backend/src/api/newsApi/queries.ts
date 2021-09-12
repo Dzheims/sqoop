@@ -17,7 +17,7 @@ export const resolvers = {
       const queryParams = new URLSearchParams();
       queryParams.set('country', country || 'ph');
       if (sources) {
-        country = '';
+        queryParams.set('country', '');
         category = '';
       }
       queryParams.set('category', category || '');
