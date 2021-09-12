@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { TextField } from '@material-ui/core';
 
-const NewsAPIFeedForm = () => {
-  const [state, setState] = useState(false);
+const useStyles = makeStyles(() => ({
+  formContainer: {
+    alignItems: 'center',
+  },
+}));
 
-  return <div>Drawer Contents</div>;
+const AddNewsAPIFeedForm = () => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.formContainer}>
+      <TextField
+        id="FeedTitle"
+        label="Feed Title"
+        placeholder="Feed Title"
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+      />
+    </div>
+  );
 };
 
-export default NewsAPIFeedForm;
+export default AddNewsAPIFeedForm;

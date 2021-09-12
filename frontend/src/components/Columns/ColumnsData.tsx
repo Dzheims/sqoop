@@ -40,6 +40,7 @@ export const ColumnsData = () => {
   if (error) return <div>error</div>;
   if (loading) return <Loader />;
   if (!data) return <div>data</div>;
+
   return <Columns data={data} />;
 };
 

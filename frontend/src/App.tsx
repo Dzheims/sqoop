@@ -5,9 +5,6 @@ import theme from './theme';
 import Homepage from './pages/Homepage';
 import SignUp from './pages/SignupPage/SignUp';
 import SignIn from './pages/SignInPage/SignIn';
-import NavigationBar from './components/Navigation/NavigationBar';
-import Columns from './components/Columns/Column';
-import CurrentUser from './authentication/authentication';
 import { ColumnsData } from './components/Columns/ColumnsData';
 
 function App() {
@@ -18,12 +15,8 @@ function App() {
           <Switch>
             <Route path="/signup" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />
-            <div>
-              <NavigationBar />
-              <Route path="/" exact component={Homepage} />
-              <Route path="/column" exact component={ColumnsData} />
-            </div>
-            {/* <Route path="/users" exact component={CurrentUser} /> */}
+            <Route path="/" exact component={Homepage} />
+            <Route path="/column" exact component={ColumnsData} />
           </Switch>
         </ThemeProvider>
       </div>
