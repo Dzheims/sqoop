@@ -98,7 +98,7 @@ const Board: React.FC = () => {
         {(provided) => (
           <Container {...provided.droppableProps} ref={provided.innerRef}>
             {/* <NewsAPIColumnData /> */}
-            <TwitterAPIColumnData />
+            {/* <TwitterAPIColumnData /> */}
             {state.columnsOrder.map((columnId, index) => {
               const column = (state.columns as any)[columnId];
               const items = column.itemsIds.map(

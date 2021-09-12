@@ -9,8 +9,8 @@ import { Category } from '../../types.generated';
 interface NewsApiColumnDataProps {
   country: string;
   category: Category;
-  keyword: string;
-  sources: string;
+  keyword: string | null;
+  sources: string | null;
 }
 
 const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({

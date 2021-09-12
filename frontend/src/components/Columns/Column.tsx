@@ -17,13 +17,21 @@ import CategoriesButtons from '../Categories/CategoriesButtons';
 import { GetColumnsQuery } from './query.generated';
 import { Category } from '../../types.generated';
 
-const getFeedType = (
-  feedType: string,
-  keyword: string,
-  country: string,
-  category: string | null,
-  sources: string
-) => {
+interface filtersProps {
+  feedType: string;
+  keyword: string | null;
+  country: string;
+  category: string | null;
+  sources: string | null;
+}
+
+const getFeedType = ({
+  feedType,
+  keyword,
+  country,
+  category,
+  sources,
+}: filtersProps) => {
   if (feedType === 'NewsFeed')
     return (
       <NewsAPIColumnData
@@ -33,7 +41,8 @@ const getFeedType = (
         sources={sources}
       />
     );
-  if (feedType === 'twitter') return <TwitterAPIColumnData />;
+  if (feedType === 'TwitterFeed')
+    return <TwitterAPIColumnData keyword={keyword} sources={sources} />;
   return <div />;
 };
 
@@ -50,7 +59,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     <ScrollMenu>
       <ColumnWrapper>
         <DragDropContext onDragEnd={onDragEnd}>
-          {data.newsFeeds?.map(
+          {data.twitterFeeds?.map(
             (value, index) => (
               // value.isVisible === true ? (
               <Droppable droppableId="droppable">
@@ -66,13 +75,20 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                       ref={provided.innerRef}
                       isDragging={snapshot.isDraggingOver}
                     >
-                      {getFeedType(
+                      {getFeedType({
+                        feedType: value.__typename || 'NewsFeed',
+                        keyword: value.keyword || null,
+                        sources: value.sources || null,
+                        country: '',
+                        category: null,
+                      })}
+                      {/* {getFeedType(
                         value.__typename || 'NewsFeed',
                         value.keyword || '',
                         value.country || '',
                         value.category || null,
                         value.sources || ''
-                      )}
+                      )} */}
                     </ItemContainer>
                   </ColumnContainer>
                 )}
