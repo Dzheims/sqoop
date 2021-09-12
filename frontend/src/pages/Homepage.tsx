@@ -1,13 +1,9 @@
-import { Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
+import NavigationBar from '../components/Navigation/NavigationBar';
 
-function Homepage() {
-  return (
-    <div>
-      <Typography color="primary">Sqoop</Typography>
-      <Typography color="secondary">Sqoop</Typography>
-    </div>
-  );
-}
+const Homepage = () => {
+  const [state, setState] = useState();
+  return <NavigationBar />;
+};
 
 export default Homepage;

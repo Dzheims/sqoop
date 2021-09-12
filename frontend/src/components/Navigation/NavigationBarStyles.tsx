@@ -34,7 +34,7 @@ export const NavigationBarContainer = styled.div`
   width: 75px;
   background-color: ${theme.palette.primary.main};
   overflow-x: hidden;
-  z-index: 200;
+  z-index: 300;
   transition: all 0.5s ease;
   flex-direction: column;
   align-items: space-between;
@@ -71,4 +71,5 @@ export const MenuContainer = styled.div`
   padding: 5px;
   width: 75px;
   flex-direction: column;
+  z-index: 300;
 `;
