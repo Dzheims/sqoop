@@ -1,10 +1,15 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   formContainer: {
     alignItems: 'center',
+  },
+  button: {
+    display: 'flex',
+    marginTop: theme.spacing(2),
+    justifyContent: 'flex-end',
   },
 }));
 
@@ -40,6 +45,11 @@ const AddTwitterFeedForm = () => {
         required
         fullWidth
       />
+      <div className={classes.button}>
+        <Button type="submit" variant="contained" color="secondary">
+          Save
+        </Button>
+      </div>
     </div>
   );
 };

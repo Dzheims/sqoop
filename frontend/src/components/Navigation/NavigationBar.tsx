@@ -20,11 +20,17 @@ import DrawerContentContainer from '../Drawers/Drawer';
 const NavigationBar = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState('');
 
   const NavBarMenu = [
     {
       id: 'add',
-      title: 'Add Feeds',
+      title: 'Add News Feeds',
+      icon: <AddFeedsIcon className={classes.icons} />,
+    },
+    {
+      id: 'add',
+      title: 'Add Twitter Feeds',
       icon: <AddFeedsIcon className={classes.icons} />,
     },
     {
@@ -46,7 +52,13 @@ const NavigationBar = () => {
             <div>
               <Tooltip title={item.title} key={item.id} arrow>
                 <IconContainer>
-                  <IconButton aria-label={item.title} onClick={handleDrawer}>
+                  <IconButton
+                    aria-label={item.title}
+                    onClick={() => {
+                      handleDrawer();
+                      setTitle(item.title);
+                    }}
+                  >
                     {item.icon}
                   </IconButton>
                 </IconContainer>
@@ -59,7 +71,7 @@ const NavigationBar = () => {
                   paper: classes.drawerPaper,
                 }}
               >
-                <DrawerContentContainer drawerTitle={item.title} />
+                <DrawerContentContainer drawerTitle={title} />
               </Drawer>
             </div>
           ))}

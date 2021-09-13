@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -20,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+  },
+  button: {
+    display: 'flex',
+    marginTop: theme.spacing(2),
+    justifyContent: 'flex-end',
   },
 }));
 
@@ -73,6 +79,11 @@ const AddNewsAPIFeedForm = () => {
         required
         fullWidth
       />
+      <div className={classes.button}>
+        <Button type="submit" variant="contained" color="secondary">
+          Save
+        </Button>
+      </div>
     </div>
   );
 };

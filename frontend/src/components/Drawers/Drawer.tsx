@@ -29,8 +29,9 @@ interface DrawerProps {
 }
 
 const getDrawerContent = (title: string) => {
-  if (title === 'Search') return <AddNewsAPIFeedForm />;
-  if (title === 'Add Feeds') return <AddNewsAPIFeedForm />;
+  if (title === 'Search') return <div>Pretend this is a search bar</div>;
+  if (title === 'Add News Feeds') return <AddNewsAPIFeedForm />;
+  if (title === 'Add Twitter Feeds') return <AddTwitterFeedForm />;
   return <div />;
 };
 
