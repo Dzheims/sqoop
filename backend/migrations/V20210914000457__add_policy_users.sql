@@ -1,0 +1,1 @@
+CREATE POLICY manage_account ON users TO sqoop_user USING (user_id = current_user_id())
