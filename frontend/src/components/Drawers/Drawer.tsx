@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import AddNewsAPIFeedForm from './DrawerContents/AddNewsAPIFeedForm';
+import AddTwitterFeedForm from './DrawerContents/AddTwitterFeedForm';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
