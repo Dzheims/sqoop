@@ -68,15 +68,14 @@ export const ItemContainer = styled.div`
     isDraggingOver ? '#f7fafc' : null};
   transition: background-color 0.2s ease;
   padding: 8px;
-  flex-grow: 1;
-  min-height: 100px;
-  max-height: 480px;
+  min-height: 50vh;
+  height: 72vh;
   overflow: auto;
 `;
 
 export const Title = styled.h2`
   font: 18px sans-serif;
-  margin-bottom: 12px;
+  margin-bottom: 5px;
   margin-left: 12px;
   color: ${theme.palette.primary.main};
 `;
@@ -108,19 +107,16 @@ export const AccountNameContainer = styled.div`
 `;
 
 export const ColumnContainer = styled.div`
-  flex: 1;
   padding: 8px;
   background-color: #f7fafc;
   border-radius: 4px;
   width: 350px;
   max-width: 400px;
   margin: 10px;
-  height: 560px;
-  max-height: 570px;
+  height: 91.5vh;
 `;
 export const ColumnWrapper = styled.div`
   display: flex;
-  margin-left: 75px;
 `;
 export const HomeContainer = styled.div`
   display: flex;

@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import {
   ColumnContainer,
@@ -56,52 +55,49 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const onDragEnd = () => {};
 
   return (
-    <ScrollMenu>
-      <ColumnWrapper>
-        <DragDropContext onDragEnd={onDragEnd}>
-          {data.getColumnResult?.map(
-            (value, index) => (
-              // value.isVisible === true ? (
-              <Droppable droppableId="droppable">
-                {(provided, snapshot) => (
-                  <ColumnContainer
+    <ColumnWrapper>
+      <DragDropContext onDragEnd={onDragEnd}>
+        {data.getColumnResult?.map(
+          (value, index) => (
+            // value.isVisible === true ? (
+            <Droppable droppableId="droppable">
+              {(provided, snapshot) => (
+                <ColumnContainer
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  <Title>{value.title}</Title>
+                  <ItemContainer
                     {...provided.droppableProps}
                     ref={provided.innerRef}
+                    isDragging={snapshot.isDraggingOver}
                   >
-                    <Title>{value.title}</Title>
-                    <CategoriesButtons />
-                    <ItemContainer
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                      isDragging={snapshot.isDraggingOver}
-                    >
-                      {value.__typename === 'NewsFeed'
-                        ? getFeedType({
-                            feedType: value.__typename,
-                            keyword: value.keyword || '',
-                            sources: value.sources || '',
-                            country: value.country || '',
-                            category: value.category || null,
-                          })
-                        : getFeedType({
-                            feedType: value.__typename,
-                            keyword: value.keyword || null,
-                            country: '',
-                            category: null,
-                            sources: value.sources || null,
-                          })}
-                    </ItemContainer>
-                  </ColumnContainer>
-                )}
-              </Droppable>
-            )
-            // ) : (
-            //   <div />
-            // )
-          )}
-        </DragDropContext>
-      </ColumnWrapper>
-    </ScrollMenu>
+                    {value.__typename === 'NewsFeed'
+                      ? getFeedType({
+                          feedType: value.__typename,
+                          keyword: value.keyword || '',
+                          sources: value.sources || '',
+                          country: value.country || '',
+                          category: value.category || null,
+                        })
+                      : getFeedType({
+                          feedType: value.__typename,
+                          keyword: value.keyword || null,
+                          country: '',
+                          category: null,
+                          sources: value.sources || null,
+                        })}
+                  </ItemContainer>
+                </ColumnContainer>
+              )}
+            </Droppable>
+          )
+          // ) : (
+          //   <div />
+          // )
+        )}
+      </DragDropContext>
+    </ColumnWrapper>
   );
 };
 
