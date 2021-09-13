@@ -38,8 +38,6 @@ const useStyles = makeStyles((theme) => ({
 const AddNewsAPIFeedForm = () => {
   const classes = useStyles();
 
-  const [category, setCategory] = useState('');
-
   const [newsFeedForm, setNewsFeedForm] = useState<CreateNewsFeedInput>({
     newsFeed: {
       title: '',
@@ -160,7 +158,7 @@ const AddNewsAPIFeedForm = () => {
         <InputLabel>Categories</InputLabel>
         <Select
           label="Category"
-          value={category}
+          value={newsFeedForm.newsFeed.category}
           onChange={(e) => onCategoryChange(e.target.value as Category)}
         >
           <MenuItem value={Category.Business}>Business</MenuItem>
