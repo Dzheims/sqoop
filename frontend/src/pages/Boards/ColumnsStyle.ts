@@ -68,8 +68,9 @@ export const ItemContainer = styled.div`
     isDraggingOver ? '#f7fafc' : null};
   transition: background-color 0.2s ease;
   padding: 8px;
-  min-height: 50vh;
+  min-height: 72vh;
   height: 72vh;
+
   overflow: auto;
 `;
 

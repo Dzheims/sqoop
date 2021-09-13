@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import ScrollContainer from 'react-indiana-drag-scroll';
@@ -23,37 +23,58 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CategoriesButtons = () => {
+interface CategoriesProps {
+  selectedCategory: string;
+}
+
+const CategoriesButtons: React.FC<CategoriesProps> = ({
+  selectedCategory,
+}: CategoriesProps) => {
   const classes = useStyles();
+  const [category, setCategory] = useState('GENERAL');
 
   const categories = [
     {
+      title: 'General',
+      onClick: () => {
+        setCategory('GENERAL');
+      },
+    },
+    {
       title: 'Business',
-      onClick: () => {},
+      onClick: () => {
+        setCategory('BUSINESS');
+      },
     },
     {
       title: 'Entertainment',
-      onClick: () => {},
-    },
-    {
-      title: 'General',
-      onClick: () => {},
+      onClick: () => {
+        setCategory('ENTERTAINMENT');
+      },
     },
     {
       title: 'Health',
-      onClick: () => {},
+      onClick: () => {
+        setCategory('HEALTH');
+      },
     },
     {
       title: 'Science',
-      onClick: () => {},
+      onClick: () => {
+        setCategory('SCIENCE');
+      },
     },
     {
       title: 'Sports',
-      onClick: () => {},
+      onClick: () => {
+        setCategory('SPORTS');
+      },
     },
     {
       title: 'Technology',
-      onClick: () => {},
+      onClick: () => {
+        setCategory('TECHNOLOGY');
+      },
     },
   ];
 
