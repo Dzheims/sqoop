@@ -1,10 +1,8 @@
 import { gql } from '@apollo/client';
 
 const CREATE_TWITTER_FEED = gql`
-  mutation MyMutation {
-    createTwitterFeed(
-      input: { twitterFeed: { title: "", keyword: "", sources: "" } }
-    ) {
+  mutation createTwitterFeed($input: CreateTwitterFeedInput!) {
+    createTwitterFeed(input: $input) {
       twitterFeed {
         id
       }

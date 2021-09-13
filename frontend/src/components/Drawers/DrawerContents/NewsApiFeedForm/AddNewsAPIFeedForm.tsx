@@ -9,7 +9,7 @@ import {
   Select,
   TextField,
 } from '@material-ui/core';
-import { Category } from '../../../types.generated';
+import { Category } from '../../../../types.generated';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -81,7 +81,7 @@ const AddNewsAPIFeedForm = () => {
       />
       <div className={classes.button}>
         <Button type="submit" variant="contained" color="secondary">
-          Save
+          Create
         </Button>
       </div>
     </div>
