@@ -3,11 +3,18 @@ import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { GET_NEWS_API_CONTENTS_QUERY } from '../pages/Boards/query';
 import NewsAPIColumnData from '../pages/Boards/NewsAPIColumnData';
+import { Category } from '../types.generated';
 
 const mocks: ReadonlyArray<MockedResponse> = [
   {
     request: {
       query: GET_NEWS_API_CONTENTS_QUERY,
+      variables: {
+        keyword: null,
+        country: '',
+        category: 'GENERAL',
+        sources: null,
+      },
     },
     result: {
       data: {
@@ -79,7 +86,12 @@ describe('News API contents', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <NewsAPIColumnData />
+        <NewsAPIColumnData
+          keyword={null}
+          country=""
+          category={'GENERAL' as Category}
+          sources={null}
+        />
       </MockedProvider>
     );
   });

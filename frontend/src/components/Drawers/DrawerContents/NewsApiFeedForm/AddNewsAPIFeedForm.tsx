@@ -157,6 +157,7 @@ const AddNewsAPIFeedForm = () => {
       <FormControl variant="outlined" fullWidth className={classes.formControl}>
         <InputLabel>Categories</InputLabel>
         <Select
+          defaultValue=""
           label="Category"
           value={newsFeedForm.newsFeed.category}
           onChange={(e) => onCategoryChange(e.target.value as Category)}
