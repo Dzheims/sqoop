@@ -1,24 +1,34 @@
 import { gql } from '@apollo/client';
 
 export const GET_NEWS_API_CONTENTS_QUERY = gql`
-  query getNewsAPIContents {
-    topHeadlines {
+  query getNewsAPIContents(
+    $category: Category
+    $country: String
+    $keyword: String
+    $sources: String
+  ) {
+    topHeadlines(
+      category: $category
+      country: $country
+      keyword: $keyword
+      sources: $sources
+    ) {
       author
-      title
-      description
-      url
-      urlToImage
-      publishedAt
       content
+      description
+      publishedAt
       sourceId
       sourceName
+      title
+      url
+      urlToImage
     }
   }
 `;
 
 export const GET_TWITTER_API_CONTENTS_QUERY = gql`
-  query getTwitterAPIContents {
-    searchTweets {
+  query getTwitterAPIContents($keyword: [String], $sources: [String]) {
+    searchTweets(keyword: $keyword, sources: $sources) {
       author_id
       created_at
       name

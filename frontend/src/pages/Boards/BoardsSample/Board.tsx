@@ -3,13 +3,14 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import BoardColumn from './BoardColumn';
 import BoardData from './BoardData';
-import NewsAPIColumnData from './NewsAPIColumnData';
-import TwitterAPIColumnData from './TwitterAPIColumnData';
+import NewsAPIColumnData from '../NewsAPIColumnData';
+import TwitterAPIColumnData from '../TwitterAPIColumnData';
 
 const Container = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  margin-left: 70px;
 `;
 
 const BoardWrapper = styled.div`
@@ -92,37 +93,31 @@ const Board: React.FC = () => {
   };
 
   return (
-    <BoardWrapper>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable
-          droppableId="all-column"
-          direction="horizontal"
-          type="column"
-        >
-          {(provided) => (
-            <Container {...provided.droppableProps} ref={provided.innerRef}>
-              <NewsAPIColumnData />
-              <TwitterAPIColumnData />
-              {state.columnsOrder.map((columnId, index) => {
-                const column = (state.columns as any)[columnId];
-                const items = column.itemsIds.map(
-                  (itemId: string) => (state.items as any)[itemId]
-                );
-                return (
-                  <BoardColumn
-                    key={column.id}
-                    column={column}
-                    items={items}
-                    index={index}
-                  />
-                );
-              })}
-              {provided.placeholder}
-            </Container>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </BoardWrapper>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="all-column" direction="horizontal" type="column">
+        {(provided) => (
+          <Container {...provided.droppableProps} ref={provided.innerRef}>
+            {/* <NewsAPIColumnData /> */}
+            {/* <TwitterAPIColumnData /> */}
+            {state.columnsOrder.map((columnId, index) => {
+              const column = (state.columns as any)[columnId];
+              const items = column.itemsIds.map(
+                (itemId: string) => (state.items as any)[itemId]
+              );
+              return (
+                <BoardColumn
+                  key={column.id}
+                  column={column}
+                  data={items}
+                  index={index}
+                />
+              );
+            })}
+            {provided.placeholder}
+          </Container>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 

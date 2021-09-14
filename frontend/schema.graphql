@@ -24,6 +24,72 @@ type Query implements Node {
   ): Node
 
   """
+  Reads and enables pagination through a set of `NewsFeed`.
+  """
+  newsFeedsConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `NewsFeed`.
+    """
+    orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: NewsFeedCondition
+  ): NewsFeedsConnection
+
+  """
+  Reads a set of `NewsFeed`.
+  """
+  newsFeeds(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `NewsFeed`.
+    """
+    orderBy: [NewsFeedsOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: NewsFeedCondition
+  ): [NewsFeed!]
+
+  """
   Reads and enables pagination through a set of `TwitterAccount`.
   """
   twitterAccountsConnection(
@@ -90,6 +156,72 @@ type Query implements Node {
   ): [TwitterAccount!]
 
   """
+  Reads and enables pagination through a set of `TwitterFeed`.
+  """
+  twitterFeedsConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
+    orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TwitterFeedCondition
+  ): TwitterFeedsConnection
+
+  """
+  Reads a set of `TwitterFeed`.
+  """
+  twitterFeeds(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
+    orderBy: [TwitterFeedsOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TwitterFeedCondition
+  ): [TwitterFeed!]
+
+  """
   Reads and enables pagination through a set of `User`.
   """
   usersConnection(
@@ -154,11 +286,24 @@ type Query implements Node {
     """
     condition: UserCondition
   ): [User!]
+  newsFeed(id: Int!): NewsFeed
   twitterAccount(accountId: Int!): TwitterAccount
   twitterAccountByAccountName(accountName: String!): TwitterAccount
   twitterAccountByAccountUsername(accountUsername: String!): TwitterAccount
+  twitterFeed(id: Int!): TwitterFeed
   user(userId: Int!): User
   userByUsername(username: String!): User
+  currentUserId: Int
+
+  """
+  Reads a single `NewsFeed` using its globally unique `ID`.
+  """
+  newsFeedByNodeId(
+    """
+    The globally unique `ID` to be used in selecting a single `NewsFeed`.
+    """
+    nodeId: ID!
+  ): NewsFeed
 
   """
   Reads a single `TwitterAccount` using its globally unique `ID`.
@@ -169,6 +314,16 @@ type Query implements Node {
     """
     nodeId: ID!
   ): TwitterAccount
+
+  """
+  Reads a single `TwitterFeed` using its globally unique `ID`.
+  """
+  twitterFeedByNodeId(
+    """
+    The globally unique `ID` to be used in selecting a single `TwitterFeed`.
+    """
+    nodeId: ID!
+  ): TwitterFeed
 
   """
   Reads a single `User` using its globally unique `ID`.
@@ -182,10 +337,13 @@ type Query implements Node {
   topHeadlines(
     country: String = "ph"
     sources: String
-    category: String
+    category: Category
     keyword: String
   ): [Article!]!
-  searchTweets(query: String): [Tweet!]!
+  searchTweets(keyword: [String], sources: [String]): [Tweet!]!
+  getCustomNewsApiFeed(id: Int!): JSON
+  getColumns: [Column!]!
+  getColumnResult: [ColumnResult!]!
 }
 
 """
@@ -196,6 +354,121 @@ interface Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
+}
+
+"""
+A connection to a list of `NewsFeed` values.
+"""
+type NewsFeedsConnection {
+  """
+  A list of `NewsFeed` objects.
+  """
+  nodes: [NewsFeed]!
+
+  """
+  A list of edges which contains the `NewsFeed` and cursor to aid in pagination.
+  """
+  edges: [NewsFeedsEdge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `NewsFeed` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type NewsFeed implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  title: String!
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+}
+
+enum Category {
+  BUSINESS
+  ENTERTAINMENT
+  GENERAL
+  HEALTH
+  SCIENCE
+  SPORTS
+  TECHNOLOGY
+}
+
+"""
+A `NewsFeed` edge in the connection.
+"""
+type NewsFeedsEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor
+
+  """
+  The `NewsFeed` at the end of the edge.
+  """
+  node: NewsFeed
+}
+
+"""
+A location in a connection that can be used for resuming pagination.
+"""
+scalar Cursor
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: Cursor
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: Cursor
+}
+
+"""
+Methods to use when ordering `NewsFeed`.
+"""
+enum NewsFeedsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `NewsFeed` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input NewsFeedCondition {
+  """
+  Checks for equality with the object’s `id` field.
+  """
+  id: Int
 }
 
 """
@@ -249,36 +522,6 @@ type TwitterAccountsEdge {
 }
 
 """
-A location in a connection that can be used for resuming pagination.
-"""
-scalar Cursor
-
-"""
-Information about pagination in a connection.
-"""
-type PageInfo {
-  """
-  When paginating forwards, are there more items?
-  """
-  hasNextPage: Boolean!
-
-  """
-  When paginating backwards, are there more items?
-  """
-  hasPreviousPage: Boolean!
-
-  """
-  When paginating backwards, the cursor to continue.
-  """
-  startCursor: Cursor
-
-  """
-  When paginating forwards, the cursor to continue.
-  """
-  endCursor: Cursor
-}
-
-"""
 Methods to use when ordering `TwitterAccount`.
 """
 enum TwitterAccountsOrderBy {
@@ -312,6 +555,79 @@ input TwitterAccountCondition {
   Checks for equality with the object’s `accountUsername` field.
   """
   accountUsername: String
+}
+
+"""
+A connection to a list of `TwitterFeed` values.
+"""
+type TwitterFeedsConnection {
+  """
+  A list of `TwitterFeed` objects.
+  """
+  nodes: [TwitterFeed]!
+
+  """
+  A list of edges which contains the `TwitterFeed` and cursor to aid in pagination.
+  """
+  edges: [TwitterFeedsEdge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `TwitterFeed` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type TwitterFeed implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  title: String!
+  keyword: String
+  sources: String
+}
+
+"""
+A `TwitterFeed` edge in the connection.
+"""
+type TwitterFeedsEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor
+
+  """
+  The `TwitterFeed` at the end of the edge.
+  """
+  node: TwitterFeed
+}
+
+"""
+Methods to use when ordering `TwitterFeed`.
+"""
+enum TwitterFeedsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `TwitterFeed` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input TwitterFeedCondition {
+  """
+  Checks for equality with the object’s `id` field.
+  """
+  id: Int
 }
 
 """
@@ -422,9 +738,31 @@ type TwitterPhoto {
 }
 
 """
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+interface Column {
+  id: Int!
+  title: String!
+}
+
+union ColumnResult = NewsFeed | TwitterFeed
+
+"""
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
+  """
+  Creates a single `NewsFeed`.
+  """
+  createNewsFeed(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateNewsFeedInput!
+  ): CreateNewsFeedPayload
+
   """
   Creates a single `TwitterAccount`.
   """
@@ -436,6 +774,16 @@ type Mutation {
   ): CreateTwitterAccountPayload
 
   """
+  Creates a single `TwitterFeed`.
+  """
+  createTwitterFeed(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateTwitterFeedInput!
+  ): CreateTwitterFeedPayload
+
+  """
   Creates a single `User`.
   """
   createUser(
@@ -444,6 +792,26 @@ type Mutation {
     """
     input: CreateUserInput!
   ): CreateUserPayload
+
+  """
+  Updates a single `NewsFeed` using its globally unique id and a patch.
+  """
+  updateNewsFeedByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateNewsFeedByNodeIdInput!
+  ): UpdateNewsFeedPayload
+
+  """
+  Updates a single `NewsFeed` using a unique key and a patch.
+  """
+  updateNewsFeed(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateNewsFeedInput!
+  ): UpdateNewsFeedPayload
 
   """
   Updates a single `TwitterAccount` using its globally unique id and a patch.
@@ -486,6 +854,26 @@ type Mutation {
   ): UpdateTwitterAccountPayload
 
   """
+  Updates a single `TwitterFeed` using its globally unique id and a patch.
+  """
+  updateTwitterFeedByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTwitterFeedByNodeIdInput!
+  ): UpdateTwitterFeedPayload
+
+  """
+  Updates a single `TwitterFeed` using a unique key and a patch.
+  """
+  updateTwitterFeed(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTwitterFeedInput!
+  ): UpdateTwitterFeedPayload
+
+  """
   Updates a single `User` using its globally unique id and a patch.
   """
   updateUserByNodeId(
@@ -514,6 +902,26 @@ type Mutation {
     """
     input: UpdateUserByUsernameInput!
   ): UpdateUserPayload
+
+  """
+  Deletes a single `NewsFeed` using its globally unique id.
+  """
+  deleteNewsFeedByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteNewsFeedByNodeIdInput!
+  ): DeleteNewsFeedPayload
+
+  """
+  Deletes a single `NewsFeed` using a unique key.
+  """
+  deleteNewsFeed(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteNewsFeedInput!
+  ): DeleteNewsFeedPayload
 
   """
   Deletes a single `TwitterAccount` using its globally unique id.
@@ -556,6 +964,26 @@ type Mutation {
   ): DeleteTwitterAccountPayload
 
   """
+  Deletes a single `TwitterFeed` using its globally unique id.
+  """
+  deleteTwitterFeedByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTwitterFeedByNodeIdInput!
+  ): DeleteTwitterFeedPayload
+
+  """
+  Deletes a single `TwitterFeed` using a unique key.
+  """
+  deleteTwitterFeed(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTwitterFeedInput!
+  ): DeleteTwitterFeedPayload
+
+  """
   Deletes a single `User` using its globally unique id.
   """
   deleteUserByNodeId(
@@ -596,6 +1024,65 @@ type Mutation {
     """
     input: SignupInput!
   ): SignupPayload
+}
+
+"""
+The output of our create `NewsFeed` mutation.
+"""
+type CreateNewsFeedPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `NewsFeed` that was created by this mutation.
+  """
+  newsFeed: NewsFeed
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `NewsFeed`. May be used by Relay 1.
+  """
+  newsFeedEdge(
+    """
+    The method to use when ordering `NewsFeed`.
+    """
+    orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): NewsFeedsEdge
+}
+
+"""
+All input for the create `NewsFeed` mutation.
+"""
+input CreateNewsFeedInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The `NewsFeed` to be created by this mutation.
+  """
+  newsFeed: NewsFeedInput!
+}
+
+"""
+An input for mutations affecting `NewsFeed`
+"""
+input NewsFeedInput {
+  id: Int
+  title: String!
+  category: Category
+  country: String
+  keyword: String
+  sources: String
 }
 
 """
@@ -655,6 +1142,63 @@ input TwitterAccountInput {
 }
 
 """
+The output of our create `TwitterFeed` mutation.
+"""
+type CreateTwitterFeedPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterFeed` that was created by this mutation.
+  """
+  twitterFeed: TwitterFeed
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `TwitterFeed`. May be used by Relay 1.
+  """
+  twitterFeedEdge(
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
+    orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TwitterFeedsEdge
+}
+
+"""
+All input for the create `TwitterFeed` mutation.
+"""
+input CreateTwitterFeedInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterFeed` to be created by this mutation.
+  """
+  twitterFeed: TwitterFeedInput!
+}
+
+"""
+An input for mutations affecting `TwitterFeed`
+"""
+input TwitterFeedInput {
+  id: Int
+  title: String!
+  keyword: String
+  sources: String
+}
+
+"""
 The output of our create `User` mutation.
 """
 type CreateUserPayload {
@@ -708,6 +1252,87 @@ input UserInput {
   userId: Int
   username: String!
   hashedPassword: String!
+}
+
+"""
+The output of our update `NewsFeed` mutation.
+"""
+type UpdateNewsFeedPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `NewsFeed` that was updated by this mutation.
+  """
+  newsFeed: NewsFeed
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `NewsFeed`. May be used by Relay 1.
+  """
+  newsFeedEdge(
+    """
+    The method to use when ordering `NewsFeed`.
+    """
+    orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): NewsFeedsEdge
+}
+
+"""
+All input for the `updateNewsFeedByNodeId` mutation.
+"""
+input UpdateNewsFeedByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `NewsFeed` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `NewsFeed` being updated.
+  """
+  patch: NewsFeedPatch!
+}
+
+"""
+Represents an update to a `NewsFeed`. Fields that are set will be updated.
+"""
+input NewsFeedPatch {
+  id: Int
+  title: String
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+}
+
+"""
+All input for the `updateNewsFeed` mutation.
+"""
+input UpdateNewsFeedInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `NewsFeed` being updated.
+  """
+  patch: NewsFeedPatch!
+  id: Int!
 }
 
 """
@@ -823,6 +1448,85 @@ input UpdateTwitterAccountByAccountUsernameInput {
 }
 
 """
+The output of our update `TwitterFeed` mutation.
+"""
+type UpdateTwitterFeedPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterFeed` that was updated by this mutation.
+  """
+  twitterFeed: TwitterFeed
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `TwitterFeed`. May be used by Relay 1.
+  """
+  twitterFeedEdge(
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
+    orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TwitterFeedsEdge
+}
+
+"""
+All input for the `updateTwitterFeedByNodeId` mutation.
+"""
+input UpdateTwitterFeedByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `TwitterFeed` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `TwitterFeed` being updated.
+  """
+  patch: TwitterFeedPatch!
+}
+
+"""
+Represents an update to a `TwitterFeed`. Fields that are set will be updated.
+"""
+input TwitterFeedPatch {
+  id: Int
+  title: String
+  keyword: String
+  sources: String
+}
+
+"""
+All input for the `updateTwitterFeed` mutation.
+"""
+input UpdateTwitterFeedInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `TwitterFeed` being updated.
+  """
+  patch: TwitterFeedPatch!
+  id: Int!
+}
+
+"""
 The output of our update `User` mutation.
 """
 type UpdateUserPayload {
@@ -918,6 +1622,66 @@ input UpdateUserByUsernameInput {
 }
 
 """
+The output of our delete `NewsFeed` mutation.
+"""
+type DeleteNewsFeedPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `NewsFeed` that was deleted by this mutation.
+  """
+  newsFeed: NewsFeed
+  deletedNewsFeedNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `NewsFeed`. May be used by Relay 1.
+  """
+  newsFeedEdge(
+    """
+    The method to use when ordering `NewsFeed`.
+    """
+    orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): NewsFeedsEdge
+}
+
+"""
+All input for the `deleteNewsFeedByNodeId` mutation.
+"""
+input DeleteNewsFeedByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `NewsFeed` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteNewsFeed` mutation.
+"""
+input DeleteNewsFeedInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: Int!
+}
+
+"""
 The output of our delete `TwitterAccount` mutation.
 """
 type DeleteTwitterAccountPayload {
@@ -999,6 +1763,66 @@ input DeleteTwitterAccountByAccountUsernameInput {
   """
   clientMutationId: String
   accountUsername: String!
+}
+
+"""
+The output of our delete `TwitterFeed` mutation.
+"""
+type DeleteTwitterFeedPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterFeed` that was deleted by this mutation.
+  """
+  twitterFeed: TwitterFeed
+  deletedTwitterFeedNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `TwitterFeed`. May be used by Relay 1.
+  """
+  twitterFeedEdge(
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
+    orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TwitterFeedsEdge
+}
+
+"""
+All input for the `deleteTwitterFeedByNodeId` mutation.
+"""
+input DeleteTwitterFeedByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `TwitterFeed` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteTwitterFeed` mutation.
+"""
+input DeleteTwitterFeedInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: Int!
 }
 
 """

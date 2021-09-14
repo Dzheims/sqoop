@@ -4,30 +4,42 @@ const fetch = require('node-fetch');
 require('dotenv').config();
 
 interface searchParams {
-  query: string;
+  keyword: string;
+  sources: string[];
 }
 
 interface twitter_account_username {
   account_username: string;
 }
 
-export const querySourceFormatter = (sources: string[]) => {
-  return sources.map((value) => `from:${value}`).join(' OR ');
+export const queryFormatter = ({ keyword, sources }: searchParams) => {
+  if (!sources.length) return keyword;
+  const formattedSources = sources
+    .map((value) => `from:${value.replace(/^@*/, '')}`)
+    .join(' OR ');
+  if (!keyword) return `(${formattedSources})`;
+  return `${keyword} (${formattedSources})`;
 };
 
 export const resolvers = {
   Query: {
     searchTweets: async (_: any, args: searchParams, context: any) => {
-      const { query } = args;
+      const { keyword, sources } = args;
       const { pgClient } = context;
       const { rows } = await pgClient.query(
         `SELECT account_username FROM twitter_accounts`
       );
-      const sources: string[] = rows.map(
+      const defaultSources: string[] = rows.map(
         (value: twitter_account_username) => value.account_username
       );
       const queryParams = new URLSearchParams();
-      queryParams.set('query', query || querySourceFormatter(sources));
+      queryParams.set(
+        'query',
+        queryFormatter({
+          sources: sources || defaultSources,
+          keyword: keyword || '',
+        })
+      );
       queryParams.set('max_results', '100');
       queryParams.set('expansions', 'attachments.media_keys,author_id');
       queryParams.set('tweet.fields', 'created_at');
@@ -46,20 +58,22 @@ export const resolvers = {
         }
       );
       const result = await response.json();
-      const searchTweets = result.data.map((tweet: any) => {
-        const photos = tweet.attachments
-          ? tweet.attachments.media_keys.map((attachment: any) => {
-              for (var media of result.includes.media) {
-                if (media.media_key === attachment) return media;
-              }
-            })
-          : [];
+      const searchTweets = result.data
+        ? result.data.map((tweet: any) => {
+            const photos = tweet.attachments
+              ? tweet.attachments.media_keys.map((attachment: any) => {
+                  for (var media of result.includes.media) {
+                    if (media.media_key === attachment) return media;
+                  }
+                })
+              : [];
 
-        for (var user of result.includes.users) {
-          if (user.id === tweet.author_id)
-            return { ...tweet, ...user, ...{ photos } };
-        }
-      });
+            for (var user of result.includes.users) {
+              if (user.id === tweet.author_id)
+                return { ...tweet, ...user, ...{ photos } };
+            }
+          })
+        : [];
       return searchTweets;
     },
   },

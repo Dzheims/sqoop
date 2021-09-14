@@ -1,17 +1,22 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import {
   ApolloClient,
   InMemoryCache,
   HttpLink,
   from,
   ApolloLink,
+  createHttpLink,
 } from '@apollo/client';
 import 'cross-fetch/polyfill';
 import { onError } from '@apollo/client/link/error';
+import Cookies from 'js-cookie';
+
 import AUTH_TOKEN from './constants';
 
-const httpLink = new HttpLink({
+const httpLink = createHttpLink({
   uri: '/graphql',
-  fetch,
+  // fetch,
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -26,7 +31,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 export const authMiddleware = new ApolloLink((operation, forward) => {
-  const token = localStorage.getItem(AUTH_TOKEN);
+  const token = Cookies.get(AUTH_TOKEN);
 
   if (token) {
     operation.setContext({
@@ -38,7 +43,9 @@ export const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-export const client = new ApolloClient({
-  link: from([errorLink, authMiddleware, httpLink]),
+const client = new ApolloClient({
+  link: from([authMiddleware, httpLink]),
   cache: new InMemoryCache(),
 });
+
+export default client;

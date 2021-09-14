@@ -6,7 +6,7 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { ApolloError, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import SIGN_UP_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
 import { SignupMutation, SignupMutationVariables } from './query.generated';
@@ -70,17 +70,7 @@ const SignUp = () => {
 
   const [signUp] = useMutation<SignupMutation, SignupMutationVariables>(
     SIGN_UP_MUTATION,
-    {
-      // fetchPolicy: 'network-only',
-      // onError: (error: ApolloError) => {
-      //   console.log(error.message);
-      // },
-      // onCompleted: (data: SignupMutation) => {
-      //   localStorage.setItem(AUTH_TOKEN, data.signup?.jwtToken);
-      //   history.push('/board');
-      //   console.log(data.signup?.jwtToken);
-      // },
-    }
+    {}
   );
 
   const handleSubmit = () => {
@@ -92,18 +82,9 @@ const SignUp = () => {
         },
       },
     }).then((data) => {
-      history.push('/board');
       localStorage.setItem(AUTH_TOKEN, data.data?.signup?.jwtToken as string);
+      history.push('/signin');
     });
-    // .then(({ data }) => {
-    //   localStorage.setItem('test', data?.signup?.jwtToken);
-    //   history.push('/signin');
-    //   console.log('wala giiid???');
-    // })
-    // .then((res) => {
-    //   localStorage.setItem(AUTH_TOKEN, res.data?.signup?.jwtToken);
-    //   console.log(res.data?.signup?.jwtToken);
-    // });
   };
 
   return (
@@ -144,7 +125,7 @@ const SignUp = () => {
               variant="contained"
               color="secondary"
               className={classes.submit}
-              onMouseDown={handleSubmit}
+              onClick={handleSubmit}
             >
               Sign Up
             </Button>
