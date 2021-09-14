@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -11,13 +7,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Cookies from 'js-cookie';
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import SIGN_IN_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
 import { SigninMutation, SigninMutationVariables } from './query.generated';
 import { SigninInput } from '../../types.generated';
-import useAuthToken from '../../authentication/authToken';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 const SignIn = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [_, setAuthToken] = useAuthToken();
 
   const [loginInput, setLoginInput] = useState<SigninInput>({
     userName: '',
@@ -69,22 +62,19 @@ const SignIn = () => {
 
   const [signIn] = useMutation<SigninMutation, SigninMutationVariables>(
     SIGN_IN_MUTATION,
-    {}
-  );
-
-  const handleSubmit = () => {
-    Cookies.remove(AUTH_TOKEN);
-
-    signIn({
+    {
       variables: {
         input: {
           userName: loginInput.userName,
           password: loginInput.password,
         },
       },
-    }).then((res) => {
-      // localStorage.setItem(AUTH_TOKEN, res.data?.signin?.jwtToken as string);
-      setAuthToken(res.data?.signin?.jwtToken as string);
+    }
+  );
+
+  const handleSubmit = () => {
+    signIn().then((res) => {
+      localStorage.setItem(AUTH_TOKEN, res.data?.signin?.jwtToken as string);
       history.push('/board');
     });
   };

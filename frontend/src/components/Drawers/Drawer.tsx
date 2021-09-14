@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import AddNewsAPIFeedForm from './DrawerContents/AddNewsAPIFeedForm';
+import AddNewsAPIFeedForm from './DrawerContents/NewsApiFeedForm/AddNewsAPIFeedForm';
+import AddTwitterFeedForm from './DrawerContents/TwitterFeedForm/AddTwitterFeedForm';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -28,8 +29,9 @@ interface DrawerProps {
 }
 
 const getDrawerContent = (title: string) => {
-  if (title === 'Search') return <AddNewsAPIFeedForm />;
-  if (title === 'Add Feeds') return <AddNewsAPIFeedForm />;
+  if (title === 'Search') return <div>Pretend this is a search bar</div>;
+  if (title === 'Add News Feeds') return <AddNewsAPIFeedForm />;
+  if (title === 'Add Twitter Feeds') return <AddTwitterFeedForm />;
   return <div />;
 };
 

@@ -25,6 +25,8 @@ function App() {
             <Route path="/board" exact component={Board} />
             <Route path="/column" exact component={Columns} />
             <Route path="/users" exact component={UserProfile} />
+            <Route path="/" exact component={Homepage} />
+            <Route path="/column" exact component={ColumnsData} />
           </Switch>
         </ThemeProvider>
       </div>
