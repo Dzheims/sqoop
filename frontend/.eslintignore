@@ -9,3 +9,7 @@ src/pages/Boards/TwitterAPIColumn.tsx
 
 src/apolloClient.ts
 src/components/Columns/Column.tsx
+src/authentication/authToken.tsx
+src/components/Logout/Logout.tsx
+src/pages/SignInPage/SignIn.tsx
+src/pages/User/UserProfile.tsx

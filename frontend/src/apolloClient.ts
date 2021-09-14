@@ -10,21 +10,9 @@ import {
 } from '@apollo/client';
 import 'cross-fetch/polyfill';
 import { onError } from '@apollo/client/link/error';
-import { setContext } from '@apollo/client/link/context';
+import Cookies from 'js-cookie';
 
 import AUTH_TOKEN from './constants';
-
-// --->> conventional HTTP-based request
-
-// const token = localStorage.getItem(AUTH_TOKEN);
-
-// const client = new ApolloClient({
-//   uri: '/graphql',
-//   cache: new InMemoryCache(),
-//   headers: {
-//     authorization: token ? `Bearer ${token}` : '',
-//   },
-// });
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -43,7 +31,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 export const authMiddleware = new ApolloLink((operation, forward) => {
-  const token = localStorage.getItem(AUTH_TOKEN);
+  const token = Cookies.get(AUTH_TOKEN);
 
   if (token) {
     operation.setContext({

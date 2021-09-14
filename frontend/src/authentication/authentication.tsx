@@ -11,7 +11,7 @@ const CurrentUser = () => {
 
   if (error) return <div>error</div>;
 
-  return data?.currentUserId as number;
+  return <div>{data?.currentUserId as number} </div>;
 };
 
 export default CurrentUser;
