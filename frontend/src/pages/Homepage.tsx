@@ -144,6 +144,8 @@ const Homepage = () => {
                           <div className={classes.buttonContainer}>
                             {categories.map((value) => (
                               <Button
+                                aria-label={value.title}
+                                role-="button"
                                 variant="outlined"
                                 className={
                                   value.title.toUpperCase() !== category
