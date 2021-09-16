@@ -9,7 +9,11 @@ import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import { ColumnsData } from '../components/Columns/ColumnsData';
 import NavigationBar from '../components/Navigation/NavigationBar';
 import { Category } from '../types.generated';
-import { ColumnContainer, ItemContainer, Title } from './Boards/ColumnsStyle';
+import {
+  ColumnContainer,
+  DefaultItemContainer,
+  Title,
+} from './Boards/ColumnsStyle';
 import NewsAPIColumnData from './Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from './Boards/TwitterAPIColumnData';
 // import CategoriesButtons from '../components/Categories/CategoriesButtons';
@@ -162,13 +166,14 @@ const Homepage = () => {
                       ) : (
                         <div />
                       )}
-                      <ItemContainer
+                      <DefaultItemContainer
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                         isDragging={snapshot.isDraggingOver}
+                        feedType={column.title}
                       >
                         {column.cards}
-                      </ItemContainer>
+                      </DefaultItemContainer>
                     </ColumnContainer>
                   )}
                 </Droppable>

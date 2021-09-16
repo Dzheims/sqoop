@@ -5,6 +5,10 @@ import theme from '../../theme';
 type BoardColumnContentStylesProps = {
   isDragging: boolean;
 };
+type DefaultColumnContentStylesProps = {
+  isDragging: boolean;
+  feedType: string;
+};
 
 export const useStyles = makeStyles(() => ({
   avatars: {
@@ -61,6 +65,7 @@ export const Item = styled.div`
     margin-top: 4px;
   }
   border: thin solid lightgray;
+  overflow: hidden;
 `;
 
 export const ItemContainer = styled.div`
@@ -68,9 +73,15 @@ export const ItemContainer = styled.div`
     isDraggingOver ? '#f7fafc' : null};
   transition: background-color 0.2s ease;
   padding: 8px;
-  min-height: 72vh;
-  height: 72vh;
+  height: 81vh;
+  overflow: auto;
+`;
 
+export const DefaultItemContainer = styled.div<DefaultColumnContentStylesProps>`
+  background-color: ${(props) => (props.isDragging ? '#f7fafc' : null)};
+  transition: background-color 0.2s ease;
+  padding: 8px;
+  height: ${(props) => (props.feedType === 'Twitter Feed' ? '81vh' : '72vh')};
   overflow: auto;
 `;
 
@@ -113,7 +124,7 @@ export const ColumnContainer = styled.div`
   border-radius: 4px;
   width: 350px;
   max-width: 400px;
-  margin: 10px;
+  margin: 10px 6px;
   height: 91.5vh;
 `;
 export const ColumnWrapper = styled.div`
