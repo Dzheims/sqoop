@@ -50,6 +50,13 @@ export const useStyles = makeStyles(() => ({
   link: {
     textDecoration: 'none',
   },
+  linkIcon: {
+    height: '20px',
+    width: '20px',
+    marginLeft: '255px',
+    marginTop: '5px',
+    color: 'white',
+  },
 }));
 
 export const Item = styled.div`

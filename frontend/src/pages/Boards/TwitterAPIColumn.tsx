@@ -41,7 +41,7 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
   };
 
   return (
-    <>
+    <div>
       {data?.searchTweets?.map((value, index) => (
         <Draggable
           draggableId={value.author_id as string}
@@ -114,7 +114,7 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
           )}
         </Draggable>
       ))}
-    </>
+    </div>
   );
 };
 

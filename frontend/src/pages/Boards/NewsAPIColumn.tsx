@@ -2,17 +2,14 @@ import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { GetNewsApiContentsQuery } from './query.generated';
 import { Typography, Avatar } from '@material-ui/core';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import {
-  ColumnContainer,
-  Title,
-  ItemContainer,
   Item,
   AccountNameContainer,
   NewsAPIContentContainer,
   NewsAPITitleContainer,
   useStyles,
 } from './ColumnsStyle';
-import { Link } from 'react-router-dom';
 
 interface NewsAPIDataProps {
   data: GetNewsApiContentsQuery;
@@ -30,7 +27,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
   };
 
   return (
-    <>
+    <div>
       {data?.topHeadlines?.map((value, index) => (
         <Draggable
           draggableId={value.publishedAt as string}
@@ -56,23 +53,39 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
               </NewsAPITitleContainer>
               <Typography variant="body2">{value.description}</Typography>
               {value.urlToImage === null ? (
-                <a className={classes.link} href={value?.url as string}>
+                <a
+                  target="_blank"
+                  className={classes.link}
+                  href={value?.url as string}
+                >
                   <Typography variant="body2">{value.title}</Typography>
                 </a>
               ) : (
-                <a className={classes.link} href={value?.url as string}>
-                  <NewsAPIContentContainer>
-                    <div
-                      style={{
-                        backgroundImage: `url(${value.urlToImage})`,
-                      }}
-                      className={classes.imageContainer}
-                    />
+                <NewsAPIContentContainer>
+                  <div
+                    style={{
+                      backgroundImage: `url(${value.urlToImage})`,
+                    }}
+                    className={classes.imageContainer}
+                  >
+                    <a
+                      target="_blank"
+                      className={classes.link}
+                      href={value?.url as string}
+                    >
+                      <OpenInNewIcon className={classes.linkIcon} />
+                    </a>
+                  </div>
+                  <a
+                    target="_blank"
+                    className={classes.link}
+                    href={value?.url as string}
+                  >
                     <Typography className={classes.description}>
                       {value.title}
                     </Typography>
-                  </NewsAPIContentContainer>
-                </a>
+                  </a>
+                </NewsAPIContentContainer>
               )}
               <br />
               <Typography className={classes.dateAndUserName}>
@@ -82,7 +95,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
           )}
         </Draggable>
       ))}
-    </>
+    </div>
   );
 };
 
