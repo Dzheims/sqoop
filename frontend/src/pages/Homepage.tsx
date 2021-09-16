@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   defaultFeeds: {
     display: 'flex',
-    marginLeft: '80px',
+    marginLeft: '62px',
   },
   columnContainers: {
     position: 'absolute',

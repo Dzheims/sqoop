@@ -80,10 +80,13 @@ const NavigationBar = () => {
           <Typography className={classes.drawerSubtitle}>Feeds</Typography>
           <List>
             {AddFeedsButtons.map((value) => (
-              <ListItem button onClick={value.onClick} key={value.title}>
-                <ListItemText className={classes.listItemButtons}>
-                  {value.title}
-                </ListItemText>
+              <ListItem
+                button
+                className={classes.listItemButtons}
+                onClick={value.onClick}
+                key={value.title}
+              >
+                <ListItemText> + {value.title}</ListItemText>
               </ListItem>
             ))}
           </List>
@@ -101,6 +104,23 @@ const NavigationBar = () => {
 
   return (
     <div>
+      <Drawer
+        variant="persistent"
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawer}>
+          <div className={classes.drawerHeader}>
+            {handleBack(title)}
+            <Typography className={classes.drawerTitle}>{title}</Typography>
+          </div>
+
+          {getDrawerContent(title)}
+        </div>
+      </Drawer>
       <NavigationBarContainer>
         <MenuContainer>
           {NavBarMenu.map((item) => (
@@ -118,25 +138,6 @@ const NavigationBar = () => {
                   </IconButton>
                 </IconContainer>
               </Tooltip>
-              <Drawer
-                variant="persistent"
-                anchor="left"
-                open={open}
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-              >
-                <div className={classes.drawer}>
-                  <div className={classes.drawerHeader}>
-                    {handleBack(title)}
-                    <Typography className={classes.drawerTitle}>
-                      {title}
-                    </Typography>
-                  </div>
-
-                  {getDrawerContent(title)}
-                </div>
-              </Drawer>
             </div>
           ))}
         </MenuContainer>
