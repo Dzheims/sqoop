@@ -26,6 +26,41 @@ export const useStyles = makeStyles(() => ({
     zIndex: 100,
     color: '#fff',
   },
+  drawer: {
+    width: '320px',
+    height: '560px',
+    backgroundColor: '#f7fafc',
+    margin: '10px',
+    borderRadius: '4px',
+    padding: '8px',
+  },
+  drawerHeader: {
+    display: 'flex',
+  },
+  drawerTitle: {
+    font: '18px sans-serif',
+    marginTop: '10px',
+    marginLeft: '12px',
+    color: theme.palette.primary.main,
+  },
+  contentContainer: {
+    padding: '8px',
+  },
+  backIcon: {
+    color: theme.palette.secondary.main,
+  },
+  drawerSubtitle: {
+    font: '16px sans-serif',
+    fontWeight: 600,
+    marginTop: '10px',
+    marginLeft: '12px',
+  },
+  listItemButtons: {
+    '&:hover': {
+      borderColor: theme.palette.secondary.main,
+      color: theme.palette.secondary.main,
+    },
+  },
 }));
 
 export const NavigationBarContainer = styled.div`

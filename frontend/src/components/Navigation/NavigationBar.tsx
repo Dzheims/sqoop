@@ -5,9 +5,15 @@ import {
   Tooltip,
   Drawer,
   Backdrop,
+  Typography,
+  ListItemText,
+  List,
+  ListItem,
+  Divider,
 } from '@material-ui/core';
 import AddFeedsIcon from '@material-ui/icons/AddCircle';
 import SearchIcon from '@material-ui/icons/Search';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {
   NavigationBarContainer,
   AccountAvatarContainer,
@@ -15,7 +21,8 @@ import {
   useStyles,
   IconContainer,
 } from './NavigationBarStyles';
-import DrawerContentContainer from '../Drawers/Drawer';
+import AddNewsAPIFeedForm from '../Drawers/DrawerContents/NewsApiFeedForm/AddNewsAPIFeedForm';
+import AddTwitterFeedForm from '../Drawers/DrawerContents/TwitterFeedForm/AddTwitterFeedForm';
 
 const NavigationBar = () => {
   const classes = useStyles();
@@ -25,12 +32,7 @@ const NavigationBar = () => {
   const NavBarMenu = [
     {
       id: 'add',
-      title: 'Add News Feeds',
-      icon: <AddFeedsIcon className={classes.icons} />,
-    },
-    {
-      id: 'add',
-      title: 'Add Twitter Feeds',
+      title: 'Add Column',
       icon: <AddFeedsIcon className={classes.icons} />,
     },
     {
@@ -39,6 +41,59 @@ const NavigationBar = () => {
       icon: <SearchIcon className={classes.icons} />,
     },
   ];
+
+  const AddFeedsButtons = [
+    {
+      title: 'Twitter Feed',
+      onClick: () => {
+        setTitle('Twitter Feed');
+      },
+    },
+    {
+      title: 'News Feed',
+      onClick: () => {
+        setTitle('News Feed');
+      },
+    },
+  ];
+
+  const handleBack = (contentTitle: string) => {
+    if (contentTitle === 'News Feed' || contentTitle === 'Twitter Feed')
+      return (
+        <IconButton
+          onClick={() => {
+            setTitle('Add Column');
+          }}
+        >
+          <ArrowBackIcon className={classes.backIcon} />
+        </IconButton>
+      );
+    return <div />;
+  };
+
+  const getDrawerContent = (contentTitle: string) => {
+    if (contentTitle === 'Search')
+      return <div>Pretend this is a search bar</div>;
+    if (contentTitle === 'Add Column')
+      return (
+        <div>
+          <Typography className={classes.drawerSubtitle}>Feeds</Typography>
+          <List>
+            {AddFeedsButtons.map((value) => (
+              <ListItem button onClick={value.onClick} key={value.title}>
+                <ListItemText className={classes.listItemButtons}>
+                  {value.title}
+                </ListItemText>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+        </div>
+      );
+    if (contentTitle === 'News Feed') return <AddNewsAPIFeedForm />;
+    if (contentTitle === 'Twitter Feed') return <AddTwitterFeedForm />;
+    return <div />;
+  };
 
   const handleDrawer = () => {
     setOpen(!open);
@@ -71,7 +126,16 @@ const NavigationBar = () => {
                   paper: classes.drawerPaper,
                 }}
               >
-                <DrawerContentContainer drawerTitle={title} />
+                <div className={classes.drawer}>
+                  <div className={classes.drawerHeader}>
+                    {handleBack(title)}
+                    <Typography className={classes.drawerTitle}>
+                      {title}
+                    </Typography>
+                  </div>
+
+                  {getDrawerContent(title)}
+                </div>
               </Drawer>
             </div>
           ))}

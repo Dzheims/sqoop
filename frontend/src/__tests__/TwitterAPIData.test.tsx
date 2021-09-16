@@ -8,6 +8,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
   {
     request: {
       query: GET_TWITTER_API_CONTENTS_QUERY,
+      variables: { keyword: null, sources: null },
     },
     result: {
       data: {
@@ -77,7 +78,7 @@ describe('Twitter API contents', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <TwitterAPIColumnData />
+        <TwitterAPIColumnData keyword={null} sources={null} />
       </MockedProvider>
     );
   });
