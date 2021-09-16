@@ -61,6 +61,12 @@ export const useStyles = makeStyles(() => ({
       color: theme.palette.secondary.main,
     },
   },
+  profileBox: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    padding: theme.spacing(3),
+  },
 }));
 
 export const NavigationBarContainer = styled.div`

@@ -10,6 +10,10 @@ import {
   List,
   ListItem,
   Divider,
+  Popover,
+  Container,
+  Box,
+  Grid,
 } from '@material-ui/core';
 import AddFeedsIcon from '@material-ui/icons/AddCircle';
 import SearchIcon from '@material-ui/icons/Search';
@@ -23,11 +27,24 @@ import {
 } from './NavigationBarStyles';
 import AddNewsAPIFeedForm from '../Drawers/DrawerContents/NewsApiFeedForm/AddNewsAPIFeedForm';
 import AddTwitterFeedForm from '../Drawers/DrawerContents/TwitterFeedForm/AddTwitterFeedForm';
+import Logout from '../Account/Logout';
+import UserProfile from '../Account/UserProfile';
 
 const NavigationBar = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
+
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  const onAccountClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const openAccount = Boolean(anchorEl);
 
   const NavBarMenu = [
     {
@@ -142,11 +159,37 @@ const NavigationBar = () => {
         </MenuContainer>
         <AccountAvatarContainer>
           <Tooltip title="My Account" arrow>
-            <IconButton>
+            <IconButton onClick={onAccountClick}>
               <Avatar className={classes.avatars}>S</Avatar>
             </IconButton>
           </Tooltip>
         </AccountAvatarContainer>
+        <Popover
+          open={openAccount}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+        >
+          <Box
+            sx={{
+              bgcolor: 'white',
+              height: '15vh',
+              width: '20vh',
+              maxWidth: '30vh',
+            }}
+            className={classes.profileBox}
+          >
+            <UserProfile />
+            <Logout />
+          </Box>
+        </Popover>
       </NavigationBarContainer>
       <Backdrop
         className={classes.backdrop}

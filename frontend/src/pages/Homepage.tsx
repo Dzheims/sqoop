@@ -1,17 +1,20 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/unbound-method */
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { Toolbar, Button } from '@material-ui/core';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
+import Cookies from 'js-cookie';
 import { ColumnsData } from '../components/Columns/ColumnsData';
 import NavigationBar from '../components/Navigation/NavigationBar';
 import { Category } from '../types.generated';
 import { ColumnContainer, ItemContainer, Title } from './Boards/ColumnsStyle';
 import NewsAPIColumnData from './Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from './Boards/TwitterAPIColumnData';
+import AUTH_TOKEN from '../constants';
 // import CategoriesButtons from '../components/Categories/CategoriesButtons';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +60,11 @@ const useStyles = makeStyles((theme) => ({
 const Homepage = () => {
   const classes = useStyles();
   const [category, setCategory] = useState('GENERAL');
+  const history = useHistory();
+
+  if (!Cookies.get(AUTH_TOKEN)) {
+    history.push('/signin');
+  }
 
   const onDragEnd = () => {};
 

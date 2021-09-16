@@ -10,7 +10,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    height: '3vh',
   },
+  // div: {
+  //   padding: theme.spacing(1, 2, 2),
+  // },
 }));
 
 const Logout = () => {
@@ -23,7 +27,7 @@ const Logout = () => {
   };
 
   return (
-    <div className={classes.button}>
+    <div>
       <Button
         data-testid="btn-logout"
         type="submit"
@@ -31,6 +35,7 @@ const Logout = () => {
         variant="contained"
         color="secondary"
         onClick={handleSubmit}
+        className={classes.button}
       >
         Log out
       </Button>
