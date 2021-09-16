@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ApolloError, useMutation } from '@apollo/client';
 import SIGN_IN_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
+import Cookies from 'js-cookie';
 import { SigninMutation, SigninMutationVariables } from './query.generated';
 import { SigninInput } from '../../types.generated';
 
@@ -69,14 +70,18 @@ const SignIn = () => {
           password: loginInput.password,
         },
       },
+      onCompleted: ({ signin }) => {
+        Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
+        history.push('/');
+      },
     }
   );
 
   const handleSubmit = () => {
-    signIn().then((res) => {
-      localStorage.setItem(AUTH_TOKEN, res.data?.signin?.jwtToken as string);
-      history.push('/board');
-    });
+    signIn();
+    // .then((res) => {
+    //   localStorage.setItem(AUTH_TOKEN, res.data?.signin?.jwtToken as string);
+    // });
   };
 
   return (
