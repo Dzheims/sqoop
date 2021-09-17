@@ -4,21 +4,21 @@ import theme from '../../theme';
 
 export const useStyles = makeStyles(() => ({
   icons: {
-    height: '40px',
-    width: '40px',
+    height: '35px',
+    width: '35px',
     color: 'white',
     '&:hover': {
       color: theme.palette.secondary.main,
     },
   },
   avatars: {
-    height: '50px',
-    width: '50px',
+    height: '35px',
+    width: '35px',
   },
   drawerPaper: {
     width: '375px',
     backgroundColor: '#f7fafc',
-    marginLeft: '75px',
+    marginLeft: '55px',
     zIndex: 200,
     display: 'flex',
   },
@@ -56,9 +56,11 @@ export const useStyles = makeStyles(() => ({
     marginLeft: '12px',
   },
   listItemButtons: {
+    borderRadius: '12px',
     '&:hover': {
-      borderColor: theme.palette.secondary.main,
-      color: theme.palette.secondary.main,
+      color: 'white',
+      backgroundColor: theme.palette.secondary.main,
+      transition: 'all 0.5s ease',
     },
   },
   profileBox: {
@@ -72,7 +74,7 @@ export const useStyles = makeStyles(() => ({
 export const NavigationBarContainer = styled.div`
   position: fixed;
   height: 100%;
-  width: 75px;
+  width: 55px;
   background-color: ${theme.palette.primary.main};
   overflow-x: hidden;
   z-index: 300;
@@ -87,20 +89,20 @@ export const IconContainer = styled.div`
   &:hover {
     background-color: white;
   }
-  width: 75px;
+  width: 60px;
   align-items: center;
   display: flex;
   justify: center;
-  border-bottom-left-radius: 20px;
-  border-top-left-radius: 20px;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
   transition: all 0.5s ease;
 `;
 export const AccountAvatarContainer = styled.div`
   align-items: center;
   display: flex;
   // background-color: ${() => theme.palette.background.paper};
-  height: 75px;
-  width: 75px;
+  height: 55px;
+  width: 50px;
   position: absolute;
   bottom: 0;
   margin-bottom: 20px;
@@ -110,7 +112,7 @@ export const MenuContainer = styled.div`
   display: flex;
   height: 150px;
   padding: 5px;
-  width: 75px;
+  width: 45px;
   flex-direction: column;
   z-index: 300;
 `;
