@@ -4,6 +4,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { GET_NEWS_API_CONTENTS_QUERY } from '../pages/Boards/query';
 import NewsAPIColumnData from '../pages/Boards/NewsAPIColumnData';
 import { Category } from '../types.generated';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const mocks: ReadonlyArray<MockedResponse> = [
   {
@@ -86,12 +87,20 @@ describe('News API contents', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <NewsAPIColumnData
-          keyword={null}
-          country=""
-          category={'GENERAL' as Category}
-          sources={null}
-        />
+        <DragDropContext onDragEnd={() => {}}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef}>
+                <NewsAPIColumnData
+                  keyword={null}
+                  country=""
+                  category={'GENERAL' as Category}
+                  sources={null}
+                />
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </MockedProvider>
     );
   });

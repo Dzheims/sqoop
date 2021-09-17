@@ -3,6 +3,7 @@ import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { GET_TWITTER_API_CONTENTS_QUERY } from '../pages/Boards/query';
 import TwitterAPIColumnData from '../pages/Boards/TwitterAPIColumnData';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const mocks: ReadonlyArray<MockedResponse> = [
   {
@@ -78,7 +79,15 @@ describe('Twitter API contents', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <TwitterAPIColumnData keyword={null} sources={null} />
+        <DragDropContext onDragEnd={() => {}}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef}>
+                <TwitterAPIColumnData keyword={null} sources={null} />
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </MockedProvider>
     );
   });
