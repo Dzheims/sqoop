@@ -67,7 +67,7 @@ const Homepage = () => {
   const history = useHistory();
 
   if (!Cookies.get(AUTH_TOKEN)) {
-    // history.push('/signin');
+    history.push('/signin');
     // return <Redirect to="/signin" />;
   }
 

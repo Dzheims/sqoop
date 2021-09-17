@@ -27,17 +27,9 @@ function App() {
           <Switch>
             <Route path="/signup" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />
-            {/* <Route
-              render={({ location }) =>
-                isAuth ? (
-                  <Component path="/" exact component={Homepage} />
-                ) : (
-                  <Redirect
-                    to={{ pathname: '/signin', state: { from: location } }}
-                  />
-                )
-              }
-            /> */}
+            {/* <Route exact path="/">
+              {isAuth ? <Homepage /> : <Redirect to="/signin" />}
+            </Route> */}
             <Route path="/column" exact component={ColumnsData} />
             <Route path="/board" exact component={Board} />
             <Route path="/column" exact component={Columns} />
