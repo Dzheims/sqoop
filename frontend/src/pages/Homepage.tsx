@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/unbound-method */
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import ScrollContainer from 'react-indiana-drag-scroll';
@@ -63,7 +63,8 @@ const Homepage = () => {
   const history = useHistory();
 
   if (!Cookies.get(AUTH_TOKEN)) {
-    history.push('/signin');
+    // history.push('/signin');
+    // return <Redirect to="/signin" />;
   }
 
   const onDragEnd = () => {};

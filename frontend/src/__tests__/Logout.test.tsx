@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 
 import { render, screen, fireEvent } from '@testing-library/react';
 import Cookies from 'js-cookie';
-import Logout from '../components/Logout/Logout';
+import Logout from '../components/Account/Logout';
 
 const mockHistoryPush = jest.fn();
 

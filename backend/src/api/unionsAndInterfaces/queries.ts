@@ -18,7 +18,7 @@ export const resolvers = (getNamedType: any) => {
     },
     ColumnResult: {
       __resolveType(column: columnProps) {
-        return column.category ? 'NewsFeed' : 'TwitterFeed';
+        return 'category' in column ? 'NewsFeed' : 'TwitterFeed';
       },
     },
     Query: {
