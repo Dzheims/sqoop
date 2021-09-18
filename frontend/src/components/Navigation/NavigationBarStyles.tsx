@@ -57,6 +57,7 @@ export const useStyles = makeStyles(() => ({
   },
   listItemButtons: {
     borderRadius: '12px',
+    marginBottom: '5px',
     '&:hover': {
       color: 'white',
       backgroundColor: theme.palette.secondary.main,
