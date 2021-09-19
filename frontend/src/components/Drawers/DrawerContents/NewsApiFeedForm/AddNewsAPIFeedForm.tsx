@@ -10,12 +10,14 @@ import {
   Select,
   TextField,
 } from '@material-ui/core';
+import { Alert, AlertTitle } from '@mui/material';
 import {
   CreateNewsFeedMutation,
   CreateNewsFeedMutationVariables,
 } from './query.generated';
 import { Category, CreateNewsFeedInput } from '../../../../types.generated';
 import CREATE_NEWS_FEED from './query';
+import CreateFeedOnSuccessAlert from '../onSuccessAlert';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -40,6 +42,10 @@ interface FormsDisabled {
   country: boolean;
   sources: boolean;
 }
+interface SuccessAlert {
+  feedTitle: string;
+  success: boolean;
+}
 
 const AddNewsAPIFeedForm = () => {
   const classes = useStyles();
@@ -59,6 +65,12 @@ const AddNewsAPIFeedForm = () => {
     country: false,
     sources: false,
   });
+
+  const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
+    feedTitle: '',
+    success: false,
+  });
+  const [disableCreateButton, setdisableCreateButton] = useState(false);
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -151,7 +163,7 @@ const AddNewsAPIFeedForm = () => {
     });
   };
 
-  const [createNewsFeed] = useMutation<
+  const [createFeed] = useMutation<
     CreateNewsFeedMutation,
     CreateNewsFeedMutationVariables
   >(CREATE_NEWS_FEED, {
@@ -166,10 +178,18 @@ const AddNewsAPIFeedForm = () => {
         },
       },
     },
+    onCompleted: ({ createNewsFeed }) => {
+      setSuccessAlert({
+        ...successAlert,
+        feedTitle: createNewsFeed?.newsFeed?.title as string,
+        success: true,
+      });
+      setdisableCreateButton(true);
+    },
   });
 
   const handleSubmit = () => {
-    createNewsFeed();
+    createFeed();
   };
 
   return (
@@ -240,6 +260,7 @@ const AddNewsAPIFeedForm = () => {
       />
       <div className={classes.button}>
         <Button
+          disabled={disableCreateButton}
           type="submit"
           variant="contained"
           color="secondary"
@@ -248,6 +269,15 @@ const AddNewsAPIFeedForm = () => {
           Create
         </Button>
       </div>
+      {successAlert.success ? (
+        <Alert severity="success">
+          <AlertTitle>Success</AlertTitle>
+          Feed <strong>{successAlert.feedTitle}</strong> was created —{' '}
+          <strong>check it out!</strong>
+        </Alert>
+      ) : (
+        <div />
+      )}
     </div>
   );
 };

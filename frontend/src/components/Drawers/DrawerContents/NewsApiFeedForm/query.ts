@@ -5,6 +5,7 @@ const CREATE_NEWS_FEED = gql`
     createNewsFeed(input: $input) {
       newsFeed {
         id
+        title
       }
     }
   }
