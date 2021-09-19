@@ -81,7 +81,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                           category: value.category || null,
                         })
                       : getFeedType({
-                          feedType: value.__typename,
+                          feedType: value.__typename || 'TwitterFeed',
                           keyword: value.keyword || null,
                           country: '',
                           category: null,
