@@ -60,7 +60,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
         {data.getColumnResult?.map(
           (value, index) => (
             // value.isVisible === true ? (
-            <Droppable droppableId="droppable">
+            <Droppable droppableId="droppable" key={value.id}>
               {(provided, snapshot) => (
                 <ColumnContainer
                   {...provided.droppableProps}

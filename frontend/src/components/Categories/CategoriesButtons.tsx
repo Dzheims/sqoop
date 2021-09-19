@@ -15,21 +15,30 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     fontSize: '12px',
     minWidth: 'auto',
+    backgroundColor: 'white',
     borderRadius: '12px',
     '&:hover': {
-      backgroundColor: theme.palette.secondary.main,
-      color: 'white',
+      borderColor: theme.palette.secondary.main,
+      color: theme.palette.secondary.main,
+      backgroundColor: 'white',
     },
+  },
+  selectedButton: {
+    marginLeft: '10px',
+    textTransform: 'none',
+    fontSize: '12px',
+    minWidth: 'auto',
+    borderRadius: '12px',
+    backgroundColor: theme.palette.secondary.main,
+    color: 'white',
   },
 }));
 
 interface CategoriesProps {
-  selectedCategory: string;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const CategoriesButtons: React.FC<CategoriesProps> = ({
-  selectedCategory,
-}: CategoriesProps) => {
+const CategoriesButtons: React.FC = () => {
   const classes = useStyles();
   const [category, setCategory] = useState('GENERAL');
 
@@ -82,7 +91,18 @@ const CategoriesButtons: React.FC<CategoriesProps> = ({
     <ScrollContainer className="scroll-container">
       <div className={classes.buttonContainer}>
         {categories.map((value) => (
-          <Button variant="outlined" className={classes.button}>
+          <Button
+            key={value.title}
+            aria-label={value.title}
+            role-="button"
+            variant="outlined"
+            className={
+              value.title.toUpperCase() !== category
+                ? classes.button
+                : classes.selectedButton
+            }
+            onClick={value.onClick}
+          >
             {value.title}
           </Button>
         ))}
