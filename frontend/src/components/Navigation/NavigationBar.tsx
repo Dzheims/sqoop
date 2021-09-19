@@ -30,9 +30,17 @@ import AddTwitterFeedForm from '../Drawers/DrawerContents/TwitterFeedForm/AddTwi
 import Logout from '../Account/Logout';
 import UserProfile from '../Account/UserProfile';
 
+interface DrawerState {
+  current: string;
+  open: boolean;
+}
+
 const NavigationBar = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<DrawerState>({
+    current: '',
+    open: false,
+  });
   const [title, setTitle] = useState('');
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -112,8 +120,27 @@ const NavigationBar = () => {
     return <div />;
   };
 
-  const handleDrawer = () => {
-    setOpen(!open);
+  const openDrawer = (drawer: DrawerState) => {
+    if (drawer.current === open.current) {
+      setOpen({
+        ...open,
+        current: '',
+        open: false,
+      });
+    } else {
+      setOpen({
+        ...open,
+        current: drawer.current,
+        open: drawer.open,
+      });
+    }
+  };
+  const closeDrawer = (drawer: DrawerState) => {
+    setOpen({
+      ...open,
+      current: '',
+      open: false,
+    });
   };
 
   return (
@@ -127,7 +154,7 @@ const NavigationBar = () => {
                   <IconButton
                     aria-label={item.title}
                     onClick={() => {
-                      handleDrawer();
+                      openDrawer({ current: item.title, open: true });
                       setTitle(item.title);
                     }}
                   >
@@ -138,7 +165,7 @@ const NavigationBar = () => {
               <Drawer
                 variant="persistent"
                 anchor="left"
-                open={open}
+                open={open.open}
                 classes={{
                   paper: classes.drawerPaper,
                 }}
@@ -193,9 +220,12 @@ const NavigationBar = () => {
       </NavigationBarContainer>
       <Backdrop
         className={classes.backdrop}
-        open={open}
-        onClick={handleDrawer}
+        open={open.open}
+        onClick={() => {
+          closeDrawer({ current: '', open: false });
+        }}
       />
+      ß
     </div>
   );
 };
