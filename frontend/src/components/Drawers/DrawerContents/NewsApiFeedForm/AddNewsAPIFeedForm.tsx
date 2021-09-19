@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -35,6 +35,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface FormsDisabled {
+  category: boolean;
+  country: boolean;
+  sources: boolean;
+}
+
 const AddNewsAPIFeedForm = () => {
   const classes = useStyles();
 
@@ -46,6 +52,12 @@ const AddNewsAPIFeedForm = () => {
       keyword: '',
       sources: '',
     },
+  });
+
+  const [disableForm, setDisableForm] = useState<FormsDisabled>({
+    category: false,
+    country: false,
+    sources: false,
   });
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,6 +104,24 @@ const AddNewsAPIFeedForm = () => {
       },
     });
   };
+
+  useEffect(() => {
+    if (newsFeedForm.newsFeed.sources) {
+      setDisableForm({ ...disableForm, category: true, country: true });
+    } else if (
+      newsFeedForm.newsFeed.country ||
+      newsFeedForm.newsFeed.category
+    ) {
+      setDisableForm({ ...disableForm, sources: true });
+    } else {
+      setDisableForm({
+        ...disableForm,
+        sources: false,
+        category: false,
+        country: false,
+      });
+    }
+  }, [newsFeedForm.newsFeed]);
 
   const onCountryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -154,7 +184,12 @@ const AddNewsAPIFeedForm = () => {
         fullWidth
         onChange={onTitleChange}
       />
-      <FormControl variant="outlined" fullWidth className={classes.formControl}>
+      <FormControl
+        variant="outlined"
+        fullWidth
+        className={classes.formControl}
+        disabled={disableForm.category}
+      >
         <InputLabel>Categories</InputLabel>
         <Select
           defaultValue=""
@@ -172,6 +207,7 @@ const AddNewsAPIFeedForm = () => {
         </Select>
       </FormControl>
       <TextField
+        disabled={disableForm.country}
         id="Country"
         label="Country"
         placeholder="Country"
@@ -192,6 +228,7 @@ const AddNewsAPIFeedForm = () => {
         onChange={onKeywordChange}
       />
       <TextField
+        disabled={disableForm.sources}
         id="Sources"
         label="Sources"
         placeholder="Sources"
