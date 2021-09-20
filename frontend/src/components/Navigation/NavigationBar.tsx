@@ -29,6 +29,7 @@ import AddNewsAPIFeedForm from '../Drawers/DrawerContents/NewsApiFeedForm/AddNew
 import AddTwitterFeedForm from '../Drawers/DrawerContents/TwitterFeedForm/AddTwitterFeedForm';
 import Logout from '../Account/Logout';
 import UserProfile from '../Account/UserProfile';
+import AddCollectionForm from '../Drawers/DrawerContents/CollectionForm/AddCollectionsForm';
 
 interface DrawerState {
   current: string;
@@ -81,9 +82,21 @@ const NavigationBar = () => {
       },
     },
   ];
+  const AddCollectionButton = [
+    {
+      title: 'Collection',
+      onClick: () => {
+        setTitle('Collection');
+      },
+    },
+  ];
 
   const handleBack = (contentTitle: string) => {
-    if (contentTitle === 'News Feed' || contentTitle === 'Twitter Feed')
+    if (
+      contentTitle === 'News Feed' ||
+      contentTitle === 'Twitter Feed' ||
+      contentTitle === 'Collection'
+    )
       return (
         <IconButton
           onClick={() => {
@@ -113,10 +126,26 @@ const NavigationBar = () => {
             ))}
           </List>
           <Divider />
+          <Typography className={classes.drawerSubtitle}>
+            Collections
+          </Typography>
+          <List>
+            {AddCollectionButton.map((value) => (
+              <ListItem
+                button
+                className={classes.listItemButtons}
+                onClick={value.onClick}
+                key={value.title}
+              >
+                <ListItemText> + {value.title}</ListItemText>
+              </ListItem>
+            ))}
+          </List>
         </div>
       );
     if (contentTitle === 'News Feed') return <AddNewsAPIFeedForm />;
     if (contentTitle === 'Twitter Feed') return <AddTwitterFeedForm />;
+    if (contentTitle === 'Collection') return <AddCollectionForm />;
     return <div />;
   };
 
