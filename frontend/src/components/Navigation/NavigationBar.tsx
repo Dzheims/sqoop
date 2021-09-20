@@ -177,6 +177,22 @@ const NavigationBar = () => {
 
   return (
     <div>
+      <Drawer
+        variant="persistent"
+        anchor="left"
+        open={open.open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawer}>
+          <div className={classes.drawerHeader}>
+            {handleBack(title)}
+            <Typography className={classes.drawerTitle}>{title}</Typography>
+          </div>
+          {getDrawerContent(title)}
+        </div>
+      </Drawer>
       <NavigationBarContainer>
         <MenuContainer>
           {NavBarMenu.map((item) => (
@@ -194,24 +210,6 @@ const NavigationBar = () => {
                   </IconButton>
                 </IconContainer>
               </Tooltip>
-              <Drawer
-                variant="persistent"
-                anchor="left"
-                open={open.open}
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-              >
-                <div className={classes.drawer}>
-                  <div className={classes.drawerHeader}>
-                    {handleBack(title)}
-                    <Typography className={classes.drawerTitle}>
-                      {title}
-                    </Typography>
-                  </div>
-                  {getDrawerContent(title)}
-                </div>
-              </Drawer>
             </div>
           ))}
         </MenuContainer>
