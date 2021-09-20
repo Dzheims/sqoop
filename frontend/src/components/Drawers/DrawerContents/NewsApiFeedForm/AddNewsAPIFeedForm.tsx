@@ -17,7 +17,6 @@ import {
 } from './query.generated';
 import { Category, CreateNewsFeedInput } from '../../../../types.generated';
 import CREATE_NEWS_FEED from './query';
-import CreateFeedOnSuccessAlert from '../onSuccessAlert';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
