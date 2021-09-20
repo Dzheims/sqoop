@@ -10,6 +10,7 @@ import {
   NewsAPITitleContainer,
   useStyles,
 } from './ColumnsStyle';
+import FactCheck from '../../components/FactCheck/FactCheck';
 
 interface NewsAPIDataProps {
   data: GetNewsApiContentsQuery;
@@ -91,6 +92,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
               <Typography className={classes.dateAndUserName}>
                 {formatTimeAndDate(value.publishedAt)}
               </Typography>
+              <FactCheck />
             </Item>
           )}
         </Draggable>

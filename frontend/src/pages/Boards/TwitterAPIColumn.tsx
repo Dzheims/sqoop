@@ -14,6 +14,7 @@ import {
   TwitterTitleContainer,
   useStyles,
 } from './ColumnsStyle';
+import FactCheck from '../../components/FactCheck/FactCheck';
 
 interface TwitterAPIDataProps {
   data: GetTwitterApiContentsQuery;
@@ -110,6 +111,7 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
               <Typography className={classes.dateAndUserName}>
                 {formatTimeAndDate(value.created_at)}
               </Typography>
+              <FactCheck />
             </Item>
           )}
         </Draggable>

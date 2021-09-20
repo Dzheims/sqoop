@@ -140,7 +140,7 @@ const NavigationBar = () => {
                 onClick={value.onClick}
                 key={value.title}
               >
-                <ListItemText> + {value.title}</ListItemText>
+                <ListItemText>{value.title}</ListItemText>
               </ListItem>
             ))}
           </List>
