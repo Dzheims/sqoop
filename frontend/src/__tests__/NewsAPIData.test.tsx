@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { GET_NEWS_API_CONTENTS_QUERY } from '../pages/Boards/query';
 import NewsAPIColumnData from '../pages/Boards/NewsAPIColumnData';
 import { Category } from '../types.generated';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const mocks: ReadonlyArray<MockedResponse> = [
   {
@@ -89,7 +89,7 @@ describe('News API contents', () => {
       <MockedProvider mocks={mocks} addTypename={false}>
         <DragDropContext onDragEnd={() => {}}>
           <Droppable droppableId="droppable">
-            {(provided, snapshot) => (
+            {(provided) => (
               <div ref={provided.innerRef}>
                 <NewsAPIColumnData
                   keyword={null}
