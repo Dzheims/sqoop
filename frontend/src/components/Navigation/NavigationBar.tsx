@@ -30,9 +30,17 @@ import AddTwitterFeedForm from '../Drawers/DrawerContents/TwitterFeedForm/AddTwi
 import Logout from '../Account/Logout';
 import UserProfile from '../Account/UserProfile';
 
+interface DrawerState {
+  current: string;
+  open: boolean;
+}
+
 const NavigationBar = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<DrawerState>({
+    current: '',
+    open: false,
+  });
   const [title, setTitle] = useState('');
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -97,13 +105,10 @@ const NavigationBar = () => {
           <Typography className={classes.drawerSubtitle}>Feeds</Typography>
           <List>
             {AddFeedsButtons.map((value) => (
-              <ListItem
-                button
-                className={classes.listItemButtons}
-                onClick={value.onClick}
-                key={value.title}
-              >
-                <ListItemText> + {value.title}</ListItemText>
+              <ListItem button onClick={value.onClick} key={value.title}>
+                <ListItemText className={classes.listItemButtons}>
+                  {value.title}
+                </ListItemText>
               </ListItem>
             ))}
           </List>
@@ -115,29 +120,31 @@ const NavigationBar = () => {
     return <div />;
   };
 
-  const handleDrawer = () => {
-    setOpen(!open);
+  const openDrawer = (drawer: DrawerState) => {
+    if (drawer.current === open.current) {
+      setOpen({
+        ...open,
+        current: '',
+        open: false,
+      });
+    } else {
+      setOpen({
+        ...open,
+        current: drawer.current,
+        open: drawer.open,
+      });
+    }
+  };
+  const closeDrawer = (drawer: DrawerState) => {
+    setOpen({
+      ...open,
+      current: '',
+      open: false,
+    });
   };
 
   return (
     <div>
-      <Drawer
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawer}>
-          <div className={classes.drawerHeader}>
-            {handleBack(title)}
-            <Typography className={classes.drawerTitle}>{title}</Typography>
-          </div>
-
-          {getDrawerContent(title)}
-        </div>
-      </Drawer>
       <NavigationBarContainer>
         <MenuContainer>
           {NavBarMenu.map((item) => (
@@ -147,7 +154,7 @@ const NavigationBar = () => {
                   <IconButton
                     aria-label={item.title}
                     onClick={() => {
-                      handleDrawer();
+                      openDrawer({ current: item.title, open: true });
                       setTitle(item.title);
                     }}
                   >
@@ -155,6 +162,25 @@ const NavigationBar = () => {
                   </IconButton>
                 </IconContainer>
               </Tooltip>
+              <Drawer
+                variant="persistent"
+                anchor="left"
+                open={open.open}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+              >
+                <div className={classes.drawer}>
+                  <div className={classes.drawerHeader}>
+                    {handleBack(title)}
+                    <Typography className={classes.drawerTitle}>
+                      {title}
+                    </Typography>
+                  </div>
+
+                  {getDrawerContent(title)}
+                </div>
+              </Drawer>
             </div>
           ))}
         </MenuContainer>
@@ -194,9 +220,12 @@ const NavigationBar = () => {
       </NavigationBarContainer>
       <Backdrop
         className={classes.backdrop}
-        open={open}
-        onClick={handleDrawer}
+        open={open.open}
+        onClick={() => {
+          closeDrawer({ current: '', open: false });
+        }}
       />
+      ß
     </div>
   );
 };
