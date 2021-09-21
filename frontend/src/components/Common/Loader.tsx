@@ -11,9 +11,13 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     display: 'flex',
   },
-  loaderText: {
-    padding: '10px',
+  waitText: {
+    padding: '5px',
+    fontSize: '20px',
     color: theme.palette.primary.main,
+  },
+  loaderText: {
+    color: 'gray',
   },
 }));
 
@@ -22,8 +26,9 @@ const Loader = () => {
 
   return (
     <div className={classes.loader}>
-      <CircularProgress color="primary" />
-      <Typography className={classes.loaderText}>Loading data ...</Typography>
+      <CircularProgress size={50} color="primary" />
+      <Typography className={classes.waitText}>Please Wait</Typography>
+      <Typography className={classes.loaderText}>Loading data...</Typography>
     </div>
   );
 };

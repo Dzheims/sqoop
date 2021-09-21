@@ -5,6 +5,7 @@ import { GetNewsApiContentsQuery } from './query.generated';
 import NewsAPIColumn from './NewsAPIColumn';
 import Loader from '../../components/Common/Loader';
 import { Category } from '../../types.generated';
+import Error from '../../components/Common/Error';
 
 interface NewsApiColumnDataProps {
   country: string;
@@ -23,7 +24,7 @@ const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
     GET_NEWS_API_CONTENTS_QUERY,
     { variables: { country, category, keyword, sources } }
   );
-  if (error) return <div>error</div>;
+  if (error) return <Error />;
   if (loading) return <Loader />;
   if (!data) return <div>data</div>;
 
