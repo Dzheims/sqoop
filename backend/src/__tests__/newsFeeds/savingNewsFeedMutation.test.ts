@@ -2,7 +2,7 @@ import { userSchema } from '../helpers/setupEasyGraphqlTester';
 import { gql } from 'graphile-utils';
 const EasyGraphQLTester = require('easygraphql-tester');
 
-describe('test sign in mutation', () => {
+describe('test create news feed mutation', () => {
   let tester: any;
   beforeAll(() => {
     tester = new EasyGraphQLTester(userSchema);
@@ -51,7 +51,7 @@ describe('test sign in mutation', () => {
     `;
     const input = {
       newsFeed: {
-        category: 'national',
+        headline: 'national',
         country: 'us',
         keyword: 'Covid',
         sources: null,
@@ -70,7 +70,7 @@ describe('mock createNewsFeed mutation', () => {
   afterAll(() => {
     tester.clearFixture();
   });
-  test('return jwt token', async () => {
+  test('add custom news feed', async () => {
     const fixture = {
       data: {
         createNewsFeed: {

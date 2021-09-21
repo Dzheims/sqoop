@@ -3,13 +3,13 @@ import { gql } from 'graphile-utils';
 import { text } from 'express';
 const EasyGraphQLTester = require('easygraphql-tester');
 
-describe('test topheadlines schema', () => {
+describe('test google claim search on schema', () => {
   let tester: any;
   beforeAll(() => {
     tester = new EasyGraphQLTester(userSchema);
   });
 
-  test('check if valid topheadlines query', () => {
+  test('check if valid claim search query', () => {
     const query = gql`
       query TESTQUERY {
         search(keyword: string) {
@@ -32,7 +32,7 @@ describe('test topheadlines schema', () => {
     `;
     tester.test(true, query);
   });
-  test('check if invalid category query', () => {
+  test('check if invalid claim search query', () => {
     const query = gql`
       query TESTQUERY {
         search(sources: string) {

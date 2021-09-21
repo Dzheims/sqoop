@@ -12,9 +12,9 @@ describe('create news feed', () => {
         rows: [news_feed],
       } = await pgClient.query<news_feeds>(`SELECT * FROM news_feeds`);
       expect(news_feed.keyword).toBe('Duterte');
-      expect(news_feed.keyword).toBe('Duterte');
-      expect(news_feed.keyword).toBe('Duterte');
-      expect(news_feed.keyword).toBe('Duterte');
+      expect(news_feed.title).toBe('News');
+      expect(news_feed.category).toBe('general');
+      expect(news_feed.sources).toBe('cnnphilippines');
     });
   });
 });
