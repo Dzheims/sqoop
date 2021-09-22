@@ -1,4 +1,4 @@
-import { queryFormatter } from '../../api/twitterApi/queries';
+import { queryFormatter } from '../../plugins/twitterApi/queries';
 
 test('query for multiple sources', () => {
   const sources: string[] = [
