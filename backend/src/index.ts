@@ -5,6 +5,7 @@ import PgSimplifyInflector from '@graphile-contrib/pg-simplify-inflector';
 import NewsApiPlugin from './api/newsApi/newsApi';
 import TwitterApiPlugin from './api/twitterApi/twitterApi';
 import UnionAndInterfacesApiPlugin from './api/unionsAndInterfaces/unionsAndInterfaces';
+import VeraFilesPlugin from './api/veraFiles/veraFiles';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import path from 'path';
@@ -35,6 +36,7 @@ app
         TagsFilePlugin,
         NewsApiPlugin,
         TwitterApiPlugin,
+        VeraFilesPlugin,
         UnionAndInterfacesApiPlugin,
       ],
       graphqlRoute: '/graphql',

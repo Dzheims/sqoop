@@ -341,6 +341,7 @@ type Query implements Node {
     keyword: String
   ): [Article!]!
   searchTweets(keyword: [String], sources: [String]): [Tweet!]!
+  veraFilesFactCheck(keyword: String): [VeraFiles!]!
   getColumnResult: [ColumnResult!]!
 }
 
@@ -733,6 +734,19 @@ type TwitterPhoto {
   media_key: String
   type: String
   url: String
+}
+
+type VeraFiles {
+  id: Int
+  author: String
+  description: String
+  title: String
+  date: String
+  dateText: String
+  category: String
+  url: String
+  imageStyle: String
+  imageUrl: String
 }
 
 union ColumnResult = NewsFeed | TwitterFeed
