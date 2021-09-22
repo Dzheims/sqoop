@@ -6,6 +6,7 @@ import NewsAPIColumn from './NewsAPIColumn';
 import Loader from '../../components/Common/Loader';
 import { Category } from '../../types.generated';
 import Error from '../../components/Common/Error';
+import NoContents from '../../components/Common/NoContents';
 
 interface NewsApiColumnDataProps {
   country: string;
@@ -26,7 +27,8 @@ const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
   );
   if (error) return <Error />;
   if (loading) return <Loader />;
-  if (!data) return <div>data</div>;
+  if (!data) return <Error />;
+  if (data.topHeadlines.length === 0) return <NoContents />;
 
   return <NewsAPIColumn data={data} />;
 };

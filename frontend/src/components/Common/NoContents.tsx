@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
-import ErrorImage from '../../assets/error.png';
+import NoContentsImage from '../../assets/noContents.png';
 import theme from '../../theme';
 
 const useStyles = makeStyles(() => ({
-  error: {
+  noContents: {
     marginTop: '25px',
     flexDirection: 'column',
     alignItems: 'center',
@@ -16,35 +16,30 @@ const useStyles = makeStyles(() => ({
     maxWidth: '75px',
     maxHeight: '75px',
   },
-  oopsText: {
+  sorryText: {
     padding: '2px',
     fontSize: '20px',
     color: theme.palette.secondary.main,
   },
-  errorText: {
+  noContentsText: {
     color: 'gray',
   },
 }));
 
-const Error = () => {
+const NoContents = () => {
   const classes = useStyles();
 
-  // const refreshPage = () => {
-  //   window.location.reload(false);
-  // };
-
   return (
-    <div className={classes.error}>
+    <div className={classes.noContents}>
       <div>
-        <img className={classes.image} src={ErrorImage} alt="" />
+        <img className={classes.image} src={NoContentsImage} alt="" />
       </div>
-      <Typography className={classes.oopsText}>Oops!</Typography>
-      <Typography className={classes.errorText}>
-        Something went wrong.
+      <Typography className={classes.sorryText}>Sorry,</Typography>
+      <Typography className={classes.noContentsText}>
+        No contents found.
       </Typography>
-      {/* <Button onClick={refreshPage}>Reload</Button> */}
     </div>
   );
 };
 
-export default Error;
+export default NoContents;
