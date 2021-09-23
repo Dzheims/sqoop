@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useGetUserNameQuery } from './query.generated';
-import { useGetCurrentUserIdQuery } from '../../authentication/authentication.query.generated';
+import currentUserId from '../../authentication/currentUserId';
 
 const useStyles = makeStyles((theme) => ({
   div: {
@@ -17,7 +17,7 @@ const UserProfile = () => {
 
   const { data, loading, error } = useGetUserNameQuery({
     variables: {
-      input: useGetCurrentUserIdQuery().data?.currentUserId as number,
+      input: currentUserId(),
     },
   });
 
