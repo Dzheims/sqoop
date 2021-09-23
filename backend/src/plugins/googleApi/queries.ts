@@ -31,14 +31,6 @@ export const resolvers = {
       if (result.status === 'error') {
         return result;
       }
-      console.log(result);
-      // const articles = result.articles.map((article: any) => {
-      //   const { source, ...subArticle } = article;
-      //   return {
-      //     ...subArticle,
-      //     ...{ sourceId: source.id, sourceName: source.name },
-      //   };
-      // });
       return result.claims;
     },
   },

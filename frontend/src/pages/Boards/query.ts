@@ -44,3 +44,24 @@ export const GET_TWITTER_API_CONTENTS_QUERY = gql`
     }
   }
 `;
+
+export const GET_GOOGLE_FACT_CHECK_SEARCH_QUERY = gql`
+  query getGoogleFactCheckSearch($keyword: String) {
+    googleFactCheckSearch(keyword: $keyword) {
+      claimDate
+      claimant
+      text
+      claimReview {
+        languageCode
+        reviewDate
+        textualRating
+        title
+        url
+        publisher {
+          name
+          site
+        }
+      }
+    }
+  }
+`;
