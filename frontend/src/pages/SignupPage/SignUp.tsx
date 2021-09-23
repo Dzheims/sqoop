@@ -49,6 +49,7 @@ const SignUp = () => {
     userName: '',
     password: '',
   });
+  const [confirmPasswordInput, setConfirmPasswordInput] = useState('');
 
   const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -66,6 +67,12 @@ const SignUp = () => {
       ...loginInput,
       password: value,
     });
+  };
+
+  const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { value } = e.target;
+    setConfirmPasswordInput(value);
   };
 
   const [signUp] = useMutation<SignupMutation, SignupMutationVariables>(
@@ -118,6 +125,17 @@ const SignUp = () => {
               required
               fullWidth
               onChange={onPasswordChange}
+            />
+            <TextField
+              label="Confirm Password"
+              type="password"
+              placeholder="Confirm Password"
+              id="confirm password"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              onChange={onConfirmPasswordChange}
             />
             <Button
               type="submit"
