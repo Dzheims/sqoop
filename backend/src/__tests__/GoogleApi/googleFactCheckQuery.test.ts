@@ -11,8 +11,8 @@ describe('test google claim search on schema', () => {
 
   test('check if valid claim search query', () => {
     const query = gql`
-      query TESTQUERY {
-        search(keyword: string) {
+      query TESTQUEY {
+        googleFactCheckSearch(keyword: "Marcos") {
           text
           claimant
           claimDate
@@ -35,7 +35,7 @@ describe('test google claim search on schema', () => {
   test('check if invalid claim search query', () => {
     const query = gql`
       query TESTQUERY {
-        search(sources: string) {
+        search(sources: "Duterte") {
           text
           claimant
           url

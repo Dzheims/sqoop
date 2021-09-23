@@ -6,6 +6,7 @@ import NewsApiPlugin from './plugins/newsApi/newsApi';
 import TwitterApiPlugin from './plugins/twitterApi/twitterApi';
 import UnionAndInterfacesApiPlugin from './plugins/unionsAndInterfaces/unionsAndInterfaces';
 import VeraFilesPlugin from './plugins/veraFiles/veraFiles';
+import GoogleApiPlugin from './plugins/googleApi/googleApi';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import path from 'path';
@@ -37,6 +38,7 @@ app
         NewsApiPlugin,
         TwitterApiPlugin,
         VeraFilesPlugin,
+        GoogleApiPlugin,
         UnionAndInterfacesApiPlugin,
       ],
       graphqlRoute: '/graphql',
