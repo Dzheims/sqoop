@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, Button, InputBase, Paper } from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
 import { Title } from '../../../../pages/Boards/ColumnsStyle';
+import VeraFactCheckData from '../../../FactCheck/VeraFactCheckData';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -46,6 +47,8 @@ const useStyles = makeStyles((theme) => ({
 
 const FactCheckDrawerContent = () => {
   const classes = useStyles();
+  const [searchKey, setSearchKey] = useState('');
+  const [search, setSearch] = useState(false);
 
   const searchOptions = [
     {
@@ -58,12 +61,24 @@ const FactCheckDrawerContent = () => {
     },
   ];
 
+  const handleSearch = () => {
+    setSearch(true);
+  };
+
   return (
     <div className={classes.container}>
       {/* <Title>Fact Check</Title> */}
       <Paper variant="outlined" component="form" className={classes.search}>
-        <InputBase className={classes.input} placeholder="Search" />
-        <IconButton type="submit" className={classes.iconButton}>
+        <InputBase
+          className={classes.input}
+          value={searchKey}
+          placeholder="Search"
+          onChange={(e) => {
+            setSearchKey(e.target.value);
+            setSearch(false);
+          }}
+        />
+        <IconButton onClick={handleSearch} className={classes.iconButton}>
           <Search />
         </IconButton>
       </Paper>
@@ -79,6 +94,7 @@ const FactCheckDrawerContent = () => {
           </Button>
         ))}
       </div>
+      {search ? <VeraFactCheckData keyword={searchKey} /> : <div />}
     </div>
   );
 };
