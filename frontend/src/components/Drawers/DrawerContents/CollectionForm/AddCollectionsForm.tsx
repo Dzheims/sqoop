@@ -1,7 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField } from '@material-ui/core';
+import { useMutation } from '@apollo/client';
+import {
+  CreateCollectionMutation,
+  CreateCollectionMutationVariables,
+} from './query.generated';
+import { CollectionInput } from '../../../../types.generated';
+import CREATE_COLLECTION from './query';
+import currentUserId from '../../../../authentication/currentUserId';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -24,6 +32,37 @@ const useStyles = makeStyles((theme) => ({
 const AddCollectionForm = () => {
   const classes = useStyles();
 
+  const [collectionForm, setCollectionForm] = useState<CollectionInput>({
+    title: '',
+  });
+
+  const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { value } = e.target;
+    setCollectionForm({
+      ...collectionForm,
+      title: value,
+    });
+  };
+
+  const [createCollection] = useMutation<
+    CreateCollectionMutation,
+    CreateCollectionMutationVariables
+  >(CREATE_COLLECTION, {
+    variables: {
+      input: {
+        collection: {
+          title: collectionForm.title,
+          userId: currentUserId(),
+        },
+      },
+    },
+  });
+
+  const handleSubmit = () => {
+    createCollection();
+  };
+
   return (
     <div className={classes.formContainer}>
       <TextField
@@ -34,9 +73,15 @@ const AddCollectionForm = () => {
         margin="normal"
         required
         fullWidth
+        onChange={onTitleChange}
       />
       <div className={classes.button}>
-        <Button type="submit" variant="contained" color="secondary">
+        <Button
+          type="submit"
+          variant="contained"
+          color="secondary"
+          onClick={handleSubmit}
+        >
           Create
         </Button>
       </div>
