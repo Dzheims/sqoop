@@ -1,9 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, Typography } from '@material-ui/core';
 import { VeraFactCheckSearchResultQuery } from './query.generated';
-import { CardsContainer } from './FactCheckStyles';
-
-const useStyles = makeStyles((theme) => ({}));
+import {
+  CardsContainer,
+  TitleContainer,
+  AuthorContainer,
+  useStyles,
+  ContentContainer,
+} from './FactCheckStyles';
+import VeraFilesLogo from '../../assets/vera_files_logo.png';
 
 interface VeraFactCheckProps {
   data: VeraFactCheckSearchResultQuery;
@@ -14,10 +19,42 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
 }: VeraFactCheckProps) => {
   const classes = useStyles();
 
+  const formatTimeAndDate = (date: any) => {
+    const createdAtDate = new Date(date);
+    const formattedCreateDate = `${createdAtDate.toLocaleTimeString()} ${createdAtDate.toDateString()}`;
+    return formattedCreateDate;
+  };
+
   return (
     <div>
       {data.veraFilesFactCheck.map((value) => (
-        <CardsContainer>{value.title}</CardsContainer>
+        <CardsContainer>
+          <TitleContainer>
+            <Avatar className={classes.avatar} src={VeraFilesLogo} />
+            <AuthorContainer>
+              <Typography style={{ fontWeight: 600 }}>
+                {value.author}
+              </Typography>
+            </AuthorContainer>
+          </TitleContainer>
+          <Typography variant="body2">{value.title}</Typography>
+          <ContentContainer>
+            <div
+              style={{
+                backgroundImage: `url(${value.imageUrl as string})`,
+              }}
+              className={classes.imageContainer}
+            >
+              <Typography className={classes.description}>
+                {value.description}
+              </Typography>
+            </div>
+          </ContentContainer>
+          <br />
+          <Typography className={classes.dateAndUserName}>
+            {formatTimeAndDate(value.date)}
+          </Typography>
+        </CardsContainer>
       ))}
     </div>
   );
