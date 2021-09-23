@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField } from '@material-ui/core';
+import { Alert, AlertTitle } from '@mui/material';
 import {
   CreateTwitterFeedMutation,
   CreateTwitterFeedMutationVariables,
@@ -18,7 +19,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     justifyContent: 'flex-end',
   },
+  alert: {
+    marginTop: theme.spacing(5),
+  },
 }));
+
+interface SuccessAlert {
+  feedTitle: string;
+  success: boolean;
+}
 
 const AddTwitterFeedForm = () => {
   const classes = useStyles();
@@ -31,6 +40,12 @@ const AddTwitterFeedForm = () => {
         title: '',
       },
     });
+
+  const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
+    feedTitle: '',
+    success: false,
+  });
+  const [disableCreateButton, setdisableCreateButton] = useState(false);
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -82,6 +97,14 @@ const AddTwitterFeedForm = () => {
         },
       },
     },
+    onCompleted: ({ createTwitterFeed }) => {
+      setSuccessAlert({
+        ...successAlert,
+        feedTitle: createTwitterFeed?.twitterFeed?.title as string,
+        success: true,
+      });
+      setdisableCreateButton(true);
+    },
   });
 
   const handleSubmit = () => {
@@ -125,11 +148,21 @@ const AddTwitterFeedForm = () => {
           type="submit"
           variant="contained"
           color="secondary"
+          disabled={disableCreateButton}
           onClick={handleSubmit}
         >
           Create
         </Button>
       </div>
+      {successAlert.success ? (
+        <Alert severity="success" className={classes.alert}>
+          <AlertTitle>Success</AlertTitle>
+          Feed <strong>{successAlert.feedTitle}</strong> was created —{' '}
+          <strong>check it out!</strong>
+        </Alert>
+      ) : (
+        <div />
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@ const CREATE_TWITTER_FEED = gql`
     createTwitterFeed(input: $input) {
       twitterFeed {
         id
+        title
       }
     }
   }
