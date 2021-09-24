@@ -5,6 +5,8 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "scripts": {
+    "start": "lerna run start --stream",
+    "build": "lerna bootstrap && lerna run build",
     "prepare": "husky install"
   },
   "devDependencies": {

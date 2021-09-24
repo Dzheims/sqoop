@@ -7,6 +7,7 @@ import TwitterApiPlugin from './api/twitterApi/twitterApi';
 import UnionAndInterfacesApiPlugin from './api/unionsAndInterfaces/unionsAndInterfaces';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import compression from 'compression';
 import path from 'path';
 import * as Environment from './Environment';
 
@@ -23,6 +24,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 // app.use(cookieParser(process.env.JWT_SECRET));
 app
+  .use(compression())
+  .use(express.static('public'))
   .use(
     postgraphile(process.env.DATABASE_URL, 'public', {
       watchPg: Environment.isDev,
