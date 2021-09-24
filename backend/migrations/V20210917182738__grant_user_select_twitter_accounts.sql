@@ -1,2 +1,1 @@
-GRANT SELECT ON twitter_accounts TO sqoop_user;
-
+-- GRANT SELECT ON twitter_accounts TO sqoop_user;

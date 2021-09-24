@@ -1,2 +1,1 @@
-GRANT SELECT, UPDATE, DELETE ON users to sqoop_user;
-
+-- GRANT SELECT, UPDATE, DELETE ON users to sqoop_user;
