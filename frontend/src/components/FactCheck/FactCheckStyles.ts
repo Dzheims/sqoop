@@ -19,9 +19,19 @@ export const useStyles = makeStyles(() => ({
     fontSize: '14px',
     color: 'black',
   },
+  claimant: {
+    padding: '10px',
+  },
   dateAndUserName: {
+    padding: '10px',
     fontSize: '14px',
     color: 'gray',
+  },
+  link: {
+    textDecoration: 'none',
+  },
+  titleLink: {
+    marginLeft: '10px',
   },
 }));
 

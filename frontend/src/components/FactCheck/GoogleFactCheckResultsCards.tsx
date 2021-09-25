@@ -33,28 +33,51 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
             <Avatar className={classes.avatar} src={VeraFilesLogo} />
             <AuthorContainer>
               <Typography style={{ fontWeight: 600 }}>
-                {value?.claimReview[0]?.publisher?.name}
+                {value.claimReview[0]?.publisher?.name}
               </Typography>
             </AuthorContainer>
           </TitleContainer>
-          <Typography variant="body2">
-            {value?.claimReview[0]?.title}
-          </Typography>
           <ContentContainer>
-            <div
-              style={{
-                backgroundImage: `url(${value?.claimReview[0]?.url as string})`,
-              }}
-              className={classes.imageContainer}
-            >
-              <Typography className={classes.description}>
-                {value.text}
+            {value.claimant !== null ? (
+              <Typography
+                className={classes.claimant}
+                style={{ fontWeight: 600 }}
+                variant="body2"
+              >
+                Claim by {value.claimant}
               </Typography>
-            </div>
+            ) : (
+              <div />
+            )}
+            <Typography className={classes.description}>
+              {value.text}
+            </Typography>
+            {value.claimDate !== null ? (
+              <Typography className={classes.dateAndUserName}>
+                Claim Date {formatTimeAndDate(value.claimDate)}
+              </Typography>
+            ) : (
+              <div />
+            )}
           </ContentContainer>
-          <br />
+          <Typography
+            style={{ fontWeight: 600 }}
+            className={classes.description}
+          >
+            Info Rating: {value.claimReview[0]?.textualRating}
+          </Typography>
+          <a
+            className={classes.link}
+            target="_blank"
+            rel="noreferrer"
+            href={value.claimReview[0].url as string}
+          >
+            <Typography className={classes.titleLink} variant="body2">
+              {value.claimReview[0].title}
+            </Typography>
+          </a>
           <Typography className={classes.dateAndUserName}>
-            {formatTimeAndDate(value?.claimReview[0]?.reviewDate)}
+            Review Date {formatTimeAndDate(value?.claimReview[0]?.reviewDate)}
           </Typography>
         </CardsContainer>
       ))}
