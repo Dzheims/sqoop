@@ -5,7 +5,7 @@ export const claim = gql`
     text: String
     claimant: String
     claimDate: String
-    claimReview: [ClaimReview]
+    claimReview: [ClaimReview!]!
   }
 `;
 

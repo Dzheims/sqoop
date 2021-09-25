@@ -5,6 +5,7 @@ import { IconButton, Button, InputBase, Paper } from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
 import { Title } from '../../../../pages/Boards/ColumnsStyle';
 import VeraFactCheckData from '../../../FactCheck/VeraFactCheckData';
+import GoogleFactCheckData from '../../../FactCheck/GoogleFactCheckData';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -94,7 +95,7 @@ const FactCheckDrawerContent = () => {
           </Button>
         ))}
       </div>
-      {search ? <VeraFactCheckData keyword={searchKey} /> : <div />}
+      {search ? <GoogleFactCheckData keyword={searchKey} /> : <div />}
     </div>
   );
 };

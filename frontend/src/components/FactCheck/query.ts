@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const VERAFACTCHECK_SEARCH_QUERY = gql`
+export const VERA_FACTCHECK_SEARCH_QUERY = gql`
   query veraFactCheckSearchResult($keyword: String) {
     veraFilesFactCheck(keyword: $keyword) {
       id
@@ -16,5 +16,23 @@ const VERAFACTCHECK_SEARCH_QUERY = gql`
     }
   }
 `;
-
-export default VERAFACTCHECK_SEARCH_QUERY;
+export const GOOGLE_FACTCHECK_SEARCH_QUERY = gql`
+  query googleFactCheckSearchResult($keyword: String) {
+    googleFactCheckSearch(keyword: $keyword) {
+      claimDate
+      claimReview {
+        languageCode
+        publisher {
+          name
+          site
+        }
+        reviewDate
+        textualRating
+        title
+        url
+      }
+      claimant
+      text
+    }
+  }
+`;
