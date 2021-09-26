@@ -79,9 +79,6 @@ const SignIn = () => {
 
   const handleSubmit = () => {
     signIn();
-    // .then((res) => {
-    //   localStorage.setItem(AUTH_TOKEN, res.data?.signin?.jwtToken as string);
-    // });
   };
 
   return (
@@ -115,12 +112,11 @@ const SignIn = () => {
             onChange={onPasswordChange}
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="secondary"
             className={classes.submit}
-            onMouseDown={handleSubmit}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>
