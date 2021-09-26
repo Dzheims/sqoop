@@ -5,6 +5,10 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { GET_TWITTER_API_CONTENTS_QUERY } from '../pages/Boards/query';
 import TwitterAPIColumnData from '../pages/Boards/TwitterAPIColumnData';
 
+interface SearchQueryProps {
+  keyword: string;
+}
+
 const mocks: ReadonlyArray<MockedResponse> = [
   {
     request: {
