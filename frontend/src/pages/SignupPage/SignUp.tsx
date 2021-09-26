@@ -118,7 +118,9 @@ const SignUp = () => {
   });
 
   const handleSubmit = () => {
-    signUp();
+    if (confirmPasswordInput === signupInput.password) {
+      signUp();
+    }
   };
 
   const [signIn] = useMutation<SigninMutation, SigninMutationVariables>(
