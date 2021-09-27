@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import { GoogleFactCheckSearchResultQuery } from './query.generated';
 import { GOOGLE_FACTCHECK_SEARCH_QUERY } from './query';
 import Loader from '../Common/Loader';
+import Error from '../Common/Error';
 import GoogleFactCheckResultsCards from './GoogleFactCheckResultsCards';
 
 interface SearchQueryProps {
@@ -16,9 +17,9 @@ const GoogleFactCheckData: React.FC<SearchQueryProps> = ({
     GOOGLE_FACTCHECK_SEARCH_QUERY,
     { variables: { keyword } }
   );
-  if (error) return <div>Error</div>;
+  if (error) return <Error />;
   if (loading) return <Loader />;
-  if (!data) return <div>Not Found</div>;
+  if (!data) return <Error />;
 
   return <GoogleFactCheckResultsCards data={data} />;
 };

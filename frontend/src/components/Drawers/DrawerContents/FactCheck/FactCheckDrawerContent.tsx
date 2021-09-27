@@ -10,6 +10,7 @@ import GoogleFactCheckData from '../../../FactCheck/GoogleFactCheckData';
 const useStyles = makeStyles((theme) => ({
   container: {
     alignItems: 'center',
+    marginLeft: '10px',
   },
   search: {
     padding: '2px 4px',
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px',
   },
   button: {
-    marginRight: '10px',
+    marginLeft: '3px',
     textTransform: 'none',
     fontSize: '12px',
     minWidth: 'auto',
@@ -44,25 +45,53 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'white',
     },
   },
+  selectedButton: {
+    marginLeft: '3px',
+    textTransform: 'none',
+    fontSize: '12px',
+    minWidth: 'auto',
+    borderRadius: '12px',
+    backgroundColor: theme.palette.secondary.main,
+    color: 'white',
+  },
+  resultsContainer: {
+    overflow: 'auto',
+    maxHeight: '400px',
+    padding: '8px',
+  },
 }));
 
 const FactCheckDrawerContent = () => {
   const classes = useStyles();
   const [searchKey, setSearchKey] = useState('');
   const [search, setSearch] = useState(false);
+  const [currentSearch, setCurrentSearch] = useState({
+    component: <GoogleFactCheckData keyword="Latest" />,
+    title: 'Google Fact Check',
+  });
 
   const searchOptions = [
     {
-      title: 'Google Fact Check',
-      onClick: () => {},
+      buttonTitle: 'Google Fact Check',
+      onClick: () => {
+        setCurrentSearch({
+          component: <GoogleFactCheckData keyword={searchKey} />,
+          title: 'Google Fact Check',
+        });
+      },
     },
     {
-      title: 'Vera Files',
-      onClick: () => {},
+      buttonTitle: 'Vera Files',
+      onClick: () => {
+        setCurrentSearch({
+          component: <VeraFactCheckData keyword={searchKey} />,
+          title: 'Vera Files',
+        });
+      },
     },
   ];
 
-  const handleSearch = () => {
+  const submitSearch = () => {
     setSearch(true);
   };
 
@@ -77,9 +106,13 @@ const FactCheckDrawerContent = () => {
           onChange={(e) => {
             setSearchKey(e.target.value);
             setSearch(false);
+            setCurrentSearch({
+              component: <GoogleFactCheckData keyword={searchKey} />,
+              title: 'Google Fact Check',
+            });
           }}
         />
-        <IconButton onClick={handleSearch} className={classes.iconButton}>
+        <IconButton onClick={submitSearch} className={classes.iconButton}>
           <Search />
         </IconButton>
       </Paper>
@@ -88,14 +121,20 @@ const FactCheckDrawerContent = () => {
           <Button
             role-="button"
             variant="outlined"
-            className={classes.button}
+            className={
+              value.buttonTitle !== currentSearch.title
+                ? classes.button
+                : classes.selectedButton
+            }
             onClick={value.onClick}
           >
-            {value.title}
+            {value.buttonTitle}
           </Button>
         ))}
       </div>
-      {search ? <GoogleFactCheckData keyword={searchKey} /> : <div />}
+      <div className={classes.resultsContainer}>
+        {search ? currentSearch.component : <div />}
+      </div>
     </div>
   );
 };

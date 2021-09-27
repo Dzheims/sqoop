@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import { VeraFactCheckSearchResultQuery } from './query.generated';
 import { VERA_FACTCHECK_SEARCH_QUERY } from './query';
 import Loader from '../Common/Loader';
+import Error from '../Common/Error';
 import VeraFactCheckResultsCards from './VeraFactCheckResultsCards';
 
 interface SearchQueryProps {
@@ -16,9 +17,9 @@ const VeraFactCheckData: React.FC<SearchQueryProps> = ({
     VERA_FACTCHECK_SEARCH_QUERY,
     { variables: { keyword } }
   );
-  if (error) return <div>Error</div>;
+  if (error) return <Error />;
   if (loading) return <Loader />;
-  if (!data) return <div>Not Found</div>;
+  if (!data) return <Error />;
 
   return <VeraFactCheckResultsCards data={data} />;
 };

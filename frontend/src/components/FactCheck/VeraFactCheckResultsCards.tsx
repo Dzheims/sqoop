@@ -41,7 +41,7 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
           <ContentContainer>
             <div
               style={{
-                backgroundImage: `url(${value.imageUrl as string})`,
+                backgroundImage: `url(${String(value.imageUrl)})`,
               }}
               className={classes.imageContainer}
             >
