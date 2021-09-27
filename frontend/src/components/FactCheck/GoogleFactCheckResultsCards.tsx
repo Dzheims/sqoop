@@ -9,6 +9,7 @@ import {
   ContentContainer,
 } from './FactCheckStyles';
 import VeraFilesLogo from '../../assets/vera_files_logo.png';
+import { Maybe } from '../../types.generated';
 
 interface GoogleFactCheckProps {
   data: GoogleFactCheckSearchResultQuery;
