@@ -24,7 +24,7 @@ export function validate(value: FormValues) {
       'Password must include numbers, uppercased and lowercased letters and atleast a special character (! @ # $ & % + -)';
   } else if (!/^[^_\s]*$/.test(value.password)) {
     errors.password = 'Password must not have whitespaces or underscores';
-  } else if (value.password != value.confirmedPassword) {
+  } else if (value.password !== value.confirmedPassword) {
     errors.password = "Passwords dont't match";
   }
   return errors;
