@@ -4,6 +4,8 @@ import { GET_TWITTER_API_CONTENTS_QUERY } from './query';
 import { GetTwitterApiContentsQuery } from './query.generated';
 import TwitterAPIColumn from './TwitterAPIColumn';
 import Loader from '../../components/Common/Loader';
+import Error from '../../components/Common/Error';
+import NoContents from '../../components/Common/NoContents';
 
 interface TwitterApiColumnDataProps {
   keyword: string | null;
@@ -18,9 +20,10 @@ const TwitterAPIColumnData: React.FC<TwitterApiColumnDataProps> = ({
     GET_TWITTER_API_CONTENTS_QUERY,
     { variables: { keyword, sources } }
   );
-  if (error) return <div>error</div>;
+  if (error) return <Error />;
   if (loading) return <Loader />;
-  if (!data) return <div>data</div>;
+  if (!data) return <Error />;
+  if (data.searchTweets.length === 0) return <NoContents />;
 
   return <TwitterAPIColumn data={data} />;
 };
