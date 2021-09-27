@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import {
@@ -10,6 +11,7 @@ import {
 import { CollectionInput } from '../../../../types.generated';
 import CREATE_COLLECTION from './query';
 import currentUserId from '../../../../authentication/currentUserId';
+import GET_COLUMNS_QUERY from '../../../Columns/query';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -31,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddCollectionForm = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   const [collectionForm, setCollectionForm] = useState<CollectionInput>({
     title: '',
@@ -57,6 +60,10 @@ const AddCollectionForm = () => {
         },
       },
     },
+    onCompleted: () => {
+      history.push('/');
+    },
+    refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
 
   const handleSubmit = () => {
