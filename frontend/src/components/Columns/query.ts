@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_COLUMNS_QUERY = gql`
+const GET_COLUMNS_QUERY = gql`
   query getColumns {
     getColumnResult {
       ... on TwitterFeed {

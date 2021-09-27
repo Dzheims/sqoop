@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
@@ -17,6 +18,7 @@ import {
 } from './query.generated';
 import { Category, CreateNewsFeedInput } from '../../../../types.generated';
 import CREATE_NEWS_FEED from './query';
+import GET_COLUMNS_QUERY from '../../../Columns/query';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -51,6 +53,7 @@ interface SuccessAlert {
 
 const AddNewsAPIFeedForm = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   const [newsFeedForm, setNewsFeedForm] = useState<CreateNewsFeedInput>({
     newsFeed: {
@@ -187,7 +190,9 @@ const AddNewsAPIFeedForm = () => {
         success: true,
       });
       setdisableCreateButton(true);
+      history.push('/');
     },
+    refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
 
   const handleSubmit = () => {
