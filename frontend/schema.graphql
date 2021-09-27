@@ -998,7 +998,7 @@ type Publisher {
   site: String
 }
 
-union ColumnResult = NewsFeed | TwitterFeed
+union ColumnResult = NewsFeed | TwitterFeed | Collection
 
 """
 The root mutation type which contains root level fields which mutate data.
