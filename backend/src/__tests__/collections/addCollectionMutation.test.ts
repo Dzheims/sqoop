@@ -60,6 +60,7 @@ describe('mock createCollection mutation', () => {
       data: {
         createCollection: {
           collection: {
+            id: 1,
             title: "Today's Bookmarks",
           },
         },

@@ -1,10 +1,5 @@
-import {} from '../../models';
+import { collections } from '../../models';
 import { withRootDb } from '../helpers/dbTestHelpers';
-
-interface collections {
-  id: BigInt;
-  title: string;
-}
 
 describe('create collection', () => {
   test('insert news feed filters', async () => {
@@ -16,7 +11,7 @@ describe('create collection', () => {
       const {
         rows: [news_feed],
       } = await pgClient.query<collections>(`SELECT * FROM collections`);
-      expect(news_feed.title).toBe('Covid');
+      expect(news_feed.title).toBe('Covid Collection');
     });
   });
 });
