@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import { Box, Modal } from '@mui/material';
 import TextField from '@material-ui/core/TextField';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
+import Cookies from 'js-cookie';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useMutation } from '@apollo/client';
@@ -11,6 +14,11 @@ import SIGN_UP_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
 import { SignupMutation, SignupMutationVariables } from './query.generated';
 import { SignupInput } from '../../types.generated';
+import {
+  SigninMutation,
+  SigninMutationVariables,
+} from '../SignInPage/query.generated';
+import SIGN_IN_MUTATION from '../SignInPage/query';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,22 +47,40 @@ const useStyles = makeStyles((theme) => ({
   welcome: {
     fontWeight: 'bold',
   },
+  successIcon: { margin: theme.spacing(2, 0, 4) },
+  box: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+    width: 500,
+    backgroundColor: 'white',
+    border: '2px solid #000',
+    padding: theme.spacing(4),
+  },
+  divBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
 }));
 
 const SignUp = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [loginInput, setLoginInput] = useState<SignupInput>({
+  const [signupInput, setSignupInput] = useState<SignupInput>({
     userName: '',
     password: '',
   });
+  const [confirmPasswordInput, setConfirmPasswordInput] = useState('');
 
   const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { value } = e.target;
-    setLoginInput({
-      ...loginInput,
+    setSignupInput({
+      ...signupInput,
       userName: value,
     });
   };
@@ -62,29 +88,59 @@ const SignUp = () => {
   const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { value } = e.target;
-    setLoginInput({
-      ...loginInput,
+    setSignupInput({
+      ...signupInput,
       password: value,
     });
   };
 
-  const [signUp] = useMutation<SignupMutation, SignupMutationVariables>(
-    SIGN_UP_MUTATION,
-    {}
-  );
+  const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { value } = e.target;
+    setConfirmPasswordInput(value);
+  };
+
+  const [successAlert, setSuccessAlert] = useState(false);
+
+  const [signUp, { data }] = useMutation<
+    SignupMutation,
+    SignupMutationVariables
+  >(SIGN_UP_MUTATION, {
+    variables: {
+      input: {
+        userName: signupInput.userName,
+        password: signupInput.password,
+      },
+    },
+    onCompleted: () => {
+      setSuccessAlert(true);
+    },
+  });
 
   const handleSubmit = () => {
-    signUp({
+    if (confirmPasswordInput === signupInput.password) {
+      signUp();
+    }
+  };
+
+  const [signIn] = useMutation<SigninMutation, SigninMutationVariables>(
+    SIGN_IN_MUTATION,
+    {
       variables: {
         input: {
-          userName: loginInput.userName,
-          password: loginInput.password,
+          userName: signupInput.userName as string,
+          password: signupInput.password as string,
         },
       },
-    }).then((data) => {
-      localStorage.setItem(AUTH_TOKEN, data.data?.signup?.jwtToken as string);
-      history.push('/signin');
-    });
+      onCompleted: ({ signin }) => {
+        Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
+        history.push('/');
+      },
+    }
+  );
+
+  const handleSignIn = () => {
+    signIn();
   };
 
   return (
@@ -119,8 +175,18 @@ const SignUp = () => {
               fullWidth
               onChange={onPasswordChange}
             />
+            <TextField
+              label="Confirm Password"
+              type="password"
+              placeholder="Confirm Password"
+              id="confirm password"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              onChange={onConfirmPasswordChange}
+            />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="secondary"
@@ -129,6 +195,33 @@ const SignUp = () => {
             >
               Sign Up
             </Button>
+            <Modal open={successAlert}>
+              <Box className={classes.box}>
+                <Grid className={classes.divBox}>
+                  <div>
+                    <CheckCircleOutlineIcon
+                      color="success"
+                      fontSize="inherit"
+                      style={{ fontSize: 150 }}
+                      className={classes.successIcon}
+                    />
+                  </div>
+                  <Typography variant="h2" component="h1">
+                    Awesome!
+                  </Typography>
+                  <Typography variant="h6">Your account was created</Typography>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={handleSignIn}
+                  >
+                    Let&apos;s get started!
+                  </Button>
+                </Grid>
+              </Box>
+            </Modal>
             <Grid container>
               <Grid item>
                 <Link href="/signin" variant="body2">

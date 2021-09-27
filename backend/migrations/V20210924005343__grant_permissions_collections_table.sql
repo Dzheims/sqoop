@@ -1,0 +1,1 @@
+GRANT SELECT, UPDATE, INSERT, DELETE ON collections to sqoop_user;

@@ -3,6 +3,7 @@ import { Maybe } from '../../types.generated';
 export interface FormValues {
   userName?: Maybe<string> | undefined;
   password?: Maybe<string> | undefined;
+  confirmedPassword?: Maybe<string> | undefined;
 }
 
 export function validate(value: FormValues) {
@@ -23,6 +24,8 @@ export function validate(value: FormValues) {
       'Password must include numbers, uppercased and lowercased letters and atleast a special character (! @ # $ & % + -)';
   } else if (!/^[^_\s]*$/.test(value.password)) {
     errors.password = 'Password must not have whitespaces or underscores';
+  } else if (value.password !== value.confirmedPassword) {
+    errors.password = "Passwords dont't match";
   }
   return errors;
 }

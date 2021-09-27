@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     justifyContent: 'flex-end',
   },
+  alert: {
+    marginTop: theme.spacing(5),
+  },
 }));
 
 interface FormsDisabled {
@@ -269,7 +272,7 @@ const AddNewsAPIFeedForm = () => {
         </Button>
       </div>
       {successAlert.success ? (
-        <Alert severity="success">
+        <Alert severity="success" className={classes.alert}>
           <AlertTitle>Success</AlertTitle>
           Feed <strong>{successAlert.feedTitle}</strong> was created —{' '}
           <strong>check it out!</strong>
