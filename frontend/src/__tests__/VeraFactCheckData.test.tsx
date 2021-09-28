@@ -98,7 +98,7 @@ describe('Twitter API contents', () => {
   });
   it('checks content text data 1', async () => {
     const title = await documentBody.findByText(
-      'VERA FILES FACT CHECK: Palasyo nagbago ng linya sa pagtakbo ni Duterte sa 2022 bilang VP'
+      'VERA FILES FACT CHECK: Palace sings different tune on Duterte’s 2022 bid for VP'
     );
     expect(title).toBeInTheDocument();
   });
@@ -108,7 +108,7 @@ describe('Twitter API contents', () => {
   });
   it('checks content text data 3', async () => {
     const description = await documentBody.findByText(
-      'Maling ipinahayag ni Pangulo Rodrigo Duterte nang&hellip;'
+      'Maling ipinahayag ni Pangulo Rodrigo Duterte nang…'
     );
     expect(description).toBeInTheDocument();
   });

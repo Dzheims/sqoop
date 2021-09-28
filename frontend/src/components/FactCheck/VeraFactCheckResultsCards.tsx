@@ -29,7 +29,7 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
   return (
     <div>
       {data.veraFilesFactCheck.map((value) => (
-        <CardsContainer>
+        <CardsContainer key={value.id}>
           <TitleContainer>
             <Avatar className={classes.avatar} src={VeraFilesLogo} />
             <AuthorContainer>
