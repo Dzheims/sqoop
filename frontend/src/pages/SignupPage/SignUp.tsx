@@ -71,12 +71,12 @@ const SignUp = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [signupInput, setSignupInput] = useState<SignupInput>({
+  const [signupInput, setSignupInput] = useState<FormValues>({
     userName: '',
     password: '',
+    confirmedPassword: '',
   });
   const [errors, setErrors] = useState<FormValues>();
-  const [confirmPasswordInput, setConfirmPasswordInput] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validForm, setValidForm] = useState(false);
 
@@ -120,7 +120,10 @@ const SignUp = () => {
     e.preventDefault();
     if (isSubmitting) setErrors(validate(signupInput));
     const { value } = e.target;
-    setConfirmPasswordInput(value);
+    setSignupInput({
+      ...signupInput,
+      confirmedPassword: value,
+    });
   };
 
   const [successAlert, setSuccessAlert] = useState(false);
@@ -144,7 +147,7 @@ const SignUp = () => {
     setErrors(validate(signupInput));
     setIsSubmitting(true);
 
-    if (confirmPasswordInput === signupInput.password && validForm) {
+    if (signupInput.confirmedPassword === signupInput.password && validForm) {
       setValidForm(false);
       signUp();
     }
