@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField } from '@material-ui/core';
 import { Alert, AlertTitle } from '@mui/material';
@@ -9,6 +10,7 @@ import {
 } from './query.generated';
 import { CreateTwitterFeedInput } from '../../../../types.generated';
 import CREATE_TWITTER_FEED from './query';
+import GET_COLUMNS_QUERY from '../../../Columns/query';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -30,6 +32,7 @@ interface SuccessAlert {
 }
 
 const AddTwitterFeedForm = () => {
+  const history = useHistory();
   const classes = useStyles();
 
   const [twitterFeedForm, setTwitterFeedForm] =
@@ -104,7 +107,9 @@ const AddTwitterFeedForm = () => {
         success: true,
       });
       setdisableCreateButton(true);
+      history.push('/');
     },
+    refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
 
   const handleSubmit = () => {
