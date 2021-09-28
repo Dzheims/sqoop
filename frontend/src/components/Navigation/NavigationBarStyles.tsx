@@ -16,7 +16,7 @@ export const useStyles = makeStyles(() => ({
     width: '35px',
   },
   drawerPaper: {
-    width: '375px',
+    width: '325px',
     backgroundColor: '#f7fafc',
     marginLeft: '55px',
     zIndex: 200,
@@ -27,7 +27,7 @@ export const useStyles = makeStyles(() => ({
     color: '#fff',
   },
   drawer: {
-    width: '320px',
+    width: '280px',
     height: '560px',
     backgroundColor: '#f7fafc',
     margin: '10px',

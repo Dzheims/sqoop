@@ -31,8 +31,8 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
   };
 
   const truncateName = (name: any) => {
-    if (name.length < 18) return name;
-    else return name.substring(0, 17) + '...';
+    if (name.length < 12) return name;
+    else return name.substring(0, 11) + '...';
   };
 
   return (

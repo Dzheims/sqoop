@@ -10,13 +10,15 @@ import GoogleFactCheckData from '../../../FactCheck/GoogleFactCheckData';
 const useStyles = makeStyles((theme) => ({
   container: {
     alignItems: 'center',
-    marginLeft: '10px',
+    maxWidth: '270px',
+    margin: '10px',
   },
   search: {
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    width: '300px',
+    height: '40px',
+    width: '250px',
     boxShadow: 'none',
     marginTop: '10px',
   },

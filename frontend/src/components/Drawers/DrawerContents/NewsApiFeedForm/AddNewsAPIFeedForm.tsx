@@ -23,9 +23,10 @@ import GET_COLUMNS_QUERY from '../../../Columns/query';
 const useStyles = makeStyles((theme) => ({
   formContainer: {
     alignItems: 'center',
+    maxWidth: '260px',
+    margin: '10px',
   },
   formControl: {
-    margin: theme.spacing(2, 0, 1),
     minWidth: 120,
   },
   selectEmpty: {
@@ -206,13 +207,16 @@ const AddNewsAPIFeedForm = () => {
         label="Feed Title"
         placeholder="Feed Title"
         variant="outlined"
-        margin="normal"
+        margin="dense"
+        size="small"
         required
         fullWidth
         onChange={onTitleChange}
       />
       <FormControl
         variant="outlined"
+        margin="dense"
+        size="small"
         fullWidth
         className={classes.formControl}
         disabled={disableForm.category}
@@ -239,7 +243,8 @@ const AddNewsAPIFeedForm = () => {
         label="Country"
         placeholder="Country"
         variant="outlined"
-        margin="normal"
+        margin="dense"
+        size="small"
         required
         fullWidth
         onChange={onCountryChange}
@@ -249,7 +254,8 @@ const AddNewsAPIFeedForm = () => {
         label="Keywords"
         placeholder="Keywords"
         variant="outlined"
-        margin="normal"
+        margin="dense"
+        size="small"
         required
         fullWidth
         onChange={onKeywordChange}
@@ -260,13 +266,15 @@ const AddNewsAPIFeedForm = () => {
         label="Sources"
         placeholder="Sources"
         variant="outlined"
-        margin="normal"
+        margin="dense"
+        size="small"
         required
         fullWidth
         onChange={onSourcesChange}
       />
       <div className={classes.button}>
         <Button
+          style={{ textTransform: 'none', borderRadius: '12px' }}
           disabled={disableCreateButton}
           type="submit"
           variant="contained"

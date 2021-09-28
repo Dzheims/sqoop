@@ -21,6 +21,12 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
 }: NewsAPIDataProps) => {
   const classes = useStyles();
 
+  const randomColor = () => {
+    let hex = Math.floor(Math.random() * 0xffffff);
+    let color = '#' + hex.toString(16);
+    return color;
+  };
+
   return (
     <div>
       {data?.topHeadlines?.map((value, index) => (
@@ -37,7 +43,13 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
               isDragging={snapshot.isDragging}
             >
               <NewsAPITitleContainer>
-                <Avatar className={classes.avatars}>
+                <Avatar
+                  style={{
+                    backgroundColor: randomColor(),
+                    color: 'white',
+                  }}
+                  className={classes.avatars}
+                >
                   {value.sourceName?.charAt(0)}
                 </Avatar>
                 <AccountNameContainer>
