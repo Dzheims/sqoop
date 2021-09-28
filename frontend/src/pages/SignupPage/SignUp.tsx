@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Cookies from 'js-cookie';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import SIGN_UP_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
 import { SignupMutation, SignupMutationVariables } from './query.generated';
@@ -96,39 +96,9 @@ const SignUp = () => {
     if (isSubmitting) hasError();
   }, [errors]);
 
-  const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (isSubmitting) setErrors(validate(signupInput));
-    const { value } = e.target;
-    setSignupInput({
-      ...signupInput,
-      userName: value,
-    });
-  };
-
-  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (isSubmitting) setErrors(validate(signupInput));
-    const { value } = e.target;
-    setSignupInput({
-      ...signupInput,
-      password: value,
-    });
-  };
-
-  const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (isSubmitting) setErrors(validate(signupInput));
-    const { value } = e.target;
-    setSignupInput({
-      ...signupInput,
-      confirmedPassword: value,
-    });
-  };
-
   const [successAlert, setSuccessAlert] = useState(false);
 
-  const [signUp, { data }] = useMutation<
+  const [signUp, { error }] = useMutation<
     SignupMutation,
     SignupMutationVariables
   >(SIGN_UP_MUTATION, {
@@ -143,8 +113,38 @@ const SignUp = () => {
     },
   });
 
+  const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (isSubmitting) setErrors(validate(signupInput, error));
+    const { value } = e.target;
+    setSignupInput({
+      ...signupInput,
+      userName: value,
+    });
+  };
+
+  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (isSubmitting) setErrors(validate(signupInput, error));
+    const { value } = e.target;
+    setSignupInput({
+      ...signupInput,
+      password: value,
+    });
+  };
+
+  const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (isSubmitting) setErrors(validate(signupInput, error));
+    const { value } = e.target;
+    setSignupInput({
+      ...signupInput,
+      confirmedPassword: value,
+    });
+  };
+
   const handleSubmit = () => {
-    setErrors(validate(signupInput));
+    setErrors(validate(signupInput, error));
     setIsSubmitting(true);
 
     if (signupInput.confirmedPassword === signupInput.password && validForm) {

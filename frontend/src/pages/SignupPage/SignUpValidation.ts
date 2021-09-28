@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { Maybe } from '../../types.generated';
 
 export interface FormValues {
@@ -6,7 +7,7 @@ export interface FormValues {
   confirmedPassword?: Maybe<string> | undefined;
 }
 
-export function validate(value: FormValues) {
+export function validate(value: FormValues, error: ApolloError | undefined) {
   const errors = {
     userName: '',
     password: '',
@@ -15,6 +16,12 @@ export function validate(value: FormValues) {
 
   if (!value.userName) {
     errors.userName = 'Please enter your username';
+  }
+  if (
+    error?.message ===
+    'duplicate key value violates unique constraint "users_username_key"'
+  ) {
+    errors.userName = 'Username already exists';
   }
   if (!value.password) {
     errors.password = 'Please enter your password';
