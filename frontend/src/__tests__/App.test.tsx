@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult, screen } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import App from '../App';
-import { GET_COLUMNS_QUERY } from '../components/Columns/query';
+import GET_COLUMNS_QUERY from '../components/Columns/query';
 import { ColumnsData } from '../components/Columns/ColumnsData';
 
 const mocks: ReadonlyArray<MockedResponse> = [
@@ -47,6 +47,11 @@ const mocks: ReadonlyArray<MockedResponse> = [
             sources: null,
             keyword: 'President Duterte',
           },
+          {
+            __typename: 'Collection',
+            id: 6,
+            title: 'Collection Bookmarks',
+          },
         ],
       },
     },
@@ -60,6 +65,10 @@ test('renders Sqoopify app', async () => {
       <ColumnsData />
     </MockedProvider>
   );
-  const title = await documentBody.findByText('Custom News Feed');
-  expect(title).toBeInTheDocument();
+  const newsFeed = await documentBody.findByText('Custom News Feed');
+  expect(newsFeed).toBeInTheDocument();
+  const twitterFeed = await documentBody.findByText('Custom Twitter Feed');
+  expect(twitterFeed).toBeInTheDocument();
+  const collection = await documentBody.findByText('Collection Bookmarks');
+  expect(collection).toBeInTheDocument();
 });

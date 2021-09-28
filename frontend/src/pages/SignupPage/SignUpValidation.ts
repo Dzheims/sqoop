@@ -25,7 +25,7 @@ export function validate(value: FormValues) {
   } else if (!/^[^_\s]*$/.test(value.password)) {
     errors.password = 'Password must not have whitespaces or underscores';
   } else if (value.password !== value.confirmedPassword) {
-    errors.password = "Passwords dont't match";
+    errors.password = "Passwords don't match";
   }
   return errors;
 }

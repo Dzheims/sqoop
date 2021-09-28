@@ -2,7 +2,11 @@ import { validate, FormValues } from '../pages/SignupPage/SignUpValidation';
 
 describe('with and without user input', () => {
   test('empty username and password', () => {
-    const values: FormValues = { userName: '', password: '' };
+    const values: FormValues = {
+      userName: '',
+      password: '',
+      confirmedPassword: '',
+    };
     const errors = {
       userName: 'Please enter your username',
       password: 'Please enter your password',
@@ -11,10 +15,27 @@ describe('with and without user input', () => {
   });
 
   test('valid username and password', () => {
-    const values: FormValues = { userName: 'sqoopUser', password: '1234+ABc' };
+    const values: FormValues = {
+      userName: 'sqoopUser',
+      password: '1234+ABc',
+      confirmedPassword: '1234+ABc',
+    };
     const errors = {
       userName: '',
       password: '',
+    };
+    expect(validate(values)).toStrictEqual(errors);
+  });
+
+  test('passwords does not match', () => {
+    const values: FormValues = {
+      userName: 'sqoopUser',
+      password: '1234+ABc',
+      confirmedPassword: 'sqoopUsr',
+    };
+    const errors = {
+      userName: '',
+      password: "Passwords don't match",
     };
     expect(validate(values)).toStrictEqual(errors);
   });
