@@ -95,7 +95,7 @@ const FactCheckDrawerContent = () => {
           </Button>
         ))}
       </div>
-      {search ? <GoogleFactCheckData keyword={searchKey} /> : <div />}
+      {search ? <VeraFactCheckData keyword={searchKey} /> : <div />}
     </div>
   );
 };
