@@ -9,6 +9,7 @@ import {
   ContentContainer,
 } from './FactCheckStyles';
 import VeraFilesLogo from '../../assets/vera_files_logo.png';
+import formatTimeAndDate from '../Common/Functions/Functions';
 
 interface VeraFactCheckProps {
   data: VeraFactCheckSearchResultQuery;
@@ -18,12 +19,6 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
   data,
 }: VeraFactCheckProps) => {
   const classes = useStyles();
-
-  const formatTimeAndDate = (date: any) => {
-    const createdAtDate = new Date(date);
-    const formattedCreateDate = `${createdAtDate.toLocaleTimeString()} ${createdAtDate.toDateString()}`;
-    return formattedCreateDate;
-  };
 
   return (
     <div>
@@ -37,18 +32,17 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
               </Typography>
             </AuthorContainer>
           </TitleContainer>
-          <Typography variant="body2">{value.title}</Typography>
+          <Typography variant="body2">{value.description}</Typography>
           <ContentContainer>
             <div
               style={{
                 backgroundImage: `url(${String(value.imageUrl)})`,
               }}
               className={classes.imageContainer}
-            >
-              <Typography className={classes.description}>
-                {value.description}
-              </Typography>
-            </div>
+            />
+            <Typography className={classes.description}>
+              {value.title}
+            </Typography>
           </ContentContainer>
           <br />
           <Typography className={classes.dateAndUserName}>

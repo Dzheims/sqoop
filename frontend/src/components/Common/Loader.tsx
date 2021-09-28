@@ -5,7 +5,7 @@ import theme from '../../theme';
 
 const useStyles = makeStyles(() => ({
   loader: {
-    marginTop: '25px',
+    marginTop: '50%',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',

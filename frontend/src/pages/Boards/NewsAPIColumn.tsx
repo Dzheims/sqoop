@@ -11,6 +11,7 @@ import {
   useStyles,
 } from './ColumnsStyle';
 import FactCheck from '../../components/FactCheck/FactCheck';
+import formatTimeAndDate from '../../components/Common/Functions/Functions';
 
 interface NewsAPIDataProps {
   data: GetNewsApiContentsQuery;
@@ -19,13 +20,6 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
   data,
 }: NewsAPIDataProps) => {
   const classes = useStyles();
-
-  const formatTimeAndDate = (date: any) => {
-    const createdAtDate = new Date(date);
-    const formattedCreateDate =
-      createdAtDate.toLocaleTimeString() + ' ' + createdAtDate.toDateString();
-    return formattedCreateDate;
-  };
 
   return (
     <div>
