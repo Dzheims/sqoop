@@ -1,7 +1,7 @@
 import { gql } from 'graphile-utils';
 
 export const columnResult = gql`
-  union ColumnResult = NewsFeed | TwitterFeed
+  union ColumnResult = NewsFeed | TwitterFeed | Collection
 `;
 
 export const typeDefs = gql`

@@ -32,8 +32,8 @@ interface SuccessAlert {
 }
 
 const AddTwitterFeedForm = () => {
-  const classes = useStyles();
   const history = useHistory();
+  const classes = useStyles();
 
   const [twitterFeedForm, setTwitterFeedForm] =
     useState<CreateTwitterFeedInput>({

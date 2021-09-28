@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddCollectionForm = () => {
-  const classes = useStyles();
   const history = useHistory();
+  const classes = useStyles();
 
   const [collectionForm, setCollectionForm] = useState<CollectionInput>({
     title: '',

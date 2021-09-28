@@ -24,29 +24,8 @@ interface filtersProps {
   sources: string | null;
 }
 
-// const getFeedType = ({
-//   feedType,
-//   keyword,
-//   country,
-//   category,
-//   sources,
-// }: filtersProps) => {
-//   if (feedType === 'NewsFeed')
-//     return (
-//       <NewsAPIColumnData
-//         keyword={keyword}
-//         country={country}
-//         category={category as Category}
-//         sources={sources}
-//       />
-//     );
-//   if (feedType === 'TwitterFeed')
-//     return <TwitterAPIColumnData keyword={keyword} sources={sources} />;
-//   return <div />;
-// };
-
 const getFeedType = (value: any) => {
-  switch (value._typename) {
+  switch (value.__typename) {
     case 'NewsFeed':
       return (
         <NewsAPIColumnData
@@ -92,21 +71,6 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                     ref={provided.innerRef}
                     isDragging={snapshot.isDraggingOver}
                   >
-                    {/* {value.__typename === 'NewsFeed'
-                      ? getFeedType({
-                          feedType: value.__typename,
-                          keyword: value.keyword || '',
-                          sources: value.sources || '',
-                          country: value.country || '',
-                          category: value.category || null,
-                        })
-                      : getFeedType({
-                          feedType: value.__typename || 'TwitterFeed',
-                          keyword: value.keyword || null,
-                          country: '',
-                          category: null,
-                          sources: value.sources || null,
-                        })} */}
                     {getFeedType(value)}
                   </ItemContainer>
                 </ColumnContainer>

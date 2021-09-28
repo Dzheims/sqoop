@@ -87,7 +87,7 @@ export const resolvers = {
           .attr('style')
           ?.trim();
         const imageUrl = imageStyle
-          ?.replace("background-image: url('", 'verafiles.org')
+          ?.replace("background-image: url('", 'https://verafiles.org')
           .replace("')", '');
 
         const content = {

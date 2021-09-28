@@ -1,5 +1,3 @@
-import { resolvers as newsApiResolvers } from '../newsApi/queries';
-
 interface columnProps {
   id: BigInteger;
   title: String;
@@ -13,7 +11,9 @@ export const resolvers = (getNamedType: any) => {
   return {
     ColumnResult: {
       __resolveType(column: columnProps) {
-        return 'category' in column ? 'NewsFeed' : 'TwitterFeed';
+        if ('category' in column) return 'NewsFeed';
+        if ('sources' in column) return 'TwitterFeed';
+        return 'Collection';
       },
     },
     Query: {
@@ -25,7 +25,10 @@ export const resolvers = (getNamedType: any) => {
         const { rows: twitterFeeds } = await pgClient.query(
           `SELECT * FROM twitter_feeds`
         );
-        const result = newsFeeds.concat(twitterFeeds);
+        const { rows: collections } = await pgClient.query(
+          `SELECT * FROM collections`
+        );
+        const result = [...newsFeeds, ...twitterFeeds, ...collections];
         return result;
       },
     },
