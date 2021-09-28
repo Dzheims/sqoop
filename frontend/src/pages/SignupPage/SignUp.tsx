@@ -19,6 +19,7 @@ import {
   SigninMutationVariables,
 } from '../SignInPage/query.generated';
 import SIGN_IN_MUTATION from '../SignInPage/query';
+import { FormValues, validate } from './SignUpValidation';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'baseline',
     flexDirection: 'column',
-    margin: '100px 80px 0px 60px',
+    margin: '80px 60px 0px 60px',
   },
   form: {
     width: '80%',
@@ -74,10 +75,30 @@ const SignUp = () => {
     userName: '',
     password: '',
   });
+  const [errors, setErrors] = useState<FormValues>();
   const [confirmPasswordInput, setConfirmPasswordInput] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validForm, setValidForm] = useState(false);
+
+  const setErrorInForm = (input: string | undefined): boolean => {
+    if (input === '' || input === undefined) return false;
+    return true;
+  };
+
+  const hasError = () => {
+    if (errors)
+      Object.values(errors).forEach((error) => {
+        if (error === '' || error === undefined) setValidForm(true);
+      });
+  };
+
+  useEffect(() => {
+    if (isSubmitting) hasError();
+  }, [errors]);
 
   const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    if (isSubmitting) setErrors(validate(signupInput));
     const { value } = e.target;
     setSignupInput({
       ...signupInput,
@@ -87,6 +108,7 @@ const SignUp = () => {
 
   const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    if (isSubmitting) setErrors(validate(signupInput));
     const { value } = e.target;
     setSignupInput({
       ...signupInput,
@@ -96,6 +118,7 @@ const SignUp = () => {
 
   const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    if (isSubmitting) setErrors(validate(signupInput));
     const { value } = e.target;
     setConfirmPasswordInput(value);
   };
@@ -118,7 +141,11 @@ const SignUp = () => {
   });
 
   const handleSubmit = () => {
-    if (confirmPasswordInput === signupInput.password) {
+    setErrors(validate(signupInput));
+    setIsSubmitting(true);
+
+    if (confirmPasswordInput === signupInput.password && validForm) {
+      setValidForm(false);
       signUp();
     }
   };
@@ -162,6 +189,8 @@ const SignUp = () => {
               fullWidth
               autoFocus
               onChange={onUserNameChange}
+              error={setErrorInForm(errors?.userName || '')}
+              helperText={errors?.userName}
             />
             <TextField
               inputProps={{ 'data-testid': 'Password' }}
@@ -174,6 +203,8 @@ const SignUp = () => {
               required
               fullWidth
               onChange={onPasswordChange}
+              error={setErrorInForm(errors?.password || '')}
+              helperText={errors?.password}
             />
             <TextField
               label="Confirm Password"
@@ -185,6 +216,8 @@ const SignUp = () => {
               required
               fullWidth
               onChange={onConfirmPasswordChange}
+              error={setErrorInForm(errors?.confirmedPassword || '')}
+              helperText={errors?.confirmedPassword}
             />
             <Button
               fullWidth
