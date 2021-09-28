@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Key } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import Linkify from 'react-linkify';
+import { SecureLink } from 'react-secure-link';
 import { decodeHTML } from 'entities';
 import { GetTwitterApiContentsQuery } from './query.generated';
 import {
@@ -89,9 +91,21 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
                   className={classes.twitterIcon}
                 />
               </TwitterContentContainer>
-              <Typography variant="body2">
-                {decodeHTML(value.text as string)}
-              </Typography>
+              <Linkify
+                componentDecorator={(
+                  decoratedHref: string,
+                  decoratedText: string,
+                  key: Key
+                ) => (
+                  <SecureLink target="_blank" href={decoratedHref} key={key}>
+                    {decoratedText}
+                  </SecureLink>
+                )}
+              >
+                <Typography variant="body2">
+                  {decodeHTML(value.text as string)}
+                </Typography>
+              </Linkify>
               {value.photos?.length === 0 ||
               value.photos?.some((photo) => photo?.url === null) ? (
                 <div />
