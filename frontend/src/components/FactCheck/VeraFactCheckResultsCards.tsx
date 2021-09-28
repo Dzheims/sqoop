@@ -1,5 +1,6 @@
 import React from 'react';
 import { Avatar, Typography } from '@material-ui/core';
+import { decodeHTML } from 'entities';
 import { VeraFactCheckSearchResultQuery } from './query.generated';
 import {
   CardsContainer,
@@ -37,7 +38,9 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
               </Typography>
             </AuthorContainer>
           </TitleContainer>
-          <Typography variant="body2">{value.title}</Typography>
+          <Typography variant="body2">
+            {decodeHTML(value.title as string)}
+          </Typography>
           <ContentContainer>
             <div
               style={{
@@ -46,7 +49,7 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
               className={classes.imageContainer}
             >
               <Typography className={classes.description}>
-                {value.description}
+                {decodeHTML(value.description as string)}
               </Typography>
             </div>
           </ContentContainer>

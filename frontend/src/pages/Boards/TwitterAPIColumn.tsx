@@ -1,5 +1,6 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { decodeHTML } from 'entities';
 import { GetTwitterApiContentsQuery } from './query.generated';
 import {
   Typography,
@@ -88,7 +89,9 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
                   className={classes.twitterIcon}
                 />
               </TwitterContentContainer>
-              <Typography variant="body2">{value.text}</Typography>
+              <Typography variant="body2">
+                {decodeHTML(value.text as string)}
+              </Typography>
               {value.photos?.length === 0 ||
               value.photos?.some((photo) => photo?.url === null) ? (
                 <div />
