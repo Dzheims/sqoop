@@ -345,6 +345,98 @@ type User implements Node {
   username: String!
   hashedPassword: String!
 
+  """Reads and enables pagination through a set of `NewsFeed`."""
+  newsFeedsConnection(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `NewsFeed`."""
+    orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: NewsFeedCondition
+  ): NewsFeedsConnection!
+
+  """Reads and enables pagination through a set of `NewsFeed`."""
+  newsFeeds(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Skip the first `n` values."""
+    offset: Int
+
+    """The method to use when ordering `NewsFeed`."""
+    orderBy: [NewsFeedsOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: NewsFeedCondition
+  ): [NewsFeed!]!
+
+  """Reads and enables pagination through a set of `TwitterFeed`."""
+  twitterFeedsConnection(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `TwitterFeed`."""
+    orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TwitterFeedCondition
+  ): TwitterFeedsConnection!
+
+  """Reads and enables pagination through a set of `TwitterFeed`."""
+  twitterFeeds(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Skip the first `n` values."""
+    offset: Int
+
+    """The method to use when ordering `TwitterFeed`."""
+    orderBy: [TwitterFeedsOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TwitterFeedCondition
+  ): [TwitterFeed!]!
+
   """Reads and enables pagination through a set of `Collection`."""
   collectionsConnection(
     """Only read the first `n` values of the set."""
@@ -392,8 +484,163 @@ type User implements Node {
   ): [Collection!]!
 }
 
+"""A connection to a list of `NewsFeed` values."""
+type NewsFeedsConnection {
+  """A list of `NewsFeed` objects."""
+  nodes: [NewsFeed]!
+
+  """
+  A list of edges which contains the `NewsFeed` and cursor to aid in pagination.
+  """
+  edges: [NewsFeedsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `NewsFeed` you could get from the connection."""
+  totalCount: Int!
+}
+
+type NewsFeed implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  title: String!
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+  userId: Int
+
+  """Reads a single `User` that is related to this `NewsFeed`."""
+  user: User
+}
+
+enum Category {
+  BUSINESS
+  ENTERTAINMENT
+  GENERAL
+  HEALTH
+  SCIENCE
+  SPORTS
+  TECHNOLOGY
+}
+
+"""A `NewsFeed` edge in the connection."""
+type NewsFeedsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `NewsFeed` at the end of the edge."""
+  node: NewsFeed
+}
+
 """A location in a connection that can be used for resuming pagination."""
 scalar Cursor
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: Cursor
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: Cursor
+}
+
+"""Methods to use when ordering `NewsFeed`."""
+enum NewsFeedsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  USER_ID_ASC
+  USER_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `NewsFeed` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input NewsFeedCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: Int
+
+  """Checks for equality with the object’s `userId` field."""
+  userId: Int
+}
+
+"""A connection to a list of `TwitterFeed` values."""
+type TwitterFeedsConnection {
+  """A list of `TwitterFeed` objects."""
+  nodes: [TwitterFeed]!
+
+  """
+  A list of edges which contains the `TwitterFeed` and cursor to aid in pagination.
+  """
+  edges: [TwitterFeedsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `TwitterFeed` you could get from the connection."""
+  totalCount: Int!
+}
+
+type TwitterFeed implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  title: String!
+  keyword: String
+  sources: String
+  userId: Int
+
+  """Reads a single `User` that is related to this `TwitterFeed`."""
+  user: User
+}
+
+"""A `TwitterFeed` edge in the connection."""
+type TwitterFeedsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `TwitterFeed` at the end of the edge."""
+  node: TwitterFeed
+}
+
+"""Methods to use when ordering `TwitterFeed`."""
+enum TwitterFeedsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  USER_ID_ASC
+  USER_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `TwitterFeed` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input TwitterFeedCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: Int
+
+  """Checks for equality with the object’s `userId` field."""
+  userId: Int
+}
 
 """Methods to use when ordering `Collection`."""
 enum CollectionsOrderBy {
@@ -425,88 +672,6 @@ type CollectionsEdge {
 
   """The `Collection` at the end of the edge."""
   node: Collection
-}
-
-"""Information about pagination in a connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: Cursor
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: Cursor
-}
-
-"""A connection to a list of `NewsFeed` values."""
-type NewsFeedsConnection {
-  """A list of `NewsFeed` objects."""
-  nodes: [NewsFeed]!
-
-  """
-  A list of edges which contains the `NewsFeed` and cursor to aid in pagination.
-  """
-  edges: [NewsFeedsEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `NewsFeed` you could get from the connection."""
-  totalCount: Int!
-}
-
-type NewsFeed implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: Int!
-  title: String!
-  category: Category
-  country: String
-  keyword: String
-  sources: String
-}
-
-enum Category {
-  BUSINESS
-  ENTERTAINMENT
-  GENERAL
-  HEALTH
-  SCIENCE
-  SPORTS
-  TECHNOLOGY
-}
-
-"""A `NewsFeed` edge in the connection."""
-type NewsFeedsEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `NewsFeed` at the end of the edge."""
-  node: NewsFeed
-}
-
-"""Methods to use when ordering `NewsFeed`."""
-enum NewsFeedsOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
-"""
-A condition to be used against `NewsFeed` object types. All fields are tested
-for equality and combined with a logical ‘and.’
-"""
-input NewsFeedCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: Int
 }
 
 """A connection to a list of `TwitterAccount` values."""
@@ -571,61 +736,6 @@ input TwitterAccountCondition {
 
   """Checks for equality with the object’s `accountUsername` field."""
   accountUsername: String
-}
-
-"""A connection to a list of `TwitterFeed` values."""
-type TwitterFeedsConnection {
-  """A list of `TwitterFeed` objects."""
-  nodes: [TwitterFeed]!
-
-  """
-  A list of edges which contains the `TwitterFeed` and cursor to aid in pagination.
-  """
-  edges: [TwitterFeedsEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `TwitterFeed` you could get from the connection."""
-  totalCount: Int!
-}
-
-type TwitterFeed implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: Int!
-  title: String!
-  keyword: String
-  sources: String
-}
-
-"""A `TwitterFeed` edge in the connection."""
-type TwitterFeedsEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `TwitterFeed` at the end of the edge."""
-  node: TwitterFeed
-}
-
-"""Methods to use when ordering `TwitterFeed`."""
-enum TwitterFeedsOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
-"""
-A condition to be used against `TwitterFeed` object types. All fields are tested
-for equality and combined with a logical ‘and.’
-"""
-input TwitterFeedCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: Int
 }
 
 """A connection to a list of `User` values."""
@@ -1073,6 +1183,9 @@ type CreateNewsFeedPayload {
   """
   query: Query
 
+  """Reads a single `User` that is related to this `NewsFeed`."""
+  user: User
+
   """An edge for our `NewsFeed`. May be used by Relay 1."""
   newsFeedEdge(
     """The method to use when ordering `NewsFeed`."""
@@ -1100,6 +1213,7 @@ input NewsFeedInput {
   country: String
   keyword: String
   sources: String
+  userId: Int
 }
 
 """The output of our create `TwitterAccount` mutation."""
@@ -1160,6 +1274,9 @@ type CreateTwitterFeedPayload {
   """
   query: Query
 
+  """Reads a single `User` that is related to this `TwitterFeed`."""
+  user: User
+
   """An edge for our `TwitterFeed`. May be used by Relay 1."""
   twitterFeedEdge(
     """The method to use when ordering `TwitterFeed`."""
@@ -1185,6 +1302,7 @@ input TwitterFeedInput {
   title: String!
   keyword: String
   sources: String
+  userId: Int
 }
 
 """The output of our create `User` mutation."""
@@ -1314,6 +1432,9 @@ type UpdateNewsFeedPayload {
   """
   query: Query
 
+  """Reads a single `User` that is related to this `NewsFeed`."""
+  user: User
+
   """An edge for our `NewsFeed`. May be used by Relay 1."""
   newsFeedEdge(
     """The method to use when ordering `NewsFeed`."""
@@ -1350,6 +1471,7 @@ input NewsFeedPatch {
   country: String
   keyword: String
   sources: String
+  userId: Int
 }
 
 """All input for the `updateNewsFeed` mutation."""
@@ -1479,6 +1601,9 @@ type UpdateTwitterFeedPayload {
   """
   query: Query
 
+  """Reads a single `User` that is related to this `TwitterFeed`."""
+  user: User
+
   """An edge for our `TwitterFeed`. May be used by Relay 1."""
   twitterFeedEdge(
     """The method to use when ordering `TwitterFeed`."""
@@ -1513,6 +1638,7 @@ input TwitterFeedPatch {
   title: String
   keyword: String
   sources: String
+  userId: Int
 }
 
 """All input for the `updateTwitterFeed` mutation."""
@@ -1677,6 +1803,9 @@ type DeleteNewsFeedPayload {
   """
   query: Query
 
+  """Reads a single `User` that is related to this `NewsFeed`."""
+  user: User
+
   """An edge for our `NewsFeed`. May be used by Relay 1."""
   newsFeedEdge(
     """The method to use when ordering `NewsFeed`."""
@@ -1792,6 +1921,9 @@ type DeleteTwitterFeedPayload {
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+
+  """Reads a single `User` that is related to this `TwitterFeed`."""
+  user: User
 
   """An edge for our `TwitterFeed`. May be used by Relay 1."""
   twitterFeedEdge(
