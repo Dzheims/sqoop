@@ -20,6 +20,7 @@ import {
 } from '../SignInPage/query.generated';
 import SIGN_IN_MUTATION from '../SignInPage/query';
 import { FormValues, validate } from './SignUpValidation';
+import SignUpSuccessAlertBox from './SignUpSuccessAlert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -153,26 +154,6 @@ const SignUp = () => {
     }
   };
 
-  const [signIn] = useMutation<SigninMutation, SigninMutationVariables>(
-    SIGN_IN_MUTATION,
-    {
-      variables: {
-        input: {
-          userName: signupInput.userName as string,
-          password: signupInput.password as string,
-        },
-      },
-      onCompleted: ({ signin }) => {
-        Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
-        history.push('/');
-      },
-    }
-  );
-
-  const handleSignIn = () => {
-    signIn();
-  };
-
   return (
     <Grid container component="main" className={classes.root}>
       <Grid item xs={false} sm={5} md={7} className={classes.image} />
@@ -223,6 +204,7 @@ const SignUp = () => {
               helperText={errors?.confirmedPassword}
             />
             <Button
+              data-testid="btn-signup"
               fullWidth
               variant="contained"
               color="secondary"
@@ -232,31 +214,10 @@ const SignUp = () => {
               Sign Up
             </Button>
             <Modal open={successAlert}>
-              <Box className={classes.box}>
-                <Grid className={classes.divBox}>
-                  <div>
-                    <CheckCircleOutlineIcon
-                      color="success"
-                      fontSize="inherit"
-                      style={{ fontSize: 150 }}
-                      className={classes.successIcon}
-                    />
-                  </div>
-                  <Typography variant="h2" component="h1">
-                    Awesome!
-                  </Typography>
-                  <Typography variant="h6">Your account was created</Typography>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    onClick={handleSignIn}
-                  >
-                    Let&apos;s get started!
-                  </Button>
-                </Grid>
-              </Box>
+              <SignUpSuccessAlertBox
+                userName={signupInput.userName}
+                password={signupInput.password}
+              />
             </Modal>
             <Grid container>
               <Grid item>
