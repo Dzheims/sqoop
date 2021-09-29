@@ -100,6 +100,7 @@ const FactCheckDrawerContent = () => {
       {/* <Title>Fact Check</Title> */}
       <Paper variant="outlined" component="form" className={classes.search}>
         <InputBase
+          inputProps={{ 'aria-label': 'Search' }}
           className={classes.input}
           value={searchKey}
           placeholder="Search"
