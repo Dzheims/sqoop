@@ -1,8 +1,8 @@
 import { twitter_accounts } from '../../models';
 import { Client } from 'pg';
+import keyword_extractor from 'keyword-extractor';
 const fetch = require('node-fetch');
 require('dotenv').config();
-const rake = require('node-rake');
 
 interface searchParams {
   keyword: string;
@@ -61,7 +61,12 @@ export const resolvers = {
       const result = await response.json();
       const searchTweets = result.data
         ? result.data.map((tweet: any) => {
-            const suggestedKeywords = rake.generate(tweet.text);
+            const suggestedKeywords = keyword_extractor.extract(tweet.text, {
+              language: 'english',
+              remove_digits: true,
+              return_changed_case: true,
+              remove_duplicates: true,
+            });
             const photos = tweet.attachments
               ? tweet.attachments.media_keys.map((attachment: any) => {
                   for (var media of result.includes.media) {
