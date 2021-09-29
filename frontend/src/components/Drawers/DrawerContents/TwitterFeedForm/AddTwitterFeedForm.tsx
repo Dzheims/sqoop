@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, TextField } from '@material-ui/core';
-import { Alert, AlertTitle } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@material-ui/core';
+import { Alert, AlertTitle, Autocomplete } from '@mui/material';
 import {
   CreateTwitterFeedMutation,
   CreateTwitterFeedMutationVariables,
@@ -11,6 +12,7 @@ import {
 import { CreateTwitterFeedInput } from '../../../../types.generated';
 import CREATE_TWITTER_FEED from './query';
 import GET_COLUMNS_QUERY from '../../../Columns/query';
+import accountSources from './SourcesList';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -26,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
   alert: {
     marginTop: theme.spacing(5),
   },
+  options: {
+    display: 'block',
+  },
+  optionsUsername: { fontSize: '14px', color: 'gray' },
 }));
 
 interface SuccessAlert {
@@ -36,13 +42,14 @@ interface SuccessAlert {
 const AddTwitterFeedForm = () => {
   const history = useHistory();
   const classes = useStyles();
+  const [source, setSource] = useState(accountSources[0]);
 
   const [twitterFeedForm, setTwitterFeedForm] =
     useState<CreateTwitterFeedInput>({
       twitterFeed: {
+        title: '',
         keyword: '',
         sources: '',
-        title: '',
       },
     });
 
@@ -59,6 +66,8 @@ const AddTwitterFeedForm = () => {
       ...twitterFeedForm,
       twitterFeed: {
         title: value,
+        keyword: twitterFeedForm.twitterFeed.keyword,
+        sources: twitterFeedForm.twitterFeed.sources,
       },
     });
   };
@@ -76,9 +85,7 @@ const AddTwitterFeedForm = () => {
     });
   };
 
-  const onSourcesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const { value } = e.target;
+  const onSourcesChange = (value: string) => {
     setTwitterFeedForm({
       ...twitterFeedForm,
       twitterFeed: {
@@ -142,16 +149,44 @@ const AddTwitterFeedForm = () => {
         fullWidth
         onChange={onKeywordChange}
       />
-      <TextField
-        id="Sources"
-        label="Sources"
-        placeholder="Sources"
-        variant="outlined"
-        margin="dense"
+      <Autocomplete
+        id="sources"
+        disableClearable
+        value={source}
+        onChange={(event, newValue) => {
+          setSource(newValue);
+          onSourcesChange(newValue.username);
+        }}
         size="small"
-        required
-        fullWidth
-        onChange={onSourcesChange}
+        options={accountSources}
+        getOptionLabel={(option) => option.label}
+        renderOption={(props, option) => (
+          <Box component="li" {...props}>
+            <div className={classes.options}>
+              <Typography>{option.label}</Typography>
+              {option.label === 'All accounts' ? (
+                <Typography>{option.username}</Typography>
+              ) : (
+                <Typography className={classes.optionsUsername}>
+                  @{option.username}
+                </Typography>
+              )}
+            </div>
+          </Box>
+        )}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            id="Sources"
+            label="Sources"
+            placeholder="Sources"
+            variant="outlined"
+            margin="dense"
+            size="small"
+            required
+            fullWidth
+          />
+        )}
       />
       <div className={classes.button}>
         <Button

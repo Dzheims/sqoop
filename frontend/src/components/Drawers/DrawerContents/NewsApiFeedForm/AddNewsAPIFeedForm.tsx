@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+  Box,
   Button,
   FormControl,
   InputLabel,
@@ -42,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
   alert: {
     marginTop: theme.spacing(5),
   },
+  flags: {
+    marginRight: '5px',
+  },
 }));
 
 interface FormsDisabled {
@@ -57,7 +61,7 @@ interface SuccessAlert {
 const AddNewsAPIFeedForm = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [country, setCountry] = useState(countries[35]);
+  const [country, setCountry] = useState(countries[0]);
 
   const [newsFeedForm, setNewsFeedForm] = useState<CreateNewsFeedInput>({
     newsFeed: {
@@ -249,6 +253,16 @@ const AddNewsAPIFeedForm = () => {
         size="small"
         options={countries}
         getOptionLabel={(option) => option.label}
+        renderOption={(props, option) => (
+          <Box component="li" {...props}>
+            <img
+              className={classes.flags}
+              alt=""
+              src={`https://flagcdn.com/w20/${option.code}.png`}
+            />
+            {option.label}
+          </Box>
+        )}
         renderInput={(params) => (
           <TextField
             {...params}

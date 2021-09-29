@@ -1,5 +1,5 @@
 const countries = [
-  { code: '', label: '' },
+  { code: 'ph', label: 'Philippines' },
   { code: 'ae', label: 'United Arab Emirates' },
   { code: 'ar', label: 'Argentina' },
   { code: 'at', label: 'Austria' },
@@ -34,7 +34,6 @@ const countries = [
   { code: 'nl', label: 'Netherlands' },
   { code: 'no', label: 'Norway' },
   { code: 'nz', label: 'New Zealand' },
-  { code: 'ph', label: 'Philippines' },
   { code: 'pl', label: 'Poland' },
   { code: 'pt', label: 'Portugal' },
   { code: 'ro', label: 'Romania' },
