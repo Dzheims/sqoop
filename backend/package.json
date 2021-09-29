@@ -44,6 +44,7 @@
     "express": "^4.17.1",
     "node-fetch": "^2.6.1",
     "node-flywaydb": "^3.0.7",
+    "node-rake": "^1.0.1",
     "pg-connection-string": "^2.5.0",
     "postgraphile": "^4.12.3",
     "scripty": "^2.0.0"

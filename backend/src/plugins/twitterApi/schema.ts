@@ -9,6 +9,7 @@ export const tweet = gql`
     username: String
     verified: Boolean
     photos: [TwitterPhoto]
+    suggestedKeywords: [String]
   }
 `;
 export const twitterPhoto = gql`

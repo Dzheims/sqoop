@@ -2,6 +2,7 @@ import { twitter_accounts } from '../../models';
 import { Client } from 'pg';
 const fetch = require('node-fetch');
 require('dotenv').config();
+const rake = require('node-rake');
 
 interface searchParams {
   keyword: string;
@@ -60,6 +61,7 @@ export const resolvers = {
       const result = await response.json();
       const searchTweets = result.data
         ? result.data.map((tweet: any) => {
+            const suggestedKeywords = rake.generate(tweet.text);
             const photos = tweet.attachments
               ? tweet.attachments.media_keys.map((attachment: any) => {
                   for (var media of result.includes.media) {
@@ -70,7 +72,7 @@ export const resolvers = {
 
             for (var user of result.includes.users) {
               if (user.id === tweet.author_id)
-                return { ...tweet, ...user, ...{ photos } };
+                return { ...tweet, ...user, ...{ photos }, suggestedKeywords };
             }
           })
         : [];

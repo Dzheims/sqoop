@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const rake = require('node-rake');
 
 interface topHeadlinesParams {
   country: string;
@@ -38,9 +39,12 @@ export const resolvers = {
         return result;
       }
       const articles = result.articles.map((article: any) => {
-        const { source, ...subArticle } = article;
+        const { source, title, ...subArticle } = article;
+        const suggestedKeywords = rake.generate(title);
         return {
           ...subArticle,
+          title,
+          suggestedKeywords,
           ...{ sourceId: source.id, sourceName: source.name },
         };
       });
