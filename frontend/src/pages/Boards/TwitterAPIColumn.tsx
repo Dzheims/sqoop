@@ -18,6 +18,7 @@ import {
   useStyles,
 } from './ColumnsStyle';
 import FactCheck from '../../components/FactCheck/FactCheck';
+import formatTimeAndDate from '../../components/Common/Functions/Functions';
 
 interface TwitterAPIDataProps {
   data: GetTwitterApiContentsQuery;
@@ -32,16 +33,9 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
     if (length > 2) return 2;
   };
 
-  const formatTimeAndDate = (date: any) => {
-    const createdAtDate = new Date(date);
-    const formattedCreateDate =
-      createdAtDate.toLocaleTimeString() + ' ' + createdAtDate.toDateString();
-    return formattedCreateDate;
-  };
-
   const truncateName = (name: any) => {
-    if (name.length < 18) return name;
-    else return name.substring(0, 17) + '...';
+    if (name.length < 12) return name;
+    else return name.substring(0, 11) + '...';
   };
 
   return (

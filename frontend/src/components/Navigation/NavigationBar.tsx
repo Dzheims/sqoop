@@ -17,6 +17,7 @@ import {
 } from '@material-ui/core';
 import AddFeedsIcon from '@material-ui/icons/AddCircle';
 import SearchIcon from '@material-ui/icons/Search';
+import { Person } from '@material-ui/icons';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {
   NavigationBarContainer,
@@ -216,7 +217,9 @@ const NavigationBar = () => {
         <AccountAvatarContainer>
           <Tooltip title="My Account" arrow>
             <IconButton onClick={onAccountClick}>
-              <Avatar className={classes.avatars}>S</Avatar>
+              <Avatar className={classes.avatars}>
+                <Person />
+              </Avatar>
             </IconButton>
           </Tooltip>
         </AccountAvatarContainer>

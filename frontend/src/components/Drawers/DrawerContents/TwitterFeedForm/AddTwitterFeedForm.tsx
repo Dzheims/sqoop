@@ -15,6 +15,8 @@ import GET_COLUMNS_QUERY from '../../../Columns/query';
 const useStyles = makeStyles((theme) => ({
   formContainer: {
     alignItems: 'center',
+    maxWidth: '260px',
+    margin: '10px',
   },
   button: {
     display: 'flex',
@@ -123,7 +125,8 @@ const AddTwitterFeedForm = () => {
         label="Feed Title"
         placeholder="Feed Title"
         variant="outlined"
-        margin="normal"
+        margin="dense"
+        size="small"
         required
         fullWidth
         onChange={onTitleChange}
@@ -133,7 +136,8 @@ const AddTwitterFeedForm = () => {
         label="Keywords"
         placeholder="Keywords"
         variant="outlined"
-        margin="normal"
+        margin="dense"
+        size="small"
         required
         fullWidth
         onChange={onKeywordChange}
@@ -143,13 +147,15 @@ const AddTwitterFeedForm = () => {
         label="Sources"
         placeholder="Sources"
         variant="outlined"
-        margin="normal"
+        margin="dense"
+        size="small"
         required
         fullWidth
         onChange={onSourcesChange}
       />
       <div className={classes.button}>
         <Button
+          style={{ textTransform: 'none', borderRadius: '12px' }}
           type="submit"
           variant="contained"
           color="secondary"

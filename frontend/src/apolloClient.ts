@@ -44,7 +44,7 @@ export const authMiddleware = new ApolloLink((operation, forward) => {
 });
 
 const client = new ApolloClient({
-  link: from([authMiddleware, httpLink]),
+  link: from([errorLink, authMiddleware, httpLink]),
   cache: new InMemoryCache(),
 });
 

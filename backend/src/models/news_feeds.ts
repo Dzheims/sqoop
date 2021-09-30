@@ -1,6 +1,7 @@
 // @generated
 // Automatically generated. Don't change this file manually.
 
+import { usersId } from './users';
 import category from './category';
 
 export type news_feedsId = number & { ' __flavor'?: 'news_feeds' };
@@ -18,6 +19,9 @@ export default interface news_feeds {
   keyword: string | null;
 
   sources: string | null;
+
+  /** Index: news_feeds_user_id_idx */
+  user_id: usersId | null;
 }
 
 export interface news_feedsInitializer {
@@ -33,4 +37,7 @@ export interface news_feedsInitializer {
   keyword?: string | null;
 
   sources?: string | null;
+
+  /** Index: news_feeds_user_id_idx */
+  user_id?: usersId | null;
 }

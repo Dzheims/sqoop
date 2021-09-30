@@ -10,6 +10,7 @@ import {
 } from './FactCheckStyles';
 import VeraFilesLogo from '../../assets/vera_files_logo.png';
 import { Maybe } from '../../types.generated';
+import formatTimeAndDate from '../Common/Functions/Functions';
 
 interface GoogleFactCheckProps {
   data: GoogleFactCheckSearchResultQuery;
@@ -19,12 +20,6 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
   data,
 }: GoogleFactCheckProps) => {
   const classes = useStyles();
-
-  const formatTimeAndDate = (date: any) => {
-    const createdAtDate = new Date(date);
-    const formattedCreateDate = `${createdAtDate.toLocaleTimeString()} ${createdAtDate.toDateString()}`;
-    return formattedCreateDate;
-  };
 
   return (
     <div>

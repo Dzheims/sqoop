@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Cookies from 'js-cookie';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import SIGN_UP_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
 import { SignupMutation, SignupMutationVariables } from './query.generated';
@@ -19,6 +19,8 @@ import {
   SigninMutationVariables,
 } from '../SignInPage/query.generated';
 import SIGN_IN_MUTATION from '../SignInPage/query';
+import { FormValues, validate } from './SignUpValidation';
+import SignUpSuccessAlertBox from './SignUpSuccessAlert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'baseline',
     flexDirection: 'column',
-    margin: '100px 80px 0px 60px',
+    margin: '80px 60px 0px 60px',
   },
   form: {
     width: '80%',
@@ -70,39 +72,34 @@ const SignUp = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [signupInput, setSignupInput] = useState<SignupInput>({
+  const [signupInput, setSignupInput] = useState<FormValues>({
     userName: '',
     password: '',
+    confirmedPassword: '',
   });
-  const [confirmPasswordInput, setConfirmPasswordInput] = useState('');
+  const [errors, setErrors] = useState<FormValues>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validForm, setValidForm] = useState(false);
 
-  const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const { value } = e.target;
-    setSignupInput({
-      ...signupInput,
-      userName: value,
-    });
+  const setErrorInForm = (input: string | undefined): boolean => {
+    if (input === '' || input === undefined) return false;
+    return true;
   };
 
-  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const { value } = e.target;
-    setSignupInput({
-      ...signupInput,
-      password: value,
-    });
+  const hasError = () => {
+    if (errors)
+      Object.values(errors).forEach((error) => {
+        if (error === '' || error === undefined) setValidForm(true);
+      });
   };
 
-  const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const { value } = e.target;
-    setConfirmPasswordInput(value);
-  };
+  useEffect(() => {
+    if (isSubmitting) hasError();
+  }, [errors]);
 
   const [successAlert, setSuccessAlert] = useState(false);
 
-  const [signUp, { data }] = useMutation<
+  const [signUp, { error }] = useMutation<
     SignupMutation,
     SignupMutationVariables
   >(SIGN_UP_MUTATION, {
@@ -117,30 +114,44 @@ const SignUp = () => {
     },
   });
 
-  const handleSubmit = () => {
-    if (confirmPasswordInput === signupInput.password) {
-      signUp();
-    }
+  const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (isSubmitting) setErrors(validate(signupInput, error));
+    const { value } = e.target;
+    setSignupInput({
+      ...signupInput,
+      userName: value,
+    });
   };
 
-  const [signIn] = useMutation<SigninMutation, SigninMutationVariables>(
-    SIGN_IN_MUTATION,
-    {
-      variables: {
-        input: {
-          userName: signupInput.userName as string,
-          password: signupInput.password as string,
-        },
-      },
-      onCompleted: ({ signin }) => {
-        Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
-        history.push('/');
-      },
-    }
-  );
+  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (isSubmitting) setErrors(validate(signupInput, error));
+    const { value } = e.target;
+    setSignupInput({
+      ...signupInput,
+      password: value,
+    });
+  };
 
-  const handleSignIn = () => {
-    signIn();
+  const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (isSubmitting) setErrors(validate(signupInput, error));
+    const { value } = e.target;
+    setSignupInput({
+      ...signupInput,
+      confirmedPassword: value,
+    });
+  };
+
+  const handleSubmit = () => {
+    setErrors(validate(signupInput, error));
+    setIsSubmitting(true);
+
+    if (signupInput.confirmedPassword === signupInput.password && validForm) {
+      setValidForm(false);
+      signUp();
+    }
   };
 
   return (
@@ -162,6 +173,8 @@ const SignUp = () => {
               fullWidth
               autoFocus
               onChange={onUserNameChange}
+              error={setErrorInForm(errors?.userName || '')}
+              helperText={errors?.userName}
             />
             <TextField
               inputProps={{ 'data-testid': 'Password' }}
@@ -174,6 +187,8 @@ const SignUp = () => {
               required
               fullWidth
               onChange={onPasswordChange}
+              error={setErrorInForm(errors?.password || '')}
+              helperText={errors?.password}
             />
             <TextField
               label="Confirm Password"
@@ -185,8 +200,11 @@ const SignUp = () => {
               required
               fullWidth
               onChange={onConfirmPasswordChange}
+              error={setErrorInForm(errors?.confirmedPassword || '')}
+              helperText={errors?.confirmedPassword}
             />
             <Button
+              data-testid="btn-signup"
               fullWidth
               variant="contained"
               color="secondary"
@@ -196,31 +214,10 @@ const SignUp = () => {
               Sign Up
             </Button>
             <Modal open={successAlert}>
-              <Box className={classes.box}>
-                <Grid className={classes.divBox}>
-                  <div>
-                    <CheckCircleOutlineIcon
-                      color="success"
-                      fontSize="inherit"
-                      style={{ fontSize: 150 }}
-                      className={classes.successIcon}
-                    />
-                  </div>
-                  <Typography variant="h2" component="h1">
-                    Awesome!
-                  </Typography>
-                  <Typography variant="h6">Your account was created</Typography>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    onClick={handleSignIn}
-                  >
-                    Let&apos;s get started!
-                  </Button>
-                </Grid>
-              </Box>
+              <SignUpSuccessAlertBox
+                userName={signupInput.userName}
+                password={signupInput.password}
+              />
             </Modal>
             <Grid container>
               <Grid item>

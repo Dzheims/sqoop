@@ -107,6 +107,7 @@ export const NewsAPITitleContainer = styled.div`
   display: flex;
   align-items: flex-start;
   padding: 5px;
+  margin-bottom: 5px;
 `;
 export const NewsAPIContentContainer = styled.div`
   margin-top: 10px;
@@ -129,9 +130,9 @@ export const ColumnContainer = styled.div`
   padding: 8px;
   background-color: #f7fafc;
   border-radius: 4px;
-  width: 350px;
-  max-width: 400px;
-  margin: 10px 6px;
+  width: 300px;
+  max-width: 320px;
+  margin: 10px 4px;
   height: 91.5vh;
 `;
 export const ColumnWrapper = styled.div`

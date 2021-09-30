@@ -16,6 +16,8 @@ import GET_COLUMNS_QUERY from '../../../Columns/query';
 const useStyles = makeStyles((theme) => ({
   formContainer: {
     alignItems: 'center',
+    maxWidth: '260px',
+    margin: '10px',
   },
   formControl: {
     margin: theme.spacing(2, 0, 1),
@@ -77,13 +79,15 @@ const AddCollectionForm = () => {
         label="Collection Title"
         placeholder="Collection Title"
         variant="outlined"
-        margin="normal"
+        margin="dense"
+        size="small"
         required
         fullWidth
         onChange={onTitleChange}
       />
       <div className={classes.button}>
         <Button
+          style={{ textTransform: 'none', borderRadius: '12px' }}
           type="submit"
           variant="contained"
           color="secondary"

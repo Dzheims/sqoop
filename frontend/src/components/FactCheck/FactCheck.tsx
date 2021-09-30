@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   drawerPaper: {
-    width: '375px',
+    width: '325px',
     backgroundColor: '#f7fafc',
     zIndex: 200,
     display: 'flex',
   },
   drawer: {
-    width: '320px',
+    width: '280',
     height: '560px',
     backgroundColor: '#f7fafc',
     margin: '10px',

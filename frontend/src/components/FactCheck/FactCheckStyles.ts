@@ -8,7 +8,7 @@ export const useStyles = makeStyles(() => ({
     marginRight: '10px',
   },
   imageContainer: {
-    height: '120px',
+    height: '140px',
     width: 'auto',
     backgroundSize: 'cover',
     backgroundPosition: 'center',

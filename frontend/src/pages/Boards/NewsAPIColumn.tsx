@@ -11,6 +11,7 @@ import {
   useStyles,
 } from './ColumnsStyle';
 import FactCheck from '../../components/FactCheck/FactCheck';
+import formatTimeAndDate from '../../components/Common/Functions/Functions';
 
 interface NewsAPIDataProps {
   data: GetNewsApiContentsQuery;
@@ -20,11 +21,10 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
 }: NewsAPIDataProps) => {
   const classes = useStyles();
 
-  const formatTimeAndDate = (date: any) => {
-    const createdAtDate = new Date(date);
-    const formattedCreateDate =
-      createdAtDate.toLocaleTimeString() + ' ' + createdAtDate.toDateString();
-    return formattedCreateDate;
+  const randomColor = () => {
+    let hex = Math.floor(Math.random() * 0xffffff);
+    let color = '#' + hex.toString(16);
+    return color;
   };
 
   return (
@@ -43,7 +43,13 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
               isDragging={snapshot.isDragging}
             >
               <NewsAPITitleContainer>
-                <Avatar className={classes.avatars}>
+                <Avatar
+                  style={{
+                    backgroundColor: randomColor(),
+                    color: 'white',
+                  }}
+                  className={classes.avatars}
+                >
                   {value.sourceName?.charAt(0)}
                 </Avatar>
                 <AccountNameContainer>
