@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+  Box,
   Button,
   FormControl,
   InputLabel,
@@ -11,7 +13,7 @@ import {
   Select,
   TextField,
 } from '@material-ui/core';
-import { Alert, AlertTitle } from '@mui/material';
+import { Alert, AlertTitle, Autocomplete } from '@mui/material';
 import {
   CreateNewsFeedMutation,
   CreateNewsFeedMutationVariables,
@@ -19,6 +21,7 @@ import {
 import { Category, CreateNewsFeedInput } from '../../../../types.generated';
 import CREATE_NEWS_FEED from './query';
 import GET_COLUMNS_QUERY from '../../../Columns/query';
+import countries from './CountriesList';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -40,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
   alert: {
     marginTop: theme.spacing(5),
   },
+  flags: {
+    marginRight: '5px',
+  },
 }));
 
 interface FormsDisabled {
@@ -55,6 +61,7 @@ interface SuccessAlert {
 const AddNewsAPIFeedForm = () => {
   const classes = useStyles();
   const history = useHistory();
+  const [country, setCountry] = useState(countries[0]);
 
   const [newsFeedForm, setNewsFeedForm] = useState<CreateNewsFeedInput>({
     newsFeed: {
@@ -141,9 +148,7 @@ const AddNewsAPIFeedForm = () => {
     }
   }, [newsFeedForm.newsFeed]);
 
-  const onCountryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const { value } = e.target;
+  const onCountryChange = (value: string) => {
     setNewsFeedForm({
       ...newsFeedForm,
       newsFeed: {
@@ -237,17 +242,41 @@ const AddNewsAPIFeedForm = () => {
           <MenuItem value={Category.Technology}>Technology</MenuItem>
         </Select>
       </FormControl>
-      <TextField
-        disabled={disableForm.country}
-        id="Country"
-        label="Country"
-        placeholder="Country"
-        variant="outlined"
-        margin="dense"
+      <Autocomplete
+        id="countries"
+        disableClearable
+        value={country}
+        onChange={(event, newValue) => {
+          setCountry(newValue);
+          onCountryChange(newValue.code);
+        }}
         size="small"
-        required
-        fullWidth
-        onChange={onCountryChange}
+        options={countries}
+        getOptionLabel={(option) => option.label}
+        renderOption={(props, option) => (
+          <Box component="li" {...props}>
+            <img
+              className={classes.flags}
+              alt=""
+              src={`https://flagcdn.com/w20/${option.code}.png`}
+            />
+            {option.label}
+          </Box>
+        )}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            disabled={disableForm.country}
+            id="Country"
+            label="Country"
+            placeholder="Country"
+            variant="outlined"
+            margin="dense"
+            size="small"
+            required
+            fullWidth
+          />
+        )}
       />
       <TextField
         id="Keywords"
