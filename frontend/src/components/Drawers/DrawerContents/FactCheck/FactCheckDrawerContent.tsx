@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, Button, InputBase, Paper } from '@material-ui/core';
+import { IconButton, Button, InputBase, Paper, Chip } from '@material-ui/core';
+import ScrollContainer from 'react-indiana-drag-scroll';
 import Search from '@material-ui/icons/Search';
 import { Title } from '../../../../pages/Boards/ColumnsStyle';
 import VeraFactCheckData from '../../../FactCheck/VeraFactCheckData';
@@ -59,9 +62,18 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '400px',
     padding: '8px',
   },
+  chipsContainer: {
+    padding: '5px',
+  },
 }));
 
-const FactCheckDrawerContent = () => {
+interface FactCheckDrawerContentsProps {
+  suggestedKeyWords: any;
+}
+
+const FactCheckDrawerContent = ({
+  suggestedKeyWords,
+}: FactCheckDrawerContentsProps) => {
   const classes = useStyles();
   const [searchKey, setSearchKey] = useState('');
   const [search, setSearch] = useState(false);
@@ -116,6 +128,14 @@ const FactCheckDrawerContent = () => {
           <Search />
         </IconButton>
       </Paper>
+      {suggestedKeyWords.map((keyword: string) => (
+        <Chip
+          className={classes.chipsContainer}
+          onClick={() => setSearchKey(keyword)}
+          variant="outlined"
+          label={keyword}
+        />
+      ))}
       <div className={classes.buttonContainer}>
         {searchOptions.map((value) => (
           <Button
