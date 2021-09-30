@@ -61,7 +61,7 @@ interface SuccessAlert {
 const AddNewsAPIFeedForm = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [country, setCountry] = useState(countries[0]);
+  const [country, setCountry] = useState({ code: '', label: '' });
 
   const [newsFeedForm, setNewsFeedForm] = useState<CreateNewsFeedInput>({
     newsFeed: {

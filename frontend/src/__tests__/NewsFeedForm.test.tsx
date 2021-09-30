@@ -39,10 +39,13 @@ describe('News Feed Form', () => {
       name: 'Country',
     });
     expect(countryTextfield).toHaveValue('');
+    countryTextfield.focus();
     fireEvent.change(countryTextfield, {
-      target: { value: 'Philippines' },
+      target: { value: 'states' },
     });
-    expect(countryTextfield).toHaveValue('Philippines');
+    fireEvent.keyDown(countryTextfield, { key: 'ArrowDown' });
+    fireEvent.keyDown(countryTextfield, { key: 'Enter' });
+    expect(countryTextfield).toHaveValue('United States of America');
   });
   test('input form feed keywords textfield', () => {
     const keywordsTextfield = screen.getByRole('textbox', {

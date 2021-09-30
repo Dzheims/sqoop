@@ -38,9 +38,10 @@ describe('with and without user input', () => {
     };
     const errors = {
       userName: '',
-      password: "Passwords don't match",
+      password: '',
+      confirmedPassword: "Passwords don't match",
     };
-    expect(validate(values)).toStrictEqual(errors);
+    expect(validate(values, undefined)).toStrictEqual(errors);
   });
 });
 

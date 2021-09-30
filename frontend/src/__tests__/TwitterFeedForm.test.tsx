@@ -5,6 +5,7 @@ import {
   fireEvent,
   RenderResult,
   cleanup,
+  wait,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import AddTwitterFeedForm from '../components/Drawers/DrawerContents/TwitterFeedForm/AddTwitterFeedForm';
@@ -41,15 +42,20 @@ describe('News Feed Form', () => {
     });
     expect(keywordsTextfield).toHaveValue('Online Class');
   });
-  test('input form feed sources textfield', () => {
+  test('input form feed sources textfield', async () => {
     const sourcesTextfield = screen.getByRole('textbox', {
       name: 'Sources',
     });
     expect(sourcesTextfield).toHaveValue('');
+    sourcesTextfield.focus();
     fireEvent.change(sourcesTextfield, {
       target: { value: 'CHED' },
     });
-    expect(sourcesTextfield).toHaveValue('CHED');
+    fireEvent.keyDown(sourcesTextfield, { key: 'ArrowDown' });
+    fireEvent.keyDown(sourcesTextfield, { key: 'Enter' });
+    expect(sourcesTextfield).toHaveValue(
+      'Commission on Higher Education (CHED)'
+    );
   });
   test('create button', async () => {
     expect(
