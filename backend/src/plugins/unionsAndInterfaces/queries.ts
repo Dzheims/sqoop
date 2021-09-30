@@ -1,3 +1,5 @@
+const camelcaseKeys = require('camelcase-keys');
+
 interface columnProps {
   id: BigInteger;
   title: String;
@@ -20,15 +22,19 @@ export const resolvers = (getNamedType: any) => {
       getColumnResult: async (_: any, args: any, context: any) => {
         const { pgClient } = context;
         const { rows: newsFeeds } = await pgClient.query(
-          `SELECT * FROM news_feeds`
+          `SELECT * FROM news_feeds WHERE user_id = current_user_id()`
         );
         const { rows: twitterFeeds } = await pgClient.query(
-          `SELECT * FROM twitter_feeds`
+          `SELECT * FROM twitter_feeds WHERE user_id = current_user_id()`
         );
         const { rows: collections } = await pgClient.query(
-          `SELECT * FROM collections`
+          `SELECT * FROM collections WHERE user_id = current_user_id()`
         );
-        const result = [...newsFeeds, ...twitterFeeds, ...collections];
+        const result = camelcaseKeys([
+          ...newsFeeds,
+          ...twitterFeeds,
+          ...collections,
+        ]);
         return result;
       },
     },

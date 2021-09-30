@@ -12,7 +12,7 @@ export const resolvers = {
     topHeadlines: async (_: any, args: topHeadlinesParams, context: any) => {
       let { country, sources, category, keyword } = args;
       const { jwtClaims } = context;
-      // if (!jwtClaims) throw new Error();
+      if (!jwtClaims) throw new Error();
 
       const queryParams = new URLSearchParams();
       queryParams.set('country', country || 'ph');
