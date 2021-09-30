@@ -13,6 +13,7 @@ import { CreateTwitterFeedInput } from '../../../../types.generated';
 import CREATE_TWITTER_FEED from './query';
 import GET_COLUMNS_QUERY from '../../../Columns/query';
 import accountSources from './SourcesList';
+import currentUserId from '../../../../authentication/currentUserId';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -49,7 +50,7 @@ const AddTwitterFeedForm = () => {
       twitterFeed: {
         title: '',
         keyword: '',
-        sources: '',
+        sources: null,
       },
     });
 
@@ -106,6 +107,7 @@ const AddTwitterFeedForm = () => {
           title: twitterFeedForm.twitterFeed.title,
           keyword: twitterFeedForm.twitterFeed.keyword,
           sources: twitterFeedForm.twitterFeed.sources,
+          userId: currentUserId(),
         },
       },
     },

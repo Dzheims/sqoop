@@ -22,6 +22,7 @@ import { Category, CreateNewsFeedInput } from '../../../../types.generated';
 import CREATE_NEWS_FEED from './query';
 import GET_COLUMNS_QUERY from '../../../Columns/query';
 import countries from './CountriesList';
+import currentUserId from '../../../../authentication/currentUserId';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -186,6 +187,7 @@ const AddNewsAPIFeedForm = () => {
           country: newsFeedForm.newsFeed.country,
           keyword: newsFeedForm.newsFeed.keyword,
           sources: newsFeedForm.newsFeed.sources,
+          userId: currentUserId(),
         },
       },
     },
