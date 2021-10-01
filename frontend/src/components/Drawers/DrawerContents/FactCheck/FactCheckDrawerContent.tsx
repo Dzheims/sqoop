@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, Button, InputBase, Paper } from '@material-ui/core';
+import { IconButton, Button, InputBase, Paper, Chip } from '@material-ui/core';
+import ScrollContainer from 'react-indiana-drag-scroll';
 import Search from '@material-ui/icons/Search';
 import { Title } from '../../../../pages/Boards/ColumnsStyle';
 import VeraFactCheckData from '../../../FactCheck/VeraFactCheckData';
@@ -36,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px',
   },
   button: {
-    marginLeft: '3px',
+    marginLeft: '5px',
     textTransform: 'none',
     fontSize: '12px',
     minWidth: 'auto',
@@ -48,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   selectedButton: {
-    marginLeft: '3px',
+    marginLeft: '5px',
     textTransform: 'none',
     fontSize: '12px',
     minWidth: 'auto',
@@ -58,12 +61,37 @@ const useStyles = makeStyles((theme) => ({
   },
   resultsContainer: {
     overflow: 'auto',
-    maxHeight: '400px',
-    padding: '8px',
+    maxHeight: '340px',
+    padding: '5px',
+    '&::-webkit-scrollbar': {
+      width: '0.4em',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      borderRadius: 8,
+    },
+  },
+  chipsContainer: {
+    marginTop: '5px',
+    marginLeft: '2px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  chips: {
+    fontSize: '12px',
+    color: 'gray',
+    maxWidth: '100px',
   },
 }));
 
-const FactCheckDrawerContent = () => {
+interface FactCheckDrawerContentsProps {
+  suggestedKeyWords: any;
+}
+
+const FactCheckDrawerContent = ({
+  suggestedKeyWords,
+}: FactCheckDrawerContentsProps) => {
   const classes = useStyles();
   const [searchKey, setSearchKey] = useState('');
   const [search, setSearch] = useState(false);
@@ -119,6 +147,18 @@ const FactCheckDrawerContent = () => {
           <Search />
         </IconButton>
       </Paper>
+      <ScrollContainer className="scroll-container">
+        <div className={classes.chipsContainer}>
+          {suggestedKeyWords.slice(0, 5).map((keyword: string) => (
+            <Chip
+              className={classes.chips}
+              onClick={() => setSearchKey(keyword)}
+              variant="outlined"
+              label={keyword}
+            />
+          ))}
+        </div>
+      </ScrollContainer>
       <div className={classes.buttonContainer}>
         {searchOptions.map((value) => (
           <Button

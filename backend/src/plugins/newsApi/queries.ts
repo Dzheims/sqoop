@@ -1,3 +1,4 @@
+import keyword_extractor from 'keyword-extractor';
 const fetch = require('node-fetch');
 
 interface topHeadlinesParams {
@@ -6,6 +7,8 @@ interface topHeadlinesParams {
   category: string;
   keyword: string;
 }
+
+const stopword = 'a';
 
 export const resolvers = {
   Query: {
@@ -37,10 +40,23 @@ export const resolvers = {
       if (result.status === 'error') {
         return result;
       }
+
       const articles = result.articles.map((article: any) => {
-        const { source, ...subArticle } = article;
+        const { source, title, description, ...subArticle } = article;
+        const suggestedKeywords = keyword_extractor.extract(
+          description || title,
+          {
+            language: 'english',
+            remove_digits: true,
+            return_changed_case: true,
+            remove_duplicates: true,
+          }
+        );
         return {
           ...subArticle,
+          description,
+          title,
+          suggestedKeywords,
           ...{ sourceId: source.id, sourceName: source.name },
         };
       });

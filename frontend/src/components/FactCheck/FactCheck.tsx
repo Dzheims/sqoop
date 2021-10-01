@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
@@ -46,7 +47,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FactCheck = () => {
+interface FactCheckProps {
+  data: any;
+}
+
+const FactCheck = ({ data }: FactCheckProps) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -71,7 +76,7 @@ const FactCheck = () => {
           >
             <CancelIcon className={classes.factCheckIcon} />
           </IconButton>
-          <FactCheckDrawerContent />
+          <FactCheckDrawerContent suggestedKeyWords={data} />
         </div>
       </Drawer>
       <Button

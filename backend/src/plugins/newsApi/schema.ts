@@ -11,6 +11,7 @@ export const article = gql`
     content: String
     sourceId: String
     sourceName: String
+    suggestedKeywords: [String]
   }
 `;
 
