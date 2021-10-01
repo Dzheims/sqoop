@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState } from 'react';
 import {
   Avatar,
@@ -11,9 +12,7 @@ import {
   ListItem,
   Divider,
   Popover,
-  Container,
   Box,
-  Grid,
 } from '@material-ui/core';
 import AddFeedsIcon from '@material-ui/icons/AddCircle';
 import SearchIcon from '@material-ui/icons/Search';
@@ -60,12 +59,28 @@ const NavigationBar = () => {
     {
       id: 'add',
       title: 'Add Column',
-      icon: <AddFeedsIcon className={classes.icons} />,
+      icon: (
+        <AddFeedsIcon
+          className={
+            open.open === true && open.current === 'Add Column'
+              ? classes.selectedIcons
+              : classes.icons
+          }
+        />
+      ),
     },
     {
       id: 'search',
       title: 'Search',
-      icon: <SearchIcon className={classes.icons} />,
+      icon: (
+        <SearchIcon
+          className={
+            open.open === true && open.current === 'Search'
+              ? classes.selectedIcons
+              : classes.icons
+          }
+        />
+      ),
     },
   ];
 
@@ -199,7 +214,13 @@ const NavigationBar = () => {
           {NavBarMenu.map((item) => (
             <div>
               <Tooltip title={item.title} key={item.id} arrow>
-                <IconContainer>
+                <IconContainer
+                  className={
+                    open.open === true && open.current === item.title
+                      ? classes.selectedIconContainer
+                      : classes.iconContainer
+                  }
+                >
                   <IconButton
                     aria-label={item.title}
                     onClick={() => {

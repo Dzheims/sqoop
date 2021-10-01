@@ -34,7 +34,7 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
             </AuthorContainer>
           </TitleContainer>
           <Typography variant="body2">
-            {decodeHTML(value.title as string)}
+            {decodeHTML(value.description as string)}
           </Typography>
           <ContentContainer>
             <div
@@ -42,11 +42,10 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
                 backgroundImage: `url(${String(value.imageUrl)})`,
               }}
               className={classes.imageContainer}
-            >
-              <Typography className={classes.description}>
-                {decodeHTML(value.description as string)}
-              </Typography>
-            </div>
+            />
+            <Typography className={classes.description}>
+              {decodeHTML(value.title as string)}
+            </Typography>
           </ContentContainer>
           <br />
           <Typography className={classes.dateAndUserName}>

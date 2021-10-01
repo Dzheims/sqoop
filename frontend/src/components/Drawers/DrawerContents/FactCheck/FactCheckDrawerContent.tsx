@@ -4,7 +4,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, Button, InputBase, Paper, Chip } from '@material-ui/core';
-import ScrollContainer from 'react-indiana-drag-scroll';
 import Search from '@material-ui/icons/Search';
 import { Title } from '../../../../pages/Boards/ColumnsStyle';
 import VeraFactCheckData from '../../../FactCheck/VeraFactCheckData';
@@ -61,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
   resultsContainer: {
     overflow: 'auto',
-    maxHeight: '340px',
+    maxHeight: '310px',
     padding: '5px',
     '&::-webkit-scrollbar': {
       width: '0.4em',
@@ -72,16 +71,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   chipsContainer: {
-    marginTop: '5px',
-    marginLeft: '2px',
-    display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    padding: '2px',
   },
   chips: {
     fontSize: '12px',
     color: 'gray',
     maxWidth: '100px',
+    marginLeft: '5px',
+    marginTop: '5px',
   },
 }));
 
@@ -147,18 +146,16 @@ const FactCheckDrawerContent = ({
           <Search />
         </IconButton>
       </Paper>
-      <ScrollContainer className="scroll-container">
-        <div className={classes.chipsContainer}>
-          {suggestedKeyWords.slice(0, 5).map((keyword: string) => (
-            <Chip
-              className={classes.chips}
-              onClick={() => setSearchKey(keyword)}
-              variant="outlined"
-              label={keyword}
-            />
-          ))}
-        </div>
-      </ScrollContainer>
+      <div className={classes.chipsContainer}>
+        {suggestedKeyWords.slice(0, 6).map((keyword: string) => (
+          <Chip
+            className={classes.chips}
+            onClick={() => setSearchKey(keyword)}
+            variant="outlined"
+            label={keyword}
+          />
+        ))}
+      </div>
       <div className={classes.buttonContainer}>
         {searchOptions.map((value) => (
           <Button

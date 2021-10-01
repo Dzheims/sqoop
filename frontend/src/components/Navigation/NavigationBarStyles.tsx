@@ -11,6 +11,11 @@ export const useStyles = makeStyles(() => ({
       color: theme.palette.secondary.main,
     },
   },
+  selectedIcons: {
+    height: '35px',
+    width: '35px',
+    color: theme.palette.secondary.main,
+  },
   avatars: {
     height: '35px',
     width: '35px',
@@ -70,6 +75,15 @@ export const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     padding: theme.spacing(3),
   },
+  iconContainer: {
+    backgroundColor: theme.palette.primary.main,
+    '&:hover': {
+      backgroundColor: 'white',
+    },
+  },
+  selectedIconContainer: {
+    backgroundColor: 'white',
+  },
 }));
 
 export const NavigationBarContainer = styled.div`
@@ -86,10 +100,6 @@ export const NavigationBarContainer = styled.div`
   display: flex;
 `;
 export const IconContainer = styled.div`
-  background-color: ${theme.palette.primary.main};
-  &:hover {
-    background-color: white;
-  }
   width: 60px;
   align-items: center;
   display: flex;
