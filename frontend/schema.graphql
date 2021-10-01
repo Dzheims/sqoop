@@ -345,151 +345,9 @@ type User implements Node {
   username: String!
   hashedPassword: String!
 
-<<<<<<< HEAD
   """Reads and enables pagination through a set of `NewsFeed`."""
   newsFeedsConnection(
     """Only read the first `n` values of the set."""
-=======
-  """
-  Reads and enables pagination through a set of `NewsFeed`.
-  """
-  newsFeedsConnection(
-    """
-    Only read the first `n` values of the set.
-    """
-    first: Int
-
-    """
-    Only read the last `n` values of the set.
-    """
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """
-    Read all values in the set before (above) this cursor.
-    """
-    before: Cursor
-
-    """
-    Read all values in the set after (below) this cursor.
-    """
-    after: Cursor
-
-    """
-    The method to use when ordering `NewsFeed`.
-    """
-    orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: NewsFeedCondition
-  ): NewsFeedsConnection!
-
-  """
-  Reads and enables pagination through a set of `NewsFeed`.
-  """
-  newsFeeds(
-    """
-    Only read the first `n` values of the set.
-    """
-    first: Int
-
-    """
-    Skip the first `n` values.
-    """
-    offset: Int
-
-    """
-    The method to use when ordering `NewsFeed`.
-    """
-    orderBy: [NewsFeedsOrderBy!]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: NewsFeedCondition
-  ): [NewsFeed!]!
-
-  """
-  Reads and enables pagination through a set of `TwitterFeed`.
-  """
-  twitterFeedsConnection(
-    """
-    Only read the first `n` values of the set.
-    """
-    first: Int
-
-    """
-    Only read the last `n` values of the set.
-    """
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """
-    Read all values in the set before (above) this cursor.
-    """
-    before: Cursor
-
-    """
-    Read all values in the set after (below) this cursor.
-    """
-    after: Cursor
-
-    """
-    The method to use when ordering `TwitterFeed`.
-    """
-    orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: TwitterFeedCondition
-  ): TwitterFeedsConnection!
-
-  """
-  Reads and enables pagination through a set of `TwitterFeed`.
-  """
-  twitterFeeds(
-    """
-    Only read the first `n` values of the set.
-    """
-    first: Int
-
-    """
-    Skip the first `n` values.
-    """
-    offset: Int
-
-    """
-    The method to use when ordering `TwitterFeed`.
-    """
-    orderBy: [TwitterFeedsOrderBy!]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: TwitterFeedCondition
-  ): [TwitterFeed!]!
-
-  """
-  Reads and enables pagination through a set of `Collection`.
-  """
-  collectionsConnection(
-    """
-    Only read the first `n` values of the set.
-    """
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
     first: Int
 
     """Only read the last `n` values of the set."""
@@ -579,7 +437,6 @@ type User implements Node {
     condition: TwitterFeedCondition
   ): [TwitterFeed!]!
 
-<<<<<<< HEAD
   """Reads and enables pagination through a set of `Collection`."""
   collectionsConnection(
     """Only read the first `n` values of the set."""
@@ -608,90 +465,6 @@ type User implements Node {
     """
     condition: CollectionCondition
   ): CollectionsConnection!
-=======
-"""
-A connection to a list of `NewsFeed` values.
-"""
-type NewsFeedsConnection {
-  """
-  A list of `NewsFeed` objects.
-  """
-  nodes: [NewsFeed]!
-
-  """
-  A list of edges which contains the `NewsFeed` and cursor to aid in pagination.
-  """
-  edges: [NewsFeedsEdge!]!
-
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-
-  """
-  The count of *all* `NewsFeed` you could get from the connection.
-  """
-  totalCount: Int!
-}
-
-type NewsFeed implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: Int!
-  title: String!
-  category: Category
-  country: String
-  keyword: String
-  sources: String
-  userId: Int
-
-  """
-  Reads a single `User` that is related to this `NewsFeed`.
-  """
-  user: User
-}
-
-enum Category {
-  BUSINESS
-  ENTERTAINMENT
-  GENERAL
-  HEALTH
-  SCIENCE
-  SPORTS
-  TECHNOLOGY
-}
-
-"""
-A `NewsFeed` edge in the connection.
-"""
-type NewsFeedsEdge {
-  """
-  A cursor for use in pagination.
-  """
-  cursor: Cursor
-
-  """
-  The `NewsFeed` at the end of the edge.
-  """
-  node: NewsFeed
-}
-
-"""
-A location in a connection that can be used for resuming pagination.
-"""
-scalar Cursor
-
-"""
-Information about pagination in a connection.
-"""
-type PageInfo {
-  """
-  When paginating forwards, are there more items?
-  """
-  hasNextPage: Boolean!
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
 
   """Reads and enables pagination through a set of `Collection`."""
   collections(
@@ -711,94 +484,50 @@ type PageInfo {
   ): [Collection!]!
 }
 
-<<<<<<< HEAD
 """A connection to a list of `NewsFeed` values."""
 type NewsFeedsConnection {
   """A list of `NewsFeed` objects."""
   nodes: [NewsFeed]!
-=======
-"""
-Methods to use when ordering `NewsFeed`.
-"""
-enum NewsFeedsOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  USER_ID_ASC
-  USER_ID_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
-"""
-A condition to be used against `NewsFeed` object types. All fields are tested
-for equality and combined with a logical ‘and.’
-"""
-input NewsFeedCondition {
-  """
-  Checks for equality with the object’s `id` field.
-  """
-  id: Int
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
 
   """
-  Checks for equality with the object’s `userId` field.
+  A list of edges which contains the `NewsFeed` and cursor to aid in pagination.
   """
-  userId: Int
-}
-
-"""
-A connection to a list of `TwitterFeed` values.
-"""
-type TwitterFeedsConnection {
-  """
-  A list of `TwitterFeed` objects.
-  """
-  nodes: [TwitterFeed]!
-
-  """
-  A list of edges which contains the `TwitterFeed` and cursor to aid in pagination.
-  """
-  edges: [TwitterFeedsEdge!]!
+  edges: [NewsFeedsEdge!]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-<<<<<<< HEAD
   """The count of *all* `NewsFeed` you could get from the connection."""
-=======
-  """
-  The count of *all* `TwitterFeed` you could get from the connection.
-  """
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
   totalCount: Int!
 }
 
-type TwitterFeed implements Node {
+type NewsFeed implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
   id: Int!
   title: String!
+  category: Category
+  country: String
   keyword: String
   sources: String
   userId: Int
-<<<<<<< HEAD
 
   """Reads a single `User` that is related to this `NewsFeed`."""
   user: User
 }
-=======
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
 
-  """
-  Reads a single `User` that is related to this `TwitterFeed`.
-  """
-  user: User
+enum Category {
+  BUSINESS
+  ENTERTAINMENT
+  GENERAL
+  HEALTH
+  SCIENCE
+  SPORTS
+  TECHNOLOGY
 }
 
-<<<<<<< HEAD
 """A `NewsFeed` edge in the connection."""
 type NewsFeedsEdge {
   """A cursor for use in pagination."""
@@ -828,27 +557,6 @@ type PageInfo {
 
 """Methods to use when ordering `NewsFeed`."""
 enum NewsFeedsOrderBy {
-=======
-"""
-A `TwitterFeed` edge in the connection.
-"""
-type TwitterFeedsEdge {
-  """
-  A cursor for use in pagination.
-  """
-  cursor: Cursor
-
-  """
-  The `TwitterFeed` at the end of the edge.
-  """
-  node: TwitterFeed
-}
-
-"""
-Methods to use when ordering `TwitterFeed`.
-"""
-enum TwitterFeedsOrderBy {
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
   NATURAL
   ID_ASC
   ID_DESC
@@ -859,72 +567,15 @@ enum TwitterFeedsOrderBy {
 }
 
 """
-A condition to be used against `TwitterFeed` object types. All fields are tested
+A condition to be used against `NewsFeed` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
-<<<<<<< HEAD
 input NewsFeedCondition {
   """Checks for equality with the object’s `id` field."""
   id: Int
 
   """Checks for equality with the object’s `userId` field."""
   userId: Int
-=======
-input TwitterFeedCondition {
-  """
-  Checks for equality with the object’s `id` field.
-  """
-  id: Int
-
-  """
-  Checks for equality with the object’s `userId` field.
-  """
-  userId: Int
-}
-
-"""
-Methods to use when ordering `Collection`.
-"""
-enum CollectionsOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  USER_ID_ASC
-  USER_ID_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
-"""
-A condition to be used against `Collection` object types. All fields are tested
-for equality and combined with a logical ‘and.’
-"""
-input CollectionCondition {
-  """
-  Checks for equality with the object’s `id` field.
-  """
-  id: Int
-
-  """
-  Checks for equality with the object’s `userId` field.
-  """
-  userId: Int
-}
-
-"""
-A `Collection` edge in the connection.
-"""
-type CollectionsEdge {
-  """
-  A cursor for use in pagination.
-  """
-  cursor: Cursor
-
-  """
-  The `Collection` at the end of the edge.
-  """
-  node: Collection
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
 }
 
 """A connection to a list of `TwitterFeed` values."""
@@ -1003,7 +654,6 @@ enum CollectionsOrderBy {
 }
 
 """
-<<<<<<< HEAD
 A condition to be used against `Collection` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
@@ -1089,10 +739,6 @@ input TwitterAccountCondition {
 }
 
 """A connection to a list of `User` values."""
-=======
-A connection to a list of `User` values.
-"""
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
 type UsersConnection {
   """A list of `User` objects."""
   nodes: [User]!
@@ -1539,21 +1185,10 @@ type CreateNewsFeedPayload {
   """
   query: Query
 
-<<<<<<< HEAD
   """Reads a single `User` that is related to this `NewsFeed`."""
   user: User
 
   """An edge for our `NewsFeed`. May be used by Relay 1."""
-=======
-  """
-  Reads a single `User` that is related to this `NewsFeed`.
-  """
-  user: User
-
-  """
-  An edge for our `NewsFeed`. May be used by Relay 1.
-  """
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
   newsFeedEdge(
     """The method to use when ordering `NewsFeed`."""
     orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
@@ -1641,21 +1276,10 @@ type CreateTwitterFeedPayload {
   """
   query: Query
 
-<<<<<<< HEAD
   """Reads a single `User` that is related to this `TwitterFeed`."""
   user: User
 
   """An edge for our `TwitterFeed`. May be used by Relay 1."""
-=======
-  """
-  Reads a single `User` that is related to this `TwitterFeed`.
-  """
-  user: User
-
-  """
-  An edge for our `TwitterFeed`. May be used by Relay 1.
-  """
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
   twitterFeedEdge(
     """The method to use when ordering `TwitterFeed`."""
     orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
@@ -1810,21 +1434,10 @@ type UpdateNewsFeedPayload {
   """
   query: Query
 
-<<<<<<< HEAD
   """Reads a single `User` that is related to this `NewsFeed`."""
   user: User
 
   """An edge for our `NewsFeed`. May be used by Relay 1."""
-=======
-  """
-  Reads a single `User` that is related to this `NewsFeed`.
-  """
-  user: User
-
-  """
-  An edge for our `NewsFeed`. May be used by Relay 1.
-  """
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
   newsFeedEdge(
     """The method to use when ordering `NewsFeed`."""
     orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
@@ -1990,21 +1603,10 @@ type UpdateTwitterFeedPayload {
   """
   query: Query
 
-<<<<<<< HEAD
   """Reads a single `User` that is related to this `TwitterFeed`."""
   user: User
 
   """An edge for our `TwitterFeed`. May be used by Relay 1."""
-=======
-  """
-  Reads a single `User` that is related to this `TwitterFeed`.
-  """
-  user: User
-
-  """
-  An edge for our `TwitterFeed`. May be used by Relay 1.
-  """
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
   twitterFeedEdge(
     """The method to use when ordering `TwitterFeed`."""
     orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
@@ -2203,21 +1805,10 @@ type DeleteNewsFeedPayload {
   """
   query: Query
 
-<<<<<<< HEAD
   """Reads a single `User` that is related to this `NewsFeed`."""
   user: User
 
   """An edge for our `NewsFeed`. May be used by Relay 1."""
-=======
-  """
-  Reads a single `User` that is related to this `NewsFeed`.
-  """
-  user: User
-
-  """
-  An edge for our `NewsFeed`. May be used by Relay 1.
-  """
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
   newsFeedEdge(
     """The method to use when ordering `NewsFeed`."""
     orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
@@ -2333,21 +1924,10 @@ type DeleteTwitterFeedPayload {
   """
   query: Query
 
-<<<<<<< HEAD
   """Reads a single `User` that is related to this `TwitterFeed`."""
   user: User
 
   """An edge for our `TwitterFeed`. May be used by Relay 1."""
-=======
-  """
-  Reads a single `User` that is related to this `TwitterFeed`.
-  """
-  user: User
-
-  """
-  An edge for our `TwitterFeed`. May be used by Relay 1.
-  """
->>>>>>> 37ffabb4bcf514e7dec667bee5f565e63ba6e882
   twitterFeedEdge(
     """The method to use when ordering `TwitterFeed`."""
     orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
