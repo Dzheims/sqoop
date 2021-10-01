@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px',
   },
   button: {
-    marginLeft: '3px',
+    marginLeft: '5px',
     textTransform: 'none',
     fontSize: '12px',
     minWidth: 'auto',
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   selectedButton: {
-    marginLeft: '3px',
+    marginLeft: '5px',
     textTransform: 'none',
     fontSize: '12px',
     minWidth: 'auto',
@@ -59,11 +59,27 @@ const useStyles = makeStyles((theme) => ({
   },
   resultsContainer: {
     overflow: 'auto',
-    maxHeight: '400px',
-    padding: '8px',
+    maxHeight: '340px',
+    padding: '5px',
+    '&::-webkit-scrollbar': {
+      width: '0.4em',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      borderRadius: 8,
+    },
   },
   chipsContainer: {
-    padding: '5px',
+    marginTop: '5px',
+    marginLeft: '2px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  chips: {
+    fontSize: '12px',
+    color: 'gray',
+    maxWidth: '100px',
   },
 }));
 
@@ -128,14 +144,18 @@ const FactCheckDrawerContent = ({
           <Search />
         </IconButton>
       </Paper>
-      {suggestedKeyWords.map((keyword: string) => (
-        <Chip
-          className={classes.chipsContainer}
-          onClick={() => setSearchKey(keyword)}
-          variant="outlined"
-          label={keyword}
-        />
-      ))}
+      <ScrollContainer className="scroll-container">
+        <div className={classes.chipsContainer}>
+          {suggestedKeyWords.slice(0, 5).map((keyword: string) => (
+            <Chip
+              className={classes.chips}
+              onClick={() => setSearchKey(keyword)}
+              variant="outlined"
+              label={keyword}
+            />
+          ))}
+        </div>
+      </ScrollContainer>
       <div className={classes.buttonContainer}>
         {searchOptions.map((value) => (
           <Button
