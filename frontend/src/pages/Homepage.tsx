@@ -59,6 +59,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
     color: 'white',
   },
+  itemContainer: {
+    '&::-webkit-scrollbar': {
+      width: '0.4em',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      borderRadius: 8,
+    },
+  },
 }));
 
 const Homepage = () => {
@@ -176,6 +185,7 @@ const Homepage = () => {
                         <div />
                       )}
                       <DefaultItemContainer
+                        className={classes.itemContainer}
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                         isDragging={snapshot.isDraggingOver}

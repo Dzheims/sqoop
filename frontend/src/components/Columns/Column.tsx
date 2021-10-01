@@ -8,6 +8,7 @@ import {
   Title,
   ItemContainer,
   ColumnWrapper,
+  useStyles,
 } from '../../pages/Boards/ColumnsStyle';
 // import ColumnsData from './ColumnsData';
 import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
@@ -49,6 +50,7 @@ interface ColumnDataProps {
 }
 
 const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
+  const classes = useStyles();
   // const [state, setState] = useState(ColumnsData);
 
   const onDragEnd = () => {};
@@ -67,6 +69,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                 >
                   <Title>{value.title}</Title>
                   <ItemContainer
+                    className={classes.itemContainer}
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                     isDragging={snapshot.isDraggingOver}

@@ -36,6 +36,13 @@ export const useStyles = makeStyles(() => ({
     marginTop: '10px',
     width: 'auto',
     height: '150px',
+    '&::-webkit-scrollbar': {
+      width: '0.4em',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      borderRadius: 8,
+    },
   },
   twitterIcon: {
     height: '20px',
@@ -56,6 +63,15 @@ export const useStyles = makeStyles(() => ({
     marginLeft: '255px',
     marginTop: '5px',
     color: 'white',
+  },
+  itemContainer: {
+    '&::-webkit-scrollbar': {
+      width: '0.4em',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      borderRadius: 8,
+    },
   },
 }));
 
@@ -79,7 +95,7 @@ export const ItemContainer = styled.div`
   background-color: ${(isDraggingOver: BoardColumnContentStylesProps) =>
     isDraggingOver ? '#f7fafc' : null};
   transition: background-color 0.2s ease;
-  padding: 8px;
+  padding: 5px;
   height: 81vh;
   overflow: auto;
 `;
@@ -87,7 +103,7 @@ export const ItemContainer = styled.div`
 export const DefaultItemContainer = styled.div<DefaultColumnContentStylesProps>`
   background-color: ${(props) => (props.isDragging ? '#f7fafc' : null)};
   transition: background-color 0.2s ease;
-  padding: 8px;
+  padding: 5px;
   height: ${(props) => (props.feedType === 'Twitter Feed' ? '81vh' : '72vh')};
   overflow: auto;
 `;
