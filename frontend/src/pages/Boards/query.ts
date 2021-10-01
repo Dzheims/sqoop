@@ -19,6 +19,7 @@ export const GET_NEWS_API_CONTENTS_QUERY = gql`
       publishedAt
       sourceId
       sourceName
+      suggestedKeywords
       title
       url
       urlToImage
@@ -37,6 +38,7 @@ export const GET_TWITTER_API_CONTENTS_QUERY = gql`
         type
         url
       }
+      suggestedKeywords
       profile_image_url
       text
       username

@@ -1,5 +1,6 @@
 import { twitter_accounts } from '../../models';
 import { Client } from 'pg';
+import keyword_extractor from 'keyword-extractor';
 const fetch = require('node-fetch');
 require('dotenv').config();
 
@@ -60,6 +61,12 @@ export const resolvers = {
       const result = await response.json();
       const searchTweets = result.data
         ? result.data.map((tweet: any) => {
+            const suggestedKeywords = keyword_extractor.extract(tweet.text, {
+              language: 'english',
+              remove_digits: true,
+              return_changed_case: true,
+              remove_duplicates: true,
+            });
             const photos = tweet.attachments
               ? tweet.attachments.media_keys.map((attachment: any) => {
                   for (var media of result.includes.media) {
@@ -70,7 +77,7 @@ export const resolvers = {
 
             for (var user of result.includes.users) {
               if (user.id === tweet.author_id)
-                return { ...tweet, ...user, ...{ photos } };
+                return { ...tweet, ...user, ...{ photos }, suggestedKeywords };
             }
           })
         : [];

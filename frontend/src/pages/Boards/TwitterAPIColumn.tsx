@@ -122,7 +122,7 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
               <Typography className={classes.dateAndUserName}>
                 {formatTimeAndDate(value.created_at)}
               </Typography>
-              <FactCheck />
+              <FactCheck data={value.suggestedKeywords} />
             </Item>
           )}
         </Draggable>

@@ -98,7 +98,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
               <Typography className={classes.dateAndUserName}>
                 {formatTimeAndDate(value.publishedAt)}
               </Typography>
-              <FactCheck />
+              <FactCheck data={value.suggestedKeywords} />
             </Item>
           )}
         </Draggable>
