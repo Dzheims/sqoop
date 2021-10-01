@@ -71,8 +71,10 @@ const SignIn = () => {
         },
       },
       onCompleted: ({ signin }) => {
-        Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
-        history.push('/');
+        if (signin?.jwtToken) {
+          Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
+          history.push('/');
+        }
       },
     }
   );

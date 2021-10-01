@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Cookies from 'js-cookie';
 import AUTH_TOKEN from '../../constants';
+import client from '../../apolloClient';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -22,8 +23,10 @@ const Logout = () => {
   const history = useHistory();
 
   const handleSubmit = () => {
-    Cookies.remove(AUTH_TOKEN);
-    history.push('/signin');
+    client.resetStore().then(() => {
+      Cookies.remove(AUTH_TOKEN);
+      history.push('/signin');
+    });
   };
 
   return (
