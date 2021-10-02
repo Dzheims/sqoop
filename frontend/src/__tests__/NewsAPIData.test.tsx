@@ -30,6 +30,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
             content: 'The quick brown fox jumps over the lazy dog',
             sourceId: 'daily-news-updates',
             sourceName: 'John Doe News',
+            suggestedKeywords: ['brown', 'quick'],
           },
           {
             author: 'Juan Dela Cruz',
@@ -41,6 +42,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
             content: 'The lazy dog jumps over the quick brown fox',
             sourceId: 'trending-news-updates',
             sourceName: 'JDC News',
+            suggestedKeywords: ['quick', 'fox'],
           },
           {
             author: 'Anonymous',
@@ -52,6 +54,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
             content: 'The quick brown dog jumps over the lazy fox',
             sourceId: 'anonymous-news-updates',
             sourceName: 'Anonymous News',
+            suggestedKeywords: ['dog', 'jumps'],
           },
           {
             author: 'ABS-CNN',
@@ -63,6 +66,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
             content: 'The quick fox jumps over the lazy brown dog',
             sourceId: 'abscnn-news-updates',
             sourceName: 'ABS-CNN News Updates',
+            suggestedKeywords: ['lazy', 'jumps'],
           },
           {
             author: 'GMA',
@@ -74,6 +78,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
             content: 'The quick lazy dog jumps over the brown fox',
             sourceId: 'gma-news-updates',
             sourceName: 'RGMA Daily News',
+            suggestedKeywords: ['quick', 'jumps'],
           },
         ],
       },

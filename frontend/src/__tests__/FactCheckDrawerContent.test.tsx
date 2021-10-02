@@ -13,7 +13,7 @@ describe('Fact Check Drawer', () => {
   beforeEach(() => {
     render(
       <MockedProvider mocks={[]}>
-        <FactCheckDrawerContent />
+        <FactCheckDrawerContent suggestedKeyWords={['jumps', 'dog']} />
       </MockedProvider>
     );
   });

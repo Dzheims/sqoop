@@ -33,6 +33,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
             text: 'A bird in the hand is worth two in the bush.',
             username: 'sqoopnews',
             verified: true,
+            suggestedKeywords: ['bird', 'hand'],
           },
           {
             author_id: 'x9y8z7',
@@ -54,6 +55,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
             text: 'Friends are flowers in the garden of life.',
             username: 'googleNews',
             verified: true,
+            suggestedKeywords: ['bird', 'hand'],
           },
           {
             author_id: 'x9y8z7',
@@ -70,6 +72,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
             text: 'The grass is always greener on the other side.',
             username: 'abscbn',
             verified: true,
+            suggestedKeywords: ['bird', 'hand'],
           },
         ],
       },

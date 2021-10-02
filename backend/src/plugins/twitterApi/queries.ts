@@ -76,8 +76,15 @@ export const resolvers = {
               : [];
 
             for (var user of result.includes.users) {
-              if (user.id === tweet.author_id)
-                return { ...tweet, ...user, ...{ photos }, suggestedKeywords };
+              if (user.id === tweet.author_id) {
+                const { id, ...userInfo } = user;
+                return {
+                  ...tweet,
+                  ...userInfo,
+                  ...{ photos },
+                  suggestedKeywords,
+                };
+              }
             }
           })
         : [];

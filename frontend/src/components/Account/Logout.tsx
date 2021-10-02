@@ -23,10 +23,10 @@ const Logout = () => {
   const history = useHistory();
 
   const handleSubmit = () => {
-    client.resetStore().then(() => {
-      Cookies.remove(AUTH_TOKEN);
-      history.push('/signin');
-    });
+    // client.resetStore().then(() => {
+    Cookies.remove(AUTH_TOKEN);
+    history.push('/signin');
+    // });
   };
 
   return (

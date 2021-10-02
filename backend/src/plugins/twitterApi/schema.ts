@@ -1,6 +1,7 @@
 import { gql } from 'graphile-utils';
 export const tweet = gql`
   type Tweet {
+    id: String
     author_id: String
     created_at: String
     text: String
