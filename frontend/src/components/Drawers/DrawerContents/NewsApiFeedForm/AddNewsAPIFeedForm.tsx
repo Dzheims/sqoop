@@ -11,9 +11,11 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Snackbar,
   TextField,
 } from '@material-ui/core';
-import { Alert, AlertTitle, Autocomplete } from '@mui/material';
+import { Alert, Autocomplete, IconButton } from '@mui/material';
+import CloseIcon from '@material-ui/icons/Close';
 import {
   CreateNewsFeedMutation,
   CreateNewsFeedMutationVariables,
@@ -41,9 +43,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     justifyContent: 'flex-end',
   },
-  alert: {
-    marginTop: theme.spacing(5),
-  },
+
   flags: {
     marginRight: '5px',
   },
@@ -206,6 +206,7 @@ const AddNewsAPIFeedForm = () => {
   const handleSubmit = () => {
     createFeed();
   };
+  const handleClose = () => {};
 
   return (
     <div className={classes.formContainer}>
@@ -315,15 +316,29 @@ const AddNewsAPIFeedForm = () => {
           Create
         </Button>
       </div>
-      {successAlert.success ? (
-        <Alert severity="success" className={classes.alert}>
-          <AlertTitle>Success</AlertTitle>
-          Feed <strong>{successAlert.feedTitle}</strong> was created —{' '}
-          <strong>check it out!</strong>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        open={successAlert.success}
+        autoHideDuration={5000}
+      >
+        <Alert
+          severity="success"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setSuccessAlert({ ...successAlert, success: false });
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          Feed <strong>{successAlert.feedTitle}</strong> was created
         </Alert>
-      ) : (
-        <div />
-      )}
+      </Snackbar>
     </div>
   );
 };
