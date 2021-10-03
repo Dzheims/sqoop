@@ -12,6 +12,11 @@ const useStyles = makeStyles((theme) => ({
     width: '35px',
     color: theme.palette.secondary.main,
   },
+  onClickFactCheckIcon: {
+    height: '35px',
+    width: '35px',
+    color: 'white',
+  },
   factCheckButton: {
     marginTop: '10px',
     textTransform: 'none',
@@ -22,6 +27,14 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.secondary.main,
       backgroundColor: 'white',
     },
+  },
+  onClickFactCheckButton: {
+    marginTop: '10px',
+    textTransform: 'none',
+    borderRadius: '12px',
+    fontSize: '12px',
+    backgroundColor: theme.palette.secondary.main,
+    color: 'white',
   },
   closeButton: {
     fontSize: '12px',
@@ -80,8 +93,16 @@ const FactCheck = ({ data }: FactCheckProps) => {
         </div>
       </Drawer>
       <Button
-        className={classes.factCheckButton}
-        startIcon={<FactCheckIcon className={classes.factCheckIcon} />}
+        className={
+          open ? classes.onClickFactCheckButton : classes.factCheckButton
+        }
+        startIcon={
+          <FactCheckIcon
+            className={
+              open ? classes.onClickFactCheckIcon : classes.factCheckIcon
+            }
+          />
+        }
         variant="outlined"
         onClick={handleOpen}
       >

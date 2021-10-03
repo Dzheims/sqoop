@@ -43,7 +43,6 @@ const NavigationBar = () => {
     open: false,
   });
   const [title, setTitle] = useState('');
-
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const onAccountClick = (event: React.MouseEvent<HTMLButtonElement>) => {

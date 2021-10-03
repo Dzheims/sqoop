@@ -11,9 +11,8 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
 } from '@material-ui/core';
-import { Alert, AlertTitle, Autocomplete } from '@mui/material';
+import { Alert, AlertTitle, Autocomplete, TextField } from '@mui/material';
 import {
   CreateNewsFeedMutation,
   CreateNewsFeedMutationVariables,
