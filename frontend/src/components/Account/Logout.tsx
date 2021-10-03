@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    height: '3vh',
+    height: '2.5vh',
   },
   // div: {
   //   padding: theme.spacing(1, 2, 2),
@@ -23,7 +23,7 @@ const Logout = () => {
   const history = useHistory();
 
   const handleSubmit = () => {
-    client.resetStore().then(() => {
+    client.clearStore().then(() => {
       Cookies.remove(AUTH_TOKEN);
       history.push('/signin');
     });

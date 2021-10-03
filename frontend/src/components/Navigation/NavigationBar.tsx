@@ -257,15 +257,7 @@ const NavigationBar = () => {
             horizontal: 'left',
           }}
         >
-          <Box
-            sx={{
-              bgcolor: 'white',
-              height: '15vh',
-              width: '20vh',
-              maxWidth: '30vh',
-            }}
-            className={classes.profileBox}
-          >
+          <Box className={classes.profileBox}>
             <UserProfile />
             <Logout />
           </Box>

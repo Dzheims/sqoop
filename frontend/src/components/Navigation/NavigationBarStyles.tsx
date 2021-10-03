@@ -74,6 +74,9 @@ export const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     padding: theme.spacing(3),
+    bgcolor: 'white',
+    height: '10vh',
+    minWidth: '15vh',
   },
   iconContainer: {
     backgroundColor: theme.palette.primary.main,

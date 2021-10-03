@@ -23,7 +23,7 @@ const UserProfile = () => {
 
   return (
     <div className={classes.div}>
-      <Typography color="primary" variant="h4">
+      <Typography color="primary" variant="h5">
         {data?.user?.username}
       </Typography>
     </div>
