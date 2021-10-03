@@ -8,8 +8,6 @@ interface topHeadlinesParams {
   keyword: string;
 }
 
-const stopword = 'a';
-
 export const resolvers = {
   Query: {
     topHeadlines: async (_: any, args: topHeadlinesParams, context: any) => {
