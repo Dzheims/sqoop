@@ -73,6 +73,9 @@ export const useStyles = makeStyles(() => ({
       borderRadius: 8,
     },
   },
+  grid: {
+    padding: theme.spacing(0, 1),
+  },
 }));
 
 export const Item = styled.div`
@@ -111,7 +114,6 @@ export const DefaultItemContainer = styled.div<DefaultColumnContentStylesProps>`
 export const Title = styled.h2`
   font: 18px sans-serif;
   margin-bottom: 5px;
-  margin-left: 12px;
   color: ${theme.palette.primary.main};
 `;
 

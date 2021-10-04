@@ -10,12 +10,14 @@ import {
   ColumnWrapper,
   useStyles,
 } from '../../pages/Boards/ColumnsStyle';
+import CloseIcon from '@material-ui/icons/Close';
 // import ColumnsData from './ColumnsData';
 import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from '../../pages/Boards/TwitterAPIColumnData';
 import CategoriesButtons from '../Categories/CategoriesButtons';
 import { GetColumnsQuery } from './query.generated';
 import { Category } from '../../types.generated';
+import { Grid, IconButton } from '@material-ui/core';
 
 interface filtersProps {
   feedType: string | undefined;
@@ -67,7 +69,17 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
-                  <Title>{value.title}</Title>
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    className={classes.grid}
+                  >
+                    <Title>{value.title}</Title>
+                    <IconButton aria-label="close" size="small">
+                      <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                  </Grid>
                   <ItemContainer
                     className={classes.itemContainer}
                     {...provided.droppableProps}
