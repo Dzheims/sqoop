@@ -42,7 +42,7 @@ describe('News Feed Form', () => {
     });
     expect(keywordsTextfield).toHaveValue('Online Class');
   });
-  test('input form feed sources textfield', async () => {
+  test('input form feed sources textfield', () => {
     const sourcesTextfield = screen.getByRole('textbox', {
       name: 'Sources',
     });

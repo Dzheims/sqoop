@@ -13,6 +13,8 @@ export default interface collections {
 
   /** Index: collections_user_id_idx */
   user_id: usersId | null;
+
+  created_at: Date;
 }
 
 export interface collectionsInitializer {
@@ -23,4 +25,7 @@ export interface collectionsInitializer {
 
   /** Index: collections_user_id_idx */
   user_id?: usersId | null;
+
+  /** Default value: now() */
+  created_at?: Date;
 }

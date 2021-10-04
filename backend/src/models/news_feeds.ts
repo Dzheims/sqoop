@@ -22,6 +22,8 @@ export default interface news_feeds {
 
   /** Index: news_feeds_user_id_idx */
   user_id: usersId | null;
+
+  created_at: Date;
 }
 
 export interface news_feedsInitializer {
@@ -40,4 +42,7 @@ export interface news_feedsInitializer {
 
   /** Index: news_feeds_user_id_idx */
   user_id?: usersId | null;
+
+  /** Default value: now() */
+  created_at?: Date;
 }

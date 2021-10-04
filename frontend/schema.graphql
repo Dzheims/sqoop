@@ -467,12 +467,19 @@ type Collection implements Node {
   id: Int!
   title: String!
   userId: Int
+  createdAt: Datetime!
 
   """
   Reads a single `User` that is related to this `Collection`.
   """
   user: User
 }
+
+"""
+A point in time as described by the [ISO
+8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+"""
+scalar Datetime
 
 type User implements Node {
   """
@@ -719,6 +726,7 @@ type NewsFeed implements Node {
   keyword: String
   sources: String
   userId: Int
+  createdAt: Datetime!
 
   """
   Reads a single `User` that is related to this `NewsFeed`.
@@ -845,6 +853,7 @@ type TwitterFeed implements Node {
   keyword: String
   sources: String
   userId: Int
+  createdAt: Datetime!
 
   """
   Reads a single `User` that is related to this `TwitterFeed`.
@@ -1548,6 +1557,7 @@ input CollectionInput {
   id: Int
   title: String!
   userId: Int
+  createdAt: Datetime
 }
 
 """
@@ -1613,6 +1623,7 @@ input NewsFeedInput {
   keyword: String
   sources: String
   userId: Int
+  createdAt: Datetime
 }
 
 """
@@ -1732,6 +1743,7 @@ input TwitterFeedInput {
   keyword: String
   sources: String
   userId: Int
+  createdAt: Datetime
 }
 
 """
@@ -1854,6 +1866,7 @@ input CollectionPatch {
   id: Int
   title: String
   userId: Int
+  createdAt: Datetime
 }
 
 """
@@ -1941,6 +1954,7 @@ input NewsFeedPatch {
   keyword: String
   sources: String
   userId: Int
+  createdAt: Datetime
 }
 
 """
@@ -2138,6 +2152,7 @@ input TwitterFeedPatch {
   keyword: String
   sources: String
   userId: Int
+  createdAt: Datetime
 }
 
 """

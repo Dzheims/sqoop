@@ -17,6 +17,8 @@ export default interface twitter_feeds {
 
   /** Index: twitter_feeds_user_id_idx */
   user_id: usersId | null;
+
+  created_at: Date;
 }
 
 export interface twitter_feedsInitializer {
@@ -31,4 +33,7 @@ export interface twitter_feedsInitializer {
 
   /** Index: twitter_feeds_user_id_idx */
   user_id?: usersId | null;
+
+  /** Default value: now() */
+  created_at?: Date;
 }
