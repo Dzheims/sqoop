@@ -2,7 +2,9 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Snackbar, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import { Alert } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import {
   CreateCollectionMutation,
@@ -33,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface SuccessAlert {
+  feedTitle: string;
+  success: boolean;
+}
+
 const AddCollectionForm = () => {
   const history = useHistory();
   const classes = useStyles();
@@ -40,6 +47,12 @@ const AddCollectionForm = () => {
   const [collectionForm, setCollectionForm] = useState<CollectionInput>({
     title: '',
   });
+
+  const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
+    feedTitle: '',
+    success: false,
+  });
+  const [disableCreateButton, setdisableCreateButton] = useState(false);
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -50,7 +63,7 @@ const AddCollectionForm = () => {
     });
   };
 
-  const [createCollection] = useMutation<
+  const [createNewCollection] = useMutation<
     CreateCollectionMutation,
     CreateCollectionMutationVariables
   >(CREATE_COLLECTION, {
@@ -62,14 +75,20 @@ const AddCollectionForm = () => {
         },
       },
     },
-    onCompleted: () => {
+    onCompleted: ({ createCollection }) => {
+      setSuccessAlert({
+        ...successAlert,
+        feedTitle: createCollection?.collection?.title as string,
+        success: true,
+      });
+      setdisableCreateButton(true);
       history.push('/');
     },
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
 
   const handleSubmit = () => {
-    createCollection();
+    createNewCollection();
   };
 
   return (
@@ -92,10 +111,34 @@ const AddCollectionForm = () => {
           variant="contained"
           color="secondary"
           onClick={handleSubmit}
+          disabled={disableCreateButton}
         >
           Create
         </Button>
       </div>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        open={successAlert.success}
+        autoHideDuration={5000}
+      >
+        <Alert
+          severity="success"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setSuccessAlert({ ...successAlert, success: false });
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          Feed <strong>{successAlert.feedTitle}</strong> was created
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
