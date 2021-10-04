@@ -1,0 +1,2 @@
+CREATE POLICY twitter_feeds_policy ON twitter_feeds FOR ALL TO sqoop_user USING (user_id = current_user_id());
+CREATE POLICY news_feeds_policy ON news_feeds FOR ALL TO sqoop_user USING (user_id = current_user_id());
