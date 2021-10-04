@@ -30,6 +30,7 @@ import AddTwitterFeedForm from '../Drawers/DrawerContents/TwitterFeedForm/AddTwi
 import Logout from '../Account/Logout';
 import UserProfile from '../Account/UserProfile';
 import AddCollectionForm from '../Drawers/DrawerContents/CollectionForm/AddCollectionsForm';
+import SearchBar from '../Drawers/DrawerContents/Search/Search';
 
 interface DrawerState {
   current: string;
@@ -125,8 +126,7 @@ const NavigationBar = () => {
   };
 
   const getDrawerContent = (contentTitle: string) => {
-    if (contentTitle === 'Search')
-      return <div>Pretend this is a search bar</div>;
+    if (contentTitle === 'Search') return <SearchBar />;
     if (contentTitle === 'Add Column')
       return (
         <div>
