@@ -1,17 +1,8 @@
 import React from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { Draggable } from 'react-beautiful-dnd';
 import { GetNewsApiContentsQuery } from './query.generated';
-import { Typography, Avatar } from '@material-ui/core';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import {
-  Item,
-  AccountNameContainer,
-  NewsAPIContentContainer,
-  NewsAPITitleContainer,
-  useStyles,
-} from './ColumnsStyle';
-import FactCheck from '../../components/FactCheck/FactCheck';
-import formatTimeAndDate from '../../components/Common/Functions/Functions';
+import { Item, useStyles } from './ColumnsStyle';
+import NewsCards from '../../components/Cards/NewsCards';
 
 interface NewsAPIDataProps {
   data: GetNewsApiContentsQuery;
@@ -20,12 +11,6 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
   data,
 }: NewsAPIDataProps) => {
   const classes = useStyles();
-
-  const randomColor = () => {
-    let hex = Math.floor(Math.random() * 0xffffff);
-    let color = '#' + hex.toString(16);
-    return color;
-  };
 
   return (
     <div>
@@ -42,63 +27,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
               ref={provided.innerRef}
               isDragging={snapshot.isDragging}
             >
-              <NewsAPITitleContainer>
-                <Avatar
-                  style={{
-                    backgroundColor: randomColor(),
-                    color: 'white',
-                  }}
-                  className={classes.avatars}
-                >
-                  {value.sourceName?.charAt(0)}
-                </Avatar>
-                <AccountNameContainer>
-                  <Typography style={{ fontWeight: 600 }}>
-                    {value.sourceName}
-                  </Typography>
-                </AccountNameContainer>
-              </NewsAPITitleContainer>
-              <Typography variant="body2">{value.description}</Typography>
-              {value.urlToImage === null ? (
-                <a
-                  target="_blank"
-                  className={classes.link}
-                  href={value?.url as string}
-                >
-                  <Typography variant="body2">{value.title}</Typography>
-                </a>
-              ) : (
-                <NewsAPIContentContainer>
-                  <div
-                    style={{
-                      backgroundImage: `url(${value.urlToImage})`,
-                    }}
-                    className={classes.imageContainer}
-                  >
-                    <a
-                      target="_blank"
-                      className={classes.link}
-                      href={value?.url as string}
-                    >
-                      <OpenInNewIcon className={classes.linkIcon} />
-                    </a>
-                  </div>
-                  <a
-                    target="_blank"
-                    className={classes.link}
-                    href={value?.url as string}
-                  >
-                    <Typography className={classes.description}>
-                      {value.title}
-                    </Typography>
-                  </a>
-                </NewsAPIContentContainer>
-              )}
-              <br />
-              <Typography className={classes.dateAndUserName}>
-                {formatTimeAndDate(value.publishedAt)}
-              </Typography>
-              <FactCheck data={value.suggestedKeywords} />
+              <NewsCards data={value} />
             </Item>
           )}
         </Draggable>
