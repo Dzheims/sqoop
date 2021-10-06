@@ -2,7 +2,7 @@ import { userSchema } from '../helpers/setupEasyGraphqlTester';
 import { gql } from 'graphile-utils';
 const EasyGraphQLTester = require('easygraphql-tester');
 
-describe('test searchTweets schema', () => {
+describe('test tweetLookup schema', () => {
   let tester: any;
   beforeAll(() => {
     tester = new EasyGraphQLTester(userSchema);
@@ -11,17 +11,19 @@ describe('test searchTweets schema', () => {
   test('check if valid query', () => {
     const query = gql`
       query TESTQUERY {
-        searchTweets {
-          author_id
+        tweetLookup(id: "1445740660384927745") {
           created_at
+          author_id
+          id
           name
           photos {
             media_key
             type
             url
           }
-          text
           profile_image_url
+          suggestedKeywords
+          text
           username
           verified
         }
@@ -42,7 +44,7 @@ describe('test searchTweets schema', () => {
   });
 });
 
-describe('mock searchTweets query', () => {
+describe('mock tweetLookup query', () => {
   let tester: any;
   beforeAll(() => {
     tester = new EasyGraphQLTester(userSchema);
@@ -55,7 +57,8 @@ describe('mock searchTweets query', () => {
       data: {
         searchTweets: [
           {
-            author_id: '1430319336233783304',
+            author_id: '15448383',
+            id: '1445742618583834632',
             created_at: '2021-09-02T12:15:00.000Z',
             name: 'ABS-CBN News',
             photos: [],
@@ -66,7 +69,8 @@ describe('mock searchTweets query', () => {
             verified: true,
           },
           {
-            author_id: '1430319232193990660',
+            author_id: '15872418',
+            id: '1430319232193990660',
             created_at: '2021-09-02T12:06:32.000Z',
             name: 'Rappler',
             photos: [
@@ -88,7 +92,8 @@ describe('mock searchTweets query', () => {
             verified: true,
           },
           {
-            author_id: '1430319009832923136',
+            author_id: '330826792',
+            id: '1430319009832923136',
             created_at: '2021-09-02T12:03:36.000Z',
             name: 'Rappler',
             photos: [],
@@ -106,6 +111,7 @@ describe('mock searchTweets query', () => {
       query TESTQUERY {
         searchTweets {
           author_id
+          id
           created_at
           name
           photos {
@@ -124,7 +130,8 @@ describe('mock searchTweets query', () => {
       data: { searchTweets },
     } = await tester.mock({ query, fixture });
     expect(searchTweets).toBeArray();
-    expect(searchTweets[0].author_id).toBe('1430319336233783304');
+    expect(searchTweets[0].id).toBe('1445742618583834632');
+    expect(searchTweets[0].author_id).toBe('15448383');
     expect(searchTweets[0].photos).toBeEmpty();
     expect(searchTweets[1].photos).toBeArrayOfSize(2);
     expect(searchTweets[2].verified).toBeTrue();
