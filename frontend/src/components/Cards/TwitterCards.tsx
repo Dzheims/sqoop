@@ -16,6 +16,7 @@ import {
 } from '../../pages/Boards/ColumnsStyle';
 import formatTimeAndDate from '../Common/Functions/Functions';
 import FactCheck from '../FactCheck/FactCheck';
+import CardsActionButton from '../Buttons/CardsActionButton';
 
 interface TwitterDataProps {
   data: any;
@@ -105,7 +106,10 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
       <Typography className={classes.dateAndUserName}>
         {formatTimeAndDate(data.created_at)}
       </Typography>
-      <FactCheck data={data.suggestedKeywords} />
+      <div className={classes.buttonsContainer}>
+        <FactCheck data={data.suggestedKeywords} />
+        <CardsActionButton />
+      </div>
     </div>
   );
 };

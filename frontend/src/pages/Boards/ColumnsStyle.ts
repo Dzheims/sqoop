@@ -73,6 +73,11 @@ export const useStyles = makeStyles(() => ({
       borderRadius: 8,
     },
   },
+  buttonsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 }));
 
 export const Item = styled.div`

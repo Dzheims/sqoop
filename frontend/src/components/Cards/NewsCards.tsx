@@ -9,6 +9,7 @@ import {
 } from '../../pages/Boards/ColumnsStyle';
 import formatTimeAndDate from '../Common/Functions/Functions';
 import FactCheck from '../FactCheck/FactCheck';
+import CardsActionButton from '../Buttons/CardsActionButton';
 
 interface NewsDataProps {
   data: any;
@@ -75,7 +76,10 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
       <Typography className={classes.dateAndUserName}>
         {formatTimeAndDate(data.publishedAt)}
       </Typography>
-      <FactCheck data={data.suggestedKeywords} />
+      <div className={classes.buttonsContainer}>
+        <FactCheck data={data.suggestedKeywords} />
+        <CardsActionButton />
+      </div>
     </div>
   );
 };
