@@ -24,6 +24,72 @@ type Query implements Node {
   ): Node
 
   """
+  Reads and enables pagination through a set of `CollectionTweet`.
+  """
+  collectionTweetsConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
+    orderBy: [CollectionTweetsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionTweetCondition
+  ): CollectionTweetsConnection
+
+  """
+  Reads a set of `CollectionTweet`.
+  """
+  collectionTweets(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
+    orderBy: [CollectionTweetsOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionTweetCondition
+  ): [CollectionTweet!]
+
+  """
   Reads and enables pagination through a set of `Collection`.
   """
   collectionsConnection(
@@ -352,6 +418,7 @@ type Query implements Node {
     """
     condition: UserCondition
   ): [User!]
+  collectionTweet(id: Int!): CollectionTweet
   collection(id: Int!): Collection
   newsFeed(id: Int!): NewsFeed
   twitterAccount(accountId: Int!): TwitterAccount
@@ -361,6 +428,16 @@ type Query implements Node {
   user(userId: Int!): User
   userByUsername(username: String!): User
   currentUserId: Int
+
+  """
+  Reads a single `CollectionTweet` using its globally unique `ID`.
+  """
+  collectionTweetByNodeId(
+    """
+    The globally unique `ID` to be used in selecting a single `CollectionTweet`.
+    """
+    nodeId: ID!
+  ): CollectionTweet
 
   """
   Reads a single `Collection` using its globally unique `ID`.
@@ -435,18 +512,18 @@ interface Node {
 }
 
 """
-A connection to a list of `Collection` values.
+A connection to a list of `CollectionTweet` values.
 """
-type CollectionsConnection {
+type CollectionTweetsConnection {
   """
-  A list of `Collection` objects.
+  A list of `CollectionTweet` objects.
   """
-  nodes: [Collection]!
+  nodes: [CollectionTweet]!
 
   """
-  A list of edges which contains the `Collection` and cursor to aid in pagination.
+  A list of edges which contains the `CollectionTweet` and cursor to aid in pagination.
   """
-  edges: [CollectionsEdge!]!
+  edges: [CollectionTweetsEdge!]!
 
   """
   Information to aid in pagination.
@@ -454,9 +531,24 @@ type CollectionsConnection {
   pageInfo: PageInfo!
 
   """
-  The count of *all* `Collection` you could get from the connection.
+  The count of *all* `CollectionTweet` you could get from the connection.
   """
   totalCount: Int!
+}
+
+type CollectionTweet implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  tweetId: String!
+  collectionId: Int!
+
+  """
+  Reads a single `Collection` that is related to this `CollectionTweet`.
+  """
+  collection: Collection
 }
 
 type Collection implements Node {
@@ -473,6 +565,72 @@ type Collection implements Node {
   Reads a single `User` that is related to this `Collection`.
   """
   user: User
+
+  """
+  Reads and enables pagination through a set of `CollectionTweet`.
+  """
+  collectionTweetsConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
+    orderBy: [CollectionTweetsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionTweetCondition
+  ): CollectionTweetsConnection!
+
+  """
+  Reads and enables pagination through a set of `CollectionTweet`.
+  """
+  collectionTweets(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
+    orderBy: [CollectionTweetsOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionTweetCondition
+  ): [CollectionTweet!]!
 }
 
 """
@@ -906,6 +1064,46 @@ input TwitterFeedCondition {
 }
 
 """
+A connection to a list of `Collection` values.
+"""
+type CollectionsConnection {
+  """
+  A list of `Collection` objects.
+  """
+  nodes: [Collection]!
+
+  """
+  A list of edges which contains the `Collection` and cursor to aid in pagination.
+  """
+  edges: [CollectionsEdge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `Collection` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""
+A `Collection` edge in the connection.
+"""
+type CollectionsEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor
+
+  """
+  The `Collection` at the end of the edge.
+  """
+  node: Collection
+}
+
+"""
 Methods to use when ordering `Collection`.
 """
 enum CollectionsOrderBy {
@@ -935,18 +1133,47 @@ input CollectionCondition {
 }
 
 """
-A `Collection` edge in the connection.
+Methods to use when ordering `CollectionTweet`.
 """
-type CollectionsEdge {
+enum CollectionTweetsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  COLLECTION_ID_ASC
+  COLLECTION_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `CollectionTweet` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input CollectionTweetCondition {
+  """
+  Checks for equality with the object’s `id` field.
+  """
+  id: Int
+
+  """
+  Checks for equality with the object’s `collectionId` field.
+  """
+  collectionId: Int
+}
+
+"""
+A `CollectionTweet` edge in the connection.
+"""
+type CollectionTweetsEdge {
   """
   A cursor for use in pagination.
   """
   cursor: Cursor
 
   """
-  The `Collection` at the end of the edge.
+  The `CollectionTweet` at the end of the edge.
   """
-  node: Collection
+  node: CollectionTweet
 }
 
 """
@@ -1176,6 +1403,16 @@ The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
   """
+  Creates a single `CollectionTweet`.
+  """
+  createCollectionTweet(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCollectionTweetInput!
+  ): CreateCollectionTweetPayload
+
+  """
   Creates a single `Collection`.
   """
   createCollection(
@@ -1224,6 +1461,26 @@ type Mutation {
     """
     input: CreateUserInput!
   ): CreateUserPayload
+
+  """
+  Updates a single `CollectionTweet` using its globally unique id and a patch.
+  """
+  updateCollectionTweetByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCollectionTweetByNodeIdInput!
+  ): UpdateCollectionTweetPayload
+
+  """
+  Updates a single `CollectionTweet` using a unique key and a patch.
+  """
+  updateCollectionTweet(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCollectionTweetInput!
+  ): UpdateCollectionTweetPayload
 
   """
   Updates a single `Collection` using its globally unique id and a patch.
@@ -1354,6 +1611,26 @@ type Mutation {
     """
     input: UpdateUserByUsernameInput!
   ): UpdateUserPayload
+
+  """
+  Deletes a single `CollectionTweet` using its globally unique id.
+  """
+  deleteCollectionTweetByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCollectionTweetByNodeIdInput!
+  ): DeleteCollectionTweetPayload
+
+  """
+  Deletes a single `CollectionTweet` using a unique key.
+  """
+  deleteCollectionTweet(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCollectionTweetInput!
+  ): DeleteCollectionTweetPayload
 
   """
   Deletes a single `Collection` using its globally unique id.
@@ -1496,6 +1773,67 @@ type Mutation {
     """
     input: SignupInput!
   ): SignupPayload
+}
+
+"""
+The output of our create `CollectionTweet` mutation.
+"""
+type CreateCollectionTweetPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionTweet` that was created by this mutation.
+  """
+  collectionTweet: CollectionTweet
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `Collection` that is related to this `CollectionTweet`.
+  """
+  collection: Collection
+
+  """
+  An edge for our `CollectionTweet`. May be used by Relay 1.
+  """
+  collectionTweetEdge(
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
+    orderBy: [CollectionTweetsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CollectionTweetsEdge
+}
+
+"""
+All input for the create `CollectionTweet` mutation.
+"""
+input CreateCollectionTweetInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionTweet` to be created by this mutation.
+  """
+  collectionTweet: CollectionTweetInput!
+}
+
+"""
+An input for mutations affecting `CollectionTweet`
+"""
+input CollectionTweetInput {
+  id: Int
+  tweetId: String!
+  collectionId: Int!
 }
 
 """
@@ -1800,6 +2138,89 @@ input UserInput {
   userId: Int
   username: String!
   hashedPassword: String!
+}
+
+"""
+The output of our update `CollectionTweet` mutation.
+"""
+type UpdateCollectionTweetPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionTweet` that was updated by this mutation.
+  """
+  collectionTweet: CollectionTweet
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `Collection` that is related to this `CollectionTweet`.
+  """
+  collection: Collection
+
+  """
+  An edge for our `CollectionTweet`. May be used by Relay 1.
+  """
+  collectionTweetEdge(
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
+    orderBy: [CollectionTweetsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CollectionTweetsEdge
+}
+
+"""
+All input for the `updateCollectionTweetByNodeId` mutation.
+"""
+input UpdateCollectionTweetByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `CollectionTweet` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `CollectionTweet` being updated.
+  """
+  patch: CollectionTweetPatch!
+}
+
+"""
+Represents an update to a `CollectionTweet`. Fields that are set will be updated.
+"""
+input CollectionTweetPatch {
+  id: Int
+  tweetId: String
+  collectionId: Int
+}
+
+"""
+All input for the `updateCollectionTweet` mutation.
+"""
+input UpdateCollectionTweetInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `CollectionTweet` being updated.
+  """
+  patch: CollectionTweetPatch!
+  id: Int!
 }
 
 """
@@ -2265,6 +2686,71 @@ input UpdateUserByUsernameInput {
   """
   patch: UserPatch!
   username: String!
+}
+
+"""
+The output of our delete `CollectionTweet` mutation.
+"""
+type DeleteCollectionTweetPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionTweet` that was deleted by this mutation.
+  """
+  collectionTweet: CollectionTweet
+  deletedCollectionTweetNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `Collection` that is related to this `CollectionTweet`.
+  """
+  collection: Collection
+
+  """
+  An edge for our `CollectionTweet`. May be used by Relay 1.
+  """
+  collectionTweetEdge(
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
+    orderBy: [CollectionTweetsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CollectionTweetsEdge
+}
+
+"""
+All input for the `deleteCollectionTweetByNodeId` mutation.
+"""
+input DeleteCollectionTweetByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `CollectionTweet` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteCollectionTweet` mutation.
+"""
+input DeleteCollectionTweetInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: Int!
 }
 
 """
