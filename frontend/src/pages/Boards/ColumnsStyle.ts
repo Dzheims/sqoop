@@ -78,6 +78,12 @@ export const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  grid: {
+    padding: theme.spacing(0, 1),
+  },
+  delete: {
+    marginBottom: '5px',
+  },
 }));
 
 export const Item = styled.div`
@@ -115,8 +121,7 @@ export const DefaultItemContainer = styled.div<DefaultColumnContentStylesProps>`
 
 export const Title = styled.h2`
   font: 18px sans-serif;
-  margin-bottom: 5px;
-  margin-left: 12px;
+  // margin-bottom: 5px;
   color: ${theme.palette.primary.main};
 `;
 

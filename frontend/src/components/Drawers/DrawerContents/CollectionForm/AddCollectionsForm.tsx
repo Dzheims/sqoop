@@ -13,7 +13,7 @@ import {
 import { CollectionInput } from '../../../../types.generated';
 import CREATE_COLLECTION from './query';
 import currentUserId from '../../../../authentication/currentUserId';
-import GET_COLUMNS_QUERY from '../../../Columns/query';
+import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {

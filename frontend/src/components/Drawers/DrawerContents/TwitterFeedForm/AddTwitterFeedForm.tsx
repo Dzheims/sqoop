@@ -18,7 +18,7 @@ import {
 } from './query.generated';
 import { CreateTwitterFeedInput } from '../../../../types.generated';
 import CREATE_TWITTER_FEED from './query';
-import GET_COLUMNS_QUERY from '../../../Columns/query';
+import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import accountSources from './SourcesList';
 import currentUserId from '../../../../authentication/currentUserId';
 
