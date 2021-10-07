@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult, screen } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import App from '../App';
-import GET_COLUMNS_QUERY from '../components/Columns/query';
+import { GET_COLUMNS_QUERY } from '../components/Columns/query';
 import { ColumnsData } from '../components/Columns/ColumnsData';
 
 const mocks: ReadonlyArray<MockedResponse> = [
