@@ -12,9 +12,14 @@ import {
   MenuItem,
   Select,
   Snackbar,
-  TextField,
 } from '@material-ui/core';
-import { Alert, Autocomplete, IconButton } from '@mui/material';
+import {
+  Alert,
+  IconButton,
+  AlertTitle,
+  Autocomplete,
+  TextField,
+} from '@mui/material';
 import CloseIcon from '@material-ui/icons/Close';
 import {
   CreateNewsFeedMutation,

@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { Box, Button, Snackbar, Typography } from '@material-ui/core';
 import {
-  Box,
-  Button,
-  Snackbar,
+  Alert,
+  AlertTitle,
+  Autocomplete,
+  IconButton,
   TextField,
-  Typography,
-} from '@material-ui/core';
-import { Alert, AlertTitle, Autocomplete, IconButton } from '@mui/material';
+} from '@mui/material';
 import CloseIcon from '@material-ui/icons/Close';
 import {
   CreateTwitterFeedMutation,
