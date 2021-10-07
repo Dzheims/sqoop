@@ -46,3 +46,14 @@ export const DELETE_NEWS_MUTATION = gql`
     }
   }
 `;
+
+export const DELETE_COLLECTION_MUTATION = gql`
+  mutation deleteCollection($input: DeleteCollectionInput!) {
+    deleteCollection(input: $input) {
+      user {
+        userId
+        username
+      }
+    }
+  }
+`;

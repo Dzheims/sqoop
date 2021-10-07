@@ -35,11 +35,14 @@ import {
   DeleteTwitterMutationVariables,
   DeleteNewsMutation,
   DeleteNewsMutationVariables,
+  DeleteCollectionMutation,
+  DeleteCollectionMutationVariables,
 } from './query.generated';
 import {
   DELETE_TWITTER_MUTATION,
   GET_COLUMNS_QUERY,
   DELETE_NEWS_MUTATION,
+  DELETE_COLLECTION_MUTATION,
 } from './query';
 import ColumnDeleteWarning from './ColumnDeleteWarning';
 
@@ -105,6 +108,11 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     DeleteNewsMutationVariables
   >(DELETE_NEWS_MUTATION);
 
+  const [deleteCollection] = useMutation<
+    DeleteCollectionMutation,
+    DeleteCollectionMutationVariables
+  >(DELETE_COLLECTION_MUTATION);
+
   // REFACTOR LATER
   useEffect(() => {
     if (proceedDelete) {
@@ -123,6 +131,19 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
       }
       if (deleteColumn.type === 'NewsFeed') {
         deleteNewsFeed({
+          variables: {
+            input: {
+              id: deleteColumn.id,
+            },
+          },
+          onCompleted: () => {
+            history.push('/');
+          },
+          refetchQueries: [{ query: GET_COLUMNS_QUERY }],
+        });
+      }
+      if (deleteColumn.type === 'Collection') {
+        deleteCollection({
           variables: {
             input: {
               id: deleteColumn.id,
