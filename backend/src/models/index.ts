@@ -1,6 +1,10 @@
 // @generated
 // Automatically generated. Don't change this file manually.
 
+import collection_tweets, {
+  collection_tweetsInitializer,
+  collection_tweetsId,
+} from './collection_tweets';
 import collections, {
   collectionsInitializer,
   collectionsId,
@@ -19,6 +23,7 @@ import category from './category';
 import jwt_token from './jwt_token';
 
 type Model =
+  | collection_tweets
   | collections
   | news_feeds
   | twitter_accounts
@@ -26,6 +31,7 @@ type Model =
   | users;
 
 interface ModelTypeMap {
+  collection_tweets: collection_tweets;
   collections: collections;
   news_feeds: news_feeds;
   twitter_accounts: twitter_accounts;
@@ -34,6 +40,7 @@ interface ModelTypeMap {
 }
 
 type ModelId =
+  | collection_tweetsId
   | collectionsId
   | news_feedsId
   | twitter_accountsId
@@ -41,6 +48,7 @@ type ModelId =
   | usersId;
 
 interface ModelIdTypeMap {
+  collection_tweets: collection_tweetsId;
   collections: collectionsId;
   news_feeds: news_feedsId;
   twitter_accounts: twitter_accountsId;
@@ -49,6 +57,7 @@ interface ModelIdTypeMap {
 }
 
 type Initializer =
+  | collection_tweetsInitializer
   | collectionsInitializer
   | news_feedsInitializer
   | twitter_accountsInitializer
@@ -56,6 +65,7 @@ type Initializer =
   | usersInitializer;
 
 interface InitializerTypeMap {
+  collection_tweets: collection_tweetsInitializer;
   collections: collectionsInitializer;
   news_feeds: news_feedsInitializer;
   twitter_accounts: twitter_accountsInitializer;
@@ -64,6 +74,9 @@ interface InitializerTypeMap {
 }
 
 export type {
+  collection_tweets,
+  collection_tweetsInitializer,
+  collection_tweetsId,
   collections,
   collectionsInitializer,
   collectionsId,

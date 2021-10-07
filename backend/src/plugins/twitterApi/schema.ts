@@ -25,7 +25,7 @@ export const typeDefs = gql`
   ${twitterPhoto}
   extend type Query {
     searchTweets(keyword: [String], sources: [String]): [Tweet!]!
-    tweetLookup(id: String): Tweet!
+    tweetLookup(id: String!): Tweet!
   }
 `;
 
