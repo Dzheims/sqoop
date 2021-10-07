@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const GET_COLUMNS_QUERY = gql`
+export const GET_COLUMNS_QUERY = gql`
   query getColumns {
     getColumnResult {
       ... on TwitterFeed {
@@ -24,4 +24,25 @@ const GET_COLUMNS_QUERY = gql`
     }
   }
 `;
-export default GET_COLUMNS_QUERY;
+
+export const DELETE_TWITTER_MUTATION = gql`
+  mutation deleteTwitter($input: DeleteTwitterFeedInput!) {
+    deleteTwitterFeed(input: $input) {
+      user {
+        userId
+        username
+      }
+    }
+  }
+`;
+
+export const DELETE_NEWS_MUTATION = gql`
+  mutation deleteNews($input: DeleteNewsFeedInput!) {
+    deleteNewsFeed(input: $input) {
+      user {
+        userId
+        username
+      }
+    }
+  }
+`;

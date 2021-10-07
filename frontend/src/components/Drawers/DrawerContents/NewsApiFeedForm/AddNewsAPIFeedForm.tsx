@@ -22,7 +22,7 @@ import {
 } from './query.generated';
 import { Category, CreateNewsFeedInput } from '../../../../types.generated';
 import CREATE_NEWS_FEED from './query';
-import GET_COLUMNS_QUERY from '../../../Columns/query';
+import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import countries from './CountriesList';
 import currentUserId from '../../../../authentication/currentUserId';
 
