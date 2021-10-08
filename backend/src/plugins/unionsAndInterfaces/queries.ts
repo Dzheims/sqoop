@@ -1,3 +1,5 @@
+import { collectionContent } from './schema';
+
 const camelcaseKeys = require('camelcase-keys');
 
 interface columnProps {
@@ -18,6 +20,13 @@ export const resolvers = (getNamedType: any) => {
         return 'Collection';
       },
     },
+    CollectionContent: {
+      __resolveType(keys: any) {
+        if ('tweetId' in keys) return 'CollectionTweet';
+        return 'CollectionArticle';
+        // TODO add articles on next sprint
+      },
+    },
     Query: {
       getColumnResult: async (_: any, args: any, context: any) => {
         const { pgClient } = context;
@@ -35,6 +44,16 @@ export const resolvers = (getNamedType: any) => {
           ...twitterFeeds,
           ...collections,
         ]);
+        return result;
+      },
+      collectionContents: async (_: any, args: any, context: any) => {
+        const { pgClient } = context;
+        const { collectionId } = args;
+
+        const { rows: collectionTweets } = await pgClient.query(
+          `SELECT * FROM collection_tweets WHERE collection_id = ${collectionId}`
+        );
+        const result = camelcaseKeys(collectionTweets);
         return result;
       },
     },

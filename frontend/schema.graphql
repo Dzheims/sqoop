@@ -495,10 +495,11 @@ type Query implements Node {
     keyword: String
   ): [Article!]!
   searchTweets(keyword: [String], sources: [String]): [Tweet!]!
-  tweetLookup(id: String): Tweet!
+  tweetLookup(id: String!): Tweet!
   veraFilesFactCheck(keyword: String): [VeraFiles!]!
   googleFactCheckSearch(keyword: String): [Claim!]!
   getColumnResult: [ColumnResult!]!
+  collectionContents(collectionId: Int!): [CollectionContent!]!
 }
 
 """
@@ -1397,6 +1398,8 @@ type Publisher {
 }
 
 union ColumnResult = NewsFeed | TwitterFeed | Collection
+
+union CollectionContent = CollectionTweet
 
 """
 The root mutation type which contains root level fields which mutate data.
