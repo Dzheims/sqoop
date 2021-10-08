@@ -6,6 +6,7 @@ import TwitterAPIColumn from './TwitterAPIColumn';
 import Loader from '../../components/Common/Loader';
 import Error from '../../components/Common/Error';
 import NoContents from '../../components/Common/NoContents';
+import CardsLoaderSkeleton from '../../components/Common/Skeletons/CardsLoaderSkeleton';
 
 interface TwitterApiColumnDataProps {
   keyword: string | null;
@@ -21,7 +22,7 @@ const TwitterAPIColumnData: React.FC<TwitterApiColumnDataProps> = ({
     { variables: { keyword, sources } }
   );
   if (error) return <Error />;
-  if (loading) return <Loader />;
+  if (loading) return <CardsLoaderSkeleton />;
   if (!data) return <Error />;
   if (data.searchTweets.length === 0) return <NoContents />;
 

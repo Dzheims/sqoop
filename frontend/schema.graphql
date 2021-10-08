@@ -495,7 +495,7 @@ type Query implements Node {
     keyword: String
   ): [Article!]!
   searchTweets(keyword: [String], sources: [String]): [Tweet!]!
-  tweetLookup(id: String): Tweet!
+  tweetLookup(id: String!): Tweet!
   veraFilesFactCheck(keyword: String): [VeraFiles!]!
   googleFactCheckSearch(keyword: String): [Claim!]!
   getColumnResult: [ColumnResult!]!

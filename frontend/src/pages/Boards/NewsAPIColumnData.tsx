@@ -7,6 +7,7 @@ import Loader from '../../components/Common/Loader';
 import { Category } from '../../types.generated';
 import Error from '../../components/Common/Error';
 import NoContents from '../../components/Common/NoContents';
+import CardsLoaderSkeleton from '../../components/Common/Skeletons/CardsLoaderSkeleton';
 
 interface NewsApiColumnDataProps {
   country: string;
@@ -26,7 +27,7 @@ const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
     { variables: { country, category, keyword, sources } }
   );
   if (error) return <Error />;
-  if (loading) return <Loader />;
+  if (loading) return <CardsLoaderSkeleton />;
   if (!data) return <Error />;
   if (data.topHeadlines.length === 0) return <NoContents />;
 
