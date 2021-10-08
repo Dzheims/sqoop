@@ -32,6 +32,7 @@ export const GET_TWITTER_API_CONTENTS_QUERY = gql`
     searchTweets(keyword: $keyword, sources: $sources) {
       author_id
       created_at
+      id
       name
       photos {
         media_key
