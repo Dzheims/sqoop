@@ -15,8 +15,20 @@ export const article = gql`
   }
 `;
 
+export const source = gql`
+  type Source {
+    id: String
+    name: String
+    description: String
+    url: String
+    category: String
+    language: String
+    country: String
+  }
+`;
 export const typeDefs = gql`
   ${article}
+  ${source}
   extend type Query {
     topHeadlines(
       country: String = "ph"
@@ -24,6 +36,7 @@ export const typeDefs = gql`
       category: Category
       keyword: String
     ): [Article!]!
+    topHeadlinesSources(country: String = "us", category: Category): [Source!]!
   }
 `;
 

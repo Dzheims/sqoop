@@ -494,6 +494,7 @@ type Query implements Node {
     category: Category
     keyword: String
   ): [Article!]!
+  topHeadlinesSources(country: String = "us", category: Category): [Source!]!
   searchTweets(keyword: [String], sources: [String]): [Tweet!]!
   tweetLookup(id: String!): Tweet!
   veraFilesFactCheck(keyword: String): [VeraFiles!]!
@@ -1342,6 +1343,16 @@ type Article {
   sourceId: String
   sourceName: String
   suggestedKeywords: [String]
+}
+
+type Source {
+  id: String
+  name: String
+  description: String
+  url: String
+  category: String
+  language: String
+  country: String
 }
 
 type Tweet {
