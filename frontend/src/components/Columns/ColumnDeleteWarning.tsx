@@ -4,8 +4,6 @@
 
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useStyles } from '../../pages/Boards/ColumnsStyle';
-import { GetColumnsQuery } from './query.generated';
 import {
   Button,
   Dialog,
@@ -20,12 +18,14 @@ import {
   DeleteTwitterMutationVariables,
   DeleteNewsMutation,
   DeleteNewsMutationVariables,
+  GetColumnsQuery,
 } from './query.generated';
 import {
   DELETE_TWITTER_MUTATION,
   GET_COLUMNS_QUERY,
   DELETE_NEWS_MUTATION,
 } from './query';
+import { useStyles } from '../../pages/Boards/ColumnsStyle';
 
 interface ColumnDataProps {
   data: GetColumnsQuery;

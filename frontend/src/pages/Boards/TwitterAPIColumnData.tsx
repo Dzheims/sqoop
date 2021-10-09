@@ -24,7 +24,7 @@ const TwitterAPIColumnData: React.FC<TwitterApiColumnDataProps> = ({
   if (error) return <Error />;
   if (loading) return <CardsLoaderSkeleton />;
   if (!data) return <Error />;
-  if (data.searchTweets.length === 0) return <NoContents />;
+  if (!data.searchTweets.length) return <NoContents />;
 
   return <TwitterAPIColumn data={data} />;
 };

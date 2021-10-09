@@ -27,15 +27,14 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
 }: TwitterDataProps) => {
   const classes = useStyles();
 
-  const itemListCols = (length: any) => {
-    if (undefined) return;
-    if (length === 1) return 1;
-    if (length > 2) return 2;
+  const itemListCols = (length: number) => {
+    if (!length) return undefined;
+    return length === 1 ? length : 2;
   };
 
   const truncateName = (name: any) => {
     if (name.length < 12) return name;
-    else return name.substring(0, 11) + '...';
+    return name.substring(0, 11) + '...';
   };
 
   return (

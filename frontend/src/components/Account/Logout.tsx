@@ -23,11 +23,9 @@ const Logout = () => {
   const history = useHistory();
 
   const handleSubmit = async () => {
-    // client.clearStore().then(() => {
     Cookies.remove(AUTH_TOKEN);
     history.push('/signin');
     await client.clearStore();
-    // });
   };
 
   return (

@@ -46,14 +46,6 @@ import {
 } from './query';
 import ColumnDeleteWarning from './ColumnDeleteWarning';
 
-interface filtersProps {
-  feedType: string | undefined;
-  keyword: string | null;
-  country: string;
-  category: string | null;
-  sources: string | null;
-}
-
 const getFeedType = (value: any) => {
   switch (value.__typename) {
     case 'NewsFeed':
