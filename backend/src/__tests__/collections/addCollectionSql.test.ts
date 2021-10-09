@@ -30,10 +30,10 @@ describe('select, insert, delete collection', () => {
         `DELETE FROM collections where id = ${new_collection.id} RETURNING *`
       );
       expect(deleted_collection.title).toBe('Eleksyon 2022 Collection');
-      // const {
-      //   rows: [empty_collection],
-      // } = await pgClient.query<collections>(`SELECT * FROM collections`);
-      // expect(empty_collection).toBeNull();
+      const { rows: empty_collection } = await pgClient.query<collections>(
+        `SELECT * FROM collections`
+      );
+      expect(empty_collection).toBeArrayOfSize(0);
     });
   });
 });

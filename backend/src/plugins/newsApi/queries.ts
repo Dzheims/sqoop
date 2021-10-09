@@ -60,5 +60,28 @@ export const resolvers = {
       });
       return articles;
     },
+    topHeadlinesSources: async (_: any, args: any, context: any) => {
+      let { country, category } = args;
+      const { jwtClaims } = context;
+      if (!jwtClaims) throw new Error();
+      const queryParams = new URLSearchParams();
+      queryParams.set('category', category || '');
+      queryParams.set('country', country || '');
+      const response = await fetch(
+        `https://newsapi.org/v2/top-headlines/sources?${queryParams}`,
+        {
+          headers: {
+            'Content-type': 'application/json',
+            'X-Api-Key': process.env.NEWS_API_KEY,
+          },
+        }
+      );
+
+      const result = await response.json();
+      if (result.status === 'error') {
+        return result;
+      }
+      return result.sources;
+    },
   },
 };

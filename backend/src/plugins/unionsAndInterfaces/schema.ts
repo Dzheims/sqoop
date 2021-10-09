@@ -4,10 +4,16 @@ export const columnResult = gql`
   union ColumnResult = NewsFeed | TwitterFeed | Collection
 `;
 
+export const collectionContent = gql`
+  union CollectionContent = CollectionTweet
+`;
+
 export const typeDefs = gql`
   ${columnResult}
+  ${collectionContent}
   extend type Query {
     getColumnResult: [ColumnResult!]!
+    collectionContents(collectionId: Int!): [CollectionContent!]!
   }
 `;
 
