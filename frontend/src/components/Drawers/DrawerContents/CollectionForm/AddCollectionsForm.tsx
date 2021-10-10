@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { Button, TextField, Snackbar, IconButton } from '@material-ui/core';
@@ -39,8 +39,16 @@ interface SuccessAlert {
   feedTitle: string;
   success: boolean;
 }
+interface DrawerState {
+  current: string;
+  open: boolean;
+}
 
-const AddCollectionForm = () => {
+interface ParentState {
+  stateChanger: Dispatch<SetStateAction<DrawerState>>;
+}
+
+const AddCollectionForm = ({ stateChanger }: ParentState) => {
   const history = useHistory();
   const classes = useStyles();
 
@@ -83,6 +91,7 @@ const AddCollectionForm = () => {
       });
       setdisableCreateButton(true);
       history.push('/');
+      stateChanger({ open: false, current: '' });
     },
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });

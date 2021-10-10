@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { useState } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   IconButton,
@@ -31,18 +32,35 @@ import Logout from '../Account/Logout';
 import UserProfile from '../Account/UserProfile';
 import AddCollectionForm from '../Drawers/DrawerContents/CollectionForm/AddCollectionsForm';
 import Search from '../Drawers/DrawerContents/Search/Search';
+import NavDrawer from './NavDrawer';
 
 interface DrawerState {
   current: string;
   open: boolean;
 }
 
+interface DrawerProps {
+  drawerStateProps: boolean;
+  titleProps: string;
+}
+
 const NavigationBar = () => {
   const classes = useStyles();
+
+  const [drawerState, setDrawerState] = useState<DrawerProps>({
+    drawerStateProps: false,
+    titleProps: '',
+  });
+
+  // useEffect(() => {
+  //   setDrawerState({ ...drawerState, drawerStateProps: drawerStateProps });
+  // }, [drawerStateProps]);
+
   const [open, setOpen] = useState<DrawerState>({
     current: '',
     open: false,
   });
+
   const [title, setTitle] = useState('');
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -161,9 +179,12 @@ const NavigationBar = () => {
           </List>
         </div>
       );
-    if (contentTitle === 'News Feed') return <AddNewsAPIFeedForm />;
-    if (contentTitle === 'Twitter Feed') return <AddTwitterFeedForm />;
-    if (contentTitle === 'Collection') return <AddCollectionForm />;
+    if (contentTitle === 'News Feed')
+      return <AddNewsAPIFeedForm stateChanger={setOpen} />;
+    if (contentTitle === 'Twitter Feed')
+      return <AddTwitterFeedForm stateChanger={setOpen} />;
+    if (contentTitle === 'Collection')
+      return <AddCollectionForm stateChanger={setOpen} />;
     return <div />;
   };
 
@@ -190,24 +211,19 @@ const NavigationBar = () => {
     });
   };
 
+  const drawerChild = (
+    <div className={classes.drawer}>
+      <div className={classes.drawerHeader}>
+        {handleBack(title)}
+        <Typography className={classes.drawerTitle}>{title}</Typography>
+      </div>
+      {getDrawerContent(title)}
+    </div>
+  );
+
   return (
     <div>
-      <Drawer
-        variant="persistent"
-        anchor="left"
-        open={open.open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawer}>
-          <div className={classes.drawerHeader}>
-            {handleBack(title)}
-            <Typography className={classes.drawerTitle}>{title}</Typography>
-          </div>
-          {getDrawerContent(title)}
-        </div>
-      </Drawer>
+      <NavDrawer drawerStateProps={open.open} childComponent={drawerChild} />
       <NavigationBarContainer>
         <MenuContainer>
           {NavBarMenu.map((item) => (

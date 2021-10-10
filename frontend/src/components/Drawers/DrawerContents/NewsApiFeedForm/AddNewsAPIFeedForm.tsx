@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useEffect, useState } from 'react';
+/* eslint import/no-cycle: [2, { maxDepth: 1 }] */
+
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,6 +32,7 @@ import CREATE_NEWS_FEED from './query';
 import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import countries from './CountriesList';
 import currentUserId from '../../../../authentication/currentUserId';
+import NavDrawer from '../../../Navigation/NavDrawer';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -64,7 +67,16 @@ interface SuccessAlert {
   success: boolean;
 }
 
-const AddNewsAPIFeedForm = () => {
+interface DrawerState {
+  current: string;
+  open: boolean;
+}
+
+interface ParentState {
+  stateChanger: Dispatch<SetStateAction<DrawerState>>;
+}
+
+const AddNewsAPIFeedForm = ({ stateChanger }: ParentState) => {
   const classes = useStyles();
   const history = useHistory();
   const [country, setCountry] = useState({ code: '', label: '' });
@@ -204,6 +216,7 @@ const AddNewsAPIFeedForm = () => {
       });
       setdisableCreateButton(true);
       history.push('/');
+      stateChanger({ open: false, current: '' });
     },
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });

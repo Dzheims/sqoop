@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -46,8 +46,16 @@ interface SuccessAlert {
   feedTitle: string;
   success: boolean;
 }
+interface DrawerState {
+  current: string;
+  open: boolean;
+}
 
-const AddTwitterFeedForm = () => {
+interface ParentState {
+  stateChanger: Dispatch<SetStateAction<DrawerState>>;
+}
+
+const AddTwitterFeedForm = ({ stateChanger }: ParentState) => {
   const history = useHistory();
   const classes = useStyles();
   const [source, setSource] = useState({ label: '', username: '' });
@@ -126,6 +134,7 @@ const AddTwitterFeedForm = () => {
       });
       setdisableCreateButton(true);
       history.push('/');
+      stateChanger({ open: false, current: '' });
     },
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
