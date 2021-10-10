@@ -9,9 +9,9 @@ describe('select, insert, delete collection', () => {
         ['Covid Collection']
       );
       const {
-        rows: [news_feed],
+        rows: [collection],
       } = await pgClient.query<collections>(`SELECT * FROM collections`);
-      expect(news_feed.title).toBe('Covid Collection');
+      expect(collection.title).toBe('Covid Collection');
     });
   });
   test('delete collection', async () => {
