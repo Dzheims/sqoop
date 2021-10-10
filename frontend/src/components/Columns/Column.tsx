@@ -45,6 +45,7 @@ import {
   DELETE_COLLECTION_MUTATION,
 } from './query';
 import ColumnDeleteWarning from './ColumnDeleteWarning';
+import { GET_COLLECTIONS_LIST_QUERY } from '../Collections/query';
 
 const getFeedType = (value: any) => {
   switch (value.__typename) {
@@ -103,7 +104,9 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const [deleteCollection] = useMutation<
     DeleteCollectionMutation,
     DeleteCollectionMutationVariables
-  >(DELETE_COLLECTION_MUTATION);
+  >(DELETE_COLLECTION_MUTATION, {
+    refetchQueries: [{ query: GET_COLLECTIONS_LIST_QUERY }],
+  });
 
   // REFACTOR LATER
   useEffect(() => {

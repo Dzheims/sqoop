@@ -73,7 +73,6 @@ const CardsAddToCollectionButton = ({ id }: IDProps) => {
     onCompleted: () => {
       handleClickClose();
     },
-    refetchQueries: [{ query: GET_COLLECTIONS_LIST_QUERY }],
   });
 
   const handleSave = () => {

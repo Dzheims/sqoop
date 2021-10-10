@@ -14,6 +14,7 @@ import { CollectionInput } from '../../../../types.generated';
 import CREATE_COLLECTION from './query';
 import currentUserId from '../../../../authentication/currentUserId';
 import { GET_COLUMNS_QUERY } from '../../../Columns/query';
+import { GET_COLLECTIONS_LIST_QUERY } from '../../../Collections/query';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -84,7 +85,10 @@ const AddCollectionForm = () => {
       setdisableCreateButton(true);
       history.push('/');
     },
-    refetchQueries: [{ query: GET_COLUMNS_QUERY }],
+    refetchQueries: [
+      { query: GET_COLUMNS_QUERY },
+      { query: GET_COLLECTIONS_LIST_QUERY },
+    ],
   });
 
   const handleSubmit = () => {
