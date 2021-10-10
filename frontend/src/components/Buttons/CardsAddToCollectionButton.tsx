@@ -17,7 +17,10 @@ import {
   SaveContentToCollectionMutation,
   SaveContentToCollectionMutationVariables,
 } from '../Collections/query.generated';
-import { SAVE_CONTENT_TO_COLLECTION } from '../Collections/query';
+import {
+  GET_COLLECTIONS_LIST_QUERY,
+  SAVE_CONTENT_TO_COLLECTION,
+} from '../Collections/query';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,6 +73,7 @@ const CardsAddToCollectionButton = ({ id }: IDProps) => {
     onCompleted: () => {
       handleClickClose();
     },
+    refetchQueries: [{ query: GET_COLLECTIONS_LIST_QUERY }],
   });
 
   const handleSave = () => {

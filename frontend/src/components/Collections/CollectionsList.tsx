@@ -19,15 +19,6 @@ const useStyles = makeStyles((theme) => ({
     width: '300px',
     display: 'flex',
     flexDirection: 'column',
-    maxHeight: '200px',
-    overFlow: 'auto',
-    '&::-webkit-scrollbar': {
-      width: '0.4em',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(0,0,0,.1)',
-      borderRadius: 8,
-    },
   },
   button: {
     borderRadius: '12px',
@@ -40,6 +31,18 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '12px',
     color: 'white',
     backgroundColor: theme.palette.secondary.main,
+  },
+  listContainer: {
+    padding: '10px',
+    overflow: 'auto',
+    maxHeight: '180px',
+    '&::-webkit-scrollbar': {
+      width: '0.4em',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      borderRadius: 8,
+    },
   },
 }));
 
@@ -77,27 +80,29 @@ const CollectionsList: React.FC<CollectionIDProps> = ({
         dense
         subheader={<ListSubheader component="div">Collections</ListSubheader>}
       >
-        {data?.collections?.map((value) => (
-          <div>
-            <ListItem
-              className={
-                collectionID === value.id
-                  ? classes.selectedButton
-                  : classes.button
-              }
-            >
-              <ListItemButton
-                onClick={() => {
-                  setCollectionID(value.id);
-                  handleSelectButton();
-                }}
+        <div className={classes.listContainer}>
+          {data?.collections?.map((value) => (
+            <div>
+              <ListItem
+                className={
+                  collectionID === value.id
+                    ? classes.selectedButton
+                    : classes.button
+                }
               >
-                <ListItemText primary={value.title} />
-              </ListItemButton>
-            </ListItem>
-            <Divider />
-          </div>
-        ))}
+                <ListItemButton
+                  onClick={() => {
+                    setCollectionID(value.id);
+                    handleSelectButton();
+                  }}
+                >
+                  <ListItemText primary={value.title} />
+                </ListItemButton>
+              </ListItem>
+              <Divider />
+            </div>
+          ))}
+        </div>
       </List>
     </div>
   );
