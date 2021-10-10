@@ -12,7 +12,7 @@ import {
   ColumnWrapper,
   useStyles,
 } from '../../pages/Boards/ColumnsStyle';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@mui/icons-material/Close';
 // import ColumnsData from './ColumnsData';
 import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from '../../pages/Boards/TwitterAPIColumnData';
@@ -27,8 +27,8 @@ import {
   DialogContentText,
   DialogTitle,
   Grid,
-  IconButton,
 } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import {
   DeleteTwitterMutation,
@@ -44,8 +44,9 @@ import {
   DELETE_NEWS_MUTATION,
   DELETE_COLLECTION_MUTATION,
 } from './query';
-import ColumnDeleteWarning from './ColumnDeleteWarning';
 import { GET_COLLECTIONS_LIST_QUERY } from '../Collections/query';
+import currentUserId from '../../authentication/currentUserId';
+import CollectionColumnData from '../../pages/Boards/CollectionColumnData';
 
 const getFeedType = (value: any) => {
   switch (value.__typename) {
@@ -63,7 +64,7 @@ const getFeedType = (value: any) => {
         <TwitterAPIColumnData keyword={value.keyword} sources={value.sources} />
       );
     case 'Collection':
-      return <div />;
+      return <CollectionColumnData collectionId={value.id} />;
   }
 };
 
@@ -105,7 +106,12 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     DeleteCollectionMutation,
     DeleteCollectionMutationVariables
   >(DELETE_COLLECTION_MUTATION, {
-    refetchQueries: [{ query: GET_COLLECTIONS_LIST_QUERY }],
+    refetchQueries: [
+      {
+        query: GET_COLLECTIONS_LIST_QUERY,
+        // variables: { condition: { userId: currentUserId() } },
+      },
+    ],
   });
 
   // REFACTOR LATER
@@ -181,15 +187,9 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
-                    <Grid
-                      container
-                      direction="row"
-                      justifyContent="space-between"
-                      className={classes.grid}
-                    >
+                    <div className={classes.titleContainer}>
                       <Title>{value.title}</Title>
                       <IconButton
-                        size="small"
                         onClick={() => {
                           handleDelete({
                             title: value.title,
@@ -198,9 +198,12 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                           });
                         }}
                       >
-                        <CloseIcon fontSize="inherit" />
+                        <CloseIcon
+                          sx={{ height: '20px', width: '20px' }}
+                          className={classes.iconButton}
+                        />
                       </IconButton>
-                    </Grid>
+                    </div>
                     <ItemContainer
                       className={classes.itemContainer}
                       {...provided.droppableProps}

@@ -6,6 +6,7 @@ src/pages/Boards/BoardsSample/BoardColumn.tsx
 src/pages/Boards/BoardsSample/BoardItem.tsx
 src/pages/Boards/NewsAPIColumn.tsx
 src/pages/Boards/TwitterAPIColumn.tsx
+src/pages/Boards/CollectionColumn.tsx
 src/components/Cards/TwitterCards.tsx
 src/components/Cards/NewsCards.tsx
 src/apolloClient.ts

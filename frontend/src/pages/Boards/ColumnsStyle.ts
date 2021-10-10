@@ -78,11 +78,21 @@ export const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  grid: {
-    padding: theme.spacing(0, 1),
+  titleContainer: {
+    marginTop: '5px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    height: '40px',
+    alignItems: 'center',
   },
   delete: {
     marginBottom: '5px',
+  },
+  iconButton: {
+    color: 'gray',
+    '&:hover': {
+      color: theme.palette.secondary.main,
+    },
   },
 }));
 
@@ -123,6 +133,7 @@ export const Title = styled.h2`
   font: 18px sans-serif;
   // margin-bottom: 5px;
   color: ${theme.palette.primary.main};
+  margin-left: 5px;
 `;
 
 export const TwitterTitleContainer = styled.div`
@@ -158,7 +169,7 @@ export const ColumnContainer = styled.div`
   border-radius: 4px;
   width: 300px;
   max-width: 320px;
-  margin: 10px 4px;
+  margin: 5px 4px;
   height: 91.5vh;
 `;
 export const ColumnWrapper = styled.div`

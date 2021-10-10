@@ -17,38 +17,32 @@ import {
   SaveContentToCollectionMutation,
   SaveContentToCollectionMutationVariables,
 } from '../Collections/query.generated';
-import {
-  GET_COLLECTIONS_LIST_QUERY,
-  SAVE_CONTENT_TO_COLLECTION,
-} from '../Collections/query';
+import { SAVE_CONTENT_TO_COLLECTION } from '../Collections/query';
+import { COLLECTION_CONTENTS_QUERY, COLLECTION_TWEETS } from '../Columns/query';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: '10px',
   },
   icon: {
-    height: '30px',
-    width: '30px',
     color: 'gray',
     '&:hover': {
       color: theme.palette.secondary.main,
     },
   },
   selectedIcon: {
-    height: '30px',
-    width: '30px',
     color: theme.palette.secondary.main,
   },
 }));
 
 interface IDProps {
-  id: any;
+  id: string;
 }
 
 const CardsAddToCollectionButton = ({ id }: IDProps) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
-  const [collectionID, setCollectionID] = useState(0);
+  const [collectionId, setCollectionId] = useState(0);
 
   const handleClickOpen = () => {
     setIsOpen(true);
@@ -65,14 +59,21 @@ const CardsAddToCollectionButton = ({ id }: IDProps) => {
     variables: {
       input: {
         collectionTweet: {
-          collectionId: collectionID,
-          tweetId: id as string,
+          collectionId,
+          tweetId: id,
         },
       },
     },
     onCompleted: () => {
       handleClickClose();
     },
+    refetchQueries: [
+      {
+        query: COLLECTION_CONTENTS_QUERY,
+        variables: { collectionId },
+      },
+      { query: COLLECTION_TWEETS, variables: { id } },
+    ],
   });
 
   const handleSave = () => {
@@ -83,7 +84,10 @@ const CardsAddToCollectionButton = ({ id }: IDProps) => {
     <>
       <div className={classes.root}>
         <IconButton onClick={handleClickOpen}>
-          <AddIcon className={isOpen ? classes.selectedIcon : classes.icon} />
+          <AddIcon
+            fontSize="small"
+            className={isOpen ? classes.selectedIcon : classes.icon}
+          />
         </IconButton>
       </div>
       <Dialog open={isOpen} onClose={handleClickClose}>
@@ -93,8 +97,8 @@ const CardsAddToCollectionButton = ({ id }: IDProps) => {
             Select a collection in which you would want to save the content.
           </DialogContentText>
           <CollectionsList
-            collectionID={collectionID}
-            setCollectionID={setCollectionID}
+            collectionID={collectionId}
+            setCollectionID={setCollectionId}
           />
           <DialogActions>
             <Button onClick={handleClickClose}>Cancel</Button>

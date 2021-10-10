@@ -57,3 +57,34 @@ export const DELETE_COLLECTION_MUTATION = gql`
     }
   }
 `;
+
+export const COLLECTION_CONTENTS_QUERY = gql`
+  query collectionContents($collectionId: Int!) {
+    collectionContents(collectionId: $collectionId) {
+      ... on CollectionTweet {
+        tweetId
+      }
+    }
+  }
+`;
+
+export const COLLECTION_TWEETS = gql`
+  query CollectionTweets($id: String!) {
+    tweetLookup(id: $id) {
+      author_id
+      created_at
+      id
+      name
+      photos {
+        media_key
+        type
+        url
+      }
+      profile_image_url
+      suggestedKeywords
+      text
+      username
+      verified
+    }
+  }
+`;
