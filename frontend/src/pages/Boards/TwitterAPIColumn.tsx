@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { GetTwitterApiContentsQuery } from './query.generated';
 import { Item, useStyles } from './ColumnsStyle';
 import TwitterCards from '../../components/Cards/TwitterCards';
 
+// interface TwitterAPIDataProps {
+//   data: GetTwitterApiContentsQuery;
+// }
+
+interface DrawerState {
+  data: any;
+  open: boolean;
+}
+
 interface TwitterAPIDataProps {
   data: GetTwitterApiContentsQuery;
+  setDrawerState: Dispatch<SetStateAction<DrawerState>>;
 }
+
 const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
+  setDrawerState,
   data,
 }: TwitterAPIDataProps) => {
   const classes = useStyles();
@@ -27,7 +39,7 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
               {...provided.dragHandleProps}
               isDragging={snapshot.isDragging}
             >
-              <TwitterCards data={value} />
+              <TwitterCards data={value} setDrawerState={setDrawerState} />
             </Item>
           )}
         </Draggable>

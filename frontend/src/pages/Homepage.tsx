@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import React, { useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,6 +22,7 @@ import NewsAPIColumnData from './Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from './Boards/TwitterAPIColumnData';
 import AUTH_TOKEN from '../constants';
 // import CategoriesButtons from '../components/Categories/CategoriesButtons';
+import FactCheck from '../components/FactCheck/FactCheck';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,6 +73,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface FactCheckState {
+  data: any;
+  open: boolean;
+}
+
 const Homepage = () => {
   const classes = useStyles();
   const [category, setCategory] = useState('GENERAL');
@@ -81,6 +89,11 @@ const Homepage = () => {
   }
 
   const onDragEnd = () => {};
+
+  const [drawerState, setDrawerState] = useState<FactCheckState>({
+    data: [],
+    open: false,
+  });
 
   const defaultColumns = [
     {
@@ -96,7 +109,13 @@ const Homepage = () => {
     },
     {
       title: 'Twitter Feed',
-      cards: <TwitterAPIColumnData keyword={null} sources={null} />,
+      cards: (
+        <TwitterAPIColumnData
+          keyword={null}
+          sources={null}
+          setDrawerState={setDrawerState}
+        />
+      ),
     },
   ];
 
@@ -149,6 +168,12 @@ const Homepage = () => {
     <div className={classes.root}>
       <NavigationBar />
       <Toolbar />
+      <FactCheck
+        data={drawerState.data}
+        open={drawerState.open}
+        setDrawerState={setDrawerState}
+      />
+
       <div className={classes.columnContainers}>
         <ScrollMenu>
           <div className={classes.defaultFeeds}>
@@ -199,7 +224,7 @@ const Homepage = () => {
               ))}
             </DragDropContext>
           </div>
-          <ColumnsData />
+          <ColumnsData setDrawerState={setDrawerState} />
         </ScrollMenu>
       </div>
     </div>

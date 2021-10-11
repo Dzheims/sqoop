@@ -1,4 +1,4 @@
-import React, { Key } from 'react';
+import React, { Dispatch, Key, SetStateAction } from 'react';
 import Linkify from 'react-linkify';
 import { SecureLink } from 'react-secure-link';
 import { decodeHTML } from 'entities';
@@ -15,16 +15,27 @@ import {
   useStyles,
 } from '../../pages/Boards/ColumnsStyle';
 import formatTimeAndDate from '../Common/Functions/Functions';
-import FactCheck from '../FactCheck/FactCheck';
+import FactCheckButton from '../FactCheck/FactCheckButton';
 import CardsActionButton from '../Buttons/CardsActionButton';
 
-interface TwitterDataProps {
+// interface TwitterDataProps {
+//   data: any;
+// }
+
+interface DrawerState {
   data: any;
+  open: boolean;
 }
 
-const TwitterCards: React.FC<TwitterDataProps> = ({
+interface FactCheckProps {
+  data: any;
+  setDrawerState: Dispatch<SetStateAction<DrawerState>>;
+}
+
+const TwitterCards: React.FC<FactCheckProps> = ({
+  setDrawerState,
   data,
-}: TwitterDataProps) => {
+}: FactCheckProps) => {
   const classes = useStyles();
 
   const itemListCols = (length: any) => {
@@ -107,7 +118,10 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
         {formatTimeAndDate(data.created_at)}
       </Typography>
       <div className={classes.buttonsContainer}>
-        <FactCheck data={data.suggestedKeywords} />
+        <FactCheckButton
+          suggestedKeywords={data.suggestedKeywords}
+          setDrawerState={setDrawerState}
+        />
         <CardsActionButton />
       </div>
     </div>

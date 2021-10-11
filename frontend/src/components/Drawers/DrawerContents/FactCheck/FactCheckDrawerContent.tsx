@@ -126,7 +126,7 @@ const FactCheckDrawerContent = ({
 
   return (
     <div className={classes.container}>
-      {/* <Title>Fact Check</Title> */}
+      <Title>Fact Check</Title>
       <Paper variant="outlined" component="form" className={classes.search}>
         <InputBase
           inputProps={{ 'aria-label': 'Search' }}

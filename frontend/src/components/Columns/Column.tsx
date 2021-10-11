@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable react/jsx-props-no-spreading */
 
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useHistory } from 'react-router-dom';
 import {
@@ -44,7 +44,7 @@ import {
   DELETE_NEWS_MUTATION,
   DELETE_COLLECTION_MUTATION,
 } from './query';
-import ColumnDeleteWarning from './ColumnDeleteWarning';
+import FactCheck from '../FactCheck/FactCheck';
 
 interface filtersProps {
   feedType: string | undefined;
@@ -53,8 +53,15 @@ interface filtersProps {
   category: string | null;
   sources: string | null;
 }
+interface FactCheckState {
+  data: any;
+  open: boolean;
+}
 
-const getFeedType = (value: any) => {
+const getFeedType = (
+  value: any,
+  drawerState: Dispatch<SetStateAction<DrawerState>>
+) => {
   switch (value.__typename) {
     case 'NewsFeed':
       return (
@@ -67,15 +74,25 @@ const getFeedType = (value: any) => {
       );
     case 'TwitterFeed':
       return (
-        <TwitterAPIColumnData keyword={value.keyword} sources={value.sources} />
+        <TwitterAPIColumnData
+          keyword={value.keyword}
+          sources={value.sources}
+          setDrawerState={drawerState}
+        />
       );
     case 'Collection':
       return <div />;
   }
 };
 
+interface DrawerState {
+  data: any;
+  open: boolean;
+}
+
 interface ColumnDataProps {
   data: GetColumnsQuery;
+  setDrawerState: Dispatch<SetStateAction<DrawerState>>;
 }
 
 interface DeleteColumnProps {
@@ -84,7 +101,10 @@ interface DeleteColumnProps {
   type?: string;
 }
 
-const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
+const Columns: React.FC<ColumnDataProps> = ({
+  data,
+  setDrawerState,
+}: ColumnDataProps) => {
   const classes = useStyles();
   const [proceedDelete, setProceedDelete] = useState(false);
   const [warningDelete, setWarningDelete] = useState(false);
@@ -178,8 +198,8 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     <>
       <ColumnWrapper>
         {data.getColumnResult?.flatMap(
-          (value) => (
-            <DragDropContext onDragEnd={onDragEnd} key={value.id}>
+          (value, index) => (
+            <DragDropContext onDragEnd={onDragEnd} key={index}>
               <Droppable droppableId="droppable">
                 {(provided, snapshot) => (
                   <ColumnContainer
@@ -207,12 +227,13 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                       </IconButton>
                     </Grid>
                     <ItemContainer
+                      key={index}
                       className={classes.itemContainer}
                       {...provided.droppableProps}
                       ref={provided.innerRef}
                       isDragging={snapshot.isDraggingOver}
                     >
-                      {getFeedType(value)}
+                      {getFeedType(value, setDrawerState)}
                     </ItemContainer>
                   </ColumnContainer>
                 )}
