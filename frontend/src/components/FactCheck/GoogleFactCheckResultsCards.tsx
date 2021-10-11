@@ -25,14 +25,6 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
     <div>
       {data.googleFactCheckSearch.map((value) => (
         <CardsContainer>
-          <TitleContainer>
-            <Avatar className={classes.avatar} src={VeraFilesLogo} />
-            <AuthorContainer>
-              <Typography style={{ fontWeight: 600 }}>
-                {value.claimReview[0]?.publisher?.name}
-              </Typography>
-            </AuthorContainer>
-          </TitleContainer>
           <ContentContainer>
             {value.claimant !== null ? (
               <Typography
@@ -60,7 +52,8 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
             style={{ fontWeight: 600 }}
             className={classes.description}
           >
-            Info Rating: {value.claimReview[0]?.textualRating}
+            {value.claimReview[0]?.publisher?.name} Info Rating:
+            {value.claimReview[0]?.textualRating}
           </Typography>
           <a
             className={classes.link}

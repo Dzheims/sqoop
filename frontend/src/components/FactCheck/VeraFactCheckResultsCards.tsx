@@ -2,14 +2,7 @@ import React from 'react';
 import { Avatar, Typography } from '@material-ui/core';
 import { decodeHTML } from 'entities';
 import { VeraFactCheckSearchResultQuery } from './query.generated';
-import {
-  CardsContainer,
-  TitleContainer,
-  AuthorContainer,
-  useStyles,
-  ContentContainer,
-} from './FactCheckStyles';
-import VeraFilesLogo from '../../assets/vera_files_logo.png';
+import { CardsContainer, useStyles, ContentContainer } from './FactCheckStyles';
 import formatTimeAndDate from '../Common/Functions/Functions';
 
 interface VeraFactCheckProps {
@@ -25,17 +18,6 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
     <div>
       {data.veraFilesFactCheck.map((value) => (
         <CardsContainer key={value.id}>
-          <TitleContainer>
-            <Avatar className={classes.avatar} src={VeraFilesLogo} />
-            <AuthorContainer>
-              <Typography style={{ fontWeight: 600 }}>
-                {value.author}
-              </Typography>
-            </AuthorContainer>
-          </TitleContainer>
-          <Typography variant="body2">
-            {decodeHTML(value.description as string)}
-          </Typography>
           <ContentContainer>
             <div
               style={{
@@ -43,11 +25,23 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
               }}
               className={classes.imageContainer}
             />
-            <Typography className={classes.description}>
-              {decodeHTML(value.title as string)}
-            </Typography>
+            <a
+              className={classes.link}
+              target="_blank"
+              rel="noreferrer"
+              href={value.url as string}
+            >
+              <Typography color="primary" className={classes.description}>
+                {decodeHTML(value.title as string)}
+              </Typography>
+            </a>
           </ContentContainer>
-          <br />
+          <Typography
+            style={{ fontWeight: 600, padding: '10px' }}
+            variant="body2"
+          >
+            By {decodeHTML(value.author as string)}
+          </Typography>
           <Typography className={classes.dateAndUserName}>
             {formatTimeAndDate(value.date)}
           </Typography>

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import FactCheckIcon from '@mui/icons-material/FactCheck';
-import CancelIcon from '@mui/icons-material/Cancel';
+import FactCheckIcon from '@mui/icons-material/ManageSearch';
+import CloseIcon from '@mui/icons-material/Close';
 import { Button, Drawer, IconButton } from '@material-ui/core';
 import FactCheckDrawerContent from '../Drawers/DrawerContents/FactCheck/FactCheckDrawerContent';
 
@@ -11,6 +11,12 @@ const useStyles = makeStyles((theme) => ({
     height: '35px',
     width: '35px',
     color: theme.palette.secondary.main,
+  },
+  closeIcon: {
+    color: 'gray',
+    '&:hover': {
+      color: theme.palette.secondary.main,
+    },
   },
   onClickFactCheckIcon: {
     height: '35px',
@@ -87,7 +93,10 @@ const FactCheck = ({ data }: FactCheckProps) => {
             className={classes.closeButton}
             onClick={() => setOpen(false)}
           >
-            <CancelIcon className={classes.factCheckIcon} />
+            <CloseIcon
+              sx={{ height: '20px', width: '20px' }}
+              className={classes.closeIcon}
+            />
           </IconButton>
           <FactCheckDrawerContent suggestedKeyWords={data} />
         </div>

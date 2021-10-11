@@ -37,7 +37,7 @@ export const useStyles = makeStyles(() => ({
 
 export const CardsContainer = styled.div`
   border: thin solid lightgray;
-  padding: 15px;
+  padding: 12px;
   margin-bottom: 10px;
   background-color: white;
 `;
