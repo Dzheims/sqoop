@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translate(-50%,-50%)',
     width: 500,
     backgroundColor: 'white',
-    border: '2px solid #000',
     padding: theme.spacing(4),
+    borderRadius: '1vh',
   },
   divBox: {
     display: 'flex',
