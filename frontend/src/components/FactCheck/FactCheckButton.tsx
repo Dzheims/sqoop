@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -75,15 +75,24 @@ const FactCheckButton = ({
   suggestedKeywords,
 }: FactCheckProps) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
+  //   const [drawer, setDrawer] = useState<DrawerState>({
+  //     data: suggestedKeywords,
+  //     open: open,
+  //   });
 
+  useEffect(() => {
+    console.log(openDrawer);
     setDrawerState({
-      open: true,
+      open: openDrawer,
       data: suggestedKeywords,
     });
+  }, [openDrawer]);
+
+  const handleOpen = () => {
+    setOpenDrawer(!openDrawer);
+    // ChangeDrawerState();
   };
 
   const handleDrawer = () => {};
@@ -92,12 +101,12 @@ const FactCheckButton = ({
     <div>
       <Button
         className={
-          open ? classes.onClickFactCheckButton : classes.factCheckButton
+          openDrawer ? classes.onClickFactCheckButton : classes.factCheckButton
         }
         startIcon={
           <FactCheckIcon
             className={
-              open ? classes.onClickFactCheckIcon : classes.factCheckIcon
+              openDrawer ? classes.onClickFactCheckIcon : classes.factCheckIcon
             }
           />
         }
