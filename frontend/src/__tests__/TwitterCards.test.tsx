@@ -1,9 +1,6 @@
 import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { GET_TWITTER_API_CONTENTS_QUERY } from '../pages/Boards/query';
-import TwitterAPIColumnData from '../pages/Boards/TwitterAPIColumnData';
+import { MockedProvider } from '@apollo/client/testing';
 import TwitterCards from '../components/Cards/TwitterCards';
 import { Tweet } from '../types.generated';
 
@@ -31,7 +28,7 @@ describe('Twitter API contents', () => {
       </MockedProvider>
     );
   });
-  it('checks content text data 1', async () => {
+  it('check tweet text', async () => {
     const text = await documentBody.findByText(
       'A man tagged as one of the most wanted persons in Sta. Cruz, Zambales was arrested Tuesday, police said.'
     );

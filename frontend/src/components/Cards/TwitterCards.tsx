@@ -86,7 +86,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
           {decodeHTML(data.text as string)}
         </Typography>
       </Linkify>
-      {data.photos?.length === 0 ||
+      {!data.photos?.length ||
       data.photos?.some((photo: any) => photo?.url === null) ? (
         <div />
       ) : (

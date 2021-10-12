@@ -10,9 +10,10 @@ import {
 import formatTimeAndDate from '../Common/Functions/Functions';
 import FactCheck from '../FactCheck/FactCheck';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
+import { Article } from '../../types.generated';
 
 interface NewsDataProps {
-  data: any;
+  data: Article;
 }
 
 const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
@@ -41,7 +42,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
         </AccountNameContainer>
       </NewsAPITitleContainer>
       <Typography variant="body2">{data.description}</Typography>
-      {data.urlToImage === null ? (
+      {!data.urlToImage ? (
         <a target="_blank" className={classes.link} href={data?.url as string}>
           <Typography variant="body2">{data.title}</Typography>
         </a>
