@@ -17,9 +17,10 @@ import {
 import formatTimeAndDate from '../Common/Functions/Functions';
 import FactCheck from '../FactCheck/FactCheck';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
+import { Tweet } from '../../types.generated';
 
 interface TwitterDataProps {
-  data: any;
+  data: Tweet;
 }
 
 const TwitterCards: React.FC<TwitterDataProps> = ({
@@ -27,14 +28,13 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
 }: TwitterDataProps) => {
   const classes = useStyles();
 
-  const itemListCols = (length: number) => {
+  const itemListCols = (length: number | undefined) => {
     if (!length) return undefined;
     return length === 1 ? length : 2;
   };
 
   const truncateName = (name: any) => {
-    if (name.length < 12) return name;
-    return name.substring(0, 11) + '...';
+    return name.length < 12 ? name : name.substring(0, 11) + '...';
   };
 
   return (
