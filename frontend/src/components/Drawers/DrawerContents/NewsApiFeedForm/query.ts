@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const CREATE_NEWS_FEED = gql`
+export const CREATE_NEWS_FEED = gql`
   mutation createNewsFeed($input: CreateNewsFeedInput!) {
     createNewsFeed(input: $input) {
       newsFeed {
@@ -10,5 +10,11 @@ const CREATE_NEWS_FEED = gql`
     }
   }
 `;
-
-export default CREATE_NEWS_FEED;
+export const NEWS_SOURCES = gql`
+  query newsSource {
+    topHeadlinesSources {
+      name
+      id
+    }
+  }
+`;

@@ -24,12 +24,14 @@ import CloseIcon from '@material-ui/icons/Close';
 import {
   CreateNewsFeedMutation,
   CreateNewsFeedMutationVariables,
+  NewsSourceQuery,
 } from './query.generated';
 import { Category, CreateNewsFeedInput } from '../../../../types.generated';
-import CREATE_NEWS_FEED from './query';
+import { CREATE_NEWS_FEED } from './query';
 import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import countries from './CountriesList';
 import currentUserId from '../../../../authentication/currentUserId';
+import NewsSourcesData from './NewsSourcesData';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -68,6 +70,11 @@ const AddNewsAPIFeedForm = () => {
   const classes = useStyles();
   const history = useHistory();
   const [country, setCountry] = useState({ code: '', label: '' });
+
+  const [newsSource, setNewsSource] = useState({
+    name: '',
+    id: '',
+  });
 
   const [newsFeedForm, setNewsFeedForm] = useState<CreateNewsFeedInput>({
     newsFeed: {
@@ -121,9 +128,7 @@ const AddNewsAPIFeedForm = () => {
     });
   };
 
-  const onSourcesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const { value } = e.target;
+  const onSourcesChange = (value: string) => {
     setNewsFeedForm({
       ...newsFeedForm,
       newsFeed: {
@@ -274,9 +279,9 @@ const AddNewsAPIFeedForm = () => {
         renderInput={(params) => (
           <TextField
             {...params}
-            disabled={disableForm.country}
             id="Country"
             label="Country"
+            disabled={disableForm.country}
             placeholder="Country"
             variant="outlined"
             margin="dense"
@@ -297,17 +302,31 @@ const AddNewsAPIFeedForm = () => {
         fullWidth
         onChange={onKeywordChange}
       />
-      <TextField
-        disabled={disableForm.sources}
+      <Autocomplete
         id="Sources"
-        label="Sources"
-        placeholder="Sources"
-        variant="outlined"
-        margin="dense"
+        disableClearable
+        value={newsSource}
+        onChange={(event, newValue) => {
+          setNewsSource({ name: newValue.name, id: newValue.id });
+          onSourcesChange(newValue.id);
+        }}
         size="small"
-        required
-        fullWidth
-        onChange={onSourcesChange}
+        options={NewsSourcesData() || []}
+        getOptionLabel={(option) => option.name}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            id="Sources"
+            label="Sources"
+            disabled={disableForm.sources}
+            placeholder="Sources"
+            variant="outlined"
+            margin="dense"
+            size="small"
+            required
+            fullWidth
+          />
+        )}
       />
       <div className={classes.button}>
         <Button

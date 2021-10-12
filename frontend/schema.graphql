@@ -1346,8 +1346,8 @@ type Article {
 }
 
 type Source {
-  id: String
-  name: String
+  id: String!
+  name: String!
   description: String
   url: String
   category: String

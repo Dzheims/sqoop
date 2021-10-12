@@ -17,8 +17,8 @@ export const article = gql`
 
 export const source = gql`
   type Source {
-    id: String
-    name: String
+    id: String!
+    name: String!
     description: String
     url: String
     category: String
