@@ -35,20 +35,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface SuccessAlert {
-  feedTitle: string;
-  success: boolean;
-}
 interface DrawerState {
   current: string;
   open: boolean;
 }
 
-interface ParentState {
-  stateChanger: Dispatch<SetStateAction<DrawerState>>;
+interface SuccessAlert {
+  type: string;
+  feedTitle: string;
+  success: boolean;
 }
 
-const AddCollectionForm = ({ stateChanger }: ParentState) => {
+interface ParentState {
+  drawerStateChanger: Dispatch<SetStateAction<DrawerState>>;
+  snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
+}
+
+const AddCollectionForm = ({
+  drawerStateChanger,
+  snackbarStateChanger,
+}: ParentState) => {
   const history = useHistory();
   const classes = useStyles();
 
@@ -56,10 +62,6 @@ const AddCollectionForm = ({ stateChanger }: ParentState) => {
     title: '',
   });
 
-  const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
-    feedTitle: '',
-    success: false,
-  });
   const [disableCreateButton, setdisableCreateButton] = useState(false);
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,14 +86,14 @@ const AddCollectionForm = ({ stateChanger }: ParentState) => {
       },
     },
     onCompleted: ({ createCollection }) => {
-      setSuccessAlert({
-        ...successAlert,
+      snackbarStateChanger({
+        type: 'Collection',
         feedTitle: createCollection?.collection?.title as string,
         success: true,
       });
       setdisableCreateButton(true);
       history.push('/');
-      stateChanger({ open: false, current: '' });
+      drawerStateChanger({ open: false, current: '' });
     },
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
@@ -125,29 +127,6 @@ const AddCollectionForm = ({ stateChanger }: ParentState) => {
           Create
         </Button>
       </div>
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        open={successAlert.success}
-        autoHideDuration={5000}
-      >
-        <Alert
-          severity="success"
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setSuccessAlert({ ...successAlert, success: false });
-              }}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-        >
-          Feed <strong>{successAlert.feedTitle}</strong> was created
-        </Alert>
-      </Snackbar>
     </div>
   );
 };
