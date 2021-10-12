@@ -60,7 +60,7 @@ export const useStyles = makeStyles(() => ({
   linkIcon: {
     height: '20px',
     width: '20px',
-    marginLeft: '255px',
+    marginLeft: '215px',
     marginTop: '5px',
     color: 'white',
   },

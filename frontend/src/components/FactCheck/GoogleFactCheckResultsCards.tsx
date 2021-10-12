@@ -10,7 +10,7 @@ import {
 } from './FactCheckStyles';
 import VeraFilesLogo from '../../assets/vera_files_logo.png';
 import { Maybe } from '../../types.generated';
-import formatTimeAndDate from '../Common/Functions/Functions';
+import { formatTimeAndDate } from '../Common/Functions/Functions';
 
 interface GoogleFactCheckProps {
   data: GoogleFactCheckSearchResultQuery;

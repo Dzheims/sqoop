@@ -3,7 +3,7 @@ import { Avatar, Typography } from '@material-ui/core';
 import { decodeHTML } from 'entities';
 import { VeraFactCheckSearchResultQuery } from './query.generated';
 import { CardsContainer, useStyles, ContentContainer } from './FactCheckStyles';
-import formatTimeAndDate from '../Common/Functions/Functions';
+import { formatTimeAndDate } from '../Common/Functions/Functions';
 
 interface VeraFactCheckProps {
   data: VeraFactCheckSearchResultQuery;

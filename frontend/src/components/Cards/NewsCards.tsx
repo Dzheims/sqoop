@@ -1,13 +1,13 @@
 import React from 'react';
 import { Typography, Avatar } from '@material-ui/core';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {
   AccountNameContainer,
   NewsAPIContentContainer,
   NewsAPITitleContainer,
   useStyles,
 } from '../../pages/Boards/ColumnsStyle';
-import formatTimeAndDate from '../Common/Functions/Functions';
+import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import FactCheck from '../FactCheck/FactCheck';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
 
@@ -18,8 +18,8 @@ interface NewsDataProps {
 const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
   const classes = useStyles();
 
-  const randomColor = () => {
-    let hex = Math.floor(Math.random() * 0xffffff);
+  const randomColor = (name: string) => {
+    let hex = Math.floor((name.charCodeAt(0) / 250) * 0xffffff);
     let color = '#' + hex.toString(16);
     return color;
   };
@@ -29,7 +29,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
       <NewsAPITitleContainer>
         <Avatar
           style={{
-            backgroundColor: randomColor(),
+            backgroundColor: randomColor(data.sourceName),
             color: 'white',
           }}
           className={classes.avatars}
@@ -37,7 +37,9 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
           {data.sourceName?.charAt(0)}
         </Avatar>
         <AccountNameContainer>
-          <Typography style={{ fontWeight: 600 }}>{data.sourceName}</Typography>
+          <Typography style={{ fontWeight: 600 }}>
+            {truncateName(data.sourceName, 18)}
+          </Typography>
         </AccountNameContainer>
       </NewsAPITitleContainer>
       <Typography variant="body2">{data.description}</Typography>

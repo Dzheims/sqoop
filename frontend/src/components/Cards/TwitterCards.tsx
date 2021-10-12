@@ -14,7 +14,7 @@ import {
   TwitterTitleContainer,
   useStyles,
 } from '../../pages/Boards/ColumnsStyle';
-import formatTimeAndDate from '../Common/Functions/Functions';
+import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import FactCheck from '../FactCheck/FactCheck';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
 
@@ -32,11 +32,6 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
     return length === 1 ? length : 2;
   };
 
-  const truncateName = (name: any) => {
-    if (name.length < 12) return name;
-    return name.substring(0, 11) + '...';
-  };
-
   return (
     <div>
       <TwitterContentContainer>
@@ -49,7 +44,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
         <AccountNameContainer>
           <TwitterTitleContainer>
             <Typography style={{ fontWeight: 600 }}>
-              {truncateName(data.name)}
+              {truncateName(data.name, 12)}
             </Typography>
             {data.verified ? (
               <Avatar
