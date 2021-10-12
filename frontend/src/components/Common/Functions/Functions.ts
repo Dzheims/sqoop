@@ -5,8 +5,5 @@ export const formatTimeAndDate = (date: any) => {
   return formattedCreateDate;
 };
 
-export const truncateName = (name: string, length: number) => {
-  const truncatedName = name.substring(0, length - 1) + '...';
-  if (name.length < length) return name;
-  return truncatedName;
-};
+export const truncateName = (name: string, length: number) =>
+  name.length < length ? name : name.substring(0, length - 1) + '...';

@@ -17,9 +17,10 @@ import {
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import FactCheck from '../FactCheck/FactCheck';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
+import { Tweet } from '../../types.generated';
 
 interface TwitterDataProps {
-  data: any;
+  data: Tweet;
 }
 
 const TwitterCards: React.FC<TwitterDataProps> = ({
@@ -27,7 +28,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
 }: TwitterDataProps) => {
   const classes = useStyles();
 
-  const itemListCols = (length: number) => {
+  const itemListCols = (length: number | undefined) => {
     if (!length) return undefined;
     return length === 1 ? length : 2;
   };
@@ -44,7 +45,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
         <AccountNameContainer>
           <TwitterTitleContainer>
             <Typography style={{ fontWeight: 600 }}>
-              {truncateName(data.name, 12)}
+              {truncateName(data.name as string, 12)}
             </Typography>
             {data.verified ? (
               <Avatar
@@ -81,7 +82,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
           {decodeHTML(data.text as string)}
         </Typography>
       </Linkify>
-      {data.photos?.length === 0 ||
+      {!data.photos?.length ||
       data.photos?.some((photo: any) => photo?.url === null) ? (
         <div />
       ) : (

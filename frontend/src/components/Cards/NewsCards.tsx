@@ -10,9 +10,10 @@ import {
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import FactCheck from '../FactCheck/FactCheck';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
+import { Article } from '../../types.generated';
 
 interface NewsDataProps {
-  data: any;
+  data: Article;
 }
 
 const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
@@ -29,7 +30,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
       <NewsAPITitleContainer>
         <Avatar
           style={{
-            backgroundColor: randomColor(data.sourceName),
+            backgroundColor: randomColor(data.sourceName as string),
             color: 'white',
           }}
           className={classes.avatars}
@@ -38,12 +39,12 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
         </Avatar>
         <AccountNameContainer>
           <Typography style={{ fontWeight: 600 }}>
-            {truncateName(data.sourceName, 18)}
+            {truncateName(data.sourceName as string, 18)}
           </Typography>
         </AccountNameContainer>
       </NewsAPITitleContainer>
       <Typography variant="body2">{data.description}</Typography>
-      {data.urlToImage === null ? (
+      {!data.urlToImage ? (
         <a target="_blank" className={classes.link} href={data?.url as string}>
           <Typography variant="body2">{data.title}</Typography>
         </a>
