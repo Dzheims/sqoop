@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Typography, Avatar } from '@material-ui/core';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import {
@@ -14,8 +14,20 @@ import CardsActionButton from '../Buttons/CardsActionButton';
 interface NewsDataProps {
   data: any;
 }
+interface DrawerState {
+  data: any;
+  open: boolean;
+}
 
-const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
+interface FactCheckProps {
+  data: any;
+  setDrawerState: Dispatch<SetStateAction<DrawerState>>;
+}
+
+const NewsCards: React.FC<FactCheckProps> = ({
+  setDrawerState,
+  data,
+}: FactCheckProps) => {
   const classes = useStyles();
 
   const randomColor = () => {
@@ -77,7 +89,10 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
         {formatTimeAndDate(data.publishedAt)}
       </Typography>
       <div className={classes.buttonsContainer}>
-        {/* <FactCheckButton data={data.suggestedKeywords} /> */}
+        <FactCheckButton
+          suggestedKeywords={data.suggestedKeywords}
+          setDrawerState={setDrawerState}
+        />
 
         <CardsActionButton />
       </div>

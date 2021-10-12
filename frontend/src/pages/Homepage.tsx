@@ -104,6 +104,7 @@ const Homepage = () => {
           category={category as Category}
           keyword={null}
           sources={null}
+          setDrawerState={setDrawerState}
         />
       ),
     },

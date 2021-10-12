@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -82,15 +82,28 @@ const mocks: ReadonlyArray<MockedResponse> = [
 
 let documentBody: RenderResult;
 
+interface DrawerState {
+  data: any;
+  open: boolean;
+}
+
 describe('Twitter API contents', () => {
   beforeEach(() => {
+    const [drawerState, setDrawerState] = useState<DrawerState>({
+      data: '',
+      open: false,
+    });
     documentBody = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <DragDropContext onDragEnd={() => {}}>
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <TwitterAPIColumnData keyword={null} sources={null} />
+                <TwitterAPIColumnData
+                  keyword={null}
+                  sources={null}
+                  setDrawerState={setDrawerState}
+                />
               </div>
             )}
           </Droppable>

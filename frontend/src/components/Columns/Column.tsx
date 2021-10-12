@@ -70,6 +70,7 @@ const getFeedType = (
           country={value.country}
           category={value.category as Category}
           sources={value.sources}
+          setDrawerState={drawerState}
         />
       );
     case 'TwitterFeed':
