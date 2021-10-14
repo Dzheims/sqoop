@@ -129,6 +129,15 @@ export const DefaultItemContainer = styled.div<DefaultColumnContentStylesProps>`
   overflow: auto;
 `;
 
+export const ResultsContainer = styled.div<BoardColumnContentStylesProps>`
+  background-color: ${(isDraggingOver: BoardColumnContentStylesProps) =>
+    isDraggingOver ? '#f7fafc' : null};
+  transition: background-color 0.2s ease;
+  padding: 5px;
+  overflow: auto;
+  margin-top: 5px;
+`;
+
 export const Title = styled.h2`
   font: 18px sans-serif;
   // margin-bottom: 5px;

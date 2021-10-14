@@ -38,6 +38,7 @@ export const useStyles = makeStyles(() => ({
     margin: '10px',
     borderRadius: '4px',
     padding: '8px',
+    overflow: 'hidden',
   },
   drawerHeader: {
     display: 'flex',
