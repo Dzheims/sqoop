@@ -99,7 +99,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
 
 let documentBody: RenderResult;
 
-describe('Twitter API contents', () => {
+describe('Google Fact Check contents', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={mocks} addTypename={false}>
@@ -108,7 +108,9 @@ describe('Twitter API contents', () => {
     );
   });
   it('checks content text data 1', async () => {
-    const name = await documentBody.findByText('AFP Fact Check');
+    const name = await documentBody.findByText(
+      ' AFP Fact Check Info Rating:Missing context'
+    );
     expect(name).toBeInTheDocument();
   });
   it('checks content text data 2', async () => {
@@ -128,7 +130,7 @@ describe('Twitter API contents', () => {
     expect(date).toBeInTheDocument();
   });
   it('checks content text data 5', async () => {
-    const rating = await documentBody.findAllByText('Info Rating: False');
-    expect(rating[0]).toBeInTheDocument();
+    const rating = await documentBody.findByText('Rappler Info Rating:False');
+    expect(rating).toBeInTheDocument();
   });
 });

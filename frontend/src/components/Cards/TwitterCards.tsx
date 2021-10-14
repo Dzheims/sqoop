@@ -103,7 +103,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
       </Typography>
       <div className={classes.buttonsContainer}>
         <FactCheck data={data.suggestedKeywords} />
-        <CardsAddToCollectionButton id={data.id} />
+        <CardsAddToCollectionButton id={data?.id as string} />
       </div>
     </div>
   );
