@@ -52,8 +52,7 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
             style={{ fontWeight: 600 }}
             className={classes.description}
           >
-            {value.claimReview[0]?.publisher?.name} Info Rating:
-            {value.claimReview[0]?.textualRating}
+            {`${value.claimReview[0]?.publisher?.name} Info Rating: ${value.claimReview[0]?.textualRating}`}
           </Typography>
           <a
             className={classes.link}

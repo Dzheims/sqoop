@@ -152,7 +152,7 @@ describe('News API contents', () => {
     expect(sourceName3).toBeInTheDocument();
   });
   it('checks content source name for data 4', async () => {
-    const sourceName4 = await documentBody.findByText('ABS-CNN News Updates');
+    const sourceName4 = await documentBody.findByText('ABS-CNN News Upda...');
     expect(sourceName4).toBeInTheDocument();
   });
   it('checks content source name for data 5', async () => {

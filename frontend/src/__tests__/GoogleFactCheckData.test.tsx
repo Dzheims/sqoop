@@ -109,7 +109,7 @@ describe('Google Fact Check contents', () => {
   });
   it('checks content text data 1', async () => {
     const name = await documentBody.findByText(
-      ' AFP Fact Check Info Rating:Missing context'
+      'AFP Fact Check Info Rating: Missing context'
     );
     expect(name).toBeInTheDocument();
   });
@@ -130,7 +130,9 @@ describe('Google Fact Check contents', () => {
     expect(date).toBeInTheDocument();
   });
   it('checks content text data 5', async () => {
-    const rating = await documentBody.findByText('Rappler Info Rating:False');
+    const rating = await documentBody.findByText(
+      'Rappler Info Rating: Misleading'
+    );
     expect(rating).toBeInTheDocument();
   });
 });
