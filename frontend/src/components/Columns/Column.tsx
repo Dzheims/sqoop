@@ -58,10 +58,7 @@ interface FactCheckState {
   open: boolean;
 }
 
-const getFeedType = (
-  value: any,
-  drawerState: Dispatch<SetStateAction<DrawerState>>
-) => {
+const getFeedType = (value: any) => {
   switch (value.__typename) {
     case 'NewsFeed':
       return (
@@ -70,16 +67,11 @@ const getFeedType = (
           country={value.country}
           category={value.category as Category}
           sources={value.sources}
-          setDrawerState={drawerState}
         />
       );
     case 'TwitterFeed':
       return (
-        <TwitterAPIColumnData
-          keyword={value.keyword}
-          sources={value.sources}
-          setDrawerState={drawerState}
-        />
+        <TwitterAPIColumnData keyword={value.keyword} sources={value.sources} />
       );
     case 'Collection':
       return <div />;
@@ -93,7 +85,6 @@ interface DrawerState {
 
 interface ColumnDataProps {
   data: GetColumnsQuery;
-  setDrawerState: Dispatch<SetStateAction<DrawerState>>;
 }
 
 interface DeleteColumnProps {
@@ -102,10 +93,7 @@ interface DeleteColumnProps {
   type?: string;
 }
 
-const Columns: React.FC<ColumnDataProps> = ({
-  data,
-  setDrawerState,
-}: ColumnDataProps) => {
+const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const classes = useStyles();
   const [proceedDelete, setProceedDelete] = useState(false);
   const [warningDelete, setWarningDelete] = useState(false);
@@ -234,7 +222,7 @@ const Columns: React.FC<ColumnDataProps> = ({
                       ref={provided.innerRef}
                       isDragging={snapshot.isDraggingOver}
                     >
-                      {getFeedType(value, setDrawerState)}
+                      {getFeedType(value)}
                     </ItemContainer>
                   </ColumnContainer>
                 )}

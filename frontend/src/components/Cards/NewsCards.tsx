@@ -14,20 +14,12 @@ import CardsActionButton from '../Buttons/CardsActionButton';
 interface NewsDataProps {
   data: any;
 }
-interface DrawerState {
-  data: any;
-  open: boolean;
-}
 
 interface FactCheckProps {
   data: any;
-  setDrawerState: Dispatch<SetStateAction<DrawerState>>;
 }
 
-const NewsCards: React.FC<FactCheckProps> = ({
-  setDrawerState,
-  data,
-}: FactCheckProps) => {
+const NewsCards: React.FC<FactCheckProps> = ({ data }: FactCheckProps) => {
   const classes = useStyles();
 
   const randomColor = () => {
@@ -89,10 +81,7 @@ const NewsCards: React.FC<FactCheckProps> = ({
         {formatTimeAndDate(data.publishedAt)}
       </Typography>
       <div className={classes.buttonsContainer}>
-        <FactCheckButton
-          suggestedKeywords={data.suggestedKeywords}
-          setDrawerState={setDrawerState}
-        />
+        <FactCheckButton suggestedKeywords={data.suggestedKeywords} />
 
         <CardsActionButton />
       </div>

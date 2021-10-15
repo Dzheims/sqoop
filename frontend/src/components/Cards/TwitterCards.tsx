@@ -22,20 +22,11 @@ import CardsActionButton from '../Buttons/CardsActionButton';
 //   data: any;
 // }
 
-interface DrawerState {
-  data: any;
-  open: boolean;
-}
-
 interface FactCheckProps {
   data: any;
-  setDrawerState: Dispatch<SetStateAction<DrawerState>>;
 }
 
-const TwitterCards: React.FC<FactCheckProps> = ({
-  setDrawerState,
-  data,
-}: FactCheckProps) => {
+const TwitterCards: React.FC<FactCheckProps> = ({ data }: FactCheckProps) => {
   const classes = useStyles();
 
   const itemListCols = (length: any) => {
@@ -118,10 +109,7 @@ const TwitterCards: React.FC<FactCheckProps> = ({
         {formatTimeAndDate(data.created_at)}
       </Typography>
       <div className={classes.buttonsContainer}>
-        <FactCheckButton
-          suggestedKeywords={data.suggestedKeywords}
-          setDrawerState={setDrawerState}
-        />
+        <FactCheckButton suggestedKeywords={data.suggestedKeywords} />
         <CardsActionButton />
       </div>
     </div>

@@ -1,10 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+  useContext,
+} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { Button, Drawer, IconButton } from '@material-ui/core';
 import FactCheckDrawerContent from '../Drawers/DrawerContents/FactCheck/FactCheckDrawerContent';
+import { useDrawerState, DrawerState } from './FactCheckDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   factCheckIcon: {
@@ -60,34 +67,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface DrawerState {
-  data: any;
-  open: boolean;
-}
-
 interface FactCheckProps {
   suggestedKeywords: any;
-  setDrawerState: Dispatch<SetStateAction<DrawerState>>;
 }
 
-const FactCheckButton = ({
-  setDrawerState,
-  suggestedKeywords,
-}: FactCheckProps) => {
+const FactCheckButton = ({ suggestedKeywords }: FactCheckProps) => {
   const classes = useStyles();
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const { state, setState } = useDrawerState();
+  //   const [drawer, setDrawer] = useContext(GlobalDrawerState);
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
   //   const [drawer, setDrawer] = useState<DrawerState>({
   //     data: suggestedKeywords,
   //     open: open,
   //   });
 
+  //   useEffect(() => {
+  //     console.log(openDrawer);
+  //     setDrawerState({
+  //       open: openDrawer,
+  //       data: suggestedKeywords,
+  //     });
+  //   }, [openDrawer]);
+
+  //   const handleOpen = () => {
+  //     setOpenDrawer(!openDrawer);
+  //     // ChangeDrawerState();
+  //   };
+
   useEffect(() => {
-    console.log(openDrawer);
-    setDrawerState({
+    // console.log(drawer);
+    setState({
+      ...state,
+      suggestedKeyWords: suggestedKeywords,
       open: openDrawer,
-      data: suggestedKeywords,
     });
+    // setOpenDrawer({ ...openDrawer, open: openDrawer, data: suggestedKeywords });
   }, [openDrawer]);
 
   const handleOpen = () => {

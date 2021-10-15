@@ -16,13 +16,13 @@ interface ColumnsDataProps {
   setDrawerState: Dispatch<SetStateAction<DrawerState>>;
 }
 
-export const ColumnsData = ({ setDrawerState }: ColumnsDataProps) => {
+export const ColumnsData = () => {
   const { data, loading, error } = useQuery<GetColumnsQuery>(GET_COLUMNS_QUERY);
   if (error) return <Error />;
   if (loading) return <Loader />;
   if (!data) return <Error />;
 
-  return <Columns data={data} setDrawerState={setDrawerState} />;
+  return <Columns data={data} />;
 };
 
 export default ColumnsData;

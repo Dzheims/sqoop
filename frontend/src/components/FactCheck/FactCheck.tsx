@@ -1,11 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { Button, Drawer, IconButton } from '@material-ui/core';
 import FactCheckDrawerContent from '../Drawers/DrawerContents/FactCheck/FactCheckDrawerContent';
 import FactCheckButton from './FactCheckButton';
+import { useDrawerState } from './FactCheckDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   factCheckIcon: {
@@ -61,27 +68,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface FactCheckState {
-  data: any;
-  open: boolean;
-}
-
 interface DrawerState {
   data: any;
   open: boolean;
-  setDrawerState: Dispatch<SetStateAction<FactCheckState>>;
 }
 
-const FactCheck = ({ data, open, setDrawerState }: DrawerState) => {
+const FactCheck = () => {
   const classes = useStyles();
 
   useEffect(() => {});
 
+  const { state, setState } = useDrawerState();
   const handleClose = () => {
-    setDrawerState({
-      data: [],
-      open: false,
-    });
+    setState({ ...state, open: false });
   };
 
   return (
@@ -89,7 +88,7 @@ const FactCheck = ({ data, open, setDrawerState }: DrawerState) => {
       <Drawer
         variant="persistent"
         anchor="right"
-        open={open}
+        open={state.open}
         classes={{
           paper: classes.drawerPaper,
         }}
@@ -98,7 +97,7 @@ const FactCheck = ({ data, open, setDrawerState }: DrawerState) => {
           <IconButton className={classes.closeButton} onClick={handleClose}>
             <CancelIcon className={classes.factCheckIcon} />
           </IconButton>
-          <FactCheckDrawerContent suggestedKeyWords={data} />
+          <FactCheckDrawerContent suggestedKeyWords={state.suggestedKeyWords} />
         </div>
       </Drawer>
     </div>

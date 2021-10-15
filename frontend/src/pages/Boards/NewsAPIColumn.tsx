@@ -8,18 +8,11 @@ import NewsCards from '../../components/Cards/NewsCards';
 //   data: GetNewsApiContentsQuery;
 // }
 
-interface DrawerState {
-  data: any;
-  open: boolean;
-}
-
 interface NewsAPIDataProps {
   data: GetNewsApiContentsQuery;
-  setDrawerState: Dispatch<SetStateAction<DrawerState>>;
 }
 
 const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
-  setDrawerState,
   data,
 }: NewsAPIDataProps) => {
   const classes = useStyles();
@@ -39,7 +32,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
               ref={provided.innerRef}
               isDragging={snapshot.isDragging}
             >
-              <NewsCards data={value} setDrawerState={setDrawerState} />
+              <NewsCards data={value} />
             </Item>
           )}
         </Draggable>

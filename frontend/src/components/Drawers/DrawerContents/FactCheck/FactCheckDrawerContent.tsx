@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton, Button, InputBase, Paper, Chip } from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
@@ -147,14 +147,20 @@ const FactCheckDrawerContent = ({
         </IconButton>
       </Paper>
       <div className={classes.chipsContainer}>
-        {suggestedKeyWords.slice(0, 6).map((keyword: string) => (
-          <Chip
-            className={classes.chips}
-            onClick={() => setSearchKey(keyword)}
-            variant="outlined"
-            label={keyword}
-          />
-        ))}
+        {suggestedKeyWords ? (
+          suggestedKeyWords
+            .slice(0, 6)
+            .map((keyword: string) => (
+              <Chip
+                className={classes.chips}
+                onClick={() => setSearchKey(keyword)}
+                variant="outlined"
+                label={keyword}
+              />
+            ))
+        ) : (
+          <div />
+        )}
       </div>
       <div className={classes.buttonContainer}>
         {searchOptions.map((value) => (

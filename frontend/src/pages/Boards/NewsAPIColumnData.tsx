@@ -14,17 +14,12 @@ import NoContents from '../../components/Common/NoContents';
 //   keyword: string | null;
 //   sources: string | null;
 // }
-interface DrawerState {
-  data: any;
-  open: boolean;
-}
 
 interface NewsApiColumnDataProps {
   country: string;
   category: Category;
   keyword: string | null;
   sources: string | null;
-  setDrawerState: Dispatch<SetStateAction<DrawerState>>;
 }
 
 const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
@@ -32,7 +27,6 @@ const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
   category,
   keyword,
   sources,
-  setDrawerState,
 }: NewsApiColumnDataProps) => {
   const { data, loading, error } = useQuery<GetNewsApiContentsQuery>(
     GET_NEWS_API_CONTENTS_QUERY,
@@ -43,7 +37,7 @@ const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
   if (!data) return <Error />;
   if (data.topHeadlines.length === 0) return <NoContents />;
 
-  return <NewsAPIColumn data={data} setDrawerState={setDrawerState} />;
+  return <NewsAPIColumn data={data} />;
 };
 
 export default NewsAPIColumnData;
