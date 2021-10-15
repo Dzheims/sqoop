@@ -2,12 +2,9 @@ import React from 'react';
 import {
   render,
   RenderResult,
-  screen,
   cleanup,
   waitFor,
   fireEvent,
-  wait,
-  queryByText,
 } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import App from '../App';

@@ -28,22 +28,22 @@ describe('Twitter API contents', () => {
       </MockedProvider>
     );
   });
-  it('check tweet text', async () => {
+  test('check tweet text', async () => {
     const text = await documentBody.findByText(
       'A man tagged as one of the most wanted persons in Sta. Cruz, Zambales was arrested Tuesday, police said.'
     );
     expect(text).toBeInTheDocument();
   });
-  it('check links', async () => {
+  test('check links', async () => {
     const text = await documentBody.findByText('https://t.co/kTArDk2xlq');
     expect(text).toBeInTheDocument();
     expect(text).toHaveAttribute('href', 'https://t.co/kTArDk2xlq');
   });
-  it('check username', async () => {
+  test('check username', async () => {
     const text = await documentBody.findByText('Department ...');
     expect(text).toBeInTheDocument();
   });
-  it('date', async () => {
+  test('date', async () => {
     const text = await documentBody.findByText('10:30:47 AM Tue Oct 12 2021');
     expect(text).toBeInTheDocument();
   });

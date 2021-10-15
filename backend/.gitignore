@@ -3,3 +3,4 @@ node_modules
 scripts/migrate/make
 scripts/migrate/make-e
 dist/
+coverage/
