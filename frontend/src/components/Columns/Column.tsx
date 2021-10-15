@@ -190,6 +190,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                     <div className={classes.titleContainer}>
                       <Title>{value.title}</Title>
                       <IconButton
+                        data-testid={value.title}
                         onClick={() => {
                           handleDelete({
                             title: value.title,
@@ -222,7 +223,11 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
           // )
         )}
       </ColumnWrapper>
-      <Dialog open={warningDelete} onClose={handleCloseDialog}>
+      <Dialog
+        data-testid="warning"
+        open={warningDelete}
+        onClose={handleCloseDialog}
+      >
         <DialogTitle>Warning!</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -230,8 +235,11 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button data-testid="cancel-delete" onClick={handleCloseDialog}>
+            Cancel
+          </Button>
           <Button
+            data-testid="agree-delete"
             onClick={() => {
               setWarningDelete(false);
               setProceedDelete(true);
