@@ -27,10 +27,19 @@ const useStyles = makeStyles((theme) => ({
   },
   defaultFeeds: {
     display: 'flex',
-    marginLeft: '62px',
   },
   columnContainers: {
-    position: 'absolute',
+    margin: '5px',
+    display: 'flex',
+    overflowX: 'auto',
+    '&::-webkit-scrollbar': {
+      height: '10px',
+      width: '1em',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'lightGray',
+      borderRadius: 8,
+    },
   },
   buttonContainer: {
     display: 'flex',
@@ -150,57 +159,55 @@ const Homepage = () => {
       <NavigationBar />
       <Toolbar />
       <div className={classes.columnContainers}>
-        <ScrollMenu>
-          <div className={classes.defaultFeeds}>
-            <DragDropContext onDragEnd={onDragEnd}>
-              {defaultColumns.map((column) => (
-                <Droppable droppableId="droppable">
-                  {(provided, snapshot) => (
-                    <ColumnContainer
+        <div className={classes.defaultFeeds}>
+          <DragDropContext onDragEnd={onDragEnd}>
+            {defaultColumns.map((column) => (
+              <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                  <ColumnContainer
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    <Title>{column.title}</Title>
+                    {column.title === 'News Feed' ? (
+                      <ScrollContainer className="scroll-container">
+                        <div className={classes.buttonContainer}>
+                          {categories.map((value) => (
+                            <Button
+                              aria-label={value.title}
+                              role-="button"
+                              variant="outlined"
+                              className={
+                                value.title.toUpperCase() !== category
+                                  ? classes.button
+                                  : classes.selectedButton
+                              }
+                              onClick={value.onClick}
+                            >
+                              {value.title}
+                            </Button>
+                          ))}
+                        </div>
+                      </ScrollContainer>
+                    ) : (
+                      <div />
+                    )}
+                    <DefaultItemContainer
+                      className={classes.itemContainer}
                       {...provided.droppableProps}
                       ref={provided.innerRef}
+                      isDragging={snapshot.isDraggingOver}
+                      feedType={column.title}
                     >
-                      <Title>{column.title}</Title>
-                      {column.title === 'News Feed' ? (
-                        <ScrollContainer className="scroll-container">
-                          <div className={classes.buttonContainer}>
-                            {categories.map((value) => (
-                              <Button
-                                aria-label={value.title}
-                                role-="button"
-                                variant="outlined"
-                                className={
-                                  value.title.toUpperCase() !== category
-                                    ? classes.button
-                                    : classes.selectedButton
-                                }
-                                onClick={value.onClick}
-                              >
-                                {value.title}
-                              </Button>
-                            ))}
-                          </div>
-                        </ScrollContainer>
-                      ) : (
-                        <div />
-                      )}
-                      <DefaultItemContainer
-                        className={classes.itemContainer}
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        isDragging={snapshot.isDraggingOver}
-                        feedType={column.title}
-                      >
-                        {column.cards}
-                      </DefaultItemContainer>
-                    </ColumnContainer>
-                  )}
-                </Droppable>
-              ))}
-            </DragDropContext>
-          </div>
+                      {column.cards}
+                    </DefaultItemContainer>
+                  </ColumnContainer>
+                )}
+              </Droppable>
+            ))}
+          </DragDropContext>
           <ColumnsData />
-        </ScrollMenu>
+        </div>
       </div>
     </div>
   );

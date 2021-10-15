@@ -1,7 +1,17 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, InputBase, Paper } from '@material-ui/core';
+import {
+  IconButton,
+  InputBase,
+  Paper,
+  FormControl,
+  MenuItem,
+  Select,
+  InputLabel,
+} from '@material-ui/core';
+import { Autocomplete, TextField } from '@mui/material';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import SearchIcon from '@material-ui/icons/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -9,6 +19,11 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
+import NewsAPIColumnData from '../../../../pages/Boards/NewsAPIColumnData';
+import { Category } from '../../../../types.generated';
+import { ResultsContainer } from '../../../../pages/Boards/ColumnsStyle';
+import NewsSourcesData from '../NewsApiFeedForm/NewsSourcesData';
+import { CategorySharp } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +39,14 @@ const useStyles = makeStyles((theme) => ({
     padding: 10,
     color: theme.palette.secondary.main,
   },
+  filterIcon: {
+    color: 'gray',
+  },
+  filterText: { fontColor: 'gray', fontSize: '14px' },
+  summaryContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   search: {
     padding: '2px 4px',
     display: 'flex',
@@ -38,19 +61,40 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justify: 'space-between',
   },
-  filterContainer: {
-    marginTop: '5px',
+  resultsContainer: {
+    minHeight: '100px',
+    maxHeight: '400px',
+    '&::-webkit-scrollbar': {
+      width: '0.4em',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      borderRadius: 8,
+    },
+  },
+  formControl: {
+    minWidth: 120,
   },
 }));
 
-const accordionStyle = { backgroundColor: '#f7fafc', boxShadow: 'none' };
+const accordionStyle = {
+  backgroundColor: '#f7fafc',
+  boxShadow: 'none',
+};
 
 const Search = () => {
   const classes = useStyles();
-  const [showFilters, setShowFilters] = useState(false);
 
-  const filtersOnClick = () => {
-    setShowFilters(!showFilters);
+  const [keyword, setKeyword] = useState('');
+  const [search, setSearch] = useState(false);
+  const [category, setCategory] = useState('GENERAL' as Category);
+  const [newsSource, setNewsSource] = useState({
+    name: '',
+    id: '',
+  });
+
+  const submitSearch = () => {
+    setSearch(true);
   };
 
   return (
@@ -61,41 +105,96 @@ const Search = () => {
             inputProps={{ 'aria-label': 'Search' }}
             className={classes.input}
             placeholder="Search"
-            onChange={() => {}}
+            onChange={(e) => {
+              setKeyword(e.target.value);
+              setSearch(false);
+            }}
           />
-          <IconButton onClick={() => {}} className={classes.iconButton}>
+          <IconButton onClick={submitSearch} className={classes.iconButton}>
             <SearchIcon />
           </IconButton>
         </Paper>
-        <IconButton onClick={filtersOnClick} className={classes.iconButton}>
-          <FilterListIcon />
-        </IconButton>
       </div>
-      {showFilters ? (
-        <div className={classes.filterContainer}>
-          <Accordion style={accordionStyle}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
+      <div>
+        <Accordion style={accordionStyle}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <div className={classes.summaryContainer}>
+              <FilterListIcon className={classes.filterIcon} />
+              <Typography className={classes.filterText}>Filters</Typography>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            <FormControl
+              variant="outlined"
+              margin="dense"
+              size="small"
+              fullWidth
+              className={classes.formControl}
             >
-              <Typography>Sources</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>Sources Here</Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion style={accordionStyle}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-            >
-              <Typography>Categories</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>Categories Here</Typography>
-            </AccordionDetails>
-          </Accordion>
-        </div>
+              <InputLabel>Categories</InputLabel>
+              <Select
+                defaultValue=""
+                label="Category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value as Category)}
+              >
+                <MenuItem value={Category.Business}>Business</MenuItem>
+                <MenuItem value={Category.Entertainment}>
+                  Entertainment
+                </MenuItem>
+                <MenuItem value={Category.General}>General</MenuItem>
+                <MenuItem value={Category.Health}>Health</MenuItem>
+                <MenuItem value={Category.Science}>Science</MenuItem>
+                <MenuItem value={Category.Sports}>Sports</MenuItem>
+                <MenuItem value={Category.Technology}>Technology</MenuItem>
+              </Select>
+            </FormControl>
+            <Autocomplete
+              id="Sources"
+              disableClearable
+              value={newsSource}
+              onChange={(event, newValue) => {
+                setNewsSource({ name: newValue.name, id: newValue.id });
+              }}
+              size="small"
+              options={NewsSourcesData() || []}
+              getOptionLabel={(option) => option.name}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  id="Sources"
+                  label="Sources"
+                  placeholder="Sources"
+                  variant="outlined"
+                  size="small"
+                  required
+                  fullWidth
+                />
+              )}
+            />
+          </AccordionDetails>
+        </Accordion>
+      </div>
+      {search ? (
+        <DragDropContext onDragEnd={() => {}}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <ResultsContainer
+                className={classes.resultsContainer}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                isDragging={snapshot.isDraggingOver}
+              >
+                <NewsAPIColumnData
+                  country=""
+                  category={category as Category}
+                  keyword={keyword}
+                  sources={newsSource.id === '' ? null : newsSource.id}
+                />
+              </ResultsContainer>
+            )}
+          </Droppable>
+        </DragDropContext>
       ) : (
         <div />
       )}
