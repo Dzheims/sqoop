@@ -74,54 +74,54 @@ interface FactCheckProps {
 const FactCheckButton = ({ suggestedKeywords }: FactCheckProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
-  //   const [drawer, setDrawer] = useContext(GlobalDrawerState);
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
-
-  //   const [drawer, setDrawer] = useState<DrawerState>({
-  //     data: suggestedKeywords,
-  //     open: open,
-  //   });
-
-  //   useEffect(() => {
-  //     console.log(openDrawer);
-  //     setDrawerState({
-  //       open: openDrawer,
-  //       data: suggestedKeywords,
-  //     });
-  //   }, [openDrawer]);
-
-  //   const handleOpen = () => {
-  //     setOpenDrawer(!openDrawer);
-  //     // ChangeDrawerState();
-  //   };
+  const [highlightButton, setHighlightButton] = useState<boolean>(false);
+  const [stateUpdater, setStateUpdater] = useState<boolean>(true);
 
   useEffect(() => {
-    // console.log(drawer);
     setState({
       ...state,
       suggestedKeyWords: suggestedKeywords,
       open: openDrawer,
     });
-    // setOpenDrawer({ ...openDrawer, open: openDrawer, data: suggestedKeywords });
-  }, [openDrawer]);
+  }, [stateUpdater]);
+
+  useEffect(() => {
+    if (suggestedKeywords === state.suggestedKeyWords) {
+      setHighlightButton(!highlightButton);
+    } else {
+      setHighlightButton(false);
+    }
+  }, [state.suggestedKeyWords, openDrawer]);
+
+  useEffect(() => {
+    setOpenDrawer(state.open);
+  }, [state.open]);
 
   const handleOpen = () => {
-    setOpenDrawer(!openDrawer);
-    // ChangeDrawerState();
+    if (suggestedKeywords === state.suggestedKeyWords) {
+      setOpenDrawer(!openDrawer);
+      setStateUpdater(!stateUpdater);
+    } else {
+      setOpenDrawer(true);
+      setStateUpdater(!stateUpdater);
+    }
   };
-
-  const handleDrawer = () => {};
 
   return (
     <div>
       <Button
         className={
-          openDrawer ? classes.onClickFactCheckButton : classes.factCheckButton
+          highlightButton
+            ? classes.onClickFactCheckButton
+            : classes.factCheckButton
         }
         startIcon={
           <FactCheckIcon
             className={
-              openDrawer ? classes.onClickFactCheckIcon : classes.factCheckIcon
+              highlightButton
+                ? classes.onClickFactCheckIcon
+                : classes.factCheckIcon
             }
           />
         }
