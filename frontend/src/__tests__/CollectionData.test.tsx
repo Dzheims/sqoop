@@ -1,13 +1,12 @@
 import React from 'react';
 import { render, RenderResult, cleanup } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import {
   COLLECTION_CONTENTS_QUERY,
   COLLECTION_TWEETS,
 } from '../components/Columns/query';
 import CollectionColumnData from '../pages/Boards/CollectionColumnData';
-import TwitterAPIColumnData from '../pages/Boards/TwitterAPIColumnData';
 
 const mocks: ReadonlyArray<MockedResponse> = [
   {
@@ -37,12 +36,12 @@ const mocks: ReadonlyArray<MockedResponse> = [
           author_id: '15448383',
           created_at: '2021-10-12T10:30:47.000Z',
           id: '123456789',
-          name: 'Department of Foreign Affairs',
+          name: 'Inquirer',
           photos: [],
           profile_image_url:
             'https://pbs.twimg.com/profile_images/1427192891126915082/NNybyA9y_normal.jpg',
           suggestedKeywords: ['man', 'tagged', 'wanted', 'persons'],
-          text: 'A man tagged as one of the most wanted persons in Sta. Cruz, Zambales was arrested Tuesday, police said. https://t.co/kTArDk2xlq',
+          text: 'A man tagged as one of the most wanted persons in Sta. Cruz, Zambales.',
           username: 'inquirerdotnet',
           verified: true,
         },
@@ -74,17 +73,12 @@ describe('Columns', () => {
 
   test('check tweet text', async () => {
     const text = await documentBody.findByText(
-      'A man tagged as one of the most wanted persons in Sta. Cruz, Zambales was arrested Tuesday, police said.'
+      'A man tagged as one of the most wanted persons in Sta. Cruz, Zambales.'
     );
     expect(text).toBeInTheDocument();
   });
-  test('check links', async () => {
-    const text = await documentBody.findByText('https://t.co/kTArDk2xlq');
-    expect(text).toBeInTheDocument();
-    expect(text).toHaveAttribute('href', 'https://t.co/kTArDk2xlq');
-  });
   test('check username', async () => {
-    const text = await documentBody.findByText('Department ...');
+    const text = await documentBody.findByText('Inquirer');
     expect(text).toBeInTheDocument();
   });
   test('date', async () => {
