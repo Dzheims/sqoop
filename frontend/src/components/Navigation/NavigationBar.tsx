@@ -304,6 +304,7 @@ const NavigationBar = () => {
             open={openAccount}
             anchorEl={anchorEl}
             onClose={handleClose}
+            className={classes.popover}
             anchorOrigin={{
               vertical: 'top',
               horizontal: 'center',

@@ -70,16 +70,16 @@ export const useStyles = makeStyles(() => ({
     },
   },
   profileBox: {
+    backgroundColor: '#FFFFFF',
     display: 'flex',
-    justifyContent: 'space-between',
     flexDirection: 'column',
-    padding: theme.spacing(3),
     bgcolor: 'white',
-    height: '10vh',
     minWidth: '15vh',
   },
+  popover: {
+    border: 'thin solid lightgray',
+  },
   iconContainer: {
-    backgroundColor: theme.palette.primary.main,
     '&:hover': {
       backgroundColor: 'white',
     },
