@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_NEWS_API_CONTENTS_QUERY } from './query';
 import { GetNewsApiContentsQuery } from './query.generated';
@@ -8,6 +8,13 @@ import { Category } from '../../types.generated';
 import Error from '../../components/Common/Error';
 import NoContents from '../../components/Common/NoContents';
 import CardsLoaderSkeleton from '../../components/Common/Skeletons/CardsLoaderSkeleton';
+
+// interface NewsApiColumnDataProps {
+//   country: string;
+//   category: Category;
+//   keyword: string | null;
+//   sources: string | null;
+// }
 
 interface NewsApiColumnDataProps {
   country: string;

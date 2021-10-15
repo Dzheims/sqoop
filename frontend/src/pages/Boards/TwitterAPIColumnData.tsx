@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_TWITTER_API_CONTENTS_QUERY } from './query';
 import { GetTwitterApiContentsQuery } from './query.generated';

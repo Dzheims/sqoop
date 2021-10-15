@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FactCheckIcon from '@mui/icons-material/ManageSearch';
 import CloseIcon from '@mui/icons-material/Close';
 import { Button, Drawer, IconButton } from '@material-ui/core';
 import FactCheckDrawerContent from '../Drawers/DrawerContents/FactCheck/FactCheckDrawerContent';
+import FactCheckButton from './FactCheckButton';
+import { useDrawerState } from './FactCheckDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   factCheckIcon: {
@@ -66,16 +74,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface FactCheckProps {
+interface DrawerState {
   data: any;
+  open: boolean;
 }
 
-const FactCheck = ({ data }: FactCheckProps) => {
+const FactCheck = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(!open);
+  useEffect(() => {});
+
+  const { state, setState } = useDrawerState();
+  const handleClose = () => {
+    setState({ ...state, open: false });
   };
 
   return (
@@ -83,40 +94,21 @@ const FactCheck = ({ data }: FactCheckProps) => {
       <Drawer
         variant="persistent"
         anchor="right"
-        open={open}
+        open={state.open}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
         <div className={classes.drawer}>
-          <IconButton
-            className={classes.closeButton}
-            onClick={() => setOpen(false)}
-          >
+          <IconButton className={classes.closeButton} onClick={handleClose}>
             <CloseIcon
               sx={{ height: '20px', width: '20px' }}
               className={classes.closeIcon}
             />
           </IconButton>
-          <FactCheckDrawerContent suggestedKeyWords={data} />
+          <FactCheckDrawerContent suggestedKeyWords={state.suggestedKeyWords} />
         </div>
       </Drawer>
-      <Button
-        className={
-          open ? classes.onClickFactCheckButton : classes.factCheckButton
-        }
-        startIcon={
-          <FactCheckIcon
-            className={
-              open ? classes.onClickFactCheckIcon : classes.factCheckIcon
-            }
-          />
-        }
-        variant="outlined"
-        onClick={handleOpen}
-      >
-        Fact Check
-      </Button>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -42,12 +42,26 @@ const useStyles = makeStyles((theme) => ({
   optionsUsername: { fontSize: '14px', color: 'gray' },
 }));
 
+interface DrawerState {
+  current: string;
+  open: boolean;
+}
+
 interface SuccessAlert {
+  type: string;
   feedTitle: string;
   success: boolean;
 }
 
-const AddTwitterFeedForm = () => {
+interface ParentState {
+  drawerStateChanger: Dispatch<SetStateAction<DrawerState>>;
+  snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
+}
+
+const AddTwitterFeedForm = ({
+  drawerStateChanger,
+  snackbarStateChanger,
+}: ParentState) => {
   const history = useHistory();
   const classes = useStyles();
   const [source, setSource] = useState({ label: '', username: '' });
@@ -61,10 +75,6 @@ const AddTwitterFeedForm = () => {
       },
     });
 
-  const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
-    feedTitle: '',
-    success: false,
-  });
   const [disableCreateButton, setdisableCreateButton] = useState(false);
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,13 +129,14 @@ const AddTwitterFeedForm = () => {
       },
     },
     onCompleted: ({ createTwitterFeed }) => {
-      setSuccessAlert({
-        ...successAlert,
+      snackbarStateChanger({
+        type: 'Twitter feed',
         feedTitle: createTwitterFeed?.twitterFeed?.title as string,
         success: true,
       });
       setdisableCreateButton(true);
       history.push('/');
+      drawerStateChanger({ open: false, current: '' });
     },
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
@@ -209,29 +220,6 @@ const AddTwitterFeedForm = () => {
           Create
         </Button>
       </div>
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        open={successAlert.success}
-        autoHideDuration={5000}
-      >
-        <Alert
-          severity="success"
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setSuccessAlert({ ...successAlert, success: false });
-              }}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-        >
-          Feed <strong>{successAlert.feedTitle}</strong> was created
-        </Alert>
-      </Snackbar>
     </div>
   );
 };

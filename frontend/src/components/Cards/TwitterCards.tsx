@@ -1,4 +1,4 @@
-import React, { Key } from 'react';
+import React, { Dispatch, Key, SetStateAction } from 'react';
 import Linkify from 'react-linkify';
 import { SecureLink } from 'react-secure-link';
 import { decodeHTML } from 'entities';
@@ -15,7 +15,7 @@ import {
   useStyles,
 } from '../../pages/Boards/ColumnsStyle';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
-import FactCheck from '../FactCheck/FactCheck';
+import FactCheckButton from '../FactCheck/FactCheckButton';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
 import { Tweet } from '../../types.generated';
 
@@ -102,7 +102,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
         {formatTimeAndDate(data.created_at)}
       </Typography>
       <div className={classes.buttonsContainer}>
-        <FactCheck data={data.suggestedKeywords} />
+        <FactCheckButton suggestedKeywords={data.suggestedKeywords} />
         <CardsAddToCollectionButton id={data?.id as string} />
       </div>
     </div>

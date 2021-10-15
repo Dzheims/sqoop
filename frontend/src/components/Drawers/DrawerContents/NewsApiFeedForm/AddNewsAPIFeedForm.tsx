@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useEffect, useState } from 'react';
+/* eslint import/no-cycle: [2, { maxDepth: 1 }] */
+
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -61,12 +63,27 @@ interface FormsDisabled {
   country: boolean;
   sources: boolean;
 }
+
+interface DrawerState {
+  current: string;
+  open: boolean;
+}
+
 interface SuccessAlert {
+  type: string;
   feedTitle: string;
   success: boolean;
 }
 
-const AddNewsAPIFeedForm = () => {
+interface ParentState {
+  drawerStateChanger: Dispatch<SetStateAction<DrawerState>>;
+  snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
+}
+
+const AddNewsAPIFeedForm = ({
+  drawerStateChanger,
+  snackbarStateChanger,
+}: ParentState) => {
   const classes = useStyles();
   const history = useHistory();
   const [country, setCountry] = useState({ code: '', label: '' });
@@ -92,10 +109,6 @@ const AddNewsAPIFeedForm = () => {
     sources: false,
   });
 
-  const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
-    feedTitle: '',
-    success: false,
-  });
   const [disableCreateButton, setdisableCreateButton] = useState(false);
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -202,13 +215,14 @@ const AddNewsAPIFeedForm = () => {
       },
     },
     onCompleted: ({ createNewsFeed }) => {
-      setSuccessAlert({
-        ...successAlert,
+      snackbarStateChanger({
+        type: 'News feed',
         feedTitle: createNewsFeed?.newsFeed?.title as string,
         success: true,
       });
       setdisableCreateButton(true);
       history.push('/');
+      drawerStateChanger({ open: false, current: '' });
     },
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
@@ -340,29 +354,6 @@ const AddNewsAPIFeedForm = () => {
           Create
         </Button>
       </div>
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        open={successAlert.success}
-        autoHideDuration={5000}
-      >
-        <Alert
-          severity="success"
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setSuccessAlert({ ...successAlert, success: false });
-              }}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-        >
-          Feed <strong>{successAlert.feedTitle}</strong> was created
-        </Alert>
-      </Snackbar>
     </div>
   );
 };

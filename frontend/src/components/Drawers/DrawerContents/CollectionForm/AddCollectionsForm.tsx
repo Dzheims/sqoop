@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { Button, TextField, Snackbar, IconButton } from '@material-ui/core';
@@ -36,12 +36,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface DrawerState {
+  current: string;
+  open: boolean;
+}
+
 interface SuccessAlert {
+  type: string;
   feedTitle: string;
   success: boolean;
 }
 
-const AddCollectionForm = () => {
+interface ParentState {
+  drawerStateChanger: Dispatch<SetStateAction<DrawerState>>;
+  snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
+}
+
+const AddCollectionForm = ({
+  drawerStateChanger,
+  snackbarStateChanger,
+}: ParentState) => {
   const history = useHistory();
   const classes = useStyles();
 
@@ -49,10 +63,6 @@ const AddCollectionForm = () => {
     title: '',
   });
 
-  const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
-    feedTitle: '',
-    success: false,
-  });
   const [disableCreateButton, setdisableCreateButton] = useState(false);
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,17 +87,25 @@ const AddCollectionForm = () => {
       },
     },
     onCompleted: ({ createCollection }) => {
-      setSuccessAlert({
-        ...successAlert,
+      snackbarStateChanger({
+        type: 'Collection',
         feedTitle: createCollection?.collection?.title as string,
         success: true,
       });
       setdisableCreateButton(true);
       history.push('/');
+      drawerStateChanger({ open: false, current: '' });
     },
     refetchQueries: [
       { query: GET_COLUMNS_QUERY },
-      { query: GET_COLLECTIONS_LIST_QUERY },
+      {
+        query: GET_COLLECTIONS_LIST_QUERY,
+        variables: {
+          condition: {
+            userId: currentUserId(),
+          },
+        },
+      },
     ],
   });
 
@@ -120,29 +138,6 @@ const AddCollectionForm = () => {
           Create
         </Button>
       </div>
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        open={successAlert.success}
-        autoHideDuration={5000}
-      >
-        <Alert
-          severity="success"
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setSuccessAlert({ ...successAlert, success: false });
-              }}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-        >
-          Feed <strong>{successAlert.feedTitle}</strong> was created
-        </Alert>
-      </Snackbar>
     </div>
   );
 };

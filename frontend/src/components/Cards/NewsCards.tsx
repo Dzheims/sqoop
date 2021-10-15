@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Typography, Avatar } from '@material-ui/core';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {
@@ -8,9 +8,9 @@ import {
   useStyles,
 } from '../../pages/Boards/ColumnsStyle';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
-import FactCheck from '../FactCheck/FactCheck';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
 import { Article } from '../../types.generated';
+import FactCheckButton from '../FactCheck/FactCheckButton';
 
 interface NewsDataProps {
   data: Article;
@@ -80,8 +80,8 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
         {formatTimeAndDate(data.publishedAt)}
       </Typography>
       <div className={classes.buttonsContainer}>
-        <FactCheck data={data.suggestedKeywords} />
         {/* <CardsAddToCollectionButton /> */}
+        <FactCheckButton suggestedKeywords={data.suggestedKeywords} />
       </div>
     </div>
   );

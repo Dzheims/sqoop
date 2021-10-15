@@ -79,25 +79,13 @@ const SignUp = () => {
   });
   const [errors, setErrors] = useState<FormValues>();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [validForm, setValidForm] = useState(false);
+  const [triggerSubmit, setTriggerSubmit] = useState<boolean>(false);
+  const [successAlert, setSuccessAlert] = useState(false);
 
   const setErrorInForm = (input: string | undefined): boolean => {
     if (input === '' || input === undefined) return false;
     return true;
   };
-
-  const hasError = () => {
-    if (errors)
-      Object.values(errors).forEach((error) => {
-        if (error === '' || error === undefined) setValidForm(true);
-      });
-  };
-
-  useEffect(() => {
-    if (isSubmitting) hasError();
-  }, [errors]);
-
-  const [successAlert, setSuccessAlert] = useState(false);
 
   const [signUp, { error }] = useMutation<
     SignupMutation,
@@ -116,7 +104,6 @@ const SignUp = () => {
 
   const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (isSubmitting) setErrors(validate(signupInput, error));
     const { value } = e.target;
     setSignupInput({
       ...signupInput,
@@ -126,7 +113,6 @@ const SignUp = () => {
 
   const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (isSubmitting) setErrors(validate(signupInput, error));
     const { value } = e.target;
     setSignupInput({
       ...signupInput,
@@ -136,7 +122,6 @@ const SignUp = () => {
 
   const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (isSubmitting) setErrors(validate(signupInput, error));
     const { value } = e.target;
     setSignupInput({
       ...signupInput,
@@ -144,15 +129,27 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = () => {
-    setErrors(validate(signupInput, error));
-    setIsSubmitting(true);
-
-    if (signupInput.confirmedPassword === signupInput.password && validForm) {
-      setValidForm(false);
-      signUp();
+  const validateSignUp = () => {
+    if (errors) {
+      if (Object.values(errors).every((err) => err === '')) {
+        if (signupInput.confirmedPassword === signupInput.password) {
+          signUp();
+        }
+      }
     }
+    setTriggerSubmit(false);
   };
+
+  const handleSubmit = () => {
+    setTriggerSubmit(true);
+    setIsSubmitting(true);
+    setErrors(validate(signupInput, error));
+  };
+
+  useEffect(() => {
+    if (isSubmitting) setErrors(validate(signupInput, error));
+    if (triggerSubmit) validateSignUp();
+  }, [signupInput, triggerSubmit]);
 
   return (
     <Grid container component="main" className={classes.root}>

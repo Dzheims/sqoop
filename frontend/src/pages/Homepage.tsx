@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/unbound-method */
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
+import React, { useEffect, useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -20,6 +22,12 @@ import NewsAPIColumnData from './Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from './Boards/TwitterAPIColumnData';
 import AUTH_TOKEN from '../constants';
 // import CategoriesButtons from '../components/Categories/CategoriesButtons';
+import FactCheck from '../components/FactCheck/FactCheck';
+import {
+  DrawerStateProvider,
+  useDrawerState,
+  GlobalDrawerContext,
+} from '../components/FactCheck/FactCheckDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,6 +87,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+export interface DrawerState {
+  suggestedKeyWords: Array<string>;
+  open: boolean;
+}
+
 const Homepage = () => {
   const classes = useStyles();
   const [category, setCategory] = useState('GENERAL');
@@ -90,6 +103,11 @@ const Homepage = () => {
   }
 
   const onDragEnd = () => {};
+
+  const [drawerState, setDrawerState] = useState<DrawerState>({
+    suggestedKeyWords: [],
+    open: false,
+  });
 
   const defaultColumns = [
     {
@@ -156,59 +174,62 @@ const Homepage = () => {
 
   return (
     <div className={classes.root}>
-      <NavigationBar />
-      <Toolbar />
-      <div className={classes.columnContainers}>
-        <div className={classes.defaultFeeds}>
-          <DragDropContext onDragEnd={onDragEnd}>
-            {defaultColumns.map((column) => (
-              <Droppable droppableId="droppable">
-                {(provided, snapshot) => (
-                  <ColumnContainer
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    <Title>{column.title}</Title>
-                    {column.title === 'News Feed' ? (
-                      <ScrollContainer className="scroll-container">
-                        <div className={classes.buttonContainer}>
-                          {categories.map((value) => (
-                            <Button
-                              aria-label={value.title}
-                              role-="button"
-                              variant="outlined"
-                              className={
-                                value.title.toUpperCase() !== category
-                                  ? classes.button
-                                  : classes.selectedButton
-                              }
-                              onClick={value.onClick}
-                            >
-                              {value.title}
-                            </Button>
-                          ))}
-                        </div>
-                      </ScrollContainer>
-                    ) : (
-                      <div />
-                    )}
-                    <DefaultItemContainer
-                      className={classes.itemContainer}
+      <DrawerStateProvider value={{ suggestedKeyWords: [], open: false }}>
+        <NavigationBar />
+        <Toolbar />
+        <FactCheck />
+        <div className={classes.columnContainers}>
+          <div className={classes.defaultFeeds}>
+            <DragDropContext onDragEnd={onDragEnd}>
+              {defaultColumns.map((column) => (
+                <Droppable droppableId="droppable">
+                  {(provided, snapshot) => (
+                    <ColumnContainer
                       {...provided.droppableProps}
                       ref={provided.innerRef}
-                      isDragging={snapshot.isDraggingOver}
-                      feedType={column.title}
                     >
-                      {column.cards}
-                    </DefaultItemContainer>
-                  </ColumnContainer>
-                )}
-              </Droppable>
-            ))}
-          </DragDropContext>
+                      <Title>{column.title}</Title>
+                      {column.title === 'News Feed' ? (
+                        <ScrollContainer className="scroll-container">
+                          <div className={classes.buttonContainer}>
+                            {categories.map((value) => (
+                              <Button
+                                aria-label={value.title}
+                                role-="button"
+                                variant="outlined"
+                                className={
+                                  value.title.toUpperCase() !== category
+                                    ? classes.button
+                                    : classes.selectedButton
+                                }
+                                onClick={value.onClick}
+                              >
+                                {value.title}
+                              </Button>
+                            ))}
+                          </div>
+                        </ScrollContainer>
+                      ) : (
+                        <div />
+                      )}
+                      <DefaultItemContainer
+                        className={classes.itemContainer}
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        isDragging={snapshot.isDraggingOver}
+                        feedType={column.title}
+                      >
+                        {column.cards}
+                      </DefaultItemContainer>
+                    </ColumnContainer>
+                  )}
+                </Droppable>
+              ))}
+            </DragDropContext>
+          </div>
           <ColumnsData />
         </div>
-      </div>
+      </DrawerStateProvider>
     </div>
   );
 };

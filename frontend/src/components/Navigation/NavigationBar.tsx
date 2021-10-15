@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { useState } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   IconButton,
@@ -13,8 +14,11 @@ import {
   Divider,
   Popover,
   Box,
+  Snackbar,
 } from '@material-ui/core';
+import { Alert } from '@mui/material';
 import AddFeedsIcon from '@material-ui/icons/AddCircle';
+import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import { Person } from '@material-ui/icons';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -31,18 +35,47 @@ import Logout from '../Account/Logout';
 import UserProfile from '../Account/UserProfile';
 import AddCollectionForm from '../Drawers/DrawerContents/CollectionForm/AddCollectionsForm';
 import Search from '../Drawers/DrawerContents/Search/Search';
+import NavDrawer from './NavDrawer';
 
 interface DrawerState {
   current: string;
   open: boolean;
 }
 
+interface DrawerProps {
+  drawerStateProps: boolean;
+  titleProps: string;
+}
+
+interface SuccessAlert {
+  type: string;
+  feedTitle: string;
+  success: boolean;
+}
+
 const NavigationBar = () => {
   const classes = useStyles();
+
+  const [drawerState, setDrawerState] = useState<DrawerProps>({
+    drawerStateProps: false,
+    titleProps: '',
+  });
+
+  // useEffect(() => {
+  //   setDrawerState({ ...drawerState, drawerStateProps: drawerStateProps });
+  // }, [drawerStateProps]);
+
   const [open, setOpen] = useState<DrawerState>({
     current: '',
     open: false,
   });
+
+  const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
+    type: '',
+    feedTitle: '',
+    success: false,
+  });
+
   const [title, setTitle] = useState('');
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -161,9 +194,27 @@ const NavigationBar = () => {
           </List>
         </div>
       );
-    if (contentTitle === 'News Feed') return <AddNewsAPIFeedForm />;
-    if (contentTitle === 'Twitter Feed') return <AddTwitterFeedForm />;
-    if (contentTitle === 'Collection') return <AddCollectionForm />;
+    if (contentTitle === 'News Feed')
+      return (
+        <AddNewsAPIFeedForm
+          drawerStateChanger={setOpen}
+          snackbarStateChanger={setSuccessAlert}
+        />
+      );
+    if (contentTitle === 'Twitter Feed')
+      return (
+        <AddTwitterFeedForm
+          drawerStateChanger={setOpen}
+          snackbarStateChanger={setSuccessAlert}
+        />
+      );
+    if (contentTitle === 'Collection')
+      return (
+        <AddCollectionForm
+          drawerStateChanger={setOpen}
+          snackbarStateChanger={setSuccessAlert}
+        />
+      );
     return <div />;
   };
 
@@ -190,87 +241,118 @@ const NavigationBar = () => {
     });
   };
 
-  return (
-    <div>
-      <Drawer
-        variant="persistent"
-        anchor="left"
-        open={open.open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawer}>
-          <div className={classes.drawerHeader}>
-            {handleBack(title)}
-            <Typography className={classes.drawerTitle}>{title}</Typography>
-          </div>
-          {getDrawerContent(title)}
-        </div>
-      </Drawer>
-      <NavigationBarContainer>
-        <MenuContainer>
-          {NavBarMenu.map((item) => (
-            <div>
-              <Tooltip title={item.title} key={item.id} arrow>
-                <IconContainer
-                  className={
-                    open.open === true && open.current === item.title
-                      ? classes.selectedIconContainer
-                      : classes.iconContainer
-                  }
-                >
-                  <IconButton
-                    aria-label={item.title}
-                    onClick={() => {
-                      openDrawer({ current: item.title, open: true });
-                      setTitle(item.title);
-                    }}
-                  >
-                    {item.icon}
-                  </IconButton>
-                </IconContainer>
-              </Tooltip>
-            </div>
-          ))}
-        </MenuContainer>
-        <AccountAvatarContainer>
-          <Tooltip title="My Account" arrow>
-            <IconButton onClick={onAccountClick}>
-              <Avatar className={classes.avatars}>
-                <Person />
-              </Avatar>
-            </IconButton>
-          </Tooltip>
-        </AccountAvatarContainer>
-        <Popover
-          open={openAccount}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-        >
-          <Box className={classes.profileBox}>
-            <UserProfile />
-            <Logout />
-          </Box>
-        </Popover>
-      </NavigationBarContainer>
-      <Backdrop
-        className={classes.backdrop}
-        open={open.open}
-        onClick={() => {
-          closeDrawer({ current: '', open: false });
-        }}
-      />
-      ß
+  const drawerChild = (
+    <div className={classes.drawer}>
+      <div className={classes.drawerHeader}>
+        {handleBack(title)}
+        <Typography className={classes.drawerTitle}>{title}</Typography>
+      </div>
+      {getDrawerContent(title)}
     </div>
+  );
+
+  const handleSnackbarClose = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSuccessAlert({ ...successAlert, success: false });
+  };
+
+  return (
+    <>
+      <div>
+        <NavDrawer drawerStateProps={open.open} childComponent={drawerChild} />
+        <NavigationBarContainer>
+          <MenuContainer>
+            {NavBarMenu.map((item) => (
+              <div>
+                <Tooltip title={item.title} key={item.id} arrow>
+                  <IconContainer
+                    className={
+                      open.open === true && open.current === item.title
+                        ? classes.selectedIconContainer
+                        : classes.iconContainer
+                    }
+                  >
+                    <IconButton
+                      aria-label={item.title}
+                      onClick={() => {
+                        openDrawer({ current: item.title, open: true });
+                        setTitle(item.title);
+                      }}
+                    >
+                      {item.icon}
+                    </IconButton>
+                  </IconContainer>
+                </Tooltip>
+              </div>
+            ))}
+          </MenuContainer>
+          <AccountAvatarContainer>
+            <Tooltip title="My Account" arrow>
+              <IconButton onClick={onAccountClick}>
+                <Avatar className={classes.avatars}>
+                  <Person />
+                </Avatar>
+              </IconButton>
+            </Tooltip>
+          </AccountAvatarContainer>
+          <Popover
+            open={openAccount}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            className={classes.popover}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+          >
+            <Box className={classes.profileBox}>
+              <UserProfile />
+              <Logout />
+            </Box>
+          </Popover>
+        </NavigationBarContainer>
+        <Backdrop
+          className={classes.backdrop}
+          open={open.open}
+          onClick={() => {
+            closeDrawer({ current: '', open: false });
+          }}
+        />
+        ß
+      </div>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        open={successAlert.success}
+        autoHideDuration={7000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          severity="success"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={handleSnackbarClose}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          {successAlert.type} <strong>{successAlert.feedTitle}</strong> was
+          created
+        </Alert>
+      </Snackbar>
+    </>
   );
 };
 

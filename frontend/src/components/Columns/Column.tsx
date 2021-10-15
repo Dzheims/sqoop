@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable react/jsx-props-no-spreading */
 
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useHistory } from 'react-router-dom';
 import {
@@ -45,7 +45,6 @@ import {
   DELETE_COLLECTION_MUTATION,
 } from './query';
 import { GET_COLLECTIONS_LIST_QUERY } from '../Collections/query';
-import currentUserId from '../../authentication/currentUserId';
 import CollectionColumnData from '../../pages/Boards/CollectionColumnData';
 
 const getFeedType = (value: any) => {
@@ -179,8 +178,8 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     <>
       <ColumnWrapper>
         {data.getColumnResult?.flatMap(
-          (value) => (
-            <DragDropContext onDragEnd={onDragEnd} key={value.id}>
+          (value, index) => (
+            <DragDropContext onDragEnd={onDragEnd} key={index}>
               <Droppable droppableId="droppable">
                 {(provided, snapshot) => (
                   <ColumnContainer
@@ -206,6 +205,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                       </IconButton>
                     </div>
                     <ItemContainer
+                      key={index}
                       className={classes.itemContainer}
                       {...provided.droppableProps}
                       ref={provided.innerRef}

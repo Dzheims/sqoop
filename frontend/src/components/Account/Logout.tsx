@@ -12,6 +12,15 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     height: '2.5vh',
+    borderRadius: 0,
+    color: 'black',
+    backgroundColor: '#FFFFFF',
+    textTransform: 'none',
+    textAlign: 'left',
+    boxShadow: 'none',
+    '&:hover': {
+      backgroundColor: '#eceeee',
+    },
   },
   // div: {
   //   padding: theme.spacing(1, 2, 2),
@@ -28,14 +37,26 @@ const Logout = () => {
     await client.clearStore();
   };
 
+  const handleManageAccount = async () => {};
+
   return (
     <div>
+      {/* <Button
+        data-testid="btn-logout"
+        type="submit"
+        fullWidth
+        color="inherit"
+        variant="contained"
+        onClick={handleManageAccount}
+        className={classes.button}
+      >
+        Manage Account
+      </Button> */}
       <Button
         data-testid="btn-logout"
         type="submit"
         fullWidth
         variant="contained"
-        color="secondary"
         onClick={handleSubmit}
         className={classes.button}
       >
