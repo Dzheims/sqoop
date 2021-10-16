@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { MockedProvider } from '@apollo/client/testing';
 import NewsCards from '../components/Cards/NewsCards';
 import { Article } from '../types.generated';
@@ -26,7 +27,15 @@ describe('News Cards', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={[]} addTypename={false}>
-        <NewsCards data={data} />
+        <DragDropContext onDragEnd={() => {}}>
+          <Droppable droppableId="droppable">
+            {(provided) => (
+              <div ref={provided.innerRef}>
+                <NewsCards data={data} />
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </MockedProvider>
     );
   });
