@@ -251,7 +251,7 @@ const AddNewsAPIFeedForm = ({
         size="small"
         fullWidth
         className={classes.formControl}
-        disabled={disableForm.category}
+        // disabled={disableForm.category}
       >
         <InputLabel>Categories</InputLabel>
         <Select
@@ -295,7 +295,7 @@ const AddNewsAPIFeedForm = ({
             {...params}
             id="Country"
             label="Country"
-            disabled={disableForm.country}
+            // disabled={disableForm.country}
             placeholder="Country"
             variant="outlined"
             margin="dense"
@@ -332,7 +332,7 @@ const AddNewsAPIFeedForm = ({
             {...params}
             id="Sources"
             label="Sources"
-            disabled={disableForm.sources}
+            // disabled={disableForm.sources}
             placeholder="Sources"
             variant="outlined"
             margin="dense"
