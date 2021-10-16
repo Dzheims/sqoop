@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -94,28 +95,27 @@ const FactCheckDrawerContent = ({
   const classes = useStyles();
   const [searchKey, setSearchKey] = useState('');
   const [search, setSearch] = useState(false);
-  const [currentSearch, setCurrentSearch] = useState({
-    component: <GoogleFactCheckData keyword="Latest" />,
-    title: 'Google Fact Check',
-  });
+  const [currentSearch, setCurrentSearch] = useState('Google Fact Check');
+
+  const getSearch = (searchType: string) => {
+    if (searchType === 'Google Fact Check')
+      return <GoogleFactCheckData keyword={searchKey} />;
+    if (searchType === 'Vera Files')
+      return <VeraFactCheckData keyword={searchKey} />;
+    return <div />;
+  };
 
   const searchOptions = [
     {
       buttonTitle: 'Google Fact Check',
       onClick: () => {
-        setCurrentSearch({
-          component: <GoogleFactCheckData keyword={searchKey} />,
-          title: 'Google Fact Check',
-        });
+        setCurrentSearch('Google Fact Check');
       },
     },
     {
       buttonTitle: 'Vera Files',
       onClick: () => {
-        setCurrentSearch({
-          component: <VeraFactCheckData keyword={searchKey} />,
-          title: 'Vera Files',
-        });
+        setCurrentSearch('Vera Files');
       },
     },
   ];
@@ -136,10 +136,7 @@ const FactCheckDrawerContent = ({
           onChange={(e) => {
             setSearchKey(e.target.value);
             setSearch(false);
-            setCurrentSearch({
-              component: <GoogleFactCheckData keyword={searchKey} />,
-              title: 'Google Fact Check',
-            });
+            setCurrentSearch('Google Fact Check');
           }}
         />
         <IconButton onClick={submitSearch} className={classes.iconButton}>
@@ -168,7 +165,7 @@ const FactCheckDrawerContent = ({
             role-="button"
             variant="outlined"
             className={
-              value.buttonTitle !== currentSearch.title
+              value.buttonTitle !== currentSearch
                 ? classes.button
                 : classes.selectedButton
             }
@@ -179,7 +176,7 @@ const FactCheckDrawerContent = ({
         ))}
       </div>
       <div className={classes.resultsContainer}>
-        {search ? currentSearch.component : <div />}
+        {search ? <div>{getSearch(currentSearch)}</div> : <div />}
       </div>
     </div>
   );

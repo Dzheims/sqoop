@@ -14,6 +14,7 @@ import { Autocomplete, TextField } from '@mui/material';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import SearchIcon from '@material-ui/icons/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { CategorySharp } from '@material-ui/icons';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -23,7 +24,6 @@ import NewsAPIColumnData from '../../../../pages/Boards/NewsAPIColumnData';
 import { Category } from '../../../../types.generated';
 import { ResultsContainer } from '../../../../pages/Boards/ColumnsStyle';
 import NewsSourcesData from '../NewsApiFeedForm/NewsSourcesData';
-import { CategorySharp } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -180,9 +180,9 @@ const Search = () => {
           <Droppable droppableId="droppable">
             {(provided, snapshot) => (
               <ResultsContainer
+                // ref={provided.innerRef}
                 className={classes.resultsContainer}
                 {...provided.droppableProps}
-                ref={provided.innerRef}
                 isDragging={snapshot.isDraggingOver}
               >
                 <NewsAPIColumnData
