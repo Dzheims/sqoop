@@ -10,102 +10,103 @@ type DefaultColumnContentStylesProps = {
   feedType: string;
 };
 
-export const useStyles = makeStyles(() => ({
-  avatars: {
-    height: '40px',
-    width: '40px',
-    marginRight: '10px',
-  },
-  imageContainer: {
-    height: '120px',
-    width: 'auto',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundColor: 'gray',
-  },
-  description: {
-    padding: '10px',
-    fontSize: '14px',
-    color: 'black',
-  },
-  dateAndUserName: {
-    fontSize: '14px',
-    color: 'gray',
-  },
-  imageList: {
-    marginTop: '10px',
-    width: 'auto',
-    height: '150px',
-    '&::-webkit-scrollbar': {
-      width: '0.4em',
+export const useStyles = () =>
+  makeStyles(() => ({
+    twitterIcon: {
+      height: '20px',
+      width: '20px',
+      marginLeft: 'auto',
     },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(0,0,0,.1)',
-      borderRadius: 8,
+    verifiedIcon: {
+      height: '18px',
+      width: '18px',
+      marginLeft: '10px',
     },
-  },
-  twitterIcon: {
-    height: '20px',
-    width: '20px',
-    marginLeft: 'auto',
-  },
-  verifiedIcon: {
-    height: '18px',
-    width: '18px',
-    marginLeft: '10px',
-  },
-  link: {
-    textDecoration: 'none',
-  },
-  linkIcon: {
-    height: '20px',
-    width: '20px',
-    marginLeft: '215px',
-    marginTop: '5px',
-    color: 'white',
-  },
-  itemContainer: {
-    '&::-webkit-scrollbar': {
-      width: '0.4em',
+    profileAvatars: {
+      height: '40px',
+      width: '40px',
+      marginRight: '10px',
     },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(0,0,0,.1)',
-      borderRadius: 8,
+    imageContainer: {
+      height: '120px',
+      width: 'auto',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundColor: 'gray',
     },
-  },
-  buttonsContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  titleContainer: {
-    marginTop: '5px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    height: '40px',
-    alignItems: 'center',
-  },
-  delete: {
-    marginBottom: '5px',
-  },
-  iconButton: {
-    color: 'gray',
-    '&:hover': {
+    description: {
+      padding: '10px',
+      fontSize: '14px',
+      color: 'black',
+    },
+    dateAndUserName: {
+      fontSize: '14px',
+      color: 'gray',
+    },
+    imageList: {
+      marginTop: '10px',
+      width: 'auto',
+      height: '150px',
+      '&::-webkit-scrollbar': {
+        width: '0.4em',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(0,0,0,.1)',
+        borderRadius: 8,
+      },
+    },
+    link: {
+      textDecoration: 'none',
+    },
+    linkIcon: {
+      height: '20px',
+      width: '20px',
+      marginLeft: '215px',
+      marginTop: '5px',
+      color: 'white',
+    },
+    itemContainer: {
+      '&::-webkit-scrollbar': {
+        width: '0.4em',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(0,0,0,.1)',
+        borderRadius: 8,
+      },
+    },
+    buttonsContainer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    titleContainer: {
+      marginTop: '5px',
+      display: 'flex',
+      justifyContent: 'space-between',
+      height: '40px',
+      alignItems: 'center',
+    },
+    delete: {
+      marginBottom: '5px',
+    },
+    iconButton: {
+      color: 'gray',
+      '&:hover': {
+        color: theme.palette.secondary.main,
+      },
+    },
+    highlightBorder: {
+      border: '2px solid #f04b4c',
+      transition: 'border 0.25s ease-out',
+    },
+    border: {
+      border: 'thin solid lightgray',
+      transition: 'border 0.25s ease-out',
+    },
+    dialogTitle: {
       color: theme.palette.secondary.main,
     },
-  },
-  highlightBorder: {
-    border: '2px solid #f04b4c',
-    transition: 'border 0.25s ease-out',
-  },
-  border: {
-    border: 'thin solid lightgray',
-    transition: 'border 0.25s ease-out',
-  },
-  dialogTitle: {
-    color: theme.palette.secondary.main,
-  },
-}));
+  }));
 
 export const Item = styled.div`
   padding: 15px;

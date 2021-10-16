@@ -41,7 +41,9 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
       <Draggable draggableId={data.author_id as string} index={0}>
         {(provided, snapshot) => (
           <Item
-            className={highlightCard ? classes.highlightBorder : classes.border}
+            className={
+              highlightCard ? classes().highlightBorder : classes().border
+            }
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
@@ -51,7 +53,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
               <Avatar
                 alt={data.name as string}
                 src={data.profile_image_url as string}
-                className={classes.avatars}
+                className={classes().profileAvatars}
                 variant="circular"
               />
               <AccountNameContainer>
@@ -63,20 +65,20 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
                     <Avatar
                       alt="Verified"
                       src="https://www.pngitem.com/pimgs/m/3-38867_twitter-verified-badge-twitter-verified-icon-svg-hd.png"
-                      className={classes.verifiedIcon}
+                      className={classes().verifiedIcon}
                     />
                   ) : (
                     <div />
                   )}
                 </TwitterTitleContainer>
-                <Typography className={classes.dateAndUserName}>
+                <Typography className={classes().dateAndUserName}>
                   {'@' + data.username}
                 </Typography>
               </AccountNameContainer>
               <Avatar
                 alt="Twitter-logo"
                 src="https://static01.nyt.com/images/2014/08/10/magazine/10wmt/10wmt-superJumbo-v4.jpg"
-                className={classes.twitterIcon}
+                className={classes().twitterIcon}
               />
             </TwitterContentContainer>
             <Linkify
@@ -99,7 +101,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
               <div />
             ) : (
               <ImageList
-                className={classes.imageList}
+                className={classes().imageList}
                 rowHeight={140}
                 cols={itemListCols(data.photos?.length)}
               >
@@ -113,10 +115,10 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
                 ))}
               </ImageList>
             )}
-            <Typography className={classes.dateAndUserName}>
+            <Typography className={classes().dateAndUserName}>
               {formatTimeAndDate(data.created_at)}
             </Typography>
-            <div className={classes.buttonsContainer}>
+            <div className={classes().buttonsContainer}>
               <FactCheckButton
                 setHighlightCard={setHighlightCard}
                 suggestedKeywords={data.suggestedKeywords}

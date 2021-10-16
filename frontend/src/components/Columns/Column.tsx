@@ -185,7 +185,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
-                    <div className={classes.titleContainer}>
+                    <div className={classes().titleContainer}>
                       <Title>{value.title}</Title>
                       <IconButton
                         data-testid={value.title}
@@ -199,13 +199,13 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                       >
                         <CloseIcon
                           sx={{ height: '20px', width: '20px' }}
-                          className={classes.iconButton}
+                          className={classes().iconButton}
                         />
                       </IconButton>
                     </div>
                     <ItemContainer
                       key={index}
-                      className={classes.itemContainer}
+                      className={classes().itemContainer}
                       {...provided.droppableProps}
                       ref={provided.innerRef}
                       isDragging={snapshot.isDraggingOver}
@@ -227,7 +227,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
         open={warningDelete}
         onClose={handleCloseDialog}
       >
-        <DialogTitle className={classes.dialogTitle}>Warning!</DialogTitle>
+        <DialogTitle className={classes().dialogTitle}>Warning!</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Are you sure you want to delete <strong>{columnTitle}</strong>?

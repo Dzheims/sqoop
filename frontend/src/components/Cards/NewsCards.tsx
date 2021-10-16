@@ -33,7 +33,9 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
       <Draggable draggableId={data.publishedAt as string} index={0}>
         {(provided, snapshot) => (
           <Item
-            className={highlightCard ? classes.highlightBorder : classes.border}
+            className={
+              highlightCard ? classes().highlightBorder : classes().border
+            }
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
@@ -45,7 +47,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                   backgroundColor: randomColor(data.sourceName as string),
                   color: 'white',
                 }}
-                className={classes.avatars}
+                className={classes().profileAvatars}
               >
                 {data.sourceName?.charAt(0)}
               </Avatar>
@@ -59,7 +61,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
             {!data.urlToImage ? (
               <a
                 target="_blank"
-                className={classes.link}
+                className={classes().link}
                 href={data?.url as string}
               >
                 <Typography variant="body2">{data.title}</Typography>
@@ -70,32 +72,32 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                   style={{
                     backgroundImage: `url(${data.urlToImage})`,
                   }}
-                  className={classes.imageContainer}
+                  className={classes().imageContainer}
                 >
                   <a
                     target="_blank"
-                    className={classes.link}
+                    className={classes().link}
                     href={data?.url as string}
                   >
-                    <OpenInNewIcon className={classes.linkIcon} />
+                    <OpenInNewIcon className={classes().linkIcon} />
                   </a>
                 </div>
                 <a
                   target="_blank"
-                  className={classes.link}
+                  className={classes().link}
                   href={data?.url as string}
                 >
-                  <Typography className={classes.description}>
+                  <Typography className={classes().description}>
                     {data.title}
                   </Typography>
                 </a>
               </NewsAPIContentContainer>
             )}
             <br />
-            <Typography className={classes.dateAndUserName}>
+            <Typography className={classes().dateAndUserName}>
               {formatTimeAndDate(data.publishedAt)}
             </Typography>
-            <div className={classes.buttonsContainer}>
+            <div className={classes().buttonsContainer}>
               {/* <CardsAddToCollectionButton /> */}
               <FactCheckButton
                 setHighlightCard={setHighlightCard}
