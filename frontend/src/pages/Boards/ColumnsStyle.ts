@@ -102,6 +102,9 @@ export const useStyles = makeStyles(() => ({
     border: 'thin solid lightgray',
     transition: 'border 0.25s ease-out',
   },
+  dialogTitle: {
+    color: theme.palette.secondary.main,
+  },
 }));
 
 export const Item = styled.div`

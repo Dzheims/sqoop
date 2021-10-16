@@ -344,7 +344,8 @@ const AddNewsAPIFeedForm = ({
       />
       <div className={classes.button}>
         <Button
-          style={{ textTransform: 'none', borderRadius: '12px' }}
+          fullWidth
+          style={{ textTransform: 'none' }}
           disabled={disableCreateButton}
           type="submit"
           variant="contained"

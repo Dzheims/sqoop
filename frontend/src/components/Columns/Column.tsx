@@ -26,8 +26,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 import { IconButton } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import {
@@ -228,7 +227,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
         open={warningDelete}
         onClose={handleCloseDialog}
       >
-        <DialogTitle>Warning!</DialogTitle>
+        <DialogTitle className={classes.dialogTitle}>Warning!</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Are you sure you want to delete <strong>{columnTitle}</strong>?

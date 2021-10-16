@@ -5,21 +5,26 @@ import Button from '@material-ui/core/Button';
 import Cookies from 'js-cookie';
 import AUTH_TOKEN from '../../constants';
 import client from '../../apolloClient';
+import theme from '../../theme';
 
-const useStyles = makeStyles((theme) => ({
-  button: {
+const useStyles = makeStyles(() => ({
+  buttonContainer: {
+    padding: '5px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    height: '2.5vh',
+  },
+  button: {
     borderRadius: 0,
     color: 'black',
+    height: '30px',
     backgroundColor: '#FFFFFF',
     textTransform: 'none',
     textAlign: 'left',
     boxShadow: 'none',
     '&:hover': {
-      backgroundColor: '#eceeee',
+      backgroundColor: theme.palette.secondary.main,
+      color: 'white',
     },
   },
   // div: {
@@ -40,7 +45,7 @@ const Logout = () => {
   const handleManageAccount = async () => {};
 
   return (
-    <div>
+    <div className={classes.buttonContainer}>
       {/* <Button
         data-testid="btn-logout"
         type="submit"

@@ -12,6 +12,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
+
 import CollectionsList from '../Collections/CollectionsList';
 import {
   SaveContentToCollectionMutation,
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   },
   selectedIcon: {
     color: theme.palette.secondary.main,
+  },
+  dialogTitle: {
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -91,7 +95,9 @@ const CardsAddToCollectionButton = ({ id }: IDProps) => {
         </IconButton>
       </div>
       <Dialog open={isOpen} onClose={handleClickClose}>
-        <DialogTitle>Save Contents to Collection</DialogTitle>
+        <DialogTitle className={classes.dialogTitle}>
+          Save Contents to Collection
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Select a collection in which you would want to save the content.

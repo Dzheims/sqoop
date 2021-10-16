@@ -210,7 +210,8 @@ const AddTwitterFeedForm = ({
       />
       <div className={classes.button}>
         <Button
-          style={{ textTransform: 'none', borderRadius: '12px' }}
+          fullWidth
+          style={{ textTransform: 'none' }}
           type="submit"
           variant="contained"
           color="secondary"

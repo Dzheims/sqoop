@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useGetUserNameQuery } from './query.generated';
+import { truncateName } from '../Common/Functions/Functions';
 import currentUserId from '../../authentication/currentUserId';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     borderBottom: 'thin solid lightgray',
+    padding: '5px',
   },
 }));
 
@@ -24,8 +26,8 @@ const UserProfile = () => {
 
   return (
     <div className={classes.div}>
-      <Typography color="primary" variant="h5">
-        {data?.user?.username}
+      <Typography color="primary" style={{ fontSize: '18px' }}>
+        {truncateName(data?.user?.username as string, 12)}
       </Typography>
     </div>
   );

@@ -75,7 +75,10 @@ export const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     bgcolor: 'white',
-    minWidth: '15vh',
+    maxHeight: '200px',
+    minWidth: '200px',
+    overflow: 'hidden',
+    padding: '5px',
   },
   popover: {
     border: 'thin solid lightgray',
