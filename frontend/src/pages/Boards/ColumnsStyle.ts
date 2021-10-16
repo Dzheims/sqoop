@@ -94,6 +94,14 @@ export const useStyles = makeStyles(() => ({
       color: theme.palette.secondary.main,
     },
   },
+  highlightBorder: {
+    border: '2px solid #f04b4c',
+    transition: 'border 0.25s ease-out',
+  },
+  border: {
+    border: 'thin solid lightgray',
+    transition: 'border 0.25s ease-out',
+  },
 }));
 
 export const Item = styled.div`
@@ -108,8 +116,8 @@ export const Item = styled.div`
   & + & {
     margin-top: 4px;
   }
-  border: thin solid lightgray;
   overflow: hidden;
+  margin-bottom: 4px;
 `;
 
 export const ItemContainer = styled.div`
@@ -117,7 +125,7 @@ export const ItemContainer = styled.div`
     isDraggingOver ? '#f7fafc' : null};
   transition: background-color 0.2s ease;
   padding: 5px;
-  height: 81vh;
+  height: 81.5vh;
   overflow: auto;
 `;
 
@@ -125,7 +133,8 @@ export const DefaultItemContainer = styled.div<DefaultColumnContentStylesProps>`
   background-color: ${(props) => (props.isDragging ? '#f7fafc' : null)};
   transition: background-color 0.2s ease;
   padding: 5px;
-  height: ${(props) => (props.feedType === 'Twitter Feed' ? '81vh' : '72vh')};
+  height: ${(props) =>
+    props.feedType === 'Twitter Feed' ? '81vh' : '72.75vh'};
   overflow: auto;
 `;
 
@@ -164,7 +173,6 @@ export const NewsAPIContentContainer = styled.div`
 export const TwitterContentContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  padding: 5px;
 `;
 
 export const AccountNameContainer = styled.div`

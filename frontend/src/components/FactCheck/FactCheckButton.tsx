@@ -69,9 +69,13 @@ const useStyles = makeStyles((theme) => ({
 
 interface FactCheckProps {
   suggestedKeywords: any;
+  setHighlightCard: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const FactCheckButton = ({ suggestedKeywords }: FactCheckProps) => {
+const FactCheckButton = ({
+  suggestedKeywords,
+  setHighlightCard,
+}: FactCheckProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
@@ -97,6 +101,10 @@ const FactCheckButton = ({ suggestedKeywords }: FactCheckProps) => {
   useEffect(() => {
     setOpenDrawer(state.open);
   }, [state.open]);
+
+  useEffect(() => {
+    setHighlightCard(highlightButton);
+  }, [highlightButton]);
 
   const handleOpen = () => {
     if (suggestedKeywords === state.suggestedKeyWords) {
@@ -126,7 +134,10 @@ const FactCheckButton = ({ suggestedKeywords }: FactCheckProps) => {
           />
         }
         variant="outlined"
-        onClick={handleOpen}
+        onClick={() => {
+          handleOpen();
+          setHighlightCard(highlightButton);
+        }}
       >
         Fact Check
       </Button>

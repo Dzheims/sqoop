@@ -17,22 +17,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
 }: NewsAPIDataProps) => (
   <div>
     {data?.topHeadlines?.map((value, index) => (
-      <Draggable
-        draggableId={value.publishedAt as string}
-        index={index}
-        key={index}
-      >
-        {(provided, snapshot) => (
-          <Item
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-            isDragging={snapshot.isDragging}
-          >
-            <NewsCards data={value} />
-          </Item>
-        )}
-      </Draggable>
+      <NewsCards data={value} />
     ))}
   </div>
 );

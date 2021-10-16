@@ -21,18 +21,7 @@ const CollectionColumn: React.FC<CollectionContentsDataProps> = ({
 }: CollectionContentsDataProps) => (
   <div>
     {data?.collectionContents?.flatMap((value, index) => (
-      <Draggable draggableId={value.tweetId} index={index} key={index}>
-        {(provided, snapshot) => (
-          <Item
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            isDragging={snapshot.isDragging}
-          >
-            {getCollectionContentType(value)}
-          </Item>
-        )}
-      </Draggable>
+      <div>{getCollectionContentType(value)}</div>
     ))}
   </div>
 );
