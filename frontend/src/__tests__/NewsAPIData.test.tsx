@@ -87,17 +87,9 @@ const mocks: ReadonlyArray<MockedResponse> = [
 ];
 
 let documentBody: RenderResult;
-interface DrawerState {
-  data: any;
-  open: boolean;
-}
 
 describe('News API contents', () => {
   beforeEach(() => {
-    const [drawerState, setDrawerState] = useState<DrawerState>({
-      data: '',
-      open: false,
-    });
     documentBody = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <DragDropContext onDragEnd={() => {}}>
@@ -109,7 +101,6 @@ describe('News API contents', () => {
                   country=""
                   category={'GENERAL' as Category}
                   sources={null}
-                  setDrawerState={setDrawerState}
                 />
               </div>
             )}
