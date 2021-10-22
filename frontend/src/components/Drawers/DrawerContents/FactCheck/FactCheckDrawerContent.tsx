@@ -4,9 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, Button, InputBase, Paper, Chip } from '@material-ui/core';
-import Search from '@material-ui/icons/Search';
-import { Title } from '../../../../pages/Boards/ColumnsStyle';
+import { Typography, Button, InputBase, Paper, Chip } from '@material-ui/core';
 import VeraFactCheckData from '../../../FactCheck/VeraFactCheckData';
 import GoogleFactCheckData from '../../../FactCheck/GoogleFactCheckData';
 
@@ -14,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     alignItems: 'center',
     maxWidth: '270px',
-    margin: '10px',
+    margin: '5px 10px 10px 10px',
   },
   search: {
     padding: '2px 4px',
@@ -23,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     height: '40px',
     width: '250px',
     boxShadow: 'none',
-    marginTop: '10px',
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -61,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
   resultsContainer: {
     overflow: 'auto',
-    maxHeight: '310px',
+    maxHeight: '300px',
     padding: '5px',
     '&::-webkit-scrollbar': {
       width: '0.4em',
@@ -82,6 +79,11 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100px',
     marginLeft: '5px',
     marginTop: '5px',
+  },
+  suggestedKeyword: {
+    padding: '3px',
+    fontSize: '11px',
+    color: 'gray',
   },
 }));
 
@@ -120,13 +122,12 @@ const FactCheckDrawerContent = ({
     },
   ];
 
-  const submitSearch = () => {
-    setSearch(true);
-  };
+  useEffect(() => {
+    searchKey;
+  });
 
   return (
     <div className={classes.container}>
-      <Title>Fact Check</Title>
       <Paper variant="outlined" component="form" className={classes.search}>
         <InputBase
           inputProps={{ 'aria-label': 'Search' }}
@@ -136,25 +137,32 @@ const FactCheckDrawerContent = ({
           onChange={(e) => {
             setSearchKey(e.target.value);
             setSearch(false);
-            setCurrentSearch('Google Fact Check');
+            setCurrentSearch(currentSearch);
+          }}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              setSearch(true);
+            } else setSearch(false);
           }}
         />
-        <IconButton onClick={submitSearch} className={classes.iconButton}>
-          <Search />
-        </IconButton>
       </Paper>
       <div className={classes.chipsContainer}>
+        <Typography className={classes.suggestedKeyword}>
+          Suggested Keywords
+        </Typography>
         {suggestedKeyWords ? (
-          suggestedKeyWords
-            .slice(0, 6)
-            .map((keyword: string) => (
-              <Chip
-                className={classes.chips}
-                onClick={() => setSearchKey(keyword)}
-                variant="outlined"
-                label={keyword}
-              />
-            ))
+          suggestedKeyWords.slice(0, 6).map((keyword: string) => (
+            <Chip
+              className={classes.chips}
+              onClick={() => {
+                setSearch(true);
+                setSearchKey(keyword);
+              }}
+              variant="outlined"
+              label={keyword}
+            />
+          ))
         ) : (
           <div />
         )}
