@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -94,6 +94,7 @@ export interface DrawerState {
 
 const Homepage = () => {
   const classes = useStyles();
+  const ref = useRef<HTMLDivElement>(null);
   const [category, setCategory] = useState('GENERAL');
   const history = useHistory();
 
@@ -172,13 +173,18 @@ const Homepage = () => {
     },
   ];
 
+  const handleScroll = (scrollOffset: number) => {
+    if (ref.current) ref.current.scrollLeft += scrollOffset;
+  };
+
   return (
     <div className={classes.root}>
       <DrawerStateProvider value={{ suggestedKeyWords: [], open: false }}>
         <NavigationBar />
         <Toolbar />
         <FactCheck />
-        <div className={classes.columnContainers}>
+        <div ref={ref} className={classes.columnContainers}>
+          <Button onClick={() => handleScroll(200)}>Scroll</Button>
           <div className={classes.defaultFeeds}>
             <DragDropContext onDragEnd={onDragEnd}>
               {defaultColumns.map((column) => (
@@ -228,6 +234,7 @@ const Homepage = () => {
             </DragDropContext>
           </div>
           <ColumnsData />
+          <Button onClick={() => handleScroll(-200)}>Scroll</Button>
         </div>
       </DrawerStateProvider>
     </div>
