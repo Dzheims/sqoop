@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { Button, TextField, Snackbar, IconButton } from '@material-ui/core';
@@ -63,6 +63,21 @@ const AddCollectionForm = ({
     title: '',
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [titleError, setTitleError] = useState<string>('');
+
+  const setErrorInForm = (input: string | undefined): boolean => {
+    if (input === '' || input === undefined) return false;
+    return true;
+  };
+
+  function validateTitle(title: string) {
+    if (!title) {
+      return 'Title must not be empty';
+    }
+    return '';
+  }
+
   const [disableCreateButton, setdisableCreateButton] = useState(false);
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,8 +124,15 @@ const AddCollectionForm = ({
     ],
   });
 
+  useEffect(() => {
+    if (isSubmitting) setTitleError(validateTitle(collectionForm.title));
+  }, [collectionForm.title, isSubmitting]);
+
   const handleSubmit = () => {
-    createNewCollection();
+    setIsSubmitting(true);
+    if (collectionForm.title) {
+      createNewCollection();
+    }
   };
 
   return (
@@ -125,6 +147,8 @@ const AddCollectionForm = ({
         required
         fullWidth
         onChange={onTitleChange}
+        error={setErrorInForm(titleError || '')}
+        helperText={titleError}
       />
       <div className={classes.button}>
         <Button

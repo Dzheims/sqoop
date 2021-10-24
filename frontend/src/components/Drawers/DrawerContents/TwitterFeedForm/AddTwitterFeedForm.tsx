@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -65,6 +65,21 @@ const AddTwitterFeedForm = ({
   const history = useHistory();
   const classes = useStyles();
   const [source, setSource] = useState({ label: '', username: '' });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [titleError, setTitleError] = useState<string>('');
+
+  const setErrorInForm = (input: string | undefined): boolean => {
+    if (input === '' || input === undefined) return false;
+    return true;
+  };
+
+  function validateTitle(title: string) {
+    if (!title) {
+      return 'Title must not be empty';
+    }
+    return '';
+  }
 
   const [twitterFeedForm, setTwitterFeedForm] =
     useState<CreateTwitterFeedInput>({
@@ -141,8 +156,16 @@ const AddTwitterFeedForm = ({
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
 
+  useEffect(() => {
+    if (isSubmitting)
+      setTitleError(validateTitle(twitterFeedForm.twitterFeed.title));
+  }, [twitterFeedForm.twitterFeed.title, isSubmitting]);
+
   const handleSubmit = () => {
-    createFeed();
+    setIsSubmitting(true);
+    if (twitterFeedForm.twitterFeed.title) {
+      createFeed();
+    }
   };
 
   return (
@@ -157,6 +180,8 @@ const AddTwitterFeedForm = ({
         required
         fullWidth
         onChange={onTitleChange}
+        error={setErrorInForm(titleError || '')}
+        helperText={titleError}
       />
       <TextField
         id="Keywords"
@@ -165,7 +190,6 @@ const AddTwitterFeedForm = ({
         variant="outlined"
         margin="dense"
         size="small"
-        required
         fullWidth
         onChange={onKeywordChange}
       />
@@ -203,7 +227,6 @@ const AddTwitterFeedForm = ({
             variant="outlined"
             margin="dense"
             size="small"
-            required
             fullWidth
           />
         )}

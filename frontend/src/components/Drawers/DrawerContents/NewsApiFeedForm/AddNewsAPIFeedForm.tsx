@@ -111,6 +111,21 @@ const AddNewsAPIFeedForm = ({
 
   const [disableCreateButton, setdisableCreateButton] = useState(false);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [titleError, setTitleError] = useState<string>('');
+
+  const setErrorInForm = (input: string | undefined): boolean => {
+    if (input === '' || input === undefined) return false;
+    return true;
+  };
+
+  function validateTitle(title: string) {
+    if (!title) {
+      return 'Title must not be empty';
+    }
+    return '';
+  }
+
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { value } = e.target;
@@ -227,9 +242,17 @@ const AddNewsAPIFeedForm = ({
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
 
+  useEffect(() => {
+    if (isSubmitting) setTitleError(validateTitle(newsFeedForm.newsFeed.title));
+  }, [newsFeedForm, isSubmitting]);
+
   const handleSubmit = () => {
-    createFeed();
+    setIsSubmitting(true);
+    if (newsFeedForm.newsFeed.title) {
+      createFeed();
+    }
   };
+
   const handleClose = () => {};
 
   return (
@@ -244,6 +267,8 @@ const AddNewsAPIFeedForm = ({
         required
         fullWidth
         onChange={onTitleChange}
+        error={setErrorInForm(titleError || '')}
+        helperText={titleError}
       />
       <FormControl
         variant="outlined"
@@ -300,7 +325,6 @@ const AddNewsAPIFeedForm = ({
             variant="outlined"
             margin="dense"
             size="small"
-            required
             fullWidth
           />
         )}
@@ -312,7 +336,6 @@ const AddNewsAPIFeedForm = ({
         variant="outlined"
         margin="dense"
         size="small"
-        required
         fullWidth
         onChange={onKeywordChange}
       />
@@ -337,7 +360,6 @@ const AddNewsAPIFeedForm = ({
             variant="outlined"
             margin="dense"
             size="small"
-            required
             fullWidth
           />
         )}
