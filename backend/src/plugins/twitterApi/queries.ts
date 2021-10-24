@@ -97,6 +97,80 @@ export const resolvers = {
         : [];
       return searchTweets;
     },
+    searchAllTweets: async (_: any, args: any, context: any) => {
+      const { keyword, sources, fromDate, toDate } = args;
+      const { pgClient, jwtClaims } = context;
+      if (!jwtClaims) throw new Error();
+
+      const { rows } = await pgClient.query(
+        `SELECT account_username FROM twitter_accounts`
+      );
+      const defaultSources: string[] = rows.map(
+        (value: twitter_account_username) => value.account_username
+      );
+      const queryParams = new URLSearchParams();
+      queryParams.set(
+        'query',
+        queryFormatter({
+          sources: sources || defaultSources.slice(0, 10),
+          keyword: keyword || '',
+        })
+      );
+      queryParams.set('maxResults', '100');
+      if (fromDate) queryParams.set('fromDate', fromDate);
+      if (toDate) queryParams.set('toDate', toDate);
+
+      const response = await fetch(
+        `https://api.twitter.com/1.1/tweets/search/30day/dev.json?${queryParams}`,
+        {
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${process.env.BEARER_TOKEN}`,
+          },
+        }
+      );
+      const result = await response.json();
+
+      if (result.error) throw new Error(result.error.message);
+
+      const searchTweets = result.results
+        ? result.results.map((tweet: any) => {
+            const suggestedKeywords = keyword_extractor.extract(tweet.text, {
+              language: 'english',
+              remove_digits: true,
+              return_changed_case: true,
+              remove_duplicates: true,
+            });
+            const photos = tweet.entities.media
+              ? tweet.entities.media.map((media: any) => {
+                  const { media_url, id_str, type } = media;
+                  return { url: media_url, media_key: id_str, type };
+                })
+              : [];
+            const {
+              id: author_id,
+              screen_name: username,
+              name,
+              verified,
+              profile_image_url,
+            } = tweet.user;
+            const { id_str: id, created_at, text } = tweet;
+            return {
+              id,
+              created_at,
+              text,
+              author_id,
+              username,
+              name,
+              verified,
+              profile_image_url,
+              photos,
+              suggestedKeywords,
+            };
+          })
+        : [];
+      return searchTweets;
+    },
     tweetLookup: async (_: any, args: tweetLookupParams, context: any) => {
       const { id } = args;
       const { jwtClaims } = context;

@@ -497,6 +497,12 @@ type Query implements Node {
   topHeadlinesSources(country: String = "us", category: Category): [Source!]!
   searchArticles(keyword: String): [Article!]!
   searchTweets(keyword: [String], sources: [String]): [Tweet!]!
+  searchAllTweets(
+    keyword: [String]
+    sources: [String]
+    fromDate: String
+    toDate: String
+  ): [Tweet!]!
   tweetLookup(id: String!): Tweet!
   veraFilesFactCheck(keyword: String): [VeraFiles!]!
   googleFactCheckSearch(keyword: String): [Claim!]!
