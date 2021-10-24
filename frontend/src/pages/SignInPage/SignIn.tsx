@@ -11,6 +11,7 @@ import { ApolloError, useMutation } from '@apollo/client';
 import SIGN_IN_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
 import Cookies from 'js-cookie';
+import { FormValues, validate } from './SignInValidation';
 import { SigninMutation, SigninMutationVariables } from './query.generated';
 import { SigninInput } from '../../types.generated';
 
@@ -43,12 +44,23 @@ const SignIn = () => {
     password: '',
   });
 
+  const [errors, setErrors] = useState<FormValues>();
+  // const [jwtIsNull, setJwtIsNull] = useState<boolean>(false);
+
+  const setErrorInForm = (input: string | undefined): boolean => {
+    if (input === '' || input === undefined) return false;
+    return true;
+  };
+
   const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { value } = e.target;
     setLoginInput({
       ...loginInput,
       userName: value,
+    });
+    setErrors({
+      ...errors,
     });
   };
 
@@ -74,6 +86,8 @@ const SignIn = () => {
         if (signin?.jwtToken) {
           Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
           history.push('/');
+        } else {
+          // setJwtIsNull(true);
         }
       },
     }
@@ -81,6 +95,7 @@ const SignIn = () => {
 
   const handleSubmit = () => {
     signIn();
+    setErrors(validate(loginInput));
   };
 
   return (
@@ -100,6 +115,8 @@ const SignIn = () => {
             fullWidth
             autoFocus
             onChange={onUserNameChange}
+            error={setErrorInForm(errors?.userName || '')}
+            helperText={errors?.userName}
           />
           <TextField
             inputProps={{ 'data-testid': 'Password' }}
@@ -112,6 +129,8 @@ const SignIn = () => {
             required
             fullWidth
             onChange={onPasswordChange}
+            error={setErrorInForm(errors?.password || '')}
+            helperText={errors?.password}
           />
           <Button
             fullWidth
