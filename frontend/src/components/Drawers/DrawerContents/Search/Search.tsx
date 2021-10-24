@@ -109,10 +109,13 @@ const Search = () => {
               setKeyword(e.target.value);
               setSearch(false);
             }}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                setSearch(true);
+              } else setSearch(false);
+            }}
           />
-          <IconButton onClick={submitSearch} className={classes.iconButton}>
-            <SearchIcon />
-          </IconButton>
         </Paper>
       </div>
       <div>

@@ -151,6 +151,25 @@ const SignUp = () => {
     if (triggerSubmit) validateSignUp();
   }, [signupInput, triggerSubmit]);
 
+  const passwordStrengthIndicator = () => {
+    if (signupInput.password) {
+      if (signupInput.password?.length < 8)
+        return (
+          <text style={{ color: 'red' }}>
+            <span style={{ fontWeight: 600 }}>Weak Password.</span> It must be a
+            minimum of 8 characters
+          </text>
+        );
+      if (signupInput.password?.length > 8)
+        return (
+          <text style={{ color: 'green' }}>
+            <span style={{ fontWeight: 600 }}>Strong Password.</span> Great!
+          </text>
+        );
+    }
+    return '';
+  };
+
   return (
     <Grid container component="main" className={classes.root}>
       <Grid item xs={false} sm={5} md={7} className={classes.image} />
@@ -185,7 +204,9 @@ const SignUp = () => {
               fullWidth
               onChange={onPasswordChange}
               error={setErrorInForm(errors?.password || '')}
-              helperText={errors?.password}
+              helperText={
+                isSubmitting ? errors?.password : passwordStrengthIndicator()
+              }
             />
             <TextField
               label="Confirm Password"
