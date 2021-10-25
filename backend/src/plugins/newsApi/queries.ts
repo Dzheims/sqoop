@@ -10,6 +10,9 @@ interface topHeadlinesParams {
 
 interface searchArticlesParams {
   keyword: string;
+  sources: string;
+  from: string;
+  to: string;
 }
 
 export const resolvers = {
@@ -42,7 +45,12 @@ export const resolvers = {
       if (result.status === 'error') throw Error(result.message);
 
       const articles = result.articles.map((article: any) => {
-        const { source, title, description, ...subArticle } = article;
+        const {
+          source: { id: sourceId, name: sourceName },
+          title,
+          description,
+          ...subArticle
+        } = article;
         const suggestedKeywords = keyword_extractor.extract(
           description || title,
           {
@@ -57,7 +65,8 @@ export const resolvers = {
           description,
           title,
           suggestedKeywords,
-          ...{ sourceId: source.id, sourceName: source.name },
+          sourceId,
+          sourceName,
         };
       });
       return articles;
@@ -89,11 +98,15 @@ export const resolvers = {
       args: searchArticlesParams,
       context: any
     ) => {
-      let { keyword } = args;
+      let { keyword, from, to } = args;
       const { jwtClaims } = context;
       if (!jwtClaims) throw new Error('Unauthorized user');
+
       const queryParams = new URLSearchParams();
       queryParams.set('q', keyword || '');
+      queryParams.set('from', from);
+      queryParams.set('to', to);
+
       const response = await fetch(
         `https://newsapi.org/v2/everything?${queryParams}`,
         {
@@ -108,7 +121,12 @@ export const resolvers = {
       if (result.status === 'error') throw new Error(result.message);
 
       const articles = result.articles.map((article: any) => {
-        const { source, title, description, ...subArticle } = article;
+        const {
+          source: { id: sourceId, name: sourceName },
+          title,
+          description,
+          ...subArticle
+        } = article;
         const suggestedKeywords = keyword_extractor.extract(
           description || title,
           {
@@ -123,7 +141,8 @@ export const resolvers = {
           description,
           title,
           suggestedKeywords,
-          ...{ sourceId: source.id, sourceName: source.name },
+          sourceId,
+          sourceName,
         };
       });
       return articles;
