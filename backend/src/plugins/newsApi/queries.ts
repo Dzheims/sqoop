@@ -98,12 +98,13 @@ export const resolvers = {
       args: searchArticlesParams,
       context: any
     ) => {
-      let { keyword, from, to } = args;
+      let { keyword, sources, from, to } = args;
       const { jwtClaims } = context;
       if (!jwtClaims) throw new Error('Unauthorized user');
 
       const queryParams = new URLSearchParams();
-      queryParams.set('q', keyword || '');
+      queryParams.set('q', keyword);
+      queryParams.set('sources', sources || '');
       queryParams.set('from', from);
       queryParams.set('to', to);
 

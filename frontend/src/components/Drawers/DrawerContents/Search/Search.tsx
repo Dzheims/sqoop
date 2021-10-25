@@ -20,7 +20,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import NewsAPIColumnData from '../../../../pages/Boards/NewsAPIColumnData';
+import SearchNewsAPIColumnData from './SearchNewsApiColumnData';
 import { Category } from '../../../../types.generated';
 import { ResultsContainer } from '../../../../pages/Boards/ColumnsStyle';
 import NewsSourcesData from '../NewsApiFeedForm/NewsSourcesData';
@@ -185,9 +185,9 @@ const Search = () => {
                 {...provided.droppableProps}
                 isDragging={snapshot.isDraggingOver}
               >
-                <NewsAPIColumnData
-                  country=""
-                  category={category as Category}
+                <SearchNewsAPIColumnData
+                  from={null}
+                  to={null}
                   keyword={keyword}
                   sources={newsSource.id === '' ? null : newsSource.id}
                 />
