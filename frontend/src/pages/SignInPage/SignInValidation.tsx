@@ -10,7 +10,7 @@ export interface FormValues {
 //   jwtIsNull?: Maybe<boolean>;
 // }
 
-export function validate(value: SigninInput) {
+export function validate(value: SigninInput, jwtIsNull: boolean) {
   const errors = {
     userName: '',
     password: '',
@@ -22,8 +22,8 @@ export function validate(value: SigninInput) {
   if (!value.password) {
     errors.password = 'Please enter your password';
   }
-  //   if (jwtIsNull) {
-  //     errors.nullMessage = 'User does not exist';
-  //   }
+  if (jwtIsNull && value.userName && value.password) {
+    errors.userName = 'Invalid username or password';
+  }
   return errors;
 }

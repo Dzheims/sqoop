@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -45,7 +45,8 @@ const SignIn = () => {
   });
 
   const [errors, setErrors] = useState<FormValues>();
-  // const [jwtIsNull, setJwtIsNull] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [jwtIsNull, setJwtIsNull] = useState<boolean>(true);
 
   const setErrorInForm = (input: string | undefined): boolean => {
     if (input === '' || input === undefined) return false;
@@ -84,18 +85,24 @@ const SignIn = () => {
       },
       onCompleted: ({ signin }) => {
         if (signin?.jwtToken) {
+          setJwtIsNull(false);
           Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
           history.push('/');
         } else {
-          // setJwtIsNull(true);
+          setJwtIsNull(true);
         }
       },
     }
   );
 
+  useEffect(() => {
+    if (isSubmitting) setErrors(validate(loginInput, jwtIsNull));
+  }, [loginInput, isSubmitting]);
+
   const handleSubmit = () => {
+    setIsSubmitting(true);
     signIn();
-    setErrors(validate(loginInput));
+    setErrors(validate(loginInput, jwtIsNull));
   };
 
   return (
