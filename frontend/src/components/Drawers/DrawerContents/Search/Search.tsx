@@ -1,81 +1,35 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
-  IconButton,
+  Button,
   InputBase,
   Paper,
   FormControl,
   MenuItem,
   Select,
   InputLabel,
+  Box,
 } from '@material-ui/core';
-import { Autocomplete, TextField } from '@mui/material';
+import {
+  Autocomplete,
+  TextField,
+  Typography,
+  AccordionSummary,
+  AccordionDetails,
+  Accordion,
+} from '@mui/material';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import SearchIcon from '@material-ui/icons/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { CategorySharp } from '@material-ui/icons';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
+import useStyles from './SearchStyles';
 import NewsAPIColumnData from '../../../../pages/Boards/NewsAPIColumnData';
-import { Category } from '../../../../types.generated';
+import {
+  Category,
+  TwitterLocalSourcesOrderBy,
+} from '../../../../types.generated';
 import { ResultsContainer } from '../../../../pages/Boards/ColumnsStyle';
 import NewsSourcesData from '../NewsApiFeedForm/NewsSourcesData';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'block',
-    alignItems: 'center',
-    justify: 'center',
-  },
-  input: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-  iconButton: {
-    padding: 10,
-    color: theme.palette.secondary.main,
-  },
-  filterIcon: {
-    color: 'gray',
-  },
-  filterText: { fontColor: 'gray', fontSize: '14px' },
-  summaryContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  search: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    height: '40px',
-    width: '260px',
-    boxShadow: 'none',
-    marginTop: '10px',
-  },
-  searchContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justify: 'space-between',
-  },
-  resultsContainer: {
-    minHeight: '100px',
-    maxHeight: '400px',
-    '&::-webkit-scrollbar': {
-      width: '0.4em',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(0,0,0,.1)',
-      borderRadius: 8,
-    },
-  },
-  formControl: {
-    minWidth: 120,
-  },
-}));
+import TwitterSourcesData from '../TwitterFeedForm/TwitterSourcesData';
 
 const accordionStyle = {
   backgroundColor: '#f7fafc',
@@ -84,18 +38,36 @@ const accordionStyle = {
 
 const Search = () => {
   const classes = useStyles();
-
   const [keyword, setKeyword] = useState('');
   const [search, setSearch] = useState(false);
   const [category, setCategory] = useState('GENERAL' as Category);
+  const [currentSearch, setCurrentSearch] = useState('News');
+  const [disable, setDisable] = useState({ news: false, twitter: true });
   const [newsSource, setNewsSource] = useState({
     name: '',
     id: '',
   });
+  const [twitterSource, setTwitterSource] = useState({
+    accountName: '',
+    accountUsername: '',
+  });
 
-  const submitSearch = () => {
-    setSearch(true);
-  };
+  const searchOptions = [
+    {
+      buttonTitle: 'News',
+      onClick: () => {
+        setCurrentSearch('News');
+        setDisable({ news: false, twitter: true });
+      },
+    },
+    {
+      buttonTitle: 'Twitter',
+      onClick: () => {
+        setCurrentSearch('Twitter');
+        setDisable({ news: true, twitter: false });
+      },
+    },
+  ];
 
   return (
     <div className={classes.root}>
@@ -118,6 +90,22 @@ const Search = () => {
           />
         </Paper>
       </div>
+      <div className={classes.buttonContainer}>
+        {searchOptions.map((value) => (
+          <Button
+            role-="button"
+            variant="outlined"
+            className={
+              value.buttonTitle !== currentSearch
+                ? classes.button
+                : classes.selectedButton
+            }
+            onClick={value.onClick}
+          >
+            {value.buttonTitle}
+          </Button>
+        ))}
+      </div>
       <div>
         <Accordion style={accordionStyle}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -127,54 +115,93 @@ const Search = () => {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            <FormControl
-              variant="outlined"
-              margin="dense"
-              size="small"
-              fullWidth
-              className={classes.formControl}
-            >
-              <InputLabel>Categories</InputLabel>
-              <Select
-                defaultValue=""
-                label="Category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value as Category)}
+            <div>
+              <FormControl
+                variant="outlined"
+                margin="dense"
+                size="small"
+                disabled={disable.news}
+                fullWidth
+                className={classes.formControl}
               >
-                <MenuItem value={Category.Business}>Business</MenuItem>
-                <MenuItem value={Category.Entertainment}>
-                  Entertainment
-                </MenuItem>
-                <MenuItem value={Category.General}>General</MenuItem>
-                <MenuItem value={Category.Health}>Health</MenuItem>
-                <MenuItem value={Category.Science}>Science</MenuItem>
-                <MenuItem value={Category.Sports}>Sports</MenuItem>
-                <MenuItem value={Category.Technology}>Technology</MenuItem>
-              </Select>
-            </FormControl>
-            <Autocomplete
-              id="Sources"
-              disableClearable
-              value={newsSource}
-              onChange={(event, newValue) => {
-                setNewsSource({ name: newValue.name, id: newValue.id });
-              }}
-              size="small"
-              options={NewsSourcesData() || []}
-              getOptionLabel={(option) => option.name}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  id="Sources"
-                  label="Sources"
-                  placeholder="Sources"
-                  variant="outlined"
-                  size="small"
-                  required
-                  fullWidth
-                />
-              )}
-            />
+                <InputLabel>Categories</InputLabel>
+                <Select
+                  defaultValue=""
+                  label="Category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value as Category)}
+                >
+                  <MenuItem value={Category.Business}>Business</MenuItem>
+                  <MenuItem value={Category.Entertainment}>
+                    Entertainment
+                  </MenuItem>
+                  <MenuItem value={Category.General}>General</MenuItem>
+                  <MenuItem value={Category.Health}>Health</MenuItem>
+                  <MenuItem value={Category.Science}>Science</MenuItem>
+                  <MenuItem value={Category.Sports}>Sports</MenuItem>
+                  <MenuItem value={Category.Technology}>Technology</MenuItem>
+                </Select>
+              </FormControl>
+              <Autocomplete
+                id="Sources"
+                disableClearable
+                disabled={disable.news}
+                value={newsSource}
+                onChange={(event, newValue) => {
+                  setNewsSource({ name: newValue.name, id: newValue.id });
+                }}
+                size="small"
+                options={NewsSourcesData() || []}
+                getOptionLabel={(option) => option.name}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    id="News Sourcesces"
+                    label="News Sources"
+                    placeholder="News Sources"
+                    variant="outlined"
+                    size="small"
+                    required
+                    fullWidth
+                  />
+                )}
+              />
+              <Autocomplete
+                id="sources"
+                disableClearable
+                value={twitterSource}
+                disabled={disable.twitter}
+                onChange={(event, newValue) => {
+                  setTwitterSource(newValue);
+                }}
+                size="small"
+                options={TwitterSourcesData() || []}
+                getOptionLabel={(option) => option.accountName}
+                renderOption={(props, option) => (
+                  <Box component="li" {...props}>
+                    <div className={classes.options}>
+                      <Typography>{option.accountName}</Typography>
+                      <Typography className={classes.optionsUsername}>
+                        @{option.accountUsername}
+                      </Typography>
+                    </div>
+                  </Box>
+                )}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    id="Twitter Sources"
+                    label="Twitter Sources"
+                    placeholder="Twitter Sources"
+                    variant="outlined"
+                    margin="dense"
+                    size="small"
+                    required
+                    fullWidth
+                  />
+                )}
+              />
+            </div>
           </AccordionDetails>
         </Accordion>
       </div>
