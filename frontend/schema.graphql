@@ -503,7 +503,7 @@ type Query implements Node {
   ): [Article!]!
   searchTweets(keyword: [String], sources: [String]): [Tweet!]!
   searchAllTweets(
-    keyword: [String]
+    keyword: [String!]!
     sources: [String]
     fromDate: String
     toDate: String

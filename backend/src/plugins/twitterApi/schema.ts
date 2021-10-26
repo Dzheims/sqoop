@@ -26,7 +26,7 @@ export const typeDefs = gql`
   extend type Query {
     searchTweets(keyword: [String], sources: [String]): [Tweet!]!
     searchAllTweets(
-      keyword: [String]
+      keyword: [String!]!
       sources: [String]
       fromDate: String
       toDate: String

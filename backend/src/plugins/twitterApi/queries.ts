@@ -38,7 +38,8 @@ export const resolvers = {
     searchTweets: async (_: any, args: searchParams, context: any) => {
       const { keyword, sources } = args;
       const { pgClient, jwtClaims } = context;
-      if (!jwtClaims) throw new Error();
+      if (!jwtClaims) throw new Error('Unauthorized user');
+
       const { rows } = await pgClient.query(
         `SELECT account_username FROM twitter_accounts`
       );
@@ -66,6 +67,9 @@ export const resolvers = {
         options
       );
       const result = await response.json();
+
+      if (result.error) throw new Error(result.error.message);
+
       const searchTweets = result.data
         ? result.data.map((tweet: any) => {
             const suggestedKeywords = keyword_extractor.extract(tweet.text, {
@@ -100,7 +104,7 @@ export const resolvers = {
     searchAllTweets: async (_: any, args: any, context: any) => {
       const { keyword, sources, fromDate, toDate } = args;
       const { pgClient, jwtClaims } = context;
-      if (!jwtClaims) throw new Error();
+      if (!jwtClaims) throw new Error('Unauthorized user');
 
       const { rows } = await pgClient.query(
         `SELECT account_username FROM twitter_accounts`
@@ -112,7 +116,7 @@ export const resolvers = {
       queryParams.set(
         'query',
         queryFormatter({
-          sources: sources || defaultSources.slice(0, 10),
+          sources: sources || defaultSources.slice(19, 26),
           keyword: keyword || '',
         })
       );
@@ -133,7 +137,7 @@ export const resolvers = {
 
       if (result.error) throw new Error(result.error.message);
 
-      const searchTweets = result.results
+      const searchAllTweets = result.results
         ? result.results.map((tweet: any) => {
             const suggestedKeywords = keyword_extractor.extract(tweet.text, {
               language: 'english',
@@ -169,12 +173,13 @@ export const resolvers = {
             };
           })
         : [];
-      return searchTweets;
+      return searchAllTweets;
     },
     tweetLookup: async (_: any, args: tweetLookupParams, context: any) => {
       const { id } = args;
       const { jwtClaims } = context;
-      if (!jwtClaims) throw new Error();
+      if (!jwtClaims) throw new Error('Unauthorized user');
+
       const queryParams = new URLSearchParams();
       queryParams.set('expansions', 'attachments.media_keys,author_id');
       queryParams.set('tweet.fields', 'created_at');
@@ -188,6 +193,9 @@ export const resolvers = {
         options
       );
       const result = await response.json();
+
+      if (result.error) throw new Error(result.error.message);
+
       const tweet = result.data;
       const photos = result.includes.media || [];
       const {
