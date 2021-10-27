@@ -27,6 +27,7 @@ import {
   Category,
   TwitterLocalSourcesOrderBy,
 } from '../../../../types.generated';
+import SearchNewsAPIColumnData from './SearchNewsApiColumnData';
 import { ResultsContainer } from '../../../../pages/Boards/ColumnsStyle';
 import NewsSourcesData from '../NewsApiFeedForm/NewsSourcesData';
 import TwitterSourcesData from '../TwitterFeedForm/TwitterSourcesData';
@@ -215,9 +216,9 @@ const Search = () => {
                 {...provided.droppableProps}
                 isDragging={snapshot.isDraggingOver}
               >
-                <NewsAPIColumnData
-                  country=""
-                  category={category as Category}
+                <SearchNewsAPIColumnData
+                  from={null}
+                  to={null}
                   keyword={keyword}
                   sources={newsSource.id === '' ? null : newsSource.id}
                 />

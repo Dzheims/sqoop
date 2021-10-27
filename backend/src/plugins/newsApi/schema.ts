@@ -37,6 +37,12 @@ export const typeDefs = gql`
       keyword: String
     ): [Article!]!
     topHeadlinesSources(country: String = "us", category: Category): [Source!]!
+    searchArticles(
+      keyword: String!
+      sources: String
+      from: String
+      to: String
+    ): [Article!]!
   }
 `;
 
