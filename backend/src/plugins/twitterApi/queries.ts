@@ -50,7 +50,7 @@ export const resolvers = {
       queryParams.set(
         'query',
         queryFormatter({
-          sources: sources || defaultSources,
+          sources: sources || defaultSources.slice(0, 26),
           keyword: keyword || '',
         })
       );
@@ -67,7 +67,7 @@ export const resolvers = {
         options
       );
       const result = await response.json();
-      console.log(result);
+
       if (result.error) throw new Error(result.error.message);
 
       const searchTweets = result.data
