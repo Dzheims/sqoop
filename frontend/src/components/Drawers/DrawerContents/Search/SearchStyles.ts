@@ -80,6 +80,10 @@ const useStyles = makeStyles((theme) => ({
   options: {
     display: 'block',
   },
+  datePickerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));
 
 export default useStyles;
