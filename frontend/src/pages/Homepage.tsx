@@ -8,6 +8,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { Toolbar, Button } from '@material-ui/core';
+import Fab from '@mui/material/Fab';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import Cookies from 'js-cookie';
 import { ColumnsData } from '../components/Columns/ColumnsData';
@@ -32,6 +35,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    scrollBehavior: 'smooth',
   },
   defaultFeeds: {
     display: 'flex',
@@ -177,6 +181,23 @@ const Homepage = () => {
     if (ref.current) ref.current.scrollLeft += scrollOffset;
   };
 
+  const isLastElement = () => {
+    if (ref.current) {
+      return (
+        ref.current.scrollLeft + ref.current.clientWidth ===
+        ref.current.scrollWidth
+      );
+    }
+    return false;
+  };
+
+  const isFirstlement = () => {
+    if (ref.current) {
+      return ref.current.scrollWidth === 0;
+    }
+    return false;
+  };
+
   return (
     <div className={classes.root}>
       <DrawerStateProvider value={{ suggestedKeyWords: [], open: false }}>
@@ -184,7 +205,12 @@ const Homepage = () => {
         <Toolbar />
         <FactCheck />
         <div ref={ref} className={classes.columnContainers}>
-          <Button onClick={() => handleScroll(200)}>Scroll</Button>
+          <Fab
+            onClick={() => handleScroll(-200)}
+            style={{ position: 'fixed', left: 60 }}
+          >
+            <ArrowLeftIcon />
+          </Fab>
           <div className={classes.defaultFeeds}>
             <DragDropContext onDragEnd={onDragEnd}>
               {defaultColumns.map((column) => (
@@ -234,7 +260,15 @@ const Homepage = () => {
             </DragDropContext>
           </div>
           <ColumnsData />
-          <Button onClick={() => handleScroll(-200)}>Scroll</Button>
+          <Fab
+            onClick={() => handleScroll(200)}
+            style={{
+              position: 'fixed',
+              right: 20,
+            }}
+          >
+            <ArrowRightIcon />
+          </Fab>
         </div>
       </DrawerStateProvider>
     </div>
