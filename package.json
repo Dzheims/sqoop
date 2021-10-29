@@ -26,10 +26,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "dependencies": {
-    "@material-ui/pickers": "^3.3.10",
-    "@mui/lab": "^5.0.0-alpha.53",
-    "date-fns": "^2.25.0"
   }
 }

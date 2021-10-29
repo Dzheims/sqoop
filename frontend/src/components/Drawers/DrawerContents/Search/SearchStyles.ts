@@ -37,8 +37,6 @@ const useStyles = makeStyles((theme) => ({
     justify: 'space-between',
   },
   resultsContainer: {
-    minHeight: '100px',
-    maxHeight: '400px',
     '&::-webkit-scrollbar': {
       width: '0.4em',
     },
@@ -80,9 +78,9 @@ const useStyles = makeStyles((theme) => ({
   options: {
     display: 'block',
   },
-  datePickerContainer: {
-    display: 'flex',
-    alignItems: 'center',
+  container: {
+    minHeight: '20px',
+    maxHeight: '360px',
   },
 }));
 

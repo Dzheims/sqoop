@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, InputBase, Paper } from '@material-ui/core';
-import addDays from 'date-fns/addDays';
 import {
   Box,
   Autocomplete,
@@ -11,9 +10,6 @@ import {
   Accordion,
   TextField,
 } from '@mui/material';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -31,16 +27,13 @@ const accordionStyle = {
   boxShadow: 'none',
 };
 
-const getDaysAfter = (date: Date | null, duration: number) => {
-  return date ? addDays(date, duration) : undefined;
-};
-
 const Search = () => {
   const classes = useStyles();
   const [keyword, setKeyword] = useState('');
   const [search, setSearch] = useState(false);
-  const [value, setValue] = React.useState<Date | null>(null);
   const [currentSearch, setCurrentSearch] = useState('News');
+  const [twitterDate, setTwitterDate] = useState({ from: '', to: '' });
+  const [newsDate, setNewsDate] = useState({ from: '', to: '' });
   const [disable, setDisable] = useState({ news: false, twitter: true });
   const [newsSource, setNewsSource] = useState({
     name: '',
@@ -68,12 +61,16 @@ const Search = () => {
     },
   ];
 
+  useEffect(() => {
+    disable;
+  });
+
   const getSearchResults = () => {
     if (currentSearch === 'News')
       return (
         <SearchNewsAPIColumnData
-          from={null}
-          to={null}
+          from={newsDate.from}
+          to={newsDate.to}
           keyword={keyword}
           sources={newsSource.id === '' ? null : newsSource.id}
         />
@@ -81,8 +78,16 @@ const Search = () => {
     if (currentSearch === 'Twitter')
       return (
         <SearchAllTweetsColumnData
-          toDate={null}
-          fromDate={null}
+          toDate={
+            twitterDate.to === ''
+              ? null
+              : twitterDate.to.replace(/-/g, '') + '0000'
+          }
+          fromDate={
+            twitterDate.from === ''
+              ? null
+              : twitterDate.from.replace(/-/g, '') + '0000'
+          }
           keyword={keyword}
           sources={twitterSource.accountUsername}
         />
@@ -204,31 +209,46 @@ const Search = () => {
                 />
               </div>
             )}
-            <div className={classes.datePickerContainer}>
-              <TextField
-                id="Start"
-                label="Start Date"
-                placeholder="Start Date"
-                variant="outlined"
-                size="small"
-                margin="dense"
-                InputLabelProps={{ shrink: true, required: true }}
-                type="date"
-                fullWidth
-              />
-              <Box sx={{ mx: 1 }}> to </Box>
-              <TextField
-                id="End"
-                label="End Date"
-                placeholder="End Date"
-                variant="outlined"
-                size="small"
-                margin="dense"
-                InputLabelProps={{ shrink: true, required: true }}
-                type="date"
-                fullWidth
-              />
-            </div>
+            <TextField
+              id="Start"
+              label="Start Date"
+              placeholder="Start Date"
+              variant="outlined"
+              size="small"
+              margin="dense"
+              InputLabelProps={{ shrink: true, required: true }}
+              InputProps={{ style: { color: 'gray' } }}
+              type="date"
+              onChange={(e) => {
+                currentSearch === 'News'
+                  ? setNewsDate({ from: e.target.value, to: newsDate.to })
+                  : setTwitterDate({
+                      from: e.target.value,
+                      to: twitterDate.to,
+                    });
+              }}
+              fullWidth
+            />
+            <TextField
+              id="End"
+              label="End Date"
+              placeholder="End Date"
+              variant="outlined"
+              size="small"
+              margin="dense"
+              InputLabelProps={{ shrink: true, required: true }}
+              InputProps={{ style: { color: 'gray' } }}
+              onChange={(e) => {
+                currentSearch === 'News'
+                  ? setNewsDate({ from: newsDate.from, to: e.target.value })
+                  : setTwitterDate({
+                      from: twitterDate.from,
+                      to: e.target.value,
+                    });
+              }}
+              type="date"
+              fullWidth
+            />
           </AccordionDetails>
         </Accordion>
       </div>
@@ -236,14 +256,16 @@ const Search = () => {
         <DragDropContext onDragEnd={() => {}}>
           <Droppable droppableId="droppable">
             {(provided, snapshot) => (
-              <ResultsContainer
-                // ref={provided.innerRef}
-                className={classes.resultsContainer}
-                {...provided.droppableProps}
-                isDragging={snapshot.isDraggingOver}
-              >
-                {getSearchResults()}
-              </ResultsContainer>
+              <div className={classes.container}>
+                <ResultsContainer
+                  // ref={provided.innerRef}
+                  className={classes.resultsContainer}
+                  {...provided.droppableProps}
+                  isDragging={snapshot.isDraggingOver}
+                >
+                  {getSearchResults()}
+                </ResultsContainer>
+              </div>
             )}
           </Droppable>
         </DragDropContext>

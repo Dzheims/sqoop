@@ -149,6 +149,8 @@ export const ResultsContainer = styled.div<BoardColumnContentStylesProps>`
   padding: 5px;
   overflow: auto;
   margin-top: 5px;
+  max-height: 360px;
+  min-height: 10px;
 `;
 
 export const Title = styled.h2`
