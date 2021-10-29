@@ -46,31 +46,35 @@ const Search = () => {
     id: '',
   });
 
-  const getSearchResults = () => {
-    if (currentSearch === 'Twitter')
-      return (
-        <SearchAllTweetsColumnData
-          toDate={date.to === null ? null : date.to.replace(/-/g, '') + '0000'}
-          fromDate={
-            date.from === null ? null : date.from.replace(/-/g, '') + '0000'
-          }
-          keyword={keyword}
-          sources={
-            twitterSource.accountUsername === ''
-              ? null
-              : twitterSource.accountUsername
-          }
-        />
-      );
-    if (currentSearch === 'News')
-      return (
-        <SearchNewsAPIColumnData
-          from={date.from}
-          to={date.to}
-          keyword={keyword}
-          sources={newsSource.id === '' ? null : newsSource.id}
-        />
-      );
+  const getSearchResults = (searchType: string) => {
+    switch (searchType) {
+      case 'Twitter':
+        return (
+          <SearchAllTweetsColumnData
+            toDate={
+              date.to === null ? null : date.to.replace(/-/g, '') + '0000'
+            }
+            fromDate={
+              date.from === null ? null : date.from.replace(/-/g, '') + '0000'
+            }
+            keyword={keyword}
+            sources={
+              twitterSource.accountUsername === ''
+                ? null
+                : twitterSource.accountUsername
+            }
+          />
+        );
+      case 'News':
+        return (
+          <SearchNewsAPIColumnData
+            from={date.from}
+            to={date.to}
+            keyword={keyword}
+            sources={newsSource.id === '' ? null : newsSource.id}
+          />
+        );
+    }
   };
 
   const get30DaysPriorDate = () => {
@@ -267,7 +271,7 @@ const Search = () => {
                   {...provided.droppableProps}
                   isDragging={snapshot.isDraggingOver}
                 >
-                  {getSearchResults()}
+                  {getSearchResults(currentSearch)}
                 </ResultsContainer>
               </div>
             )}
