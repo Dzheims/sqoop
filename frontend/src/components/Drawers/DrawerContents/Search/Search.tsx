@@ -28,20 +28,50 @@ const accordionStyle = {
 
 const Search = () => {
   const classes = useStyles();
+
   const [keyword, setKeyword] = useState('');
   const [search, setSearch] = useState(false);
   const [currentSearch, setCurrentSearch] = useState('News');
-  const [twitterDate, setTwitterDate] = useState({ from: '', to: '' });
-  const [newsDate, setNewsDate] = useState({ from: '', to: '' });
   const [disable, setDisable] = useState({ news: false, twitter: true });
-  const [newsSource, setNewsSource] = useState({
-    name: '',
-    id: '',
+  const [date, setDate] = useState<{ from: null | string; to: null | string }>({
+    from: null,
+    to: null,
   });
   const [twitterSource, setTwitterSource] = useState({
     accountName: '',
     accountUsername: '',
   });
+  const [newsSource, setNewsSource] = useState({
+    name: '',
+    id: '',
+  });
+
+  const getSearchResults = () => {
+    if (currentSearch === 'Twitter')
+      return (
+        <SearchAllTweetsColumnData
+          toDate={date.to === null ? null : date.to.replace(/-/g, '') + '0000'}
+          fromDate={
+            date.from === null ? null : date.from.replace(/-/g, '') + '0000'
+          }
+          keyword={keyword}
+          sources={
+            twitterSource.accountUsername === ''
+              ? null
+              : twitterSource.accountUsername
+          }
+        />
+      );
+    if (currentSearch === 'News')
+      return (
+        <SearchNewsAPIColumnData
+          from={date.from}
+          to={date.to}
+          keyword={keyword}
+          sources={newsSource.id === '' ? null : newsSource.id}
+        />
+      );
+  };
 
   const get30DaysPriorDate = () => {
     const today = new Date();
@@ -71,35 +101,6 @@ const Search = () => {
       },
     },
   ];
-
-  const getSearchResults = () => {
-    if (currentSearch === 'News')
-      return (
-        <SearchNewsAPIColumnData
-          from={newsDate.from}
-          to={newsDate.to}
-          keyword={keyword}
-          sources={newsSource.id === '' ? null : newsSource.id}
-        />
-      );
-    if (currentSearch === 'Twitter')
-      return (
-        <SearchAllTweetsColumnData
-          toDate={
-            twitterDate.to === ''
-              ? null
-              : twitterDate.to.replace(/-/g, '') + '0000'
-          }
-          fromDate={
-            twitterDate.from === ''
-              ? null
-              : twitterDate.from.replace(/-/g, '') + '0000'
-          }
-          keyword={keyword}
-          sources={null}
-        />
-      );
-  };
 
   return (
     <div className={classes.root}>
@@ -230,12 +231,7 @@ const Search = () => {
               }}
               type="date"
               onChange={(e) => {
-                currentSearch === 'News'
-                  ? setNewsDate({ from: e.target.value, to: newsDate.to })
-                  : setTwitterDate({
-                      from: e.target.value,
-                      to: twitterDate.to,
-                    });
+                setDate({ from: e.target.value, to: date.to });
               }}
               fullWidth
             />
@@ -252,12 +248,7 @@ const Search = () => {
                 inputProps: dateRange,
               }}
               onChange={(e) => {
-                currentSearch === 'News'
-                  ? setNewsDate({ from: newsDate.from, to: e.target.value })
-                  : setTwitterDate({
-                      from: twitterDate.from,
-                      to: e.target.value,
-                    });
+                setDate({ from: date.from, to: e.target.value });
               }}
               type="date"
               fullWidth
