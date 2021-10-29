@@ -14,7 +14,6 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import useStyles from './SearchStyles';
-import { Category } from '../../../../types.generated';
 import SearchNewsAPIColumnData from './SearchNewsApiColumnData';
 import { ResultsContainer } from '../../../../pages/Boards/ColumnsStyle';
 import NewsSourcesData from '../NewsApiFeedForm/NewsSourcesData';
@@ -44,6 +43,18 @@ const Search = () => {
     accountUsername: '',
   });
 
+  const get30DaysPriorDate = () => {
+    const today = new Date();
+    const priorDate = new Date().setDate(today.getDate() - 30);
+
+    return new Date(priorDate).toISOString().slice(0, 10);
+  };
+
+  const dateRange = {
+    min: get30DaysPriorDate(),
+    max: new Date().toISOString().slice(0, 10),
+  };
+
   const searchOptions = [
     {
       buttonTitle: 'News',
@@ -60,10 +71,6 @@ const Search = () => {
       },
     },
   ];
-
-  useEffect(() => {
-    disable;
-  });
 
   const getSearchResults = () => {
     if (currentSearch === 'News')
@@ -89,7 +96,7 @@ const Search = () => {
               : twitterDate.from.replace(/-/g, '') + '0000'
           }
           keyword={keyword}
-          sources={twitterSource.accountUsername}
+          sources={null}
         />
       );
   };
@@ -217,7 +224,10 @@ const Search = () => {
               size="small"
               margin="dense"
               InputLabelProps={{ shrink: true, required: true }}
-              InputProps={{ style: { color: 'gray' } }}
+              InputProps={{
+                style: { color: 'gray' },
+                inputProps: dateRange,
+              }}
               type="date"
               onChange={(e) => {
                 currentSearch === 'News'
@@ -237,7 +247,10 @@ const Search = () => {
               size="small"
               margin="dense"
               InputLabelProps={{ shrink: true, required: true }}
-              InputProps={{ style: { color: 'gray' } }}
+              InputProps={{
+                style: { color: 'gray' },
+                inputProps: dateRange,
+              }}
               onChange={(e) => {
                 currentSearch === 'News'
                   ? setNewsDate({ from: newsDate.from, to: e.target.value })
