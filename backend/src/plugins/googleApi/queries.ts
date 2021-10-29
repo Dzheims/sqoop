@@ -13,10 +13,11 @@ export const resolvers = {
     ) => {
       let { keyword } = args;
       const { jwtClaims } = context;
-      // if (!jwtClaims) throw new Error();
+      if (!jwtClaims) throw new Error('Unauthorized user');
 
       const queryParams = new URLSearchParams();
       queryParams.set('query', keyword || '');
+      queryParams.set('languageCode', 'en-US');
       queryParams.set('key', process.env.GOOGLE_API_KEY || '');
       const response = await fetch(
         `https://factchecktools.googleapis.com/v1alpha1/claims:search?${queryParams}`,
@@ -28,9 +29,9 @@ export const resolvers = {
       );
 
       const result = await response.json();
-      if (result.status === 'error') {
-        return result;
-      }
+
+      if (result.error) throw new Error(result.error.message);
+
       return result.claims;
     },
   },
