@@ -8,12 +8,19 @@ interface topHeadlinesParams {
   keyword: string;
 }
 
+interface searchArticlesParams {
+  keyword: string;
+  sources: string;
+  from: string;
+  to: string;
+}
+
 export const resolvers = {
   Query: {
     topHeadlines: async (_: any, args: topHeadlinesParams, context: any) => {
       let { country, sources, category, keyword } = args;
       const { jwtClaims } = context;
-      if (!jwtClaims) throw new Error();
+      if (!jwtClaims) throw new Error('Unauthorized user');
 
       const queryParams = new URLSearchParams();
       queryParams.set('country', country || 'ph');
@@ -35,12 +42,15 @@ export const resolvers = {
       );
 
       const result = await response.json();
-      if (result.status === 'error') {
-        return result;
-      }
+      if (result.status === 'error') throw Error(result.message);
 
       const articles = result.articles.map((article: any) => {
-        const { source, title, description, ...subArticle } = article;
+        const {
+          source: { id: sourceId, name: sourceName },
+          title,
+          description,
+          ...subArticle
+        } = article;
         const suggestedKeywords = keyword_extractor.extract(
           description || title,
           {
@@ -55,7 +65,8 @@ export const resolvers = {
           description,
           title,
           suggestedKeywords,
-          ...{ sourceId: source.id, sourceName: source.name },
+          sourceId,
+          sourceName,
         };
       });
       return articles;
@@ -63,7 +74,8 @@ export const resolvers = {
     topHeadlinesSources: async (_: any, args: any, context: any) => {
       let { country, category } = args;
       const { jwtClaims } = context;
-      if (!jwtClaims) throw new Error();
+      if (!jwtClaims) throw new Error('Unauthorized user');
+
       const queryParams = new URLSearchParams();
       queryParams.set('category', category || '');
       queryParams.set('country', country || '');
@@ -78,10 +90,63 @@ export const resolvers = {
       );
 
       const result = await response.json();
-      if (result.status === 'error') {
-        return result;
-      }
+      if (result.status === 'error') throw new Error(result.message);
       return result.sources;
+    },
+    searchArticles: async (
+      _: any,
+      args: searchArticlesParams,
+      context: any
+    ) => {
+      let { keyword, sources, from, to } = args;
+      const { jwtClaims } = context;
+      if (!jwtClaims) throw new Error('Unauthorized user');
+
+      const queryParams = new URLSearchParams();
+      queryParams.set('q', keyword);
+      queryParams.set('sources', sources || '');
+      queryParams.set('from', from);
+      queryParams.set('to', to);
+
+      const response = await fetch(
+        `https://newsapi.org/v2/everything?${queryParams}`,
+        {
+          headers: {
+            'Content-type': 'application/json',
+            'X-Api-Key': process.env.NEWS_API_KEY,
+          },
+        }
+      );
+
+      const result = await response.json();
+      if (result.status === 'error') throw new Error(result.message);
+
+      const articles = result.articles.map((article: any) => {
+        const {
+          source: { id: sourceId, name: sourceName },
+          title,
+          description,
+          ...subArticle
+        } = article;
+        const suggestedKeywords = keyword_extractor.extract(
+          description || title,
+          {
+            language: 'english',
+            remove_digits: true,
+            return_changed_case: true,
+            remove_duplicates: true,
+          }
+        );
+        return {
+          ...subArticle,
+          description,
+          title,
+          suggestedKeywords,
+          sourceId,
+          sourceName,
+        };
+      });
+      return articles;
     },
   },
 };

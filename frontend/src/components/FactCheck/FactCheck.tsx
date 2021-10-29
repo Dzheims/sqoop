@@ -13,6 +13,7 @@ import { Button, Drawer, IconButton } from '@material-ui/core';
 import FactCheckDrawerContent from '../Drawers/DrawerContents/FactCheck/FactCheckDrawerContent';
 import FactCheckButton from './FactCheckButton';
 import { useDrawerState } from './FactCheckDrawerState';
+import { Title } from '../../pages/Boards/ColumnsStyle';
 
 const useStyles = makeStyles((theme) => ({
   factCheckIcon: {
@@ -50,14 +51,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
     color: 'white',
   },
-  closeButton: {
-    fontSize: '12px',
-    '&:hover': {
-      borderColor: theme.palette.secondary.main,
-      color: theme.palette.secondary.main,
-      backgroundColor: 'white',
-    },
-  },
   drawerPaper: {
     width: '325px',
     backgroundColor: '#f7fafc',
@@ -71,6 +64,11 @@ const useStyles = makeStyles((theme) => ({
     margin: '10px',
     borderRadius: '4px',
     padding: '8px',
+  },
+  drawerTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 }));
 
@@ -100,12 +98,15 @@ const FactCheck = () => {
         }}
       >
         <div className={classes.drawer}>
-          <IconButton className={classes.closeButton} onClick={handleClose}>
-            <CloseIcon
-              sx={{ height: '20px', width: '20px' }}
-              className={classes.closeIcon}
-            />
-          </IconButton>
+          <div className={classes.drawerTitle}>
+            <Title>Fact Check</Title>
+            <IconButton onClick={handleClose}>
+              <CloseIcon
+                sx={{ height: '20px', width: '20px' }}
+                className={classes.closeIcon}
+              />
+            </IconButton>
+          </div>
           <FactCheckDrawerContent suggestedKeyWords={state.suggestedKeyWords} />
         </div>
       </Drawer>

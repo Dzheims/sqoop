@@ -1,81 +1,25 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
+import { Button, InputBase, Paper } from '@material-ui/core';
 import {
-  IconButton,
-  InputBase,
-  Paper,
-  FormControl,
-  MenuItem,
-  Select,
-  InputLabel,
-} from '@material-ui/core';
-import { Autocomplete, TextField } from '@mui/material';
+  Box,
+  Autocomplete,
+  Typography,
+  AccordionSummary,
+  AccordionDetails,
+  Accordion,
+  TextField,
+} from '@mui/material';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import SearchIcon from '@material-ui/icons/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { CategorySharp } from '@material-ui/icons';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import NewsAPIColumnData from '../../../../pages/Boards/NewsAPIColumnData';
-import { Category } from '../../../../types.generated';
+import useStyles from './SearchStyles';
+import SearchNewsAPIColumnData from './SearchNewsApiColumnData';
 import { ResultsContainer } from '../../../../pages/Boards/ColumnsStyle';
 import NewsSourcesData from '../NewsApiFeedForm/NewsSourcesData';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'block',
-    alignItems: 'center',
-    justify: 'center',
-  },
-  input: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-  iconButton: {
-    padding: 10,
-    color: theme.palette.secondary.main,
-  },
-  filterIcon: {
-    color: 'gray',
-  },
-  filterText: { fontColor: 'gray', fontSize: '14px' },
-  summaryContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  search: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    height: '40px',
-    width: '260px',
-    boxShadow: 'none',
-    marginTop: '10px',
-  },
-  searchContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justify: 'space-between',
-  },
-  resultsContainer: {
-    minHeight: '100px',
-    maxHeight: '400px',
-    '&::-webkit-scrollbar': {
-      width: '0.4em',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(0,0,0,.1)',
-      borderRadius: 8,
-    },
-  },
-  formControl: {
-    minWidth: 120,
-  },
-}));
+import TwitterSourcesData from '../TwitterFeedForm/TwitterSourcesData';
+import { truncateName } from '../../../Common/Functions/Functions';
+import SearchAllTweetsColumnData from './SearchTwitterColumnData';
 
 const accordionStyle = {
   backgroundColor: '#f7fafc',
@@ -84,17 +28,77 @@ const accordionStyle = {
 
 const Search = () => {
   const classes = useStyles();
-
   const [keyword, setKeyword] = useState('');
   const [search, setSearch] = useState(false);
-  const [category, setCategory] = useState('GENERAL' as Category);
+  const [currentSearch, setCurrentSearch] = useState('News');
+  const [twitterDate, setTwitterDate] = useState({ from: '', to: '' });
+  const [newsDate, setNewsDate] = useState({ from: '', to: '' });
+  const [disable, setDisable] = useState({ news: false, twitter: true });
   const [newsSource, setNewsSource] = useState({
     name: '',
     id: '',
   });
+  const [twitterSource, setTwitterSource] = useState({
+    accountName: '',
+    accountUsername: '',
+  });
 
-  const submitSearch = () => {
-    setSearch(true);
+  const get30DaysPriorDate = () => {
+    const today = new Date();
+    const priorDate = new Date().setDate(today.getDate() - 30);
+
+    return new Date(priorDate).toISOString().slice(0, 10);
+  };
+
+  const dateRange = {
+    min: get30DaysPriorDate(),
+    max: new Date().toISOString().slice(0, 10),
+  };
+
+  const searchOptions = [
+    {
+      buttonTitle: 'News',
+      onClick: () => {
+        setCurrentSearch('News');
+        setDisable({ news: false, twitter: true });
+      },
+    },
+    {
+      buttonTitle: 'Twitter',
+      onClick: () => {
+        setCurrentSearch('Twitter');
+        setDisable({ news: true, twitter: false });
+      },
+    },
+  ];
+
+  const getSearchResults = () => {
+    if (currentSearch === 'News')
+      return (
+        <SearchNewsAPIColumnData
+          from={newsDate.from}
+          to={newsDate.to}
+          keyword={keyword}
+          sources={newsSource.id === '' ? null : newsSource.id}
+        />
+      );
+    if (currentSearch === 'Twitter')
+      return (
+        <SearchAllTweetsColumnData
+          toDate={
+            twitterDate.to === ''
+              ? null
+              : twitterDate.to.replace(/-/g, '') + '0000'
+          }
+          fromDate={
+            twitterDate.from === ''
+              ? null
+              : twitterDate.from.replace(/-/g, '') + '0000'
+          }
+          keyword={keyword}
+          sources={null}
+        />
+      );
   };
 
   return (
@@ -109,11 +113,30 @@ const Search = () => {
               setKeyword(e.target.value);
               setSearch(false);
             }}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                setSearch(true);
+              } else setSearch(false);
+            }}
           />
-          <IconButton onClick={submitSearch} className={classes.iconButton}>
-            <SearchIcon />
-          </IconButton>
         </Paper>
+      </div>
+      <div className={classes.buttonContainer}>
+        {searchOptions.map((value) => (
+          <Button
+            role-="button"
+            variant="outlined"
+            className={
+              value.buttonTitle !== currentSearch
+                ? classes.button
+                : classes.selectedButton
+            }
+            onClick={value.onClick}
+          >
+            {value.buttonTitle}
+          </Button>
+        ))}
       </div>
       <div>
         <Accordion style={accordionStyle}>
@@ -124,53 +147,120 @@ const Search = () => {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            <FormControl
-              variant="outlined"
-              margin="dense"
-              size="small"
-              fullWidth
-              className={classes.formControl}
-            >
-              <InputLabel>Categories</InputLabel>
-              <Select
-                defaultValue=""
-                label="Category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value as Category)}
-              >
-                <MenuItem value={Category.Business}>Business</MenuItem>
-                <MenuItem value={Category.Entertainment}>
-                  Entertainment
-                </MenuItem>
-                <MenuItem value={Category.General}>General</MenuItem>
-                <MenuItem value={Category.Health}>Health</MenuItem>
-                <MenuItem value={Category.Science}>Science</MenuItem>
-                <MenuItem value={Category.Sports}>Sports</MenuItem>
-                <MenuItem value={Category.Technology}>Technology</MenuItem>
-              </Select>
-            </FormControl>
-            <Autocomplete
-              id="Sources"
-              disableClearable
-              value={newsSource}
-              onChange={(event, newValue) => {
-                setNewsSource({ name: newValue.name, id: newValue.id });
-              }}
-              size="small"
-              options={NewsSourcesData() || []}
-              getOptionLabel={(option) => option.name}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
+            {disable.twitter ? (
+              <div>
+                <Autocomplete
                   id="Sources"
-                  label="Sources"
-                  placeholder="Sources"
-                  variant="outlined"
+                  disableClearable
+                  disabled={disable.news}
+                  value={newsSource}
+                  onChange={(event, newValue) => {
+                    setNewsSource({ name: newValue.name, id: newValue.id });
+                  }}
                   size="small"
-                  required
-                  fullWidth
+                  options={NewsSourcesData() || []}
+                  getOptionLabel={(option) => option.name}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      id="News Sources"
+                      label="News Sources"
+                      placeholder="News Sources"
+                      variant="outlined"
+                      size="small"
+                      required
+                      margin="dense"
+                      fullWidth
+                    />
+                  )}
                 />
-              )}
+              </div>
+            ) : (
+              <div>
+                <Autocomplete
+                  id="sources"
+                  disableClearable
+                  value={twitterSource}
+                  disabled={disable.twitter}
+                  onChange={(event, newValue) => {
+                    setTwitterSource(newValue);
+                  }}
+                  size="small"
+                  options={TwitterSourcesData() || []}
+                  getOptionLabel={(option) => option.accountName}
+                  renderOption={(props, option) => (
+                    <Box component="li" {...props}>
+                      <div className={classes.options}>
+                        <Typography>
+                          {truncateName(option.accountName, 25)}
+                        </Typography>
+                        <Typography className={classes.optionsUsername}>
+                          @{option.accountUsername}
+                        </Typography>
+                      </div>
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      id="Twitter Sources"
+                      label="Twitter Sources"
+                      placeholder="Twitter Sources"
+                      variant="outlined"
+                      size="small"
+                      required
+                      margin="dense"
+                      fullWidth
+                    />
+                  )}
+                />
+              </div>
+            )}
+            <TextField
+              id="Start"
+              label="Start Date"
+              placeholder="Start Date"
+              variant="outlined"
+              size="small"
+              margin="dense"
+              InputLabelProps={{ shrink: true, required: true }}
+              InputProps={{
+                style: { color: 'gray' },
+                inputProps: dateRange,
+              }}
+              type="date"
+              onChange={(e) => {
+                currentSearch === 'News'
+                  ? setNewsDate({ from: e.target.value, to: newsDate.to })
+                  : setTwitterDate({
+                      from: e.target.value,
+                      to: twitterDate.to,
+                    });
+              }}
+              fullWidth
+            />
+            <TextField
+              id="End"
+              label="End Date"
+              placeholder="End Date"
+              variant="outlined"
+              size="small"
+              margin="dense"
+              InputLabelProps={{ shrink: true, required: true }}
+              InputProps={{
+                style: { color: 'gray' },
+                inputProps: dateRange,
+              }}
+              onChange={(e) => {
+                currentSearch === 'News'
+                  ? setNewsDate({ from: newsDate.from, to: e.target.value })
+                  : setTwitterDate({
+                      from: twitterDate.from,
+                      to: e.target.value,
+                    });
+              }}
+              type="date"
+              fullWidth
             />
           </AccordionDetails>
         </Accordion>
@@ -179,19 +269,16 @@ const Search = () => {
         <DragDropContext onDragEnd={() => {}}>
           <Droppable droppableId="droppable">
             {(provided, snapshot) => (
-              <ResultsContainer
-                // ref={provided.innerRef}
-                className={classes.resultsContainer}
-                {...provided.droppableProps}
-                isDragging={snapshot.isDraggingOver}
-              >
-                <NewsAPIColumnData
-                  country=""
-                  category={category as Category}
-                  keyword={keyword}
-                  sources={newsSource.id === '' ? null : newsSource.id}
-                />
-              </ResultsContainer>
+              <div className={classes.container}>
+                <ResultsContainer
+                  // ref={provided.innerRef}
+                  className={classes.resultsContainer}
+                  {...provided.droppableProps}
+                  isDragging={snapshot.isDraggingOver}
+                >
+                  {getSearchResults()}
+                </ResultsContainer>
+              </div>
             )}
           </Droppable>
         </DragDropContext>
