@@ -82,13 +82,13 @@ const FactCheckButton = ({
   const [highlightButton, setHighlightButton] = useState<boolean>(false);
   const [stateUpdater, setStateUpdater] = useState<boolean>(true);
 
-  useEffect(() => {
-    setState({
-      ...state,
-      suggestedKeyWords: suggestedKeywords,
-      open: openDrawer,
-    });
-  }, [stateUpdater]);
+  // useEffect(() => {
+  //   setState({
+  //     ...state,
+  //     suggestedKeyWords: suggestedKeywords,
+  //     open: openDrawer,
+  //   });
+  // }, [stateUpdater]);
 
   useEffect(() => {
     if (suggestedKeywords === state.suggestedKeyWords) {
@@ -108,11 +108,21 @@ const FactCheckButton = ({
 
   const handleOpen = () => {
     if (suggestedKeywords === state.suggestedKeyWords) {
-      setOpenDrawer(!openDrawer);
+      // setOpenDrawer(!openDrawer);
       setStateUpdater(!stateUpdater);
+      setState({
+        ...state,
+        suggestedKeyWords: [],
+        open: false,
+      });
     } else {
-      setOpenDrawer(true);
-      setStateUpdater(!stateUpdater);
+      // setOpenDrawer(true);
+      // setStateUpdater(!stateUpdater);
+      setState({
+        ...state,
+        suggestedKeyWords: suggestedKeywords,
+        open: true,
+      });
     }
   };
 
