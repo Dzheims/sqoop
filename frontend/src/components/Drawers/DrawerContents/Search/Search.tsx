@@ -18,7 +18,11 @@ import SearchNewsAPIColumnData from './SearchNewsApiColumnData';
 import { ResultsContainer } from '../../../../pages/Boards/ColumnsStyle';
 import NewsSourcesData from '../NewsApiFeedForm/NewsSourcesData';
 import TwitterSourcesData from '../TwitterFeedForm/TwitterSourcesData';
-import { truncateName } from '../../../Common/Functions/Functions';
+import {
+  convertDate,
+  get30DaysPriorDate,
+  truncateName,
+} from '../../../Common/Functions/Functions';
 import SearchAllTweetsColumnData from './SearchTwitterColumnData';
 
 const accordionStyle = {
@@ -26,24 +30,23 @@ const accordionStyle = {
   boxShadow: 'none',
 };
 
+interface DateProps {
+  from: null | string;
+  to: null | string;
+}
+
 const Search = () => {
   const classes = useStyles();
-
   const [keyword, setKeyword] = useState('');
-  const [search, setSearch] = useState(false);
   const [currentSearch, setCurrentSearch] = useState('News');
-  // const [disable, setDisable] = useState({ news: false, twitter: true });
-  const [date, setDate] = useState<{ from: null | string; to: null | string }>({
+  const [search, setSearch] = useState(false);
+  const [date, setDate] = useState<DateProps>({
     from: null,
     to: null,
   });
-  const [twitterSource, setTwitterSource] = useState({
-    accountName: '',
-    accountUsername: '',
-  });
-  const [newsSource, setNewsSource] = useState({
-    name: '',
-    id: '',
+  const [sources, setSources] = useState({
+    twitterSource: { accountName: '', accountUsername: '' },
+    newsSource: { name: '', id: '' },
   });
 
   const getSearchResults = (searchType: string) => {
@@ -51,18 +54,14 @@ const Search = () => {
       case 'Twitter':
         return (
           <SearchAllTweetsColumnData
-            toDate={
-              date.to === null ? null : date.to.replace(/-/g, '') + '0000'
-            }
-            fromDate={
-              date.from === null ? null : date.from.replace(/-/g, '') + '0000'
-            }
             keyword={keyword}
             sources={
-              twitterSource.accountUsername === ''
+              !sources.twitterSource.accountUsername.length
                 ? null
-                : twitterSource.accountUsername
+                : sources.twitterSource.accountUsername
             }
+            fromDate={convertDate(date.from)}
+            toDate={convertDate(date.to)}
           />
         );
       case 'News':
@@ -71,17 +70,12 @@ const Search = () => {
             from={date.from}
             to={date.to}
             keyword={keyword}
-            sources={newsSource.id === '' ? null : newsSource.id}
+            sources={
+              !sources.newsSource.id.length ? null : sources.newsSource.id
+            }
           />
         );
     }
-  };
-
-  const get30DaysPriorDate = () => {
-    const today = new Date();
-    const priorDate = new Date().setDate(today.getDate() - 30);
-
-    return new Date(priorDate).toISOString().slice(0, 10);
   };
 
   const dateRange = {
@@ -94,14 +88,12 @@ const Search = () => {
       buttonTitle: 'News',
       onClick: () => {
         setCurrentSearch('News');
-        // setDisable({ news: false, twitter: true });
       },
     },
     {
       buttonTitle: 'Twitter',
       onClick: () => {
         setCurrentSearch('Twitter');
-        // setDisable({ news: true, twitter: false });
       },
     },
   ];
@@ -162,9 +154,15 @@ const Search = () => {
                 <Autocomplete
                   id="Sources"
                   disableClearable
-                  value={newsSource}
+                  value={sources.newsSource}
                   onChange={(event, newValue) => {
-                    setNewsSource({ name: newValue.name, id: newValue.id });
+                    setSources({
+                      twitterSource: {
+                        accountName: sources.twitterSource.accountName,
+                        accountUsername: sources.twitterSource.accountUsername,
+                      },
+                      newsSource: { name: newValue.name, id: newValue.id },
+                    });
                   }}
                   size="small"
                   options={NewsSourcesData() || []}
@@ -189,9 +187,18 @@ const Search = () => {
                 <Autocomplete
                   id="sources"
                   disableClearable
-                  value={twitterSource}
+                  value={sources.twitterSource}
                   onChange={(event, newValue) => {
-                    setTwitterSource(newValue);
+                    setSources({
+                      twitterSource: {
+                        accountName: newValue.accountName,
+                        accountUsername: newValue.accountUsername,
+                      },
+                      newsSource: {
+                        name: sources.newsSource.name,
+                        id: sources.newsSource.id,
+                      },
+                    });
                   }}
                   size="small"
                   options={TwitterSourcesData() || []}
@@ -269,7 +276,6 @@ const Search = () => {
             {(provided, snapshot) => (
               <div className={classes.container}>
                 <ResultsContainer
-                  // ref={provided.innerRef}
                   className={classes.resultsContainer}
                   {...provided.droppableProps}
                   isDragging={snapshot.isDraggingOver}
