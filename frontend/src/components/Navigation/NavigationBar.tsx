@@ -5,7 +5,6 @@ import {
   Avatar,
   IconButton,
   Tooltip,
-  Drawer,
   Backdrop,
   Typography,
   ListItemText,
@@ -20,6 +19,7 @@ import { Alert } from '@mui/material';
 import AddFeedsIcon from '@material-ui/icons/AddCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
+import NavigationIcon from '@material-ui/icons/Navigation';
 import { Person } from '@material-ui/icons';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {
@@ -36,6 +36,7 @@ import UserProfile from '../Account/UserProfile';
 import AddCollectionForm from '../Drawers/DrawerContents/CollectionForm/AddCollectionsForm';
 import Search from '../Drawers/DrawerContents/Search/Search';
 import NavDrawer from './NavDrawer';
+import ColumnNavigation from '../Drawers/DrawerContents/ColumnNavigation/ColumnNavigation';
 
 interface DrawerState {
   current: string;
@@ -109,6 +110,19 @@ const NavigationBar = () => {
         <SearchIcon
           className={
             open.open === true && open.current === 'Search'
+              ? classes.selectedIcons
+              : classes.icons
+          }
+        />
+      ),
+    },
+    {
+      id: 'navigation',
+      title: 'Navigation',
+      icon: (
+        <NavigationIcon
+          className={
+            open.open === true && open.current === 'Navigation'
               ? classes.selectedIcons
               : classes.icons
           }
@@ -194,6 +208,7 @@ const NavigationBar = () => {
           </List>
         </div>
       );
+    if (contentTitle === 'Navigation') return <ColumnNavigation />;
     if (contentTitle === 'News Feed')
       return (
         <AddNewsAPIFeedForm
