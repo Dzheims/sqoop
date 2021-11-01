@@ -1,4 +1,3 @@
-import { twitter_accounts } from '../../models';
 import { Client } from 'pg';
 import keyword_extractor from 'keyword-extractor';
 const fetch = require('node-fetch');
