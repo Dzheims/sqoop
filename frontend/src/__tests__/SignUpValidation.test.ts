@@ -59,20 +59,6 @@ describe('empty username and invalid password', () => {
     };
     expect(validate(values, undefined)).toStrictEqual(errors);
   });
-  test('password complexity', () => {
-    const values: FormValues = {
-      userName: '',
-      password: 'abc123ABC',
-      confirmedPassword: 'abc123ABC',
-    };
-    const errors = {
-      userName: 'Please enter your username',
-      password:
-        'Password must include numbers, uppercased and lowercased letters and atleast a special character (! @ # $ & % + -)',
-      confirmedPassword: '',
-    };
-    expect(validate(values, undefined)).toStrictEqual(errors);
-  });
   test('password has white spaces', () => {
     const values: FormValues = {
       userName: '',
@@ -98,20 +84,6 @@ describe('valid username and invalid password', () => {
     const errors = {
       userName: '',
       password: 'Password must be a minimum of 8 characters',
-      confirmedPassword: '',
-    };
-    expect(validate(values, undefined)).toStrictEqual(errors);
-  });
-  test('password complexity', () => {
-    const values: FormValues = {
-      userName: 'sqoopUser',
-      password: 'abc123ABC',
-      confirmedPassword: 'abc123ABC',
-    };
-    const errors = {
-      userName: '',
-      password:
-        'Password must include numbers, uppercased and lowercased letters and atleast a special character (! @ # $ & % + -)',
       confirmedPassword: '',
     };
     expect(validate(values, undefined)).toStrictEqual(errors);

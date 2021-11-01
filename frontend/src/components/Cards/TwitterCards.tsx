@@ -1,4 +1,10 @@
-import React, { useState, Dispatch, Key, SetStateAction } from 'react';
+import React, {
+  useState,
+  Dispatch,
+  Key,
+  SetStateAction,
+  useEffect,
+} from 'react';
 import Linkify from 'react-linkify';
 import { SecureLink } from 'react-secure-link';
 import { decodeHTML } from 'entities';
@@ -19,6 +25,7 @@ import {
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import FactCheckButton from '../FactCheck/FactCheckButton';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
+import { useDrawerState, DrawerState } from '../FactCheck/FactCheckDrawerState';
 import { Tweet } from '../../types.generated';
 
 interface TwitterDataProps {
@@ -29,8 +36,16 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
   data,
 }: TwitterDataProps) => {
   const classes = useStyles();
+  const { state, setState } = useDrawerState();
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (data.suggestedKeywords === state.suggestedKeyWords) {
+      setHighlightCard(!highlightCard);
+    } else {
+      setHighlightCard(false);
+    }
+  }, [state.suggestedKeyWords]);
   const itemListCols = (length: number | undefined) => {
     if (!length) return undefined;
     return length === 1 ? length : 2;
@@ -120,7 +135,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
             </Typography>
             <div className={classes().buttonsContainer}>
               <FactCheckButton
-                setHighlightCard={setHighlightCard}
+                // setHighlightCard={setHighlightCard}
                 suggestedKeywords={data.suggestedKeywords}
               />
               <CardsAddToCollectionButton id={data?.id as string} />

@@ -84,7 +84,7 @@ const FactCheck = () => {
 
   const { state, setState } = useDrawerState();
   const handleClose = () => {
-    setState({ ...state, open: false });
+    setState({ ...state, open: false, suggestedKeyWords: [] });
   };
 
   return (

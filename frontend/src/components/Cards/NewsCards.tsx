@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import React, { useState, Dispatch, SetStateAction, useEffect } from 'react';
 import { Typography, Avatar } from '@material-ui/core';
 import { Draggable } from 'react-beautiful-dnd';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -13,6 +13,7 @@ import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
 import { Article } from '../../types.generated';
 import FactCheckButton from '../FactCheck/FactCheckButton';
+import { useDrawerState, DrawerState } from '../FactCheck/FactCheckDrawerState';
 
 interface NewsDataProps {
   data: Article;
@@ -20,7 +21,16 @@ interface NewsDataProps {
 
 const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
   const classes = useStyles();
+  const { state, setState } = useDrawerState();
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (data.suggestedKeywords === state.suggestedKeyWords) {
+      setHighlightCard(!highlightCard);
+    } else {
+      setHighlightCard(false);
+    }
+  }, [state.suggestedKeyWords]);
 
   const randomColor = (name: string) => {
     let hex = Math.floor((name.charCodeAt(0) / 250) * 0xffffff);
@@ -100,7 +110,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
             <div className={classes().buttonsContainer}>
               {/* <CardsAddToCollectionButton /> */}
               <FactCheckButton
-                setHighlightCard={setHighlightCard}
+                // setHighlightCard={setHighlightCard}
                 suggestedKeywords={data.suggestedKeywords}
               />
             </div>

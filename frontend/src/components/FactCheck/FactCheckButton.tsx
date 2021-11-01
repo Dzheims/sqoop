@@ -69,26 +69,26 @@ const useStyles = makeStyles((theme) => ({
 
 interface FactCheckProps {
   suggestedKeywords: any;
-  setHighlightCard: React.Dispatch<React.SetStateAction<boolean>>;
+  // setHighlightCard: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const FactCheckButton = ({
   suggestedKeywords,
-  setHighlightCard,
-}: FactCheckProps) => {
+}: // setHighlightCard,
+FactCheckProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [highlightButton, setHighlightButton] = useState<boolean>(false);
   const [stateUpdater, setStateUpdater] = useState<boolean>(true);
 
-  useEffect(() => {
-    setState({
-      ...state,
-      suggestedKeyWords: suggestedKeywords,
-      open: openDrawer,
-    });
-  }, [stateUpdater]);
+  // useEffect(() => {
+  //   setState({
+  //     ...state,
+  //     suggestedKeyWords: suggestedKeywords,
+  //     open: openDrawer,
+  //   });
+  // }, [stateUpdater]);
 
   useEffect(() => {
     if (suggestedKeywords === state.suggestedKeyWords) {
@@ -102,17 +102,27 @@ const FactCheckButton = ({
     setOpenDrawer(state.open);
   }, [state.open]);
 
-  useEffect(() => {
-    setHighlightCard(highlightButton);
-  }, [highlightButton]);
+  // useEffect(() => {
+  //   setHighlightCard(highlightButton);
+  // }, [highlightButton]);
 
   const handleOpen = () => {
     if (suggestedKeywords === state.suggestedKeyWords) {
       setOpenDrawer(!openDrawer);
       setStateUpdater(!stateUpdater);
+      setState({
+        ...state,
+        suggestedKeyWords: [],
+        open: false,
+      });
     } else {
       setOpenDrawer(true);
       setStateUpdater(!stateUpdater);
+      setState({
+        ...state,
+        suggestedKeyWords: suggestedKeywords,
+        open: true,
+      });
     }
   };
 
@@ -136,7 +146,7 @@ const FactCheckButton = ({
         variant="outlined"
         onClick={() => {
           handleOpen();
-          setHighlightCard(highlightButton);
+          // setHighlightCard(highlightButton);
         }}
       >
         Fact Check
