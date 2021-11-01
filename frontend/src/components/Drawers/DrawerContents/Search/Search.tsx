@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { Button, InputBase, Paper } from '@material-ui/core';
 import {
   Box,
@@ -32,7 +32,7 @@ const Search = () => {
   const [keyword, setKeyword] = useState('');
   const [search, setSearch] = useState(false);
   const [currentSearch, setCurrentSearch] = useState('News');
-  const [disable, setDisable] = useState({ news: false, twitter: true });
+  // const [disable, setDisable] = useState({ news: false, twitter: true });
   const [date, setDate] = useState<{ from: null | string; to: null | string }>({
     from: null,
     to: null,
@@ -94,17 +94,22 @@ const Search = () => {
       buttonTitle: 'News',
       onClick: () => {
         setCurrentSearch('News');
-        setDisable({ news: false, twitter: true });
+        // setDisable({ news: false, twitter: true });
       },
     },
     {
       buttonTitle: 'Twitter',
       onClick: () => {
         setCurrentSearch('Twitter');
-        setDisable({ news: true, twitter: false });
+        // setDisable({ news: true, twitter: false });
       },
     },
   ];
+
+  useEffect(() => {
+    keyword;
+    search;
+  });
 
   return (
     <div className={classes.root}>
@@ -152,12 +157,11 @@ const Search = () => {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            {disable.twitter ? (
+            {currentSearch === 'News' ? (
               <div>
                 <Autocomplete
                   id="Sources"
                   disableClearable
-                  disabled={disable.news}
                   value={newsSource}
                   onChange={(event, newValue) => {
                     setNewsSource({ name: newValue.name, id: newValue.id });
@@ -186,7 +190,6 @@ const Search = () => {
                   id="sources"
                   disableClearable
                   value={twitterSource}
-                  disabled={disable.twitter}
                   onChange={(event, newValue) => {
                     setTwitterSource(newValue);
                   }}
