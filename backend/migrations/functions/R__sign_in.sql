@@ -3,7 +3,7 @@ $$
 DECLARE    
   token_information jwt_token;
 BEGIN
-    SELECT 'sqoop_user', user_id, username, extract(epoch from (now() + interval '1 week'))
+    SELECT 'sqoop_user', id, username, extract(epoch from (now() + interval '1 week'))
     INTO token_information
     FROM users
     WHERE users.username = $1 
