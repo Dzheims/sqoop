@@ -2,12 +2,15 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import ScrollContainer from 'react-indiana-drag-scroll';
-import { Toolbar, Button } from '@material-ui/core';
+import { Toolbar, Button, Typography } from '@material-ui/core';
+import Fab from '@mui/material/Fab';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import Cookies from 'js-cookie';
 import { ColumnsData } from '../components/Columns/ColumnsData';
@@ -32,6 +35,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    scrollBehavior: 'smooth',
   },
   defaultFeeds: {
     display: 'flex',
@@ -85,6 +89,9 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: 8,
     },
   },
+  arrowIcon: {
+    color: 'white',
+  },
 }));
 
 export interface DrawerState {
@@ -94,7 +101,12 @@ export interface DrawerState {
 
 const Homepage = () => {
   const classes = useStyles();
+  const ref = useRef<HTMLDivElement>(null);
   const [category, setCategory] = useState('GENERAL');
+  const [isScrollVisible, setIsScrollVisible] = useState({
+    left: true,
+    right: true,
+  });
   const history = useHistory();
 
   if (!Cookies.get(AUTH_TOKEN)) {
@@ -172,13 +184,63 @@ const Homepage = () => {
     },
   ];
 
+  const handleScroll = (scrollOffset: number) => {
+    if (ref.current) {
+      ref.current.scrollLeft += scrollOffset;
+      const maxScrollLeft = ref.current.scrollWidth - ref.current.clientWidth;
+      if (
+        Math.ceil(ref.current.scrollLeft) !== maxScrollLeft ||
+        ref.current.scrollLeft === 0
+      )
+        setIsScrollVisible({ left: false, right: true });
+      else setIsScrollVisible({ left: true, right: false });
+      if (
+        ref.current.scrollLeft === 0 &&
+        ref.current.scrollWidth === ref.current.clientWidth
+      )
+        setIsScrollVisible({ left: false, right: false });
+    }
+  };
+
+  const isLastElement = () => {
+    if (ref.current) {
+      return (
+        ref.current.scrollLeft + ref.current.clientWidth ===
+        ref.current.scrollWidth
+      );
+    }
+    return false;
+  };
+
+  const isFirstlement = () => {
+    if (ref.current) {
+      return ref.current.scrollWidth === 0;
+    }
+    return false;
+  };
+
   return (
     <div className={classes.root}>
       <DrawerStateProvider value={{ suggestedKeyWords: [], open: false }}>
         <NavigationBar />
         <Toolbar />
         <FactCheck />
-        <div className={classes.columnContainers}>
+        <div ref={ref} className={classes.columnContainers}>
+          <Fab
+            onClick={() => handleScroll(-200)}
+            style={
+              isScrollVisible.left
+                ? {
+                    backgroundColor: '#f04b4c',
+                    position: 'fixed',
+                    left: 60,
+                    visibility: 'visible',
+                  }
+                : { visibility: 'hidden' }
+            }
+          >
+            <ArrowLeftIcon className={classes.arrowIcon} />
+          </Fab>
           <div className={classes.defaultFeeds}>
             <DragDropContext onDragEnd={onDragEnd}>
               {defaultColumns.map((column) => (
@@ -228,6 +290,21 @@ const Homepage = () => {
             </DragDropContext>
           </div>
           <ColumnsData />
+          <Fab
+            onClick={() => handleScroll(200)}
+            style={
+              isScrollVisible.right
+                ? {
+                    backgroundColor: '#f04b4c',
+                    position: 'fixed',
+                    right: 20,
+                    visibility: 'visible',
+                  }
+                : { visibility: 'hidden' }
+            }
+          >
+            <ArrowRightIcon className={classes.arrowIcon} />
+          </Fab>
         </div>
       </DrawerStateProvider>
     </div>
