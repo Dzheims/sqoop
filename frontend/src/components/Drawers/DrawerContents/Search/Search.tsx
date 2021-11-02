@@ -129,6 +129,7 @@ const Search = () => {
           <Button
             role-="button"
             variant="outlined"
+            key={value.buttonTitle}
             className={
               value.buttonTitle !== currentSearch
                 ? classes.button
@@ -142,7 +143,10 @@ const Search = () => {
       </div>
       <div>
         <Accordion style={accordionStyle}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            data-testid="expandFilters"
+          >
             <div className={classes.summaryContainer}>
               <FilterListIcon className={classes.filterIcon} />
               <Typography className={classes.filterText}>Filters</Typography>
