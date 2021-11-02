@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   arrowIcon: {
-    color: 'white',
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -188,19 +188,22 @@ const Homepage = () => {
     if (ref.current) {
       ref.current.scrollLeft += scrollOffset;
       const maxScrollLeft = ref.current.scrollWidth - ref.current.clientWidth;
-      if (
-        Math.ceil(ref.current.scrollLeft) !== maxScrollLeft ||
-        ref.current.scrollLeft === 0
-      )
+      if (ref.current.scrollLeft >= 200)
+        setIsScrollVisible({ left: true, right: true });
+      if (Math.ceil(ref.current.scrollLeft) === maxScrollLeft)
+        setIsScrollVisible({ left: true, right: false });
+      if (ref.current.scrollLeft === 0)
         setIsScrollVisible({ left: false, right: true });
-      else setIsScrollVisible({ left: true, right: false });
-      if (
-        ref.current.scrollLeft === 0 &&
-        ref.current.scrollWidth === ref.current.clientWidth
-      )
-        setIsScrollVisible({ left: false, right: false });
     }
   };
+
+  // useEffect(() => {
+  //   if (ref.current) {
+  //     if (ref.current.offsetWidth <= 620)
+  //       setIsScrollVisible({ left: false, right: false });
+  //     else setIsScrollVisible({ left: false, right: true });
+  //   }
+  // });
 
   const isLastElement = () => {
     if (ref.current) {
@@ -231,9 +234,10 @@ const Homepage = () => {
             style={
               isScrollVisible.left
                 ? {
-                    backgroundColor: '#f04b4c',
+                    opacity: 0.9,
                     position: 'fixed',
-                    left: 60,
+                    left: 65,
+                    top: '50%',
                     visibility: 'visible',
                   }
                 : { visibility: 'hidden' }
@@ -295,9 +299,10 @@ const Homepage = () => {
             style={
               isScrollVisible.right
                 ? {
-                    backgroundColor: '#f04b4c',
+                    opacity: 0.9,
                     position: 'fixed',
-                    right: 20,
+                    right: 15,
+                    top: '50%',
                     visibility: 'visible',
                   }
                 : { visibility: 'hidden' }
