@@ -129,7 +129,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
       data: {
         deleteNewsFeed: {
           user: {
-            userId: 1,
+            id: 1,
             username: 'duterte',
           },
         },
@@ -149,7 +149,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
       data: {
         deleteTwitterFeed: {
           user: {
-            userId: 1,
+            id: 1,
             username: 'duterte',
           },
         },
@@ -169,7 +169,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
       data: {
         deleteCollection: {
           user: {
-            userId: 1,
+            id: 1,
             username: 'duterte',
           },
         },
