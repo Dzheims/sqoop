@@ -14,6 +14,9 @@ import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
 import { Article } from '../../types.generated';
 import FactCheckButton from '../FactCheck/FactCheckButton';
 import { useDrawerState, DrawerState } from '../FactCheck/FactCheckDrawerState';
+import NewsCardsAddToCollectionButton, {
+  ArticleProps,
+} from '../Buttons/NewsCardsAddToCollectionButton';
 
 interface NewsDataProps {
   data: Article;
@@ -23,7 +26,14 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
-
+  const {
+    __typename,
+    author,
+    content,
+    sourceId,
+    suggestedKeywords,
+    ...collectionArticle
+  } = data;
   useEffect(() => {
     if (data.suggestedKeywords === state.suggestedKeyWords) {
       setHighlightCard(!highlightCard);
@@ -108,10 +118,12 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
               {formatTimeAndDate(data.publishedAt)}
             </Typography>
             <div className={classes().buttonsContainer}>
-              {/* <CardsAddToCollectionButton /> */}
               <FactCheckButton
                 // setHighlightCard={setHighlightCard}
                 suggestedKeywords={data.suggestedKeywords}
+              />
+              <NewsCardsAddToCollectionButton
+                data={collectionArticle as ArticleProps}
               />
             </div>
           </Item>

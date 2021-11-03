@@ -5,7 +5,7 @@ export const columnResult = gql`
 `;
 
 export const collectionContent = gql`
-  union CollectionContent = CollectionTweet
+  union CollectionContent = CollectionTweet | CollectionArticle
 `;
 
 export const typeDefs = gql`

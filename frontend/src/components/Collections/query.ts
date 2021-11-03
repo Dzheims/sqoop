@@ -18,3 +18,13 @@ export const SAVE_CONTENT_TO_COLLECTION = gql`
     }
   }
 `;
+
+export const SAVE_ARTICLE_TO_COLLECTION = gql`
+  mutation saveArticleToCollection($input: CreateCollectionArticleInput!) {
+    createCollectionArticle(input: $input) {
+      collection {
+        title
+      }
+    }
+  }
+`;

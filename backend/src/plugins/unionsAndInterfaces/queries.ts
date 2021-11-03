@@ -24,7 +24,6 @@ export const resolvers = (getNamedType: any) => {
       __resolveType(keys: any) {
         if ('tweetId' in keys) return 'CollectionTweet';
         return 'CollectionArticle';
-        // TODO add articles on next sprint
       },
     },
     Query: {
@@ -53,7 +52,13 @@ export const resolvers = (getNamedType: any) => {
         const { rows: collectionTweets } = await pgClient.query(
           `SELECT * FROM collection_tweets WHERE collection_id = ${collectionId}`
         );
-        const result = camelcaseKeys(collectionTweets);
+        const { rows: collectionArticles } = await pgClient.query(
+          `SELECT * FROM collection_articles WHERE collection_id = ${collectionId}`
+        );
+        const result = camelcaseKeys([
+          ...collectionTweets,
+          ...collectionArticles,
+        ]);
         return result;
       },
     },

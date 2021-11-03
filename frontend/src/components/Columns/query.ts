@@ -64,6 +64,14 @@ export const COLLECTION_CONTENTS_QUERY = gql`
       ... on CollectionTweet {
         tweetId
       }
+      ... on CollectionArticle {
+        description
+        publishedAt
+        sourceName
+        title
+        url
+        urlToImg
+      }
     }
   }
 `;
