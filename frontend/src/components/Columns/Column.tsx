@@ -45,6 +45,7 @@ import {
 } from './query';
 import { GET_COLLECTIONS_LIST_QUERY } from '../Collections/query';
 import CollectionColumnData from '../../pages/Boards/CollectionColumnData';
+import currentUserId from '../../authentication/currentUserId';
 
 const getFeedType = (value: any) => {
   switch (value.__typename) {
@@ -103,14 +104,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const [deleteCollection] = useMutation<
     DeleteCollectionMutation,
     DeleteCollectionMutationVariables
-  >(DELETE_COLLECTION_MUTATION, {
-    refetchQueries: [
-      {
-        query: GET_COLLECTIONS_LIST_QUERY,
-        // variables: { condition: { userId: currentUserId() } },
-      },
-    ],
-  });
+  >(DELETE_COLLECTION_MUTATION);
 
   // REFACTOR LATER
   useEffect(() => {
@@ -151,7 +145,17 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
           onCompleted: () => {
             history.push('/');
           },
-          refetchQueries: [{ query: GET_COLUMNS_QUERY }],
+          refetchQueries: [
+            { query: GET_COLUMNS_QUERY },
+            // {
+            //   query: GET_COLLECTIONS_LIST_QUERY,
+            //   variables: {
+            //     condition: {
+            //       userId: currentUserId(),
+            //     },
+            //   },
+            // },
+          ],
         });
       }
       setProceedDelete(false);

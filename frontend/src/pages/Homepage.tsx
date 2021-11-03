@@ -196,14 +196,16 @@ const Homepage = () => {
         setIsScrollVisible({ left: false, right: true });
     }
   };
-
-  // useEffect(() => {
-  //   if (ref.current) {
-  //     if (ref.current.offsetWidth <= 620)
-  //       setIsScrollVisible({ left: false, right: false });
-  //     else setIsScrollVisible({ left: false, right: true });
-  //   }
-  // });
+  // default offsetWidth = 988
+  // default scrollwidth and clientwidth = 972
+  useEffect(() => {
+    if (ref.current) {
+      // if (ref.current.offsetWidth < 988)
+      if (ref.current.clientWidth > 972)
+        setIsScrollVisible({ left: false, right: true });
+      else setIsScrollVisible({ left: false, right: false });
+    }
+  }, [ref.current]);
 
   const isLastElement = () => {
     if (ref.current) {
@@ -229,22 +231,21 @@ const Homepage = () => {
         <Toolbar />
         <FactCheck />
         <div ref={ref} className={classes.columnContainers}>
-          <Fab
-            onClick={() => handleScroll(-200)}
-            style={
-              isScrollVisible.left
-                ? {
-                    opacity: 0.9,
-                    position: 'fixed',
-                    left: 65,
-                    top: '50%',
-                    visibility: 'visible',
-                  }
-                : { visibility: 'hidden' }
-            }
-          >
-            <ArrowLeftIcon className={classes.arrowIcon} />
-          </Fab>
+          {isScrollVisible.left ? (
+            <Fab
+              onClick={() => handleScroll(-200)}
+              style={{
+                opacity: 0.9,
+                position: 'fixed',
+                left: 65,
+                top: '50%',
+              }}
+            >
+              <ArrowLeftIcon className={classes.arrowIcon} />
+            </Fab>
+          ) : (
+            <div />
+          )}
           <div className={classes.defaultFeeds}>
             <DragDropContext onDragEnd={onDragEnd}>
               {defaultColumns.map((column) => (
@@ -294,22 +295,21 @@ const Homepage = () => {
             </DragDropContext>
           </div>
           <ColumnsData />
-          <Fab
-            onClick={() => handleScroll(200)}
-            style={
-              isScrollVisible.right
-                ? {
-                    opacity: 0.9,
-                    position: 'fixed',
-                    right: 15,
-                    top: '50%',
-                    visibility: 'visible',
-                  }
-                : { visibility: 'hidden' }
-            }
-          >
-            <ArrowRightIcon className={classes.arrowIcon} />
-          </Fab>
+          {isScrollVisible.right ? (
+            <Fab
+              onClick={() => handleScroll(200)}
+              style={{
+                opacity: 0.9,
+                position: 'fixed',
+                right: 15,
+                top: '50%',
+              }}
+            >
+              <ArrowRightIcon className={classes.arrowIcon} />
+            </Fab>
+          ) : (
+            <div />
+          )}
         </div>
       </DrawerStateProvider>
     </div>
