@@ -26,7 +26,7 @@ import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import FactCheckButton from '../FactCheck/FactCheckButton';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
 import { useDrawerState, DrawerState } from '../FactCheck/FactCheckDrawerState';
-import { Tweet } from '../../types.generated';
+import { CollectionTweet, Tweet } from '../../types.generated';
 
 interface TwitterDataProps {
   data: Tweet;
@@ -138,7 +138,14 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
                 // setHighlightCard={setHighlightCard}
                 suggestedKeywords={data.suggestedKeywords}
               />
-              <CardsAddToCollectionButton id={data?.id as string} />
+              <CardsAddToCollectionButton
+                data={
+                  {
+                    tweetId: data?.id,
+                    __typename: 'CollectionTweet',
+                  } as CollectionTweet
+                }
+              />
             </div>
           </Item>
         )}

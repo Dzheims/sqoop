@@ -34,6 +34,7 @@ module.exports = {
         schemaString: fs.readFileSync('./schema.graphql').toString(),
       },
     ],
+    'no-underscore-dangle': ['error', { allow: ['__typename'] }],
   },
   overrides: [
     {

@@ -11,12 +11,9 @@ import {
 } from '../../pages/Boards/ColumnsStyle';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
-import { Article } from '../../types.generated';
+import { Article, CollectionArticle } from '../../types.generated';
 import FactCheckButton from '../FactCheck/FactCheckButton';
 import { useDrawerState, DrawerState } from '../FactCheck/FactCheckDrawerState';
-import NewsCardsAddToCollectionButton, {
-  ArticleProps,
-} from '../Buttons/NewsCardsAddToCollectionButton';
 
 interface NewsDataProps {
   data: Article;
@@ -34,6 +31,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
     suggestedKeywords,
     ...collectionArticle
   } = data;
+
   useEffect(() => {
     if (data.suggestedKeywords === state.suggestedKeyWords) {
       setHighlightCard(!highlightCard);
@@ -122,8 +120,13 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                 // setHighlightCard={setHighlightCard}
                 suggestedKeywords={data.suggestedKeywords}
               />
-              <NewsCardsAddToCollectionButton
-                data={collectionArticle as ArticleProps}
+              <CardsAddToCollectionButton
+                data={
+                  {
+                    ...collectionArticle,
+                    __typename: 'CollectionArticle',
+                  } as CollectionArticle
+                }
               />
             </div>
           </Item>

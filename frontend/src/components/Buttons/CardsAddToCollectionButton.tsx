@@ -15,11 +15,17 @@ import {
 
 import CollectionsList from '../Collections/CollectionsList';
 import {
-  SaveContentToCollectionMutation,
-  SaveContentToCollectionMutationVariables,
+  SaveTweetToCollectionMutation,
+  SaveTweetToCollectionMutationVariables,
+  SaveArticleToCollectionMutation,
+  SaveArticleToCollectionMutationVariables,
 } from '../Collections/query.generated';
-import { SAVE_CONTENT_TO_COLLECTION } from '../Collections/query';
-import { COLLECTION_CONTENTS_QUERY, COLLECTION_TWEETS } from '../Columns/query';
+import {
+  SAVE_TWEET_TO_COLLECTION,
+  SAVE_ARTICLE_TO_COLLECTION,
+} from '../Collections/query';
+import { COLLECTION_CONTENTS_QUERY } from '../Columns/query';
+import { CollectionContent } from '../../types.generated';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,11 +45,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface IDProps {
-  id: string;
+interface CollectionContentProps {
+  data: CollectionContent;
 }
 
-const CardsAddToCollectionButton = ({ id }: IDProps) => {
+const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
   const [collectionId, setCollectionId] = useState(0);
@@ -56,32 +62,72 @@ const CardsAddToCollectionButton = ({ id }: IDProps) => {
     setIsOpen(false);
   };
 
-  const [saveContentToCollection] = useMutation<
-    SaveContentToCollectionMutation,
-    SaveContentToCollectionMutationVariables
-  >(SAVE_CONTENT_TO_COLLECTION, {
-    variables: {
-      input: {
-        collectionTweet: {
-          collectionId,
-          tweetId: id,
-        },
-      },
-    },
-    onCompleted: () => {
-      handleClickClose();
-    },
-    refetchQueries: [
-      {
-        query: COLLECTION_CONTENTS_QUERY,
-        variables: { collectionId },
-      },
-      { query: COLLECTION_TWEETS, variables: { id } },
-    ],
-  });
+  const [saveTweetToCollection] = useMutation<
+    SaveTweetToCollectionMutation,
+    SaveTweetToCollectionMutationVariables
+  >(SAVE_TWEET_TO_COLLECTION);
+
+  const [saveArticleToCollection] = useMutation<
+    SaveArticleToCollectionMutation,
+    SaveArticleToCollectionMutationVariables
+  >(SAVE_ARTICLE_TO_COLLECTION);
 
   const handleSave = () => {
-    saveContentToCollection();
+    if (data.__typename) {
+      switch (data.__typename) {
+        case 'CollectionTweet':
+          saveTweetToCollection({
+            variables: {
+              input: {
+                collectionTweet: {
+                  collectionId,
+                  tweetId: data.tweetId,
+                },
+              },
+            },
+            onCompleted: () => {
+              handleClickClose();
+            },
+            refetchQueries: [
+              {
+                query: COLLECTION_CONTENTS_QUERY,
+                variables: { collectionId },
+              },
+            ],
+          });
+          break;
+        case 'CollectionArticle':
+          saveArticleToCollection({
+            variables: {
+              input: {
+                collectionArticle: {
+                  collectionId,
+                  title: data.title,
+                  description: data.description,
+                  publishedAt: data.publishedAt,
+                  sourceName: data.sourceName,
+                  url: data.url,
+                  urlToImage: data.urlToImage,
+                },
+              },
+            },
+            onCompleted: () => {
+              handleClickClose();
+            },
+            refetchQueries: [
+              {
+                query: COLLECTION_CONTENTS_QUERY,
+                variables: { collectionId },
+              },
+            ],
+          });
+          break;
+        default:
+          handleClickClose();
+          break;
+      }
+    }
+    handleClickClose();
   };
 
   return (

@@ -9,8 +9,8 @@ export const GET_COLLECTIONS_LIST_QUERY = gql`
   }
 `;
 
-export const SAVE_CONTENT_TO_COLLECTION = gql`
-  mutation saveContentToCollection($input: CreateCollectionTweetInput!) {
+export const SAVE_TWEET_TO_COLLECTION = gql`
+  mutation saveTweetToCollection($input: CreateCollectionTweetInput!) {
     createCollectionTweet(input: $input) {
       collection {
         title
