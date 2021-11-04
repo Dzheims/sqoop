@@ -719,7 +719,7 @@ type CollectionArticle implements Node {
   sourceName: String
   title: String!
   url: String
-  urlToImg: String
+  urlToImage: String
   collectionId: Int!
 
   """
@@ -2402,7 +2402,7 @@ input CollectionArticleInput {
   sourceName: String
   title: String!
   url: String
-  urlToImg: String
+  urlToImage: String
   collectionId: Int!
 }
 
@@ -2894,7 +2894,7 @@ input CollectionArticlePatch {
   sourceName: String
   title: String
   url: String
-  urlToImg: String
+  urlToImage: String
   collectionId: Int
 }
 

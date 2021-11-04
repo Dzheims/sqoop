@@ -70,7 +70,7 @@ export const COLLECTION_CONTENTS_QUERY = gql`
         sourceName
         title
         url
-        urlToImg
+        urlToImage
       }
     }
   }

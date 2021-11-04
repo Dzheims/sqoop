@@ -4,6 +4,8 @@ import { CollectionContentsQuery } from '../../components/Columns/query.generate
 import { Item, useStyles } from './ColumnsStyle';
 import TwitterCards from '../../components/Cards/TwitterCards';
 import CollectionTweets from './CollectionTweetsData';
+import NewsCards from '../../components/Cards/NewsCards';
+import { ArticleProps } from '../../components/Buttons/NewsCardsAddToCollectionButton';
 
 interface CollectionContentsDataProps {
   data: CollectionContentsQuery;
@@ -13,6 +15,8 @@ const getCollectionContentType = (value: any) => {
   switch (value.__typename) {
     case 'CollectionTweet':
       return <CollectionTweets id={value.tweetId} />;
+    case 'CollectionArticle':
+      return <NewsCards data={value as ArticleProps} />;
   }
 };
 

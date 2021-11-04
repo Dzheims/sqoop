@@ -78,7 +78,7 @@ const NewsCardsAddToCollectionButton = ({ data }: DataProps) => {
           publishedAt: data.publishedAt,
           sourceName: data.sourceName,
           url: data.url,
-          urlToImg: data.urlToImage,
+          urlToImage: data.urlToImage,
         },
       },
     },
