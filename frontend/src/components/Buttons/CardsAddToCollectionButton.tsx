@@ -133,7 +133,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
   return (
     <>
       <div className={classes.root}>
-        <IconButton onClick={handleClickOpen}>
+        <IconButton onClick={handleClickOpen} data-testid="save-to-collections">
           <AddIcon
             fontSize="small"
             className={isOpen ? classes.selectedIcon : classes.icon}
@@ -154,7 +154,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
           />
           <DialogActions>
             <Button onClick={handleClickClose}>Cancel</Button>
-            <Button onClick={handleSave} autoFocus>
+            <Button onClick={handleSave} autoFocus data-testid="submit-save">
               Save
             </Button>
           </DialogActions>
