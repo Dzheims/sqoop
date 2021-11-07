@@ -103,9 +103,8 @@ const Homepage = () => {
   const classes = useStyles();
   const ref = useRef<HTMLDivElement>(null);
   const [category, setCategory] = useState('GENERAL');
-  const [scrollX, setScrollX] = useState(0);
-  const [isScrollRightVisible, setIsScrollRightVisible] = useState(true);
-  const [isScrollLeftVisible, setIsScrollLeftVisible] = useState(true);
+  const [isFirstElement, setIsFirstElement] = useState(true);
+  const [isLastElement, setIsLastElement] = useState(false);
   const history = useHistory();
 
   if (!Cookies.get(AUTH_TOKEN)) {
@@ -186,65 +185,41 @@ const Homepage = () => {
   const buttonScroll = (scrollOffset: number) => {
     if (ref.current) {
       ref.current.scrollLeft += scrollOffset;
-      if (ref.current.scrollLeft === 0) {
-        setIsScrollLeftVisible(false);
-      } else {
-        setIsScrollLeftVisible(true);
-      }
-
-      if (
-        ref.current.scrollWidth - ref.current.scrollLeft <=
-        ref.current.offsetWidth
-      ) {
-        setIsScrollRightVisible(false);
-      } else {
-        setIsScrollRightVisible(true);
-      }
     }
   };
+
+  // FIX
+
   useEffect(() => {
     if (ref.current) {
+      ref.current.scrollLeft += 200;
+      console.log(ref.current.scrollLeft);
       if (ref.current.scrollLeft === 0) {
-        setIsScrollLeftVisible(false);
-        console.log('false');
+        setIsLastElement(true);
       } else {
-        setIsScrollLeftVisible(true);
-        console.log('true');
+        setIsLastElement(false);
+      }
+    }
+    return () => {};
+  }, []);
+
+  const onScroll = () => {
+    if (ref.current) {
+      if (ref.current.scrollLeft < 0) {
+        setIsFirstElement(true);
+      } else {
+        setIsFirstElement(false);
       }
 
       if (
         ref.current.scrollWidth - ref.current.scrollLeft <=
         ref.current.offsetWidth
       ) {
-        setIsScrollRightVisible(false);
+        setIsLastElement(true);
       } else {
-        setIsScrollRightVisible(true);
+        setIsLastElement(false);
       }
     }
-  }, [
-    ref.current,
-    ref.current?.scrollWidth,
-    ref.current?.scrollLeft,
-    ref.current?.offsetWidth,
-    isScrollLeftVisible,
-    isScrollRightVisible,
-  ]);
-
-  const isLastElement = () => {
-    if (ref.current) {
-      return (
-        ref.current.scrollLeft + ref.current.clientWidth ===
-        ref.current.scrollWidth
-      );
-    }
-    return false;
-  };
-
-  const isFirstlement = () => {
-    if (ref.current) {
-      return ref.current.scrollWidth === 0;
-    }
-    return false;
   };
 
   return (
@@ -253,7 +228,7 @@ const Homepage = () => {
         <NavigationBar />
         <Toolbar />
         <FactCheck />
-        <div ref={ref} className={classes.columnContainers}>
+        <div ref={ref} className={classes.columnContainers} onScroll={onScroll}>
           <div className={classes.defaultFeeds}>
             <DragDropContext onDragEnd={onDragEnd}>
               {defaultColumns.map((column) => (
@@ -303,36 +278,28 @@ const Homepage = () => {
             </DragDropContext>
           </div>
           <ColumnsData />
-          {isScrollLeftVisible ? (
-            <Fab
-              onClick={() => buttonScroll(-200)}
-              style={{
-                opacity: 0.9,
-                position: 'fixed',
-                left: 65,
-                top: '50%',
-              }}
-            >
-              <ArrowLeftIcon className={classes.arrowIcon} />
-            </Fab>
-          ) : (
-            <div />
-          )}
-          {isScrollRightVisible ? (
-            <Fab
-              onClick={() => buttonScroll(200)}
-              style={{
-                opacity: 0.9,
-                position: 'fixed',
-                right: 15,
-                top: '50%',
-              }}
-            >
-              <ArrowRightIcon className={classes.arrowIcon} />
-            </Fab>
-          ) : (
-            <div />
-          )}
+          <Fab
+            onClick={() => buttonScroll(-320)}
+            style={{
+              opacity: isFirstElement ? 0 : 0.9,
+              position: 'fixed',
+              left: 65,
+              top: '50%',
+            }}
+          >
+            <ArrowLeftIcon className={classes.arrowIcon} />
+          </Fab>
+          <Fab
+            onClick={() => buttonScroll(320)}
+            style={{
+              opacity: isLastElement ? 0 : 0.9,
+              position: 'fixed',
+              right: 15,
+              top: '50%',
+            }}
+          >
+            <ArrowRightIcon className={classes.arrowIcon} />
+          </Fab>
         </div>
       </DrawerStateProvider>
     </div>
