@@ -24,6 +24,72 @@ type Query implements Node {
   ): Node
 
   """
+  Reads and enables pagination through a set of `CollectionArticle`.
+  """
+  collectionArticlesConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
+    orderBy: [CollectionArticlesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionArticleCondition
+  ): CollectionArticlesConnection
+
+  """
+  Reads a set of `CollectionArticle`.
+  """
+  collectionArticles(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
+    orderBy: [CollectionArticlesOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionArticleCondition
+  ): [CollectionArticle!]
+
+  """
   Reads and enables pagination through a set of `CollectionTweet`.
   """
   collectionTweetsConnection(
@@ -484,6 +550,7 @@ type Query implements Node {
     """
     condition: UserCondition
   ): [User!]
+  collectionArticle(id: Int!): CollectionArticle
   collectionTweet(id: Int!): CollectionTweet
   collection(id: Int!): Collection
   newsFeed(id: Int!): NewsFeed
@@ -496,9 +563,19 @@ type Query implements Node {
   twitterSource(accountId: Int!): TwitterSource
   twitterSourceByAccountName(accountName: String!): TwitterSource
   twitterSourceByAccountUsername(accountUsername: String!): TwitterSource
-  user(userId: Int!): User
+  user(id: Int!): User
   userByUsername(username: String!): User
   currentUserId: Int
+
+  """
+  Reads a single `CollectionArticle` using its globally unique `ID`.
+  """
+  collectionArticleByNodeId(
+    """
+    The globally unique `ID` to be used in selecting a single `CollectionArticle`.
+    """
+    nodeId: ID!
+  ): CollectionArticle
 
   """
   Reads a single `CollectionTweet` using its globally unique `ID`.
@@ -607,18 +684,18 @@ interface Node {
 }
 
 """
-A connection to a list of `CollectionTweet` values.
+A connection to a list of `CollectionArticle` values.
 """
-type CollectionTweetsConnection {
+type CollectionArticlesConnection {
   """
-  A list of `CollectionTweet` objects.
+  A list of `CollectionArticle` objects.
   """
-  nodes: [CollectionTweet]!
+  nodes: [CollectionArticle]!
 
   """
-  A list of edges which contains the `CollectionTweet` and cursor to aid in pagination.
+  A list of edges which contains the `CollectionArticle` and cursor to aid in pagination.
   """
-  edges: [CollectionTweetsEdge!]!
+  edges: [CollectionArticlesEdge!]!
 
   """
   Information to aid in pagination.
@@ -626,22 +703,27 @@ type CollectionTweetsConnection {
   pageInfo: PageInfo!
 
   """
-  The count of *all* `CollectionTweet` you could get from the connection.
+  The count of *all* `CollectionArticle` you could get from the connection.
   """
   totalCount: Int!
 }
 
-type CollectionTweet implements Node {
+type CollectionArticle implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
   id: Int!
-  tweetId: String!
+  description: String
+  publishedAt: String
+  sourceName: String
+  title: String!
+  url: String
+  urlToImage: String
   collectionId: Int!
 
   """
-  Reads a single `Collection` that is related to this `CollectionTweet`.
+  Reads a single `Collection` that is related to this `CollectionArticle`.
   """
   collection: Collection
 }
@@ -726,6 +808,72 @@ type Collection implements Node {
     """
     condition: CollectionTweetCondition
   ): [CollectionTweet!]!
+
+  """
+  Reads and enables pagination through a set of `CollectionArticle`.
+  """
+  collectionArticlesConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
+    orderBy: [CollectionArticlesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionArticleCondition
+  ): CollectionArticlesConnection!
+
+  """
+  Reads and enables pagination through a set of `CollectionArticle`.
+  """
+  collectionArticles(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
+    orderBy: [CollectionArticlesOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionArticleCondition
+  ): [CollectionArticle!]!
 }
 
 """
@@ -739,7 +887,7 @@ type User implements Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
-  userId: Int!
+  id: Int!
   username: String!
   hashedPassword: String!
 
@@ -1228,6 +1376,61 @@ input CollectionCondition {
 }
 
 """
+A connection to a list of `CollectionTweet` values.
+"""
+type CollectionTweetsConnection {
+  """
+  A list of `CollectionTweet` objects.
+  """
+  nodes: [CollectionTweet]!
+
+  """
+  A list of edges which contains the `CollectionTweet` and cursor to aid in pagination.
+  """
+  edges: [CollectionTweetsEdge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `CollectionTweet` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type CollectionTweet implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  tweetId: String!
+  collectionId: Int!
+
+  """
+  Reads a single `Collection` that is related to this `CollectionTweet`.
+  """
+  collection: Collection
+}
+
+"""
+A `CollectionTweet` edge in the connection.
+"""
+type CollectionTweetsEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor
+
+  """
+  The `CollectionTweet` at the end of the edge.
+  """
+  node: CollectionTweet
+}
+
+"""
 Methods to use when ordering `CollectionTweet`.
 """
 enum CollectionTweetsOrderBy {
@@ -1257,18 +1460,47 @@ input CollectionTweetCondition {
 }
 
 """
-A `CollectionTweet` edge in the connection.
+Methods to use when ordering `CollectionArticle`.
 """
-type CollectionTweetsEdge {
+enum CollectionArticlesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  COLLECTION_ID_ASC
+  COLLECTION_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `CollectionArticle` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input CollectionArticleCondition {
+  """
+  Checks for equality with the object’s `id` field.
+  """
+  id: Int
+
+  """
+  Checks for equality with the object’s `collectionId` field.
+  """
+  collectionId: Int
+}
+
+"""
+A `CollectionArticle` edge in the connection.
+"""
+type CollectionArticlesEdge {
   """
   A cursor for use in pagination.
   """
   cursor: Cursor
 
   """
-  The `CollectionTweet` at the end of the edge.
+  The `CollectionArticle` at the end of the edge.
   """
-  node: CollectionTweet
+  node: CollectionArticle
 }
 
 """
@@ -1488,8 +1720,8 @@ Methods to use when ordering `User`.
 """
 enum UsersOrderBy {
   NATURAL
-  USER_ID_ASC
-  USER_ID_DESC
+  ID_ASC
+  ID_DESC
   USERNAME_ASC
   USERNAME_DESC
   PRIMARY_KEY_ASC
@@ -1501,9 +1733,9 @@ A condition to be used against `User` object types. All fields are tested for eq
 """
 input UserCondition {
   """
-  Checks for equality with the object’s `userId` field.
+  Checks for equality with the object’s `id` field.
   """
-  userId: Int
+  id: Int
 
   """
   Checks for equality with the object’s `username` field.
@@ -1596,6 +1828,16 @@ The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
   """
+  Creates a single `CollectionArticle`.
+  """
+  createCollectionArticle(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCollectionArticleInput!
+  ): CreateCollectionArticlePayload
+
+  """
   Creates a single `CollectionTweet`.
   """
   createCollectionTweet(
@@ -1664,6 +1906,26 @@ type Mutation {
     """
     input: CreateUserInput!
   ): CreateUserPayload
+
+  """
+  Updates a single `CollectionArticle` using its globally unique id and a patch.
+  """
+  updateCollectionArticleByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCollectionArticleByNodeIdInput!
+  ): UpdateCollectionArticlePayload
+
+  """
+  Updates a single `CollectionArticle` using a unique key and a patch.
+  """
+  updateCollectionArticle(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCollectionArticleInput!
+  ): UpdateCollectionArticlePayload
 
   """
   Updates a single `CollectionTweet` using its globally unique id and a patch.
@@ -1854,6 +2116,26 @@ type Mutation {
     """
     input: UpdateUserByUsernameInput!
   ): UpdateUserPayload
+
+  """
+  Deletes a single `CollectionArticle` using its globally unique id.
+  """
+  deleteCollectionArticleByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCollectionArticleByNodeIdInput!
+  ): DeleteCollectionArticlePayload
+
+  """
+  Deletes a single `CollectionArticle` using a unique key.
+  """
+  deleteCollectionArticle(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCollectionArticleInput!
+  ): DeleteCollectionArticlePayload
 
   """
   Deletes a single `CollectionTweet` using its globally unique id.
@@ -2056,6 +2338,72 @@ type Mutation {
     """
     input: SignupInput!
   ): SignupPayload
+}
+
+"""
+The output of our create `CollectionArticle` mutation.
+"""
+type CreateCollectionArticlePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionArticle` that was created by this mutation.
+  """
+  collectionArticle: CollectionArticle
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `Collection` that is related to this `CollectionArticle`.
+  """
+  collection: Collection
+
+  """
+  An edge for our `CollectionArticle`. May be used by Relay 1.
+  """
+  collectionArticleEdge(
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
+    orderBy: [CollectionArticlesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CollectionArticlesEdge
+}
+
+"""
+All input for the create `CollectionArticle` mutation.
+"""
+input CreateCollectionArticleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionArticle` to be created by this mutation.
+  """
+  collectionArticle: CollectionArticleInput!
+}
+
+"""
+An input for mutations affecting `CollectionArticle`
+"""
+input CollectionArticleInput {
+  id: Int
+  description: String
+  publishedAt: String
+  sourceName: String
+  title: String!
+  url: String
+  urlToImage: String
+  collectionId: Int!
 }
 
 """
@@ -2474,9 +2822,97 @@ input CreateUserInput {
 An input for mutations affecting `User`
 """
 input UserInput {
-  userId: Int
+  id: Int
   username: String!
   hashedPassword: String!
+}
+
+"""
+The output of our update `CollectionArticle` mutation.
+"""
+type UpdateCollectionArticlePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionArticle` that was updated by this mutation.
+  """
+  collectionArticle: CollectionArticle
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `Collection` that is related to this `CollectionArticle`.
+  """
+  collection: Collection
+
+  """
+  An edge for our `CollectionArticle`. May be used by Relay 1.
+  """
+  collectionArticleEdge(
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
+    orderBy: [CollectionArticlesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CollectionArticlesEdge
+}
+
+"""
+All input for the `updateCollectionArticleByNodeId` mutation.
+"""
+input UpdateCollectionArticleByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `CollectionArticle` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `CollectionArticle` being updated.
+  """
+  patch: CollectionArticlePatch!
+}
+
+"""
+Represents an update to a `CollectionArticle`. Fields that are set will be updated.
+"""
+input CollectionArticlePatch {
+  id: Int
+  description: String
+  publishedAt: String
+  sourceName: String
+  title: String
+  url: String
+  urlToImage: String
+  collectionId: Int
+}
+
+"""
+All input for the `updateCollectionArticle` mutation.
+"""
+input UpdateCollectionArticleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `CollectionArticle` being updated.
+  """
+  patch: CollectionArticlePatch!
+  id: Int!
 }
 
 """
@@ -3100,7 +3536,7 @@ input UpdateUserByNodeIdInput {
 Represents an update to a `User`. Fields that are set will be updated.
 """
 input UserPatch {
-  userId: Int
+  id: Int
   username: String
   hashedPassword: String
 }
@@ -3119,7 +3555,7 @@ input UpdateUserInput {
   An object where the defined keys will be set on the `User` being updated.
   """
   patch: UserPatch!
-  userId: Int!
+  id: Int!
 }
 
 """
@@ -3137,6 +3573,71 @@ input UpdateUserByUsernameInput {
   """
   patch: UserPatch!
   username: String!
+}
+
+"""
+The output of our delete `CollectionArticle` mutation.
+"""
+type DeleteCollectionArticlePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionArticle` that was deleted by this mutation.
+  """
+  collectionArticle: CollectionArticle
+  deletedCollectionArticleNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `Collection` that is related to this `CollectionArticle`.
+  """
+  collection: Collection
+
+  """
+  An edge for our `CollectionArticle`. May be used by Relay 1.
+  """
+  collectionArticleEdge(
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
+    orderBy: [CollectionArticlesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CollectionArticlesEdge
+}
+
+"""
+All input for the `deleteCollectionArticleByNodeId` mutation.
+"""
+input DeleteCollectionArticleByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `CollectionArticle` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteCollectionArticle` mutation.
+"""
+input DeleteCollectionArticleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: Int!
 }
 
 """
@@ -3624,7 +4125,7 @@ input DeleteUserInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  userId: Int!
+  id: Int!
 }
 
 """

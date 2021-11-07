@@ -15,8 +15,8 @@ import {
 
 import CollectionsList from '../Collections/CollectionsList';
 import {
-  SaveContentToCollectionMutation,
-  SaveContentToCollectionMutationVariables,
+  SaveTweetToCollectionMutation,
+  SaveTweetToCollectionMutationVariables,
 } from '../Collections/query.generated';
 import { SAVE_CONTENT_TO_COLLECTION } from '../Collections/query';
 import { COLLECTION_CONTENTS_QUERY, COLLECTION_TWEETS } from '../Columns/query';
@@ -56,9 +56,9 @@ const CardsAddToCollectionButton = ({ id }: IDProps) => {
     setIsOpen(false);
   };
 
-  const [saveContentToCollection] = useMutation<
-    SaveContentToCollectionMutation,
-    SaveContentToCollectionMutationVariables
+  const [saveTweetToCollection] = useMutation<
+    SaveTweetToCollectionMutation,
+    SaveTweetToCollectionMutationVariables
   >(SAVE_CONTENT_TO_COLLECTION, {
     variables: {
       input: {
@@ -81,7 +81,7 @@ const CardsAddToCollectionButton = ({ id }: IDProps) => {
   });
 
   const handleSave = () => {
-    saveContentToCollection();
+    saveTweetToCollection();
   };
 
   return (

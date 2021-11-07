@@ -103,10 +103,9 @@ const Homepage = () => {
   const classes = useStyles();
   const ref = useRef<HTMLDivElement>(null);
   const [category, setCategory] = useState('GENERAL');
-  const [isScrollVisible, setIsScrollVisible] = useState({
-    left: true,
-    right: true,
-  });
+  const [scrollX, setScrollX] = useState(0);
+  const [isScrollRightVisible, setIsScrollRightVisible] = useState(true);
+  const [isScrollLeftVisible, setIsScrollLeftVisible] = useState(true);
   const history = useHistory();
 
   if (!Cookies.get(AUTH_TOKEN)) {
@@ -184,28 +183,52 @@ const Homepage = () => {
     },
   ];
 
-  const handleScroll = (scrollOffset: number) => {
+  const buttonScroll = (scrollOffset: number) => {
     if (ref.current) {
       ref.current.scrollLeft += scrollOffset;
-      const maxScrollLeft = ref.current.scrollWidth - ref.current.clientWidth;
-      if (ref.current.scrollLeft >= 200)
-        setIsScrollVisible({ left: true, right: true });
-      if (Math.ceil(ref.current.scrollLeft) === maxScrollLeft)
-        setIsScrollVisible({ left: true, right: false });
-      if (ref.current.scrollLeft === 0)
-        setIsScrollVisible({ left: false, right: true });
+      if (ref.current.scrollLeft === 0) {
+        setIsScrollLeftVisible(false);
+      } else {
+        setIsScrollLeftVisible(true);
+      }
+
+      if (
+        ref.current.scrollWidth - ref.current.scrollLeft <=
+        ref.current.offsetWidth
+      ) {
+        setIsScrollRightVisible(false);
+      } else {
+        setIsScrollRightVisible(true);
+      }
     }
   };
-  // default offsetWidth = 988
-  // default scrollwidth and clientwidth = 972
   useEffect(() => {
     if (ref.current) {
-      // if (ref.current.offsetWidth < 988)
-      if (ref.current.clientWidth > 972)
-        setIsScrollVisible({ left: false, right: true });
-      else setIsScrollVisible({ left: false, right: false });
+      if (ref.current.scrollLeft === 0) {
+        setIsScrollLeftVisible(false);
+        console.log('false');
+      } else {
+        setIsScrollLeftVisible(true);
+        console.log('true');
+      }
+
+      if (
+        ref.current.scrollWidth - ref.current.scrollLeft <=
+        ref.current.offsetWidth
+      ) {
+        setIsScrollRightVisible(false);
+      } else {
+        setIsScrollRightVisible(true);
+      }
     }
-  }, [ref.current]);
+  }, [
+    ref.current,
+    ref.current?.scrollWidth,
+    ref.current?.scrollLeft,
+    ref.current?.offsetWidth,
+    isScrollLeftVisible,
+    isScrollRightVisible,
+  ]);
 
   const isLastElement = () => {
     if (ref.current) {
@@ -231,21 +254,6 @@ const Homepage = () => {
         <Toolbar />
         <FactCheck />
         <div ref={ref} className={classes.columnContainers}>
-          {isScrollVisible.left ? (
-            <Fab
-              onClick={() => handleScroll(-200)}
-              style={{
-                opacity: 0.9,
-                position: 'fixed',
-                left: 65,
-                top: '50%',
-              }}
-            >
-              <ArrowLeftIcon className={classes.arrowIcon} />
-            </Fab>
-          ) : (
-            <div />
-          )}
           <div className={classes.defaultFeeds}>
             <DragDropContext onDragEnd={onDragEnd}>
               {defaultColumns.map((column) => (
@@ -295,9 +303,24 @@ const Homepage = () => {
             </DragDropContext>
           </div>
           <ColumnsData />
-          {isScrollVisible.right ? (
+          {isScrollLeftVisible ? (
             <Fab
-              onClick={() => handleScroll(200)}
+              onClick={() => buttonScroll(-200)}
+              style={{
+                opacity: 0.9,
+                position: 'fixed',
+                left: 65,
+                top: '50%',
+              }}
+            >
+              <ArrowLeftIcon className={classes.arrowIcon} />
+            </Fab>
+          ) : (
+            <div />
+          )}
+          {isScrollRightVisible ? (
+            <Fab
+              onClick={() => buttonScroll(200)}
               style={{
                 opacity: 0.9,
                 position: 'fixed',
