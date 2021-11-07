@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -23,12 +23,34 @@ const ColumnNavigation: React.FC<ColumnsListProps> = ({
 }: ColumnsListProps) => {
   const classes = useStyles();
 
+  const buttonScroll = (id: string) => {
+    const element = window.document.getElementById(id);
+    element?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    element?.focus();
+  };
+
+  const defaultColumns = [
+    {
+      title: 'News Feed',
+    },
+    {
+      title: 'Twitter Feed',
+    },
+  ];
+
   return (
     <div className={classes.root}>
       <List>
+        {defaultColumns.map((value) => (
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => buttonScroll(value.title)}>
+              <ListItemText primary={value.title} />
+            </ListItemButton>
+          </ListItem>
+        ))}
         {data.getColumnResult.map((value) => (
           <ListItem disablePadding>
-            <ListItemButton onClick={() => {}}>
+            <ListItemButton onClick={() => buttonScroll(value.title)}>
               <ListItemText primary={value.title} />
             </ListItemButton>
           </ListItem>

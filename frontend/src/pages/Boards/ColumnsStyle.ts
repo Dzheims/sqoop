@@ -99,6 +99,12 @@ export const useStyles = () =>
       border: '2px solid #f04b4c',
       transition: 'border 0.25s ease-out',
     },
+    columnHighlightBorder: {
+      '&:focus': {
+        border: '2px solid #f04b4c',
+        transition: 'border 0.10s ease-out',
+      },
+    },
     border: {
       border: 'thin solid lightgray',
       transition: 'border 0.25s ease-out',
