@@ -88,7 +88,6 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     type: '',
   });
 
-  const history = useHistory();
   const onDragEnd = () => {};
 
   const [deleteTwitterFeed] = useMutation<
@@ -116,9 +115,6 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
               id: deleteColumn.id,
             },
           },
-          onCompleted: () => {
-            history.push('/');
-          },
           refetchQueries: [{ query: GET_COLUMNS_QUERY }],
         });
       }
@@ -128,9 +124,6 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
             input: {
               id: deleteColumn.id,
             },
-          },
-          onCompleted: () => {
-            history.push('/');
           },
           refetchQueries: [{ query: GET_COLUMNS_QUERY }],
         });
@@ -142,23 +135,16 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
               id: deleteColumn.id,
             },
           },
-          onCompleted: () => {
-            history.push('/');
-          },
           refetchQueries: [
             { query: GET_COLUMNS_QUERY },
+            // use global states for currentuserid to access for refetch
             // {
             //   query: GET_COLLECTIONS_LIST_QUERY,
-            //   variables: {
-            //     condition: {
-            //       userId: currentUserId(),
-            //     },
-            //   },
+            //   variables: { condition: { userId: currentUserId() } },
             // },
           ],
         });
       }
-      setProceedDelete(false);
     }
   }, [proceedDelete]);
 
@@ -181,12 +167,13 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     <>
       <ColumnWrapper>
         {data.getColumnResult?.flatMap((value, index) => (
-          <div
-            id={value.title}
-            className={classes().columnHighlightBorder}
-            tabIndex={-1}
-          >
-            <DragDropContext onDragEnd={onDragEnd} key={index}>
+          <DragDropContext onDragEnd={onDragEnd} key={index}>
+            <div
+              id={value.title}
+              // className={classes().columnHighlightBorder}
+              // add className
+              tabIndex={-1}
+            >
               <Droppable droppableId="droppable">
                 {(provided, snapshot) => (
                   <ColumnContainer
@@ -223,8 +210,8 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                   </ColumnContainer>
                 )}
               </Droppable>
-            </DragDropContext>
-          </div>
+            </div>
+          </DragDropContext>
         ))}
       </ColumnWrapper>
       <Dialog

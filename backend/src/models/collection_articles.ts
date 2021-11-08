@@ -21,7 +21,7 @@ export default interface collection_articles {
 
   url: string | null;
 
-  url_to_img: string | null;
+  url_to_image: string | null;
 
   /** Index: collection_articles_collection_id_idx */
   collection_id: collectionsId;
@@ -41,7 +41,7 @@ export interface collection_articlesInitializer {
 
   url?: string | null;
 
-  url_to_img?: string | null;
+  url_to_image?: string | null;
 
   /** Index: collection_articles_collection_id_idx */
   collection_id: collectionsId;

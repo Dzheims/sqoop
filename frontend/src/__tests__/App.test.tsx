@@ -232,9 +232,12 @@ describe('Columns', () => {
     });
     expect(documentBody.queryByTestId('agree-delete')).not.toBeInTheDocument();
 
-    expect(
-      documentBody.queryByText('Custom News Feed 4')
-    ).not.toBeInTheDocument();
+    await waitFor(async () => {
+      expect(
+        documentBody.queryByText('Custom News Feed 4')
+      ).not.toBeInTheDocument();
+    });
+
     deleteNewsFeedQueryCalled = false;
   });
 
@@ -311,10 +314,11 @@ describe('Columns', () => {
     });
 
     expect(documentBody.queryByTestId('agree-delete')).not.toBeInTheDocument();
-
-    expect(
-      documentBody.queryByText('Collection Bookmarks')
-    ).not.toBeInTheDocument();
+    await waitFor(async () => {
+      expect(
+        documentBody.queryByText('Collection Bookmarks')
+      ).not.toBeInTheDocument();
+    });
     deleteCollectionQueryCalled = false;
   });
 
