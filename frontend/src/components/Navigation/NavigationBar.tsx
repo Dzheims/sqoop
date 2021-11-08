@@ -36,7 +36,7 @@ import UserProfile from '../Account/UserProfile';
 import AddCollectionForm from '../Drawers/DrawerContents/CollectionForm/AddCollectionsForm';
 import Search from '../Drawers/DrawerContents/Search/Search';
 import NavDrawer from './NavDrawer';
-import ColumnNavigation from '../Drawers/DrawerContents/ColumnNavigation/ColumnNavigation';
+import ColumnsListData from '../Drawers/DrawerContents/ColumnNavigation/ColumnsListData';
 
 interface DrawerState {
   current: string;
@@ -208,7 +208,7 @@ const NavigationBar = () => {
           </List>
         </div>
       );
-    if (contentTitle === 'Navigation') return <ColumnNavigation />;
+    if (contentTitle === 'Navigation') return <ColumnsListData />;
     if (contentTitle === 'News Feed')
       return (
         <AddNewsAPIFeedForm
