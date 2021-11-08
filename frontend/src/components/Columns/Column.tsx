@@ -167,13 +167,13 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     <>
       <ColumnWrapper>
         {data.getColumnResult?.flatMap((value, index) => (
-          <DragDropContext onDragEnd={onDragEnd} key={index}>
-            <div
-              id={value.title}
-              // className={classes().columnHighlightBorder}
-              // add className
-              tabIndex={-1}
-            >
+          <div
+            id={value.title}
+            // className={classes().columnHighlightBorder}
+            // add className
+            tabIndex={-1}
+          >
+            <DragDropContext onDragEnd={onDragEnd} key={index}>
               <Droppable droppableId="droppable">
                 {(provided, snapshot) => (
                   <ColumnContainer
@@ -210,8 +210,8 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                   </ColumnContainer>
                 )}
               </Droppable>
-            </div>
-          </DragDropContext>
+            </DragDropContext>
+          </div>
         ))}
       </ColumnWrapper>
       <Dialog

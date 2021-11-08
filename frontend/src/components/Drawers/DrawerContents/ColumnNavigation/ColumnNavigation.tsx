@@ -25,7 +25,7 @@ const ColumnNavigation: React.FC<ColumnsListProps> = ({
 
   const buttonScroll = (id: string) => {
     const element = window.document.getElementById(id);
-    element?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     element?.focus();
   };
 

@@ -1,0 +1,2 @@
+ALTER TABLE collection_articles DISABLE ROW LEVEL SECURITY;
+
