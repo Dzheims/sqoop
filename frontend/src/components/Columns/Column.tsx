@@ -80,6 +80,7 @@ interface DeleteColumnProps {
 const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const classes = useStyles();
   const [proceedDelete, setProceedDelete] = useState(false);
+  const [userId] = useState(currentUserId());
   const [warningDelete, setWarningDelete] = useState(false);
   const [columnTitle, setColumnTitle] = useState('');
   const [deleteColumn, setDeleteColumn] = useState<DeleteColumnProps>({
@@ -93,62 +94,71 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const [deleteTwitterFeed] = useMutation<
     DeleteTwitterMutation,
     DeleteTwitterMutationVariables
-  >(DELETE_TWITTER_MUTATION);
+  >(DELETE_TWITTER_MUTATION, {
+    variables: {
+      input: {
+        id: deleteColumn.id,
+      },
+    },
+    onCompleted: ({}) => {
+      setProceedDelete(false);
+    },
+    refetchQueries: [{ query: GET_COLUMNS_QUERY }],
+  });
 
   const [deleteNewsFeed] = useMutation<
     DeleteNewsMutation,
     DeleteNewsMutationVariables
-  >(DELETE_NEWS_MUTATION);
+  >(DELETE_NEWS_MUTATION, {
+    variables: {
+      input: {
+        id: deleteColumn.id,
+      },
+    },
+    onCompleted: ({}) => {
+      setProceedDelete(false);
+    },
+    refetchQueries: [{ query: GET_COLUMNS_QUERY }],
+  });
 
   const [deleteCollection] = useMutation<
     DeleteCollectionMutation,
     DeleteCollectionMutationVariables
-  >(DELETE_COLLECTION_MUTATION);
+  >(DELETE_COLLECTION_MUTATION, {
+    variables: {
+      input: {
+        id: deleteColumn.id,
+      },
+    },
+    onCompleted: ({}) => {
+      setProceedDelete(false);
+    },
+    refetchQueries: [
+      { query: GET_COLUMNS_QUERY },
+      {
+        query: GET_COLLECTIONS_LIST_QUERY,
+        variables: { condition: { userId: userId } },
+      },
+    ],
+  });
 
-  // REFACTOR LATER
   useEffect(() => {
     if (proceedDelete) {
       if (deleteColumn.type === 'TwitterFeed') {
-        deleteTwitterFeed({
-          variables: {
-            input: {
-              id: deleteColumn.id,
-            },
-          },
-          refetchQueries: [{ query: GET_COLUMNS_QUERY }],
-        });
+        deleteTwitterFeed();
       }
       if (deleteColumn.type === 'NewsFeed') {
-        deleteNewsFeed({
-          variables: {
-            input: {
-              id: deleteColumn.id,
-            },
-          },
-          refetchQueries: [{ query: GET_COLUMNS_QUERY }],
-        });
+        deleteNewsFeed();
       }
       if (deleteColumn.type === 'Collection') {
-        deleteCollection({
-          variables: {
-            input: {
-              id: deleteColumn.id,
-            },
-          },
-          refetchQueries: [
-            { query: GET_COLUMNS_QUERY },
-            // use global states for currentuserid to access for refetch
-            // {
-            //   query: GET_COLLECTIONS_LIST_QUERY,
-            //   variables: { condition: { userId: currentUserId() } },
-            // },
-          ],
-        });
+        deleteCollection();
       }
     }
   }, [proceedDelete]);
 
   const handleDelete = (props: DeleteColumnProps) => {
+    console.log(proceedDelete);
+
     setDeleteColumn({
       ...deleteColumn,
       title: props.title,
