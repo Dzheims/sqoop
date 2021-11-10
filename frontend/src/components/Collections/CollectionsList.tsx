@@ -60,9 +60,11 @@ const CollectionsList = () => {
     },
   });
 
-  if (error) return <Error />;
-  if (loading) return <Loader />;
-  if (!data) return <Error />;
+  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (loading)
+    return <Loader header="Please Wait" subHeader="Loading Collections List" />;
+  if (!data)
+    return <Error header="Oops!" subHeader="No collections list data" />;
 
   const handleSelectButton = () => {
     setSelectedButton(!selectedButton);
