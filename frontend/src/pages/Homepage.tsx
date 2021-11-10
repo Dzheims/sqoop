@@ -2,8 +2,15 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
+import { debounce, throttle } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import ScrollContainer from 'react-indiana-drag-scroll';
@@ -111,6 +118,7 @@ const Homepage = () => {
   const [category, setCategory] = useState('GENERAL');
   const [isFirstElement, setIsFirstElement] = useState(true);
   const [isLastElement, setIsLastElement] = useState(false);
+  const [scrollLeft, setScrollLeft] = useState(0);
   const history = useHistory();
 
   if (!Cookies.get(AUTH_TOKEN)) {
@@ -201,27 +209,26 @@ const Homepage = () => {
 
   useEffect(() => {
     if (ref.current) {
-      ref.current.scrollLeft += 200;
-      if (ref.current.scrollLeft === 0) {
+      if (ref.current.scrollWidth <= ref.current.clientWidth) {
         setIsLastElement(true);
       } else {
         setIsLastElement(false);
       }
     }
     return () => {};
-  }, []);
+  }, [ref.current?.scrollWidth, ref.current?.clientWidth]);
 
   const onScroll = () => {
     if (ref.current) {
-      if (ref.current.scrollLeft === 0) {
+      if (ref.current.scrollLeft === 0 && !isFirstElement) {
         setIsFirstElement(true);
       } else {
         setIsFirstElement(false);
       }
-
       if (
         Math.floor(ref.current.scrollWidth - ref.current.scrollLeft) <=
-        ref.current.offsetWidth
+          ref.current.offsetWidth &&
+        !isLastElement
       ) {
         setIsLastElement(true);
       } else {
@@ -230,13 +237,33 @@ const Homepage = () => {
     }
   };
 
+  const debounceOnScrollHandler = useMemo(
+    () => debounce(onScroll, 60),
+    [isLastElement, isFirstElement, ref.current?.scrollLeft]
+  );
+
+  useEffect(
+    () => () => debounceOnScrollHandler.cancel(),
+    [
+      isLastElement,
+      isFirstElement,
+      ref.current?.scrollLeft,
+      debounceOnScrollHandler,
+    ]
+  );
+
   return (
     <div className={classes.root}>
       <DrawerStateProvider value={{ suggestedKeyWords: [], open: false }}>
         <NavigationBar />
         <Toolbar />
         <FactCheck />
-        <div ref={ref} className={classes.columnContainers} onScroll={onScroll}>
+        <div
+          id="homepage"
+          ref={ref}
+          className={classes.columnContainers}
+          onScroll={debounceOnScrollHandler}
+        >
           <div className={classes.defaultFeeds}>
             <DragDropContext onDragEnd={onDragEnd}>
               {defaultColumns.map((column) => (
