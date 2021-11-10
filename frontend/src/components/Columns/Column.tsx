@@ -46,6 +46,7 @@ import {
 import { GET_COLLECTIONS_LIST_QUERY } from '../Collections/query';
 import CollectionColumnData from '../../pages/Boards/CollectionColumnData';
 import currentUserId from '../../authentication/currentUserId';
+import { CollectionsListStateProvider } from '../Collections/CollectionsListState';
 
 const getFeedType = (value: any) => {
   switch (value.__typename) {
@@ -164,7 +165,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   };
 
   return (
-    <>
+    <CollectionsListStateProvider value={{ collectionId: 0 }}>
       <ColumnWrapper>
         {data.getColumnResult?.flatMap((value, index) => (
           <div
@@ -241,7 +242,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </CollectionsListStateProvider>
   );
 };
 

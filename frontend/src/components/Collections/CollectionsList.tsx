@@ -13,6 +13,7 @@ import { useGetCollectionsListQuery } from './query.generated';
 import currentUserId from '../../authentication/currentUserId';
 import Error from '../Common/Error';
 import Loader from '../Common/Loader';
+import { useCollectionsListState } from './CollectionsListState';
 
 const useStyles = makeStyles((theme) => ({
   div: {
@@ -46,16 +47,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface CollectionIDProps {
-  collectionID: number;
-  setCollectionID: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const CollectionsList: React.FC<CollectionIDProps> = ({
-  collectionID,
-  setCollectionID,
-}: CollectionIDProps) => {
+const CollectionsList = () => {
   const classes = useStyles();
+  const { state, setState } = useCollectionsListState();
   const [selectedButton, setSelectedButton] = useState(false);
 
   const { data, loading, error } = useGetCollectionsListQuery({
@@ -85,14 +79,17 @@ const CollectionsList: React.FC<CollectionIDProps> = ({
             <div>
               <ListItem
                 className={
-                  collectionID === value.id
+                  state.collectionId === value.id
                     ? classes.selectedButton
                     : classes.button
                 }
               >
                 <ListItemButton
                   onClick={() => {
-                    setCollectionID(value.id);
+                    setState({
+                      ...state,
+                      collectionId: value.id,
+                    });
                     handleSelectButton();
                   }}
                 >

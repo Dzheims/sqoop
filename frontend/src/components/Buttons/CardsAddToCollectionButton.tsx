@@ -26,6 +26,7 @@ import {
 } from '../Collections/query';
 import { COLLECTION_CONTENTS_QUERY } from '../Columns/query';
 import { CollectionContent } from '../../types.generated';
+import { useCollectionsListState } from '../Collections/CollectionsListState';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,8 +52,8 @@ interface CollectionContentProps {
 
 const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
   const classes = useStyles();
+  const { state, setState } = useCollectionsListState();
   const [isOpen, setIsOpen] = useState(false);
-  const [collectionId, setCollectionId] = useState(0);
 
   const handleClickOpen = () => {
     setIsOpen(true);
@@ -80,7 +81,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             variables: {
               input: {
                 collectionTweet: {
-                  collectionId,
+                  collectionId: state.collectionId,
                   tweetId: data.tweetId,
                 },
               },
@@ -91,7 +92,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             refetchQueries: [
               {
                 query: COLLECTION_CONTENTS_QUERY,
-                variables: { collectionId },
+                variables: { collectionId: state.collectionId },
               },
             ],
           });
@@ -101,7 +102,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             variables: {
               input: {
                 collectionArticle: {
-                  collectionId,
+                  collectionId: state.collectionId,
                   title: data.title,
                   description: data.description,
                   publishedAt: data.publishedAt,
@@ -117,7 +118,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             refetchQueries: [
               {
                 query: COLLECTION_CONTENTS_QUERY,
-                variables: { collectionId },
+                variables: { collectionId: state.collectionId },
               },
             ],
           });
@@ -131,7 +132,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
   };
 
   return (
-    <>
+    <div>
       <div className={classes.root}>
         <IconButton onClick={handleClickOpen} data-testid="save-to-collections">
           <AddIcon
@@ -148,10 +149,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
           <DialogContentText>
             Select a collection in which you would want to save the content.
           </DialogContentText>
-          <CollectionsList
-            collectionID={collectionId}
-            setCollectionID={setCollectionId}
-          />
+          <CollectionsList />
           <DialogActions>
             <Button onClick={handleClickClose}>Cancel</Button>
             <Button onClick={handleSave} autoFocus data-testid="submit-save">
@@ -160,7 +158,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
           </DialogActions>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 };
 
