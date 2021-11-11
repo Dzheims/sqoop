@@ -1,7 +1,7 @@
-import { collection_tweets, collections } from '../../models';
+import { collection_articles, collections } from '../../models';
 import { withRootDb } from '../helpers/dbTestHelpers';
 
-describe('select, insert collection_tweets', () => {
+describe('select, insert collection_articles', () => {
   test('insert collection ', async () => {
     withRootDb(async (pgClient) => {
       const {
@@ -11,16 +11,24 @@ describe('select, insert collection_tweets', () => {
         ['Covid Collection']
       );
 
-      await pgClient.query<collection_tweets>(
-        `INSERT INTO collection_tweets (tweet_id, collection_id) VALUES ($1, $2)`,
-        ['142353119450113', collection.id]
+      await pgClient.query<collection_articles>(
+        `INSERT INTO collection_articles (description, published_at, source_name, title, url, url_to_image, collection_id) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [
+          'covid',
+          '2021-10-12T10:19:00Z',
+          'rappler',
+          'COVID-19',
+          'https://www.rappler.com/',
+          'https://www.rappler.com/',
+          collection.id,
+        ]
       );
       const {
-        rows: [collection_tweet],
-      } = await pgClient.query<collection_tweets>(
-        `SELECT * FROM collection_tweets`
+        rows: [collection_article],
+      } = await pgClient.query<collection_articles>(
+        `SELECT * FROM collection_articles`
       );
-      expect(collection_tweet.tweet_id).toBe('142353119450113');
+      expect(collection_article.description).toBe('covid');
     });
   });
 });
