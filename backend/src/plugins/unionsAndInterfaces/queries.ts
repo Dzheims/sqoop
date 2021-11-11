@@ -38,11 +38,11 @@ export const resolvers = (getNamedType: any) => {
         const { rows: collections } = await pgClient.query(
           `SELECT * FROM collections WHERE user_id = current_user_id()`
         );
-        const result = camelcaseKeys([
-          ...newsFeeds,
-          ...twitterFeeds,
-          ...collections,
-        ]);
+        const result = camelcaseKeys(
+          [...newsFeeds, ...twitterFeeds, ...collections].sort(
+            (a: any, b: any) => a.created_at - b.created_at
+          )
+        );
         return result;
       },
       collectionContents: async (_: any, args: any, context: any) => {
