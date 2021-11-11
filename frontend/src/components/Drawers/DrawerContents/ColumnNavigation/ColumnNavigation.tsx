@@ -5,6 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { GetColumnsQuery } from '../../../Columns/query.generated';
+import { scrollToElement } from '../../../Common/Functions/Functions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,12 +24,6 @@ const ColumnNavigation: React.FC<ColumnsListProps> = ({
 }: ColumnsListProps) => {
   const classes = useStyles();
 
-  const buttonScroll = (id: string) => {
-    const element = window.document.getElementById(id);
-    element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    element?.focus();
-  };
-
   const defaultColumns = [
     {
       title: 'News Feed',
@@ -43,14 +38,14 @@ const ColumnNavigation: React.FC<ColumnsListProps> = ({
       <List>
         {defaultColumns.map((value) => (
           <ListItem disablePadding>
-            <ListItemButton onClick={() => buttonScroll(value.title)}>
+            <ListItemButton onClick={() => scrollToElement(value.title)}>
               <ListItemText primary={value.title} />
             </ListItemButton>
           </ListItem>
         ))}
         {data.getColumnResult.map((value) => (
           <ListItem disablePadding>
-            <ListItemButton onClick={() => buttonScroll(value.title)}>
+            <ListItemButton onClick={() => scrollToElement(value.title)}>
               <ListItemText primary={value.title} />
             </ListItemButton>
           </ListItem>
