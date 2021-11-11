@@ -21,14 +21,19 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Loader = () => {
+interface LoaderProps {
+  header: string;
+  subHeader: string;
+}
+
+const Loader: React.FC<LoaderProps> = ({ header, subHeader }: LoaderProps) => {
   const classes = useStyles();
 
   return (
     <div className={classes.loader}>
       <CircularProgress size={50} color="primary" />
-      <Typography className={classes.waitText}>Please Wait</Typography>
-      <Typography className={classes.loaderText}>Loading data...</Typography>
+      <Typography className={classes.waitText}>{header}</Typography>
+      <Typography className={classes.loaderText}>{subHeader}</Typography>
     </div>
   );
 };

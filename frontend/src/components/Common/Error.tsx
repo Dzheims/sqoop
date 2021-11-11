@@ -26,23 +26,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Error = () => {
-  const classes = useStyles();
+interface ErrorProps {
+  header: string;
+  subHeader: string;
+}
 
-  // const refreshPage = () => {
-  //   window.location.reload(false);
-  // };
+const Error: React.FC<ErrorProps> = ({ header, subHeader }: ErrorProps) => {
+  const classes = useStyles();
 
   return (
     <div className={classes.error}>
       <div>
         <img className={classes.image} src={ErrorImage} alt="" />
       </div>
-      <Typography className={classes.oopsText}>Oops!</Typography>
-      <Typography className={classes.errorText}>
-        Something went wrong.
-      </Typography>
-      {/* <Button onClick={refreshPage}>Reload</Button> */}
+      <Typography className={classes.oopsText}>{header}</Typography>
+      <Typography className={classes.errorText}>{subHeader}</Typography>
     </div>
   );
 };

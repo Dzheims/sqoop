@@ -21,10 +21,11 @@ const TwitterAPIColumnData: React.FC<TwitterApiColumnDataProps> = ({
     GET_TWITTER_API_CONTENTS_QUERY,
     { variables: { keyword, sources } }
   );
-  if (error) return <Error />;
+  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
   if (loading) return <CardsLoaderSkeleton />;
-  if (!data) return <Error />;
-  if (!data.searchTweets.length) return <NoContents />;
+  if (!data) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (!data.searchTweets.length)
+    return <NoContents header="Sorry," subHeader="No contents found" />;
 
   return <TwitterAPIColumn data={data} />;
 };

@@ -17,9 +17,18 @@ const GoogleFactCheckData: React.FC<SearchQueryProps> = ({
     GOOGLE_FACTCHECK_SEARCH_QUERY,
     { variables: { keyword } }
   );
-  if (error) return <Error />;
-  if (loading) return <Loader />;
-  if (!data) return <Error />;
+  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (loading)
+    return (
+      <Loader header="Please Wait" subHeader="Loading Fact Check Contents" />
+    );
+  if (!data)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="No search results found. Try other keywords."
+      />
+    );
 
   return <GoogleFactCheckResultsCards data={data} />;
 };

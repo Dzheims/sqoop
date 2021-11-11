@@ -21,3 +21,9 @@ export const convertDate = (date: string | null) => {
   if (date !== null) return date.replace(/-/g, '') + '0000';
   return null;
 };
+
+export const scrollToElement = (id: string) => {
+  const element = window.document.getElementById(id);
+  element?.scrollIntoView(true);
+  element?.focus();
+};

@@ -26,7 +26,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const NoContents = () => {
+interface NoContentsProps {
+  header: string;
+  subHeader: string;
+}
+
+const NoContents: React.FC<NoContentsProps> = ({
+  header,
+  subHeader,
+}: NoContentsProps) => {
   const classes = useStyles();
 
   return (
@@ -34,10 +42,8 @@ const NoContents = () => {
       <div>
         <img className={classes.image} src={NoContentsImage} alt="" />
       </div>
-      <Typography className={classes.sorryText}>Sorry,</Typography>
-      <Typography className={classes.noContentsText}>
-        No contents found.
-      </Typography>
+      <Typography className={classes.sorryText}>{header}</Typography>
+      <Typography className={classes.noContentsText}>{subHeader}</Typography>
     </div>
   );
 };
