@@ -242,13 +242,13 @@ const NavigationBar = () => {
     }
   };
 
-  // const closeDrawer = (drawer: DrawerState) => {
-  //   setDrawerState({
-  //     ...open,
-  //     current: '',
-  //     open: false,
-  //   });
-  // };
+  const closeDrawer = () => {
+    setDrawerState({
+      ...drawerState,
+      isOpen: false,
+      current: '',
+    });
+  };
 
   const drawerChild = (
     <div className={classes.drawer}>
@@ -333,13 +333,11 @@ const NavigationBar = () => {
             </Box>
           </Popover>
         </NavigationBarContainer>
-        {/* <Backdrop
+        <Backdrop
           className={classes.backdrop}
-          open={open.open}
-          onClick={() => {
-            closeDrawer({ current: '', open: false });
-          }}
-        /> */}
+          open={drawerState.isOpen}
+          onClick={closeDrawer}
+        />
       </div>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}

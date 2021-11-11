@@ -11,6 +11,15 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     alignItems: 'center',
     justify: 'center',
+    overflow: 'auto',
+    height: '500px',
+    '&::-webkit-scrollbar': {
+      width: '0.4em',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'lightGray',
+      borderRadius: 8,
+    },
   },
 }));
 

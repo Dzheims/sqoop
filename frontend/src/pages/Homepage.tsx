@@ -306,7 +306,7 @@ const Homepage = () => {
                     style={{
                       opacity: 0.9,
                       position: 'fixed',
-                      left: drawerState.isOpen ? 65 : 360,
+                      left: 65,
                       top: '50%',
                     }}
                   >
