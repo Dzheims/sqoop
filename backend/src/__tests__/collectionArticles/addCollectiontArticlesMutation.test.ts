@@ -116,13 +116,15 @@ describe('mock createCollectionArticle mutation', () => {
     `;
     const input = {
       input: {
-        collectionId: 1,
-        title: 'covid',
-        description: 'covid 19',
-        publishedAt: '2021-10-12T10:19:00Z',
-        sourceName: 'rappler.com',
-        url: 'http://rappler.com',
-        urlToImage: null,
+        collectionArticle: {
+          collectionId: 1,
+          title: 'covid',
+          description: 'covid 19',
+          publishedAt: '2021-10-12T10:19:00Z',
+          sourceName: 'rappler.com',
+          url: 'http://rappler.com',
+          urlToImage: null,
+        },
       },
     };
     const {
