@@ -12,6 +12,7 @@ import {
   ColumnWrapper,
   useStyles,
 } from '../../pages/Boards/ColumnsStyle';
+import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@mui/icons-material/Close';
 // import ColumnsData from './ColumnsData';
 import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
@@ -48,6 +49,15 @@ import CollectionColumnData from '../../pages/Boards/CollectionColumnData';
 import currentUserId from '../../authentication/currentUserId';
 import { CollectionsListStateProvider } from '../Collections/CollectionsListState';
 
+// const useFocusStyles = makeStyles((theme) => ({
+//   columnHighlightBorder: {
+//     '&::focus': {
+//       border: '2px solid #f04b4c',
+//       transition: 'border 0.10s ease-out',
+//     },
+//   },
+// }));
+
 const getFeedType = (value: any) => {
   switch (value.__typename) {
     case 'NewsFeed':
@@ -83,6 +93,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const [proceedDelete, setProceedDelete] = useState(false);
   const [warningDelete, setWarningDelete] = useState(false);
   const [columnTitle, setColumnTitle] = useState('');
+  const [onFocusState, setOnFocusState] = useState('0px solid #f04b4c');
   const [deleteColumn, setDeleteColumn] = useState<DeleteColumnProps>({
     title: '',
     id: 0,
@@ -164,13 +175,26 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     setWarningDelete(false);
   };
 
+  const onBlur = () => {
+    setOnFocusState('0px solid #f04b4c');
+  };
+
+  const onFocus = () => {
+    setOnFocusState('2px solid #f04b4c');
+  };
+
   return (
     <CollectionsListStateProvider value={{ collectionId: 0 }}>
       <ColumnWrapper>
         {data.getColumnResult?.flatMap((value, index) => (
           <div
             id={value.title}
-            // className={classes().columnHighlightBorder}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            style={{
+              border: onFocusState,
+              transition: 'border 0.10s ease-out',
+            }}
             // add className
             tabIndex={-1}
           >
