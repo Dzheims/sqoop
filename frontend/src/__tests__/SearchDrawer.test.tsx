@@ -6,8 +6,9 @@ import {
   RenderResult,
   cleanup,
   screen,
+  wait,
 } from '@testing-library/react';
-import { MockedProvider } from '@apollo/client/testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SignIn from '../pages/SignInPage/SignIn';
 import Search from '../components/Drawers/DrawerContents/Search/Search';
 
@@ -63,5 +64,14 @@ describe('Search Drawer', () => {
     expect(newsSources).toBeInTheDocument();
     expect(startDate).toBeInTheDocument();
     expect(endDate).toBeInTheDocument();
+  });
+  test('searchArticles', async () => {
+    const searchBar = documentBody.getByPlaceholderText('Search');
+
+    expect(searchBar).toHaveValue('');
+    fireEvent.change(searchBar, {
+      target: { value: 'BBM' },
+    });
+    expect(searchBar).toHaveValue('BBM');
   });
 });

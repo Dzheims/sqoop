@@ -26,6 +26,7 @@
     "react-horizontal-scrolling-menu": "^2.0.9",
     "react-indiana-drag-scroll": "^2.0.1",
     "react-linkify": "^1.0.0-alpha",
+    "react-multi-carousel": "^2.6.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-secure-link": "^3.0.3",
