@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import React, { useRef, useEffect, useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,14 +24,13 @@ import {
 import NewsAPIColumnData from './Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from './Boards/TwitterAPIColumnData';
 import AUTH_TOKEN from '../constants';
-// import CategoriesButtons from '../components/Categories/CategoriesButtons';
 import FactCheck from '../components/FactCheck/FactCheck';
-import {
-  DrawerStateProvider,
-  useDrawerState,
-  GlobalDrawerContext,
-} from '../components/FactCheck/FactCheckDrawerState';
+import { DrawerStateProvider } from '../components/FactCheck/FactCheckDrawerState';
 import { CollectionsListStateProvider } from '../components/Collections/CollectionsListState';
+import {
+  NavDrawerStateProvider,
+  useNavDrawerState,
+} from '../components/Navigation/NavDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -110,6 +109,7 @@ const Homepage = () => {
   const classes = useStyles();
   const ref = useRef<HTMLDivElement>(null);
   const [category, setCategory] = useState('GENERAL');
+  const { drawerState, setDrawerState } = useNavDrawerState();
   const [isFirstElement, setIsFirstElement] = useState(true);
   const [isLastElement, setIsLastElement] = useState(false);
   const history = useHistory();
@@ -121,10 +121,10 @@ const Homepage = () => {
 
   const onDragEnd = () => {};
 
-  const [drawerState, setDrawerState] = useState<DrawerState>({
-    suggestedKeyWords: [],
-    open: false,
-  });
+  // const [drawerState, setDrawerState] = useState<DrawerState>({
+  //   suggestedKeyWords: [],
+  //   open: false,
+  // });
 
   const defaultColumns = [
     {
@@ -235,96 +235,100 @@ const Homepage = () => {
     <div className={classes.root}>
       <DrawerStateProvider value={{ suggestedKeyWords: [], open: false }}>
         <CollectionsListStateProvider value={{ collectionId: 0 }}>
-          <NavigationBar />
-          <Toolbar />
-          <FactCheck />
-          <div
-            ref={ref}
-            className={classes.columnContainers}
-            onScroll={onScroll}
-          >
-            <div className={classes.defaultFeeds}>
-              <DragDropContext onDragEnd={onDragEnd}>
-                {defaultColumns.map((column) => (
-                  <div
-                    id={column.title}
-                    className={classes.columnElement}
-                    tabIndex={-1}
-                  >
-                    <Droppable droppableId="droppable">
-                      {(provided, snapshot) => (
-                        <ColumnContainer
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                        >
-                          <Title>{column.title}</Title>
-                          {column.title === 'News Feed' ? (
-                            <ScrollContainer className="scroll-container">
-                              <div className={classes.buttonContainer}>
-                                {categories.map((value) => (
-                                  <Button
-                                    aria-label={value.title}
-                                    role-="button"
-                                    variant="outlined"
-                                    className={
-                                      value.title.toUpperCase() !== category
-                                        ? classes.button
-                                        : classes.selectedButton
-                                    }
-                                    onClick={value.onClick}
-                                  >
-                                    {value.title}
-                                  </Button>
-                                ))}
-                              </div>
-                            </ScrollContainer>
-                          ) : (
-                            <div />
+          <NavDrawerStateProvider value={{ isOpen: false, current: '' }}>
+            <NavigationBar />
+            <Toolbar />
+            <FactCheck />
+            <div style={{ overflow: 'hidden' }}>
+              <div
+                ref={ref}
+                className={classes.columnContainers}
+                onScroll={onScroll}
+              >
+                <div className={classes.defaultFeeds}>
+                  <DragDropContext onDragEnd={onDragEnd}>
+                    {defaultColumns.map((column) => (
+                      <div
+                        id={column.title}
+                        className={classes.columnElement}
+                        tabIndex={-1}
+                      >
+                        <Droppable droppableId="droppable">
+                          {(provided, snapshot) => (
+                            <ColumnContainer
+                              {...provided.droppableProps}
+                              ref={provided.innerRef}
+                            >
+                              <Title>{column.title}</Title>
+                              {column.title === 'News Feed' ? (
+                                <ScrollContainer className="scroll-container">
+                                  <div className={classes.buttonContainer}>
+                                    {categories.map((value) => (
+                                      <Button
+                                        aria-label={value.title}
+                                        role-="button"
+                                        variant="outlined"
+                                        className={
+                                          value.title.toUpperCase() !== category
+                                            ? classes.button
+                                            : classes.selectedButton
+                                        }
+                                        onClick={value.onClick}
+                                      >
+                                        {value.title}
+                                      </Button>
+                                    ))}
+                                  </div>
+                                </ScrollContainer>
+                              ) : (
+                                <div />
+                              )}
+                              <DefaultItemContainer
+                                className={classes.itemContainer}
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                                isDragging={snapshot.isDraggingOver}
+                                feedType={column.title}
+                              >
+                                {column.cards}
+                              </DefaultItemContainer>
+                            </ColumnContainer>
                           )}
-                          <DefaultItemContainer
-                            className={classes.itemContainer}
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                            isDragging={snapshot.isDraggingOver}
-                            feedType={column.title}
-                          >
-                            {column.cards}
-                          </DefaultItemContainer>
-                        </ColumnContainer>
-                      )}
-                    </Droppable>
-                  </div>
-                ))}
-              </DragDropContext>
+                        </Droppable>
+                      </div>
+                    ))}
+                  </DragDropContext>
+                </div>
+                <ColumnsData />
+                {!isFirstElement && (
+                  <Fab
+                    onClick={() => buttonScroll(-320)}
+                    style={{
+                      opacity: 0.9,
+                      position: 'fixed',
+                      left: drawerState.isOpen ? 65 : 360,
+                      top: '50%',
+                    }}
+                  >
+                    <ArrowLeftIcon className={classes.arrowIcon} />
+                  </Fab>
+                )}
+                {!isLastElement && (
+                  <Fab
+                    onClick={() => buttonScroll(320)}
+                    style={{
+                      opacity: 0.9,
+                      position: 'fixed',
+                      right: 15,
+                      top: '50%',
+                    }}
+                  >
+                    <ArrowRightIcon className={classes.arrowIcon} />
+                  </Fab>
+                )}
+              </div>
             </div>
-            <ColumnsData />
-            {!isFirstElement && (
-              <Fab
-                onClick={() => buttonScroll(-320)}
-                style={{
-                  opacity: 0.9,
-                  position: 'fixed',
-                  left: 65,
-                  top: '50%',
-                }}
-              >
-                <ArrowLeftIcon className={classes.arrowIcon} />
-              </Fab>
-            )}
-            {!isLastElement && (
-              <Fab
-                onClick={() => buttonScroll(320)}
-                style={{
-                  opacity: 0.9,
-                  position: 'fixed',
-                  right: 15,
-                  top: '50%',
-                }}
-              >
-                <ArrowRightIcon className={classes.arrowIcon} />
-              </Fab>
-            )}
-          </div>
+          </NavDrawerStateProvider>
         </CollectionsListStateProvider>
       </DrawerStateProvider>
     </div>

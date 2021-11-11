@@ -18,6 +18,10 @@ const NavDrawer = ({ drawerStateProps, childComponent }: DrawerProps) => {
         variant="persistent"
         anchor="left"
         open={drawerStateProps}
+        style={{
+          marginLeft: drawerStateProps ? '292px' : 0,
+          transition: 'all 0.25s ease-out',
+        }}
         classes={{
           paper: classes.drawerPaper,
         }}
