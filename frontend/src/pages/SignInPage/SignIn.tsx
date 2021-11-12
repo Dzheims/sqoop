@@ -46,7 +46,7 @@ const SignIn = () => {
 
   const [errors, setErrors] = useState<FormValues>();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [jwtIsNull, setJwtIsNull] = useState<boolean>(true);
+  const [jwtIsNull, setJwtIsNull] = useState<boolean>(false);
 
   const setErrorInForm = (input: string | undefined): boolean => {
     if (input === '' || input === undefined) return false;
@@ -95,13 +95,19 @@ const SignIn = () => {
     }
   );
 
-  useEffect(() => {
-    if (isSubmitting) setErrors(validate(loginInput, jwtIsNull));
-  }, [loginInput, isSubmitting]);
+  // useEffect(() => {
+  //   if (isSubmitting) setErrors(validate(loginInput, jwtIsNull));
+  // }, [loginInput, isSubmitting]);
 
   const handleSubmit = () => {
-    setIsSubmitting(true);
-    signIn();
+    signIn().then((res) => {
+      if (res.data?.signin?.jwtToken) {
+        setJwtIsNull(false);
+      } else {
+        setJwtIsNull(true);
+      }
+      setIsSubmitting(true);
+    });
     setErrors(validate(loginInput, jwtIsNull));
   };
 
