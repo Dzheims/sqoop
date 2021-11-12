@@ -37,7 +37,12 @@ const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
   if (loading) return <CardsLoaderSkeleton />;
   if (!data) return <Error header="Oops!" subHeader="Something went wrong" />;
   if (!data.topHeadlines.length)
-    return <NoContents header="Sorry," subHeader="No contents found" />;
+    return (
+      <NoContents
+        header="Sorry,"
+        subHeader="No contents found in the last 7 days."
+      />
+    );
 
   return <NewsAPIColumn data={data} />;
 };

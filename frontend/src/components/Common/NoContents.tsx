@@ -43,7 +43,9 @@ const NoContents: React.FC<NoContentsProps> = ({
         <img className={classes.image} src={NoContentsImage} alt="" />
       </div>
       <Typography className={classes.sorryText}>{header}</Typography>
-      <Typography className={classes.noContentsText}>{subHeader}</Typography>
+      <Typography align="center" className={classes.noContentsText}>
+        {subHeader}
+      </Typography>
     </div>
   );
 };

@@ -24,7 +24,12 @@ const CollectionColumnData: React.FC<CollectionsColumnDataProps> = ({
   if (!data)
     return <Error header="Oops!" subHeader="No collection contents data" />;
   if (data.collectionContents.length === 0)
-    return <NoContents header="" subHeader="No collection contents yet" />;
+    return (
+      <NoContents
+        header="No collection contents yet."
+        subHeader="Click + button in a card to start saving contents."
+      />
+    );
 
   return <CollectionColumn data={data} />;
 };

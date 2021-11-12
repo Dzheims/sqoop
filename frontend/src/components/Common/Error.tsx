@@ -40,7 +40,9 @@ const Error: React.FC<ErrorProps> = ({ header, subHeader }: ErrorProps) => {
         <img className={classes.image} src={ErrorImage} alt="" />
       </div>
       <Typography className={classes.oopsText}>{header}</Typography>
-      <Typography className={classes.errorText}>{subHeader}</Typography>
+      <Typography align="center" className={classes.errorText}>
+        {subHeader}
+      </Typography>
     </div>
   );
 };
