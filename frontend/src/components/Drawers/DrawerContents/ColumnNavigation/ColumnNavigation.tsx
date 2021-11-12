@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: 8,
     },
   },
+  listItem: {
+    marginTop: 0,
+    padding: 0,
+  },
 }));
 
 interface ColumnsListProps {
@@ -46,14 +50,14 @@ const ColumnNavigation: React.FC<ColumnsListProps> = ({
     <div className={classes.root}>
       <List>
         {defaultColumns.map((value) => (
-          <ListItem disablePadding>
+          <ListItem disablePadding className={classes.listItem}>
             <ListItemButton onClick={() => scrollToElement(value.title)}>
               <ListItemText primary={value.title} />
             </ListItemButton>
           </ListItem>
         ))}
         {data.getColumnResult.map((value) => (
-          <ListItem disablePadding>
+          <ListItem disablePadding className={classes.listItem}>
             <ListItemButton onClick={() => scrollToElement(value.title)}>
               <ListItemText primary={value.title} />
             </ListItemButton>

@@ -19,7 +19,7 @@ import { Alert } from '@mui/material';
 import AddFeedsIcon from '@material-ui/icons/AddCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
-import NavigationIcon from '@material-ui/icons/Navigation';
+import ViewColumnIcon from '@material-ui/icons/ViewColumn';
 import { Person } from '@material-ui/icons';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {
@@ -113,7 +113,7 @@ const NavigationBar = () => {
       id: 'navigation',
       title: 'Navigation',
       icon: (
-        <NavigationIcon
+        <ViewColumnIcon
           className={
             drawerState.isOpen === true && drawerState.current === 'Navigation'
               ? classes.selectedIcons
