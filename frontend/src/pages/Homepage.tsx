@@ -1,9 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
+import { debounce, throttle } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import ScrollContainer from 'react-indiana-drag-scroll';
@@ -24,13 +32,13 @@ import {
 import NewsAPIColumnData from './Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from './Boards/TwitterAPIColumnData';
 import AUTH_TOKEN from '../constants';
-// import CategoriesButtons from '../components/Categories/CategoriesButtons';
 import FactCheck from '../components/FactCheck/FactCheck';
+import { DrawerStateProvider } from '../components/FactCheck/FactCheckDrawerState';
+import { CollectionsListStateProvider } from '../components/Collections/CollectionsListState';
 import {
-  DrawerStateProvider,
-  useDrawerState,
-  GlobalDrawerContext,
-} from '../components/FactCheck/FactCheckDrawerState';
+  NavDrawerStateProvider,
+  useNavDrawerState,
+} from '../components/Navigation/NavDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,8 +117,10 @@ const Homepage = () => {
   const classes = useStyles();
   const ref = useRef<HTMLDivElement>(null);
   const [category, setCategory] = useState('GENERAL');
-  const [isFirstElement, setIsFirstElement] = useState(true);
+  const { drawerState, setDrawerState } = useNavDrawerState();
+  const [isFirstElement, setIsFirstElement] = useState(false);
   const [isLastElement, setIsLastElement] = useState(false);
+  const [scrollLeft, setScrollLeft] = useState(0);
   const history = useHistory();
 
   if (!Cookies.get(AUTH_TOKEN)) {
@@ -120,10 +130,10 @@ const Homepage = () => {
 
   const onDragEnd = () => {};
 
-  const [drawerState, setDrawerState] = useState<DrawerState>({
-    suggestedKeyWords: [],
-    open: false,
-  });
+  // const [drawerState, setDrawerState] = useState<DrawerState>({
+  //   suggestedKeyWords: [],
+  //   open: false,
+  // });
 
   const defaultColumns = [
     {
@@ -199,126 +209,152 @@ const Homepage = () => {
 
   // FIX
 
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.scrollLeft += 200;
-      if (ref.current.scrollLeft === 0) {
-        setIsLastElement(true);
-      } else {
-        setIsLastElement(false);
-      }
-    }
-    return () => {};
-  }, []);
+  // useEffect(() => {
+  //   if (ref.current) {
+  //     if (ref.current.scrollWidth <= ref.current.clientWidth) {
+  //       setIsLastElement(true);
+  //     } else {
+  //       setIsLastElement(false);
+  //     }
+  //   }
+  //   return () => {};
+  // }, [ref.current?.scrollWidth, ref.current?.clientWidth]);
 
   const onScroll = () => {
     if (ref.current) {
-      if (ref.current.scrollLeft === 0) {
-        setIsFirstElement(true);
-      } else {
-        setIsFirstElement(false);
-      }
-
-      if (
-        Math.floor(ref.current.scrollWidth - ref.current.scrollLeft) <=
-        ref.current.offsetWidth
-      ) {
-        setIsLastElement(true);
-      } else {
-        setIsLastElement(false);
-      }
+      // if (ref.current.scrollLeft === 0 && !isFirstElement) {
+      //   setIsFirstElement(true);
+      // } else {
+      //   setIsFirstElement(false);
+      // }
+      // if (
+      //   Math.floor(ref.current.scrollWidth - ref.current.scrollLeft) <=
+      //     ref.current.offsetWidth &&
+      //   !isLastElement
+      // ) {
+      //   setIsLastElement(true);
+      // } else {
+      //   setIsLastElement(false);
+      // }
     }
   };
+
+  // const debounceOnScrollHandler = useMemo(
+  //   () => debounce(onScroll, 60),
+  //   [isLastElement, isFirstElement, ref.current?.scrollLeft]
+  // );
+
+  // useEffect(
+  //   () => () => debounceOnScrollHandler.cancel(),
+  //   [
+  //     isLastElement,
+  //     isFirstElement,
+  //     ref.current?.scrollLeft,
+  //     debounceOnScrollHandler,
+  //   ]
+  // );
 
   return (
     <div className={classes.root}>
       <DrawerStateProvider value={{ suggestedKeyWords: [], open: false }}>
-        <NavigationBar />
-        <Toolbar />
-        <FactCheck />
-        <div ref={ref} className={classes.columnContainers} onScroll={onScroll}>
-          <div className={classes.defaultFeeds}>
-            <DragDropContext onDragEnd={onDragEnd}>
-              {defaultColumns.map((column) => (
-                <div
-                  id={column.title}
-                  className={classes.columnElement}
-                  tabIndex={-1}
-                >
-                  <Droppable droppableId="droppable">
-                    {(provided, snapshot) => (
-                      <ColumnContainer
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
+        <CollectionsListStateProvider value={{ collectionId: 0 }}>
+          <NavDrawerStateProvider value={{ isOpen: false, current: '' }}>
+            <NavigationBar />
+            <Toolbar />
+            <FactCheck />
+            <div style={{ overflow: 'hidden' }}>
+              <div
+                ref={ref}
+                className={classes.columnContainers}
+                onScroll={onScroll}
+              >
+                <div className={classes.defaultFeeds}>
+                  <DragDropContext onDragEnd={onDragEnd}>
+                    {defaultColumns.map((column, index) => (
+                      <div
+                        key={column.title}
+                        id={column.title}
+                        className={classes.columnElement}
+                        tabIndex={-1}
                       >
-                        <Title>{column.title}</Title>
-                        {column.title === 'News Feed' ? (
-                          <ScrollContainer className="scroll-container">
-                            <div className={classes.buttonContainer}>
-                              {categories.map((value) => (
-                                <Button
-                                  aria-label={value.title}
-                                  role-="button"
-                                  variant="outlined"
-                                  className={
-                                    value.title.toUpperCase() !== category
-                                      ? classes.button
-                                      : classes.selectedButton
-                                  }
-                                  onClick={value.onClick}
-                                >
-                                  {value.title}
-                                </Button>
-                              ))}
-                            </div>
-                          </ScrollContainer>
-                        ) : (
-                          <div />
-                        )}
-                        <DefaultItemContainer
-                          className={classes.itemContainer}
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                          isDragging={snapshot.isDraggingOver}
-                          feedType={column.title}
-                        >
-                          {column.cards}
-                        </DefaultItemContainer>
-                      </ColumnContainer>
-                    )}
-                  </Droppable>
+                        <Droppable droppableId="droppable">
+                          {(provided, snapshot) => (
+                            <ColumnContainer
+                              {...provided.droppableProps}
+                              ref={provided.innerRef}
+                            >
+                              <Title>{column.title}</Title>
+                              {column.title === 'News Feed' ? (
+                                <ScrollContainer className="scroll-container">
+                                  <div className={classes.buttonContainer}>
+                                    {categories.map((value) => (
+                                      <Button
+                                        key={value.title}
+                                        aria-label={value.title}
+                                        role-="button"
+                                        variant="outlined"
+                                        className={
+                                          value.title.toUpperCase() !== category
+                                            ? classes.button
+                                            : classes.selectedButton
+                                        }
+                                        onClick={value.onClick}
+                                      >
+                                        {value.title}
+                                      </Button>
+                                    ))}
+                                  </div>
+                                </ScrollContainer>
+                              ) : (
+                                <div />
+                              )}
+                              <DefaultItemContainer
+                                className={classes.itemContainer}
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                                isDragging={snapshot.isDraggingOver}
+                                feedType={column.title}
+                              >
+                                {column.cards}
+                              </DefaultItemContainer>
+                            </ColumnContainer>
+                          )}
+                        </Droppable>
+                      </div>
+                    ))}
+                  </DragDropContext>
                 </div>
-              ))}
-            </DragDropContext>
-          </div>
-          <ColumnsData />
-          {!isFirstElement && (
-            <Fab
-              onClick={() => buttonScroll(-320)}
-              style={{
-                opacity: 0.9,
-                position: 'fixed',
-                left: 65,
-                top: '50%',
-              }}
-            >
-              <ArrowLeftIcon className={classes.arrowIcon} />
-            </Fab>
-          )}
-          {!isLastElement && (
-            <Fab
-              onClick={() => buttonScroll(320)}
-              style={{
-                opacity: 0.9,
-                position: 'fixed',
-                right: 15,
-                top: '50%',
-              }}
-            >
-              <ArrowRightIcon className={classes.arrowIcon} />
-            </Fab>
-          )}
-        </div>
+                <ColumnsData />
+                {!isFirstElement && (
+                  <Fab
+                    onClick={() => buttonScroll(-320)}
+                    style={{
+                      opacity: 0.9,
+                      position: 'fixed',
+                      left: 65,
+                      top: '50%',
+                    }}
+                  >
+                    <ArrowLeftIcon className={classes.arrowIcon} />
+                  </Fab>
+                )}
+                {!isLastElement && (
+                  <Fab
+                    onClick={() => buttonScroll(320)}
+                    style={{
+                      opacity: 0.9,
+                      position: 'fixed',
+                      right: 15,
+                      top: '50%',
+                    }}
+                  >
+                    <ArrowRightIcon className={classes.arrowIcon} />
+                  </Fab>
+                )}
+              </div>
+            </div>
+          </NavDrawerStateProvider>
+        </CollectionsListStateProvider>
       </DrawerStateProvider>
     </div>
   );

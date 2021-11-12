@@ -13,6 +13,7 @@ import { useGetCollectionsListQuery } from './query.generated';
 import currentUserId from '../../authentication/currentUserId';
 import Error from '../Common/Error';
 import Loader from '../Common/Loader';
+import { useCollectionsListState } from './CollectionsListState';
 
 const useStyles = makeStyles((theme) => ({
   div: {
@@ -46,16 +47,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface CollectionIDProps {
-  collectionID: number;
-  setCollectionID: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const CollectionsList: React.FC<CollectionIDProps> = ({
-  collectionID,
-  setCollectionID,
-}: CollectionIDProps) => {
+const CollectionsList = () => {
   const classes = useStyles();
+  const { state, setState } = useCollectionsListState();
   const [selectedButton, setSelectedButton] = useState(false);
 
   const { data, loading, error } = useGetCollectionsListQuery({
@@ -66,9 +60,11 @@ const CollectionsList: React.FC<CollectionIDProps> = ({
     },
   });
 
-  if (error) return <Error />;
-  if (loading) return <Loader />;
-  if (!data) return <Error />;
+  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (loading)
+    return <Loader header="Please Wait" subHeader="Loading Collections List" />;
+  if (!data)
+    return <Error header="Oops!" subHeader="No collections list data" />;
 
   const handleSelectButton = () => {
     setSelectedButton(!selectedButton);
@@ -85,14 +81,17 @@ const CollectionsList: React.FC<CollectionIDProps> = ({
             <div>
               <ListItem
                 className={
-                  collectionID === value.id
+                  state.collectionId === value.id
                     ? classes.selectedButton
                     : classes.button
                 }
               >
                 <ListItemButton
                   onClick={() => {
-                    setCollectionID(value.id);
+                    setState({
+                      ...state,
+                      collectionId: value.id,
+                    });
                     handleSelectButton();
                   }}
                 >

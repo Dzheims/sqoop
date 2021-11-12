@@ -15,6 +15,7 @@ import CREATE_COLLECTION from './query';
 import currentUserId from '../../../../authentication/currentUserId';
 import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import { GET_COLLECTIONS_LIST_QUERY } from '../../../Collections/query';
+import { NavDrawerState } from '../../../Navigation/NavDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -48,7 +49,7 @@ interface SuccessAlert {
 }
 
 interface ParentState {
-  drawerStateChanger: Dispatch<SetStateAction<DrawerState>>;
+  drawerStateChanger: Dispatch<SetStateAction<NavDrawerState>>;
   snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
 }
 
@@ -109,7 +110,7 @@ const AddCollectionForm = ({
       });
       setdisableCreateButton(true);
       history.push('/');
-      drawerStateChanger({ open: false, current: '' });
+      drawerStateChanger({ isOpen: false, current: '' });
     },
     refetchQueries: [
       { query: GET_COLUMNS_QUERY },

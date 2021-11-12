@@ -33,10 +33,11 @@ const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
     GET_NEWS_API_CONTENTS_QUERY,
     { variables: { country, category, keyword, sources } }
   );
-  if (error) return <Error />;
+  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
   if (loading) return <CardsLoaderSkeleton />;
-  if (!data) return <Error />;
-  if (!data.topHeadlines.length) return <NoContents />;
+  if (!data) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (!data.topHeadlines.length)
+    return <NoContents header="Sorry," subHeader="No contents found" />;
 
   return <NewsAPIColumn data={data} />;
 };

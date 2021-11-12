@@ -34,6 +34,7 @@ import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import countries from './CountriesList';
 import currentUserId from '../../../../authentication/currentUserId';
 import NewsSourcesData from './NewsSourcesData';
+import { NavDrawerState } from '../../../Navigation/NavDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -76,7 +77,7 @@ interface SuccessAlert {
 }
 
 interface ParentState {
-  drawerStateChanger: Dispatch<SetStateAction<DrawerState>>;
+  drawerStateChanger: Dispatch<SetStateAction<NavDrawerState>>;
   snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
 }
 
@@ -237,7 +238,7 @@ const AddNewsAPIFeedForm = ({
       });
       setdisableCreateButton(true);
       history.push('/');
-      drawerStateChanger({ open: false, current: '' });
+      drawerStateChanger({ isOpen: false, current: '' });
     },
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });

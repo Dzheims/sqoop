@@ -12,6 +12,7 @@ import {
   ColumnWrapper,
   useStyles,
 } from '../../pages/Boards/ColumnsStyle';
+import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@mui/icons-material/Close';
 // import ColumnsData from './ColumnsData';
 import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
@@ -46,6 +47,17 @@ import {
 import { GET_COLLECTIONS_LIST_QUERY } from '../Collections/query';
 import CollectionColumnData from '../../pages/Boards/CollectionColumnData';
 import currentUserId from '../../authentication/currentUserId';
+import { CollectionsListStateProvider } from '../Collections/CollectionsListState';
+
+const useFocusStyles = makeStyles((theme) => ({
+  columnHighlightBorder: {
+    border: '0px solid #f04b4c',
+    '&:focus': {
+      border: '2px solid #f04b4c',
+      transition: 'border 0.10s ease-out',
+    },
+  },
+}));
 
 const getFeedType = (value: any) => {
   switch (value.__typename) {
@@ -79,9 +91,12 @@ interface DeleteColumnProps {
 
 const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const classes = useStyles();
+  const onFocusClass = useFocusStyles();
   const [proceedDelete, setProceedDelete] = useState(false);
+  const [userId] = useState(currentUserId());
   const [warningDelete, setWarningDelete] = useState(false);
   const [columnTitle, setColumnTitle] = useState('');
+  const [onFocusState, setOnFocusState] = useState('0px solid #f04b4c');
   const [deleteColumn, setDeleteColumn] = useState<DeleteColumnProps>({
     title: '',
     id: 0,
@@ -93,57 +108,64 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const [deleteTwitterFeed] = useMutation<
     DeleteTwitterMutation,
     DeleteTwitterMutationVariables
-  >(DELETE_TWITTER_MUTATION);
+  >(DELETE_TWITTER_MUTATION, {
+    variables: {
+      input: {
+        id: deleteColumn.id,
+      },
+    },
+    onCompleted: ({}) => {
+      setProceedDelete(false);
+    },
+    refetchQueries: [{ query: GET_COLUMNS_QUERY }],
+  });
 
   const [deleteNewsFeed] = useMutation<
     DeleteNewsMutation,
     DeleteNewsMutationVariables
-  >(DELETE_NEWS_MUTATION);
+  >(DELETE_NEWS_MUTATION, {
+    variables: {
+      input: {
+        id: deleteColumn.id,
+      },
+    },
+    onCompleted: ({}) => {
+      setProceedDelete(false);
+    },
+    refetchQueries: [{ query: GET_COLUMNS_QUERY }],
+  });
 
   const [deleteCollection] = useMutation<
     DeleteCollectionMutation,
     DeleteCollectionMutationVariables
-  >(DELETE_COLLECTION_MUTATION);
+  >(DELETE_COLLECTION_MUTATION, {
+    variables: {
+      input: {
+        id: deleteColumn.id,
+      },
+    },
+    onCompleted: ({}) => {
+      setProceedDelete(false);
+    },
+    refetchQueries: [
+      { query: GET_COLUMNS_QUERY },
+      {
+        query: GET_COLLECTIONS_LIST_QUERY,
+        variables: { condition: { userId: userId } },
+      },
+    ],
+  });
 
-  // REFACTOR LATER
   useEffect(() => {
     if (proceedDelete) {
       if (deleteColumn.type === 'TwitterFeed') {
-        deleteTwitterFeed({
-          variables: {
-            input: {
-              id: deleteColumn.id,
-            },
-          },
-          refetchQueries: [{ query: GET_COLUMNS_QUERY }],
-        });
+        deleteTwitterFeed();
       }
       if (deleteColumn.type === 'NewsFeed') {
-        deleteNewsFeed({
-          variables: {
-            input: {
-              id: deleteColumn.id,
-            },
-          },
-          refetchQueries: [{ query: GET_COLUMNS_QUERY }],
-        });
+        deleteNewsFeed();
       }
       if (deleteColumn.type === 'Collection') {
-        deleteCollection({
-          variables: {
-            input: {
-              id: deleteColumn.id,
-            },
-          },
-          refetchQueries: [
-            { query: GET_COLUMNS_QUERY },
-            // use global states for currentuserid to access for refetch
-            // {
-            //   query: GET_COLLECTIONS_LIST_QUERY,
-            //   variables: { condition: { userId: currentUserId() } },
-            // },
-          ],
-        });
+        deleteCollection();
       }
     }
   }, [proceedDelete]);
@@ -163,14 +185,28 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     setWarningDelete(false);
   };
 
+  const onBlur = () => {
+    setOnFocusState('0px solid #f04b4c');
+  };
+
+  const onFocus = () => {
+    setOnFocusState('2px solid #f04b4c');
+  };
+
   return (
-    <>
+    <CollectionsListStateProvider value={{ collectionId: 0 }}>
       <ColumnWrapper>
         {data.getColumnResult?.flatMap((value, index) => (
           <div
+            key={value.createdAt}
             id={value.title}
-            // className={classes().columnHighlightBorder}
-            // add className
+            // className={onFocusClass.columnHighlightBorder}
+            // onBlur={onBlur}
+            // onFocus={onFocus}
+            // style={{
+            //   border: onFocusState,
+            //   transition: 'border 0.10s ease-out',
+            // }}
             tabIndex={-1}
           >
             <DragDropContext onDragEnd={onDragEnd} key={index}>
@@ -241,7 +277,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </CollectionsListStateProvider>
   );
 };
 

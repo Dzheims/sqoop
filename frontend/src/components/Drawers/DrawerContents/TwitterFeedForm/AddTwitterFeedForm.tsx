@@ -21,6 +21,7 @@ import { CREATE_TWITTER_FEED } from './query';
 import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import accountSources from './SourcesList';
 import currentUserId from '../../../../authentication/currentUserId';
+import { NavDrawerState } from '../../../Navigation/NavDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -54,7 +55,7 @@ interface SuccessAlert {
 }
 
 interface ParentState {
-  drawerStateChanger: Dispatch<SetStateAction<DrawerState>>;
+  drawerStateChanger: Dispatch<SetStateAction<NavDrawerState>>;
   snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
 }
 
@@ -151,7 +152,7 @@ const AddTwitterFeedForm = ({
       });
       setdisableCreateButton(true);
       history.push('/');
-      drawerStateChanger({ open: false, current: '' });
+      drawerStateChanger({ isOpen: false, current: '' });
     },
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });

@@ -85,11 +85,8 @@ const SignIn = () => {
       },
       onCompleted: ({ signin }) => {
         if (signin?.jwtToken) {
-          setJwtIsNull(false);
           Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
           history.push('/');
-        } else {
-          setJwtIsNull(true);
         }
       },
     }
@@ -106,7 +103,7 @@ const SignIn = () => {
       } else {
         setJwtIsNull(true);
       }
-      setIsSubmitting(true);
+      // setIsSubmitting(true);
     });
     setErrors(validate(loginInput, jwtIsNull));
   };

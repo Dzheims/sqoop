@@ -13,8 +13,10 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
   data,
 }: TwitterAPIDataProps) => (
   <div>
-    {data?.searchTweets?.map((value) => (
-      <TwitterCards data={value} />
+    {data?.searchTweets?.map((value, index) => (
+      <div key={index}>
+        <TwitterCards data={value} />
+      </div>
     ))}
   </div>
 );

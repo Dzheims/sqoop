@@ -6,6 +6,7 @@ import Loader from '../../components/Common/Loader';
 import { CollectionContentsQuery } from '../../components/Columns/query.generated';
 import { COLLECTION_CONTENTS_QUERY } from '../../components/Columns/query';
 import CollectionColumn from './CollectionColumn';
+import NoContents from '../../components/Common/NoContents';
 
 interface CollectionsColumnDataProps {
   collectionId: number;
@@ -18,9 +19,12 @@ const CollectionColumnData: React.FC<CollectionsColumnDataProps> = ({
     COLLECTION_CONTENTS_QUERY,
     { variables: { collectionId } }
   );
-  if (error) return <Error />;
-  if (loading) return <Loader />;
-  if (!data) return <Error />;
+  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (loading) return <div />;
+  if (!data)
+    return <Error header="Oops!" subHeader="No collection contents data" />;
+  if (data.collectionContents.length === 0)
+    return <NoContents header="" subHeader="No collection contents yet" />;
 
   return <CollectionColumn data={data} />;
 };

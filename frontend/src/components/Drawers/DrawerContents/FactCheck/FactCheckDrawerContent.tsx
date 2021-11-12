@@ -170,6 +170,7 @@ const FactCheckDrawerContent = ({
       <div className={classes.buttonContainer}>
         {searchOptions.map((value) => (
           <Button
+            key={value.buttonTitle}
             role-="button"
             variant="outlined"
             className={

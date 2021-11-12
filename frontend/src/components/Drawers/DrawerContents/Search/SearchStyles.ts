@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     minHeight: '20px',
-    maxHeight: '360px',
+    maxHeight: '375px',
   },
 }));
 

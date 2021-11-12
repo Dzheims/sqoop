@@ -8,6 +8,7 @@ export const GET_COLUMNS_QUERY = gql`
         keyword
         sources
         title
+        createdAt
       }
       ... on NewsFeed {
         id
@@ -16,10 +17,12 @@ export const GET_COLUMNS_QUERY = gql`
         keyword
         sources
         title
+        createdAt
       }
       ... on Collection {
         title
         id
+        createdAt
       }
     }
   }

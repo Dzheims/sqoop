@@ -27,10 +27,12 @@ const SearchNewsAPIColumnData: React.FC<SearchNewsApiColumnDataProps> = ({
     SEARCH_NEWS_API_CONTENTS_QUERY,
     { variables: { keyword, sources, from, to } }
   );
-  if (error) return <Error />;
+  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
   if (loading) return <CardsLoaderSkeleton />;
-  if (!data) return <Error />;
-  if (!data.searchArticles.length) return <NoContents />;
+  if (!data)
+    return <Error header="Oops!" subHeader="No search results found" />;
+  if (!data.searchArticles.length)
+    return <NoContents header="Sorry," subHeader="No News contents found" />;
 
   return (
     <div>

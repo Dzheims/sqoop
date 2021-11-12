@@ -18,9 +18,9 @@ interface ColumnsDataProps {
 
 export const ColumnsData = () => {
   const { data, loading, error } = useQuery<GetColumnsQuery>(GET_COLUMNS_QUERY);
-  if (error) return <Error />;
+  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
   if (loading) return <ColumnLoaderSkeleton />;
-  if (!data) return <Error />;
+  if (!data) return <Error header="Oops!" subHeader="Something went wrong" />;
 
   return <Columns data={data} />;
 };

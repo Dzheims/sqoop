@@ -19,7 +19,7 @@ import { Alert } from '@mui/material';
 import AddFeedsIcon from '@material-ui/icons/AddCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
-import NavigationIcon from '@material-ui/icons/Navigation';
+import ViewColumnIcon from '@material-ui/icons/ViewColumn';
 import { Person } from '@material-ui/icons';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {
@@ -37,6 +37,7 @@ import AddCollectionForm from '../Drawers/DrawerContents/CollectionForm/AddColle
 import Search from '../Drawers/DrawerContents/Search/Search';
 import NavDrawer from './NavDrawer';
 import ColumnsListData from '../Drawers/DrawerContents/ColumnNavigation/ColumnsListData';
+import { useNavDrawerState } from './NavDrawerState';
 
 interface DrawerState {
   current: string;
@@ -56,20 +57,12 @@ interface SuccessAlert {
 
 const NavigationBar = () => {
   const classes = useStyles();
+  const { drawerState, setDrawerState } = useNavDrawerState();
 
-  const [drawerState, setDrawerState] = useState<DrawerProps>({
-    drawerStateProps: false,
-    titleProps: '',
-  });
-
-  // useEffect(() => {
-  //   setDrawerState({ ...drawerState, drawerStateProps: drawerStateProps });
-  // }, [drawerStateProps]);
-
-  const [open, setOpen] = useState<DrawerState>({
-    current: '',
-    open: false,
-  });
+  // const [open, setOpen] = useState<DrawerState>({
+  //   current: '',
+  //   open: false,
+  // });
 
   const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
     type: '',
@@ -96,7 +89,7 @@ const NavigationBar = () => {
       icon: (
         <AddFeedsIcon
           className={
-            open.open === true && open.current === 'Add Column'
+            drawerState.isOpen === true && drawerState.current === 'Add Column'
               ? classes.selectedIcons
               : classes.icons
           }
@@ -109,7 +102,7 @@ const NavigationBar = () => {
       icon: (
         <SearchIcon
           className={
-            open.open === true && open.current === 'Search'
+            drawerState.isOpen === true && drawerState.current === 'Search'
               ? classes.selectedIcons
               : classes.icons
           }
@@ -120,9 +113,9 @@ const NavigationBar = () => {
       id: 'navigation',
       title: 'Navigation',
       icon: (
-        <NavigationIcon
+        <ViewColumnIcon
           className={
-            open.open === true && open.current === 'Navigation'
+            drawerState.isOpen === true && drawerState.current === 'Navigation'
               ? classes.selectedIcons
               : classes.icons
           }
@@ -212,21 +205,21 @@ const NavigationBar = () => {
     if (contentTitle === 'News Feed')
       return (
         <AddNewsAPIFeedForm
-          drawerStateChanger={setOpen}
+          drawerStateChanger={setDrawerState}
           snackbarStateChanger={setSuccessAlert}
         />
       );
     if (contentTitle === 'Twitter Feed')
       return (
         <AddTwitterFeedForm
-          drawerStateChanger={setOpen}
+          drawerStateChanger={setDrawerState}
           snackbarStateChanger={setSuccessAlert}
         />
       );
     if (contentTitle === 'Collection')
       return (
         <AddCollectionForm
-          drawerStateChanger={setOpen}
+          drawerStateChanger={setDrawerState}
           snackbarStateChanger={setSuccessAlert}
         />
       );
@@ -234,25 +227,26 @@ const NavigationBar = () => {
   };
 
   const openDrawer = (drawer: DrawerState) => {
-    if (drawer.current === open.current) {
-      setOpen({
-        ...open,
+    if (drawer.current === drawerState.current) {
+      setDrawerState({
+        ...drawerState,
+        isOpen: false,
         current: '',
-        open: false,
       });
     } else {
-      setOpen({
-        ...open,
+      setDrawerState({
+        ...drawerState,
+        isOpen: drawer.open,
         current: drawer.current,
-        open: drawer.open,
       });
     }
   };
-  const closeDrawer = (drawer: DrawerState) => {
-    setOpen({
-      ...open,
+
+  const closeDrawer = () => {
+    setDrawerState({
+      ...drawerState,
+      isOpen: false,
       current: '',
-      open: false,
     });
   };
 
@@ -279,15 +273,19 @@ const NavigationBar = () => {
   return (
     <>
       <div>
-        <NavDrawer drawerStateProps={open.open} childComponent={drawerChild} />
+        <NavDrawer
+          drawerStateProps={drawerState.isOpen}
+          childComponent={drawerChild}
+        />
         <NavigationBarContainer>
           <MenuContainer>
             {NavBarMenu.map((item) => (
-              <div>
+              <div key={item.id}>
                 <Tooltip title={item.title} key={item.id} arrow>
                   <IconContainer
                     className={
-                      open.open === true && open.current === item.title
+                      drawerState.isOpen === true &&
+                      drawerState.current === item.title
                         ? classes.selectedIconContainer
                         : classes.iconContainer
                     }
@@ -337,12 +335,9 @@ const NavigationBar = () => {
         </NavigationBarContainer>
         <Backdrop
           className={classes.backdrop}
-          open={open.open}
-          onClick={() => {
-            closeDrawer({ current: '', open: false });
-          }}
+          open={drawerState.isOpen}
+          onClick={closeDrawer}
         />
-        ß
       </div>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
