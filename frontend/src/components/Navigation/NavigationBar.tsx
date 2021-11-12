@@ -280,7 +280,7 @@ const NavigationBar = () => {
         <NavigationBarContainer>
           <MenuContainer>
             {NavBarMenu.map((item) => (
-              <div>
+              <div key={item.id}>
                 <Tooltip title={item.title} key={item.id} arrow>
                   <IconContainer
                     className={

@@ -49,14 +49,15 @@ import CollectionColumnData from '../../pages/Boards/CollectionColumnData';
 import currentUserId from '../../authentication/currentUserId';
 import { CollectionsListStateProvider } from '../Collections/CollectionsListState';
 
-// const useFocusStyles = makeStyles((theme) => ({
-//   columnHighlightBorder: {
-//     '&::focus': {
-//       border: '2px solid #f04b4c',
-//       transition: 'border 0.10s ease-out',
-//     },
-//   },
-// }));
+const useFocusStyles = makeStyles((theme) => ({
+  columnHighlightBorder: {
+    border: '0px solid #f04b4c',
+    '&:focus': {
+      border: '2px solid #f04b4c',
+      transition: 'border 0.10s ease-out',
+    },
+  },
+}));
 
 const getFeedType = (value: any) => {
   switch (value.__typename) {
@@ -90,6 +91,7 @@ interface DeleteColumnProps {
 
 const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const classes = useStyles();
+  const onFocusClass = useFocusStyles();
   const [proceedDelete, setProceedDelete] = useState(false);
   const [userId] = useState(currentUserId());
   const [warningDelete, setWarningDelete] = useState(false);
@@ -169,8 +171,6 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   }, [proceedDelete]);
 
   const handleDelete = (props: DeleteColumnProps) => {
-    console.log(proceedDelete);
-
     setDeleteColumn({
       ...deleteColumn,
       title: props.title,
@@ -198,14 +198,15 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
       <ColumnWrapper>
         {data.getColumnResult?.flatMap((value, index) => (
           <div
+            key={value.createdAt}
             id={value.title}
+            // className={onFocusClass.columnHighlightBorder}
             // onBlur={onBlur}
             // onFocus={onFocus}
-            style={{
-              border: onFocusState,
-              transition: 'border 0.10s ease-out',
-            }}
-            // add className
+            // style={{
+            //   border: onFocusState,
+            //   transition: 'border 0.10s ease-out',
+            // }}
             tabIndex={-1}
           >
             <DragDropContext onDragEnd={onDragEnd} key={index}>

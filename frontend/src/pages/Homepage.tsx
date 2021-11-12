@@ -270,8 +270,9 @@ const Homepage = () => {
               >
                 <div className={classes.defaultFeeds}>
                   <DragDropContext onDragEnd={onDragEnd}>
-                    {defaultColumns.map((column) => (
+                    {defaultColumns.map((column, index) => (
                       <div
+                        key={column.title}
                         id={column.title}
                         className={classes.columnElement}
                         tabIndex={-1}
@@ -288,6 +289,7 @@ const Homepage = () => {
                                   <div className={classes.buttonContainer}>
                                     {categories.map((value) => (
                                       <Button
+                                        key={value.title}
                                         aria-label={value.title}
                                         role-="button"
                                         variant="outlined"

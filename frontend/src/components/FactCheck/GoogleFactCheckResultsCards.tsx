@@ -23,53 +23,55 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
 
   return (
     <div>
-      {data.googleFactCheckSearch.map((value) => (
-        <CardsContainer>
-          <ContentContainer>
-            {value.claimant !== null ? (
-              <Typography
-                className={classes.claimant}
-                style={{ fontWeight: 600 }}
-                variant="body2"
-              >
-                Claim by {value.claimant}
+      {data.googleFactCheckSearch.map((value, index) => (
+        <div key={value.claimDate}>
+          <CardsContainer>
+            <ContentContainer>
+              {value.claimant !== null ? (
+                <Typography
+                  className={classes.claimant}
+                  style={{ fontWeight: 600 }}
+                  variant="body2"
+                >
+                  Claim by {value.claimant}
+                </Typography>
+              ) : (
+                <div />
+              )}
+              <Typography className={classes.description}>
+                {value.text}
               </Typography>
-            ) : (
-              <div />
-            )}
-            <Typography className={classes.description}>
-              {value.text}
+              {value.claimDate !== null ? (
+                <Typography className={classes.dateAndUserName}>
+                  Claim Date {formatTimeAndDate(value.claimDate)}
+                </Typography>
+              ) : (
+                <div />
+              )}
+            </ContentContainer>
+            <Typography
+              style={{ fontWeight: 600 }}
+              className={classes.description}
+            >
+              {`${value.claimReview[0]?.publisher?.name || ''} Info Rating: ${
+                value.claimReview[0]?.textualRating || ''
+              }`}
             </Typography>
-            {value.claimDate !== null ? (
-              <Typography className={classes.dateAndUserName}>
-                Claim Date {formatTimeAndDate(value.claimDate)}
+            <a
+              className={classes.link}
+              target="_blank"
+              rel="noreferrer"
+              href={value.claimReview[0].url as string}
+            >
+              <Typography className={classes.titleLink} variant="body2">
+                {value.claimReview[0].title}
               </Typography>
-            ) : (
-              <div />
-            )}
-          </ContentContainer>
-          <Typography
-            style={{ fontWeight: 600 }}
-            className={classes.description}
-          >
-            {`${value.claimReview[0]?.publisher?.name || ''} Info Rating: ${
-              value.claimReview[0]?.textualRating || ''
-            }`}
-          </Typography>
-          <a
-            className={classes.link}
-            target="_blank"
-            rel="noreferrer"
-            href={value.claimReview[0].url as string}
-          >
-            <Typography className={classes.titleLink} variant="body2">
-              {value.claimReview[0].title}
+            </a>
+            <Typography className={classes.dateAndUserName}>
+              Review Date {formatTimeAndDate(value?.claimReview[0]?.reviewDate)}
             </Typography>
-          </a>
-          <Typography className={classes.dateAndUserName}>
-            Review Date {formatTimeAndDate(value?.claimReview[0]?.reviewDate)}
-          </Typography>
-        </CardsContainer>
+          </CardsContainer>
+        </div>
       ))}
     </div>
   );

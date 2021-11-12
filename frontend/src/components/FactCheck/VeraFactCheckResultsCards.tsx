@@ -16,36 +16,38 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
 
   return (
     <div>
-      {data.veraFilesFactCheck.map((value) => (
-        <CardsContainer key={value.id}>
-          <ContentContainer>
-            <div
-              style={{
-                backgroundImage: `url(${String(value.imageUrl)})`,
-              }}
-              className={classes.imageContainer}
-            />
-            <a
-              className={classes.link}
-              target="_blank"
-              rel="noreferrer"
-              href={value.url as string}
+      {data.veraFilesFactCheck.map((value, index) => (
+        <div key={value.url}>
+          <CardsContainer key={value.id}>
+            <ContentContainer>
+              <div
+                style={{
+                  backgroundImage: `url(${String(value.imageUrl)})`,
+                }}
+                className={classes.imageContainer}
+              />
+              <a
+                className={classes.link}
+                target="_blank"
+                rel="noreferrer"
+                href={value.url as string}
+              >
+                <Typography color="primary" className={classes.description}>
+                  {decodeHTML(value.title as string)}
+                </Typography>
+              </a>
+            </ContentContainer>
+            <Typography
+              style={{ fontWeight: 600, padding: '10px' }}
+              variant="body2"
             >
-              <Typography color="primary" className={classes.description}>
-                {decodeHTML(value.title as string)}
-              </Typography>
-            </a>
-          </ContentContainer>
-          <Typography
-            style={{ fontWeight: 600, padding: '10px' }}
-            variant="body2"
-          >
-            By {decodeHTML(value.author as string)}
-          </Typography>
-          <Typography className={classes.dateAndUserName}>
-            {formatTimeAndDate(value.date)}
-          </Typography>
-        </CardsContainer>
+              By {decodeHTML(value.author as string)}
+            </Typography>
+            <Typography className={classes.dateAndUserName}>
+              {formatTimeAndDate(value.date)}
+            </Typography>
+          </CardsContainer>
+        </div>
       ))}
     </div>
   );
