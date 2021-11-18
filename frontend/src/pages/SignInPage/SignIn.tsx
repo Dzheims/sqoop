@@ -93,9 +93,9 @@ const SignIn = () => {
     }
   );
 
-  // useEffect(() => {
-  //   if (isSubmitting) setErrors(validate(loginInput, jwtIsNull));
-  // }, [loginInput, isSubmitting]);
+  useEffect(() => {
+    if (isSubmitting) setErrors(validate(loginInput, jwtIsNull));
+  }, [isSubmitting]);
 
   const handleSubmit = () => {
     signIn().then((res) => {
@@ -104,7 +104,7 @@ const SignIn = () => {
       } else {
         setJwtIsNull(true);
       }
-      // setIsSubmitting(true);
+      setIsSubmitting(true);
     });
     setErrors(validate(loginInput, jwtIsNull));
   };
