@@ -272,11 +272,11 @@ const NavigationBar = () => {
 
   return (
     <>
+      <NavDrawer
+        drawerStateProps={drawerState.isOpen}
+        childComponent={drawerChild}
+      />
       <div>
-        <NavDrawer
-          drawerStateProps={drawerState.isOpen}
-          childComponent={drawerChild}
-        />
         <NavigationBarContainer>
           <MenuContainer>
             {NavBarMenu.map((item) => (

@@ -105,6 +105,7 @@ export const NavigationBarContainer = styled.div`
   align-items: space-between;
   justify-content: center;
   display: flex;
+  margin-left: '10px';
 `;
 export const IconContainer = styled.div`
   width: 60px;

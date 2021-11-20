@@ -14,7 +14,9 @@ import {
 } from '../../pages/Boards/ColumnsStyle';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@mui/icons-material/Close';
-// import ColumnsData from './ColumnsData';
+import FeedIcon from '@mui/icons-material/Feed';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from '../../pages/Boards/TwitterAPIColumnData';
 import CategoriesButtons from '../Categories/CategoriesButtons';
@@ -76,6 +78,18 @@ const getFeedType = (value: any) => {
       );
     case 'Collection':
       return <CollectionColumnData collectionId={value.id} />;
+  }
+};
+
+const getIcon = (value: any) => {
+  const iconStyle = { color: '#0036e7' };
+  switch (value.__typename) {
+    case 'NewsFeed':
+      return <FeedIcon style={iconStyle} />;
+    case 'TwitterFeed':
+      return <TwitterIcon style={iconStyle} />;
+    case 'Collection':
+      return <CollectionsBookmarkIcon style={iconStyle} />;
   }
 };
 
@@ -217,7 +231,10 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                     ref={provided.innerRef}
                   >
                     <div className={classes().titleContainer}>
-                      <Title>{value.title}</Title>
+                      <div className={classes().columnHeader}>
+                        <div>{getIcon(value)}</div>
+                        <Title>{value.title}</Title>
+                      </div>
                       <IconButton
                         data-testid={value.title}
                         onClick={() => {

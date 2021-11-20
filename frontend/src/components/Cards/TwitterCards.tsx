@@ -9,6 +9,7 @@ import Linkify from 'react-linkify';
 import { SecureLink } from 'react-secure-link';
 import { decodeHTML } from 'entities';
 import { Draggable } from 'react-beautiful-dnd';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import {
   Typography,
   Avatar,
@@ -90,11 +91,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
                   {'@' + data.username}
                 </Typography>
               </AccountNameContainer>
-              <Avatar
-                alt="Twitter-logo"
-                src="https://static01.nyt.com/images/2014/08/10/magazine/10wmt/10wmt-superJumbo-v4.jpg"
-                className={classes().twitterIcon}
-              />
+              <TwitterIcon className={classes().cardsIcon} />
             </TwitterContentContainer>
             <Linkify
               componentDecorator={(
