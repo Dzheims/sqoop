@@ -1,7 +1,7 @@
 import { collection_articles, collections } from '../../models';
 import { withRootDb } from '../helpers/dbTestHelpers';
 
-describe('select, insert collection_articles', () => {
+describe('select, insert, delete collection_articles', () => {
   test('insert collection ', async () => {
     withRootDb(async (pgClient) => {
       const {
@@ -29,6 +29,20 @@ describe('select, insert collection_articles', () => {
         `SELECT * FROM collection_articles`
       );
       expect(collection_article.description).toBe('covid');
+
+      const {
+        rows: [deleted_collection_article],
+      } = await pgClient.query<collection_articles>(
+        `DELETE FROM collection_articles WHERE id=${collection_article.id} RETURNING *`
+      );
+
+      expect(deleted_collection_article.description).toBe('covid');
+
+      const { rows: emptyRow } = await pgClient.query<collection_articles>(
+        `SELECT * FROM collection_articles`
+      );
+
+      expect(emptyRow).toBeArrayOfSize(0);
     });
   });
 });

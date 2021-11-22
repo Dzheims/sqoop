@@ -21,6 +21,20 @@ describe('select, insert collection_tweets', () => {
         `SELECT * FROM collection_tweets`
       );
       expect(collection_tweet.tweet_id).toBe('142353119450113');
+
+      const {
+        rows: [deleted_collection_tweet],
+      } = await pgClient.query<collection_tweets>(
+        `DELETE FROM collection_tweets WHERE id=${collection_tweet.id} RETURNING *`
+      );
+
+      expect(deleted_collection_tweet.tweet_id).toBe('142353119450113');
+
+      const { rows: emptyRow } = await pgClient.query<collection_tweets>(
+        `SELECT * FROM collection_tweets`
+      );
+
+      expect(emptyRow).toBeArrayOfSize(0);
     });
   });
 });
