@@ -1,9 +1,11 @@
 import React from 'react';
-import { Avatar, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { decodeHTML } from 'entities';
 import { VeraFactCheckSearchResultQuery } from './query.generated';
 import { CardsContainer, useStyles, ContentContainer } from './FactCheckStyles';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
+import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
+import { CollectionContent } from '../../types.generated';
 
 interface VeraFactCheckProps {
   data: VeraFactCheckSearchResultQuery;
@@ -46,6 +48,9 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
             <Typography className={classes.dateAndUserName}>
               {formatTimeAndDate(value.date)}
             </Typography>
+            <div style={{ marginLeft: '80%' }}>
+              <CardsAddToCollectionButton data={{} as CollectionContent} />
+            </div>
           </CardsContainer>
         </div>
       ))}

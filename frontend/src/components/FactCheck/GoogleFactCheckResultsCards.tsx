@@ -1,16 +1,10 @@
 import React from 'react';
-import { Avatar, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { GoogleFactCheckSearchResultQuery } from './query.generated';
-import {
-  CardsContainer,
-  TitleContainer,
-  AuthorContainer,
-  useStyles,
-  ContentContainer,
-} from './FactCheckStyles';
-import VeraFilesLogo from '../../assets/vera_files_logo.png';
-import { Maybe } from '../../types.generated';
+import { CardsContainer, useStyles, ContentContainer } from './FactCheckStyles';
+import { CollectionContent } from '../../types.generated';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
+import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
 
 interface GoogleFactCheckProps {
   data: GoogleFactCheckSearchResultQuery;
@@ -70,6 +64,9 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
             <Typography className={classes.dateAndUserName}>
               Review Date {formatTimeAndDate(value?.claimReview[0]?.reviewDate)}
             </Typography>
+            <div style={{ marginLeft: '80%' }}>
+              <CardsAddToCollectionButton data={{} as CollectionContent} />
+            </div>
           </CardsContainer>
         </div>
       ))}
