@@ -10,10 +10,11 @@ import {
   Item,
 } from '../../pages/Boards/ColumnsStyle';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
-import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
+import CardsAddToCollectionButton from '../CardsButtons/CardsAddToCollectionButton';
 import { Article, CollectionArticle } from '../../types.generated';
 import FactCheckButton from '../FactCheck/FactCheckButton';
 import { useDrawerState, DrawerState } from '../FactCheck/FactCheckDrawerState';
+import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionContentButton';
 
 interface NewsDataProps {
   data: Article;
@@ -59,22 +60,25 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
-            <NewsAPITitleContainer>
-              <Avatar
-                style={{
-                  backgroundColor: randomColor(data.sourceName as string),
-                  color: 'white',
-                }}
-                className={classes().profileAvatars}
-              >
-                {data.sourceName?.charAt(0)}
-              </Avatar>
-              <AccountNameContainer>
-                <Typography style={{ fontWeight: 600 }}>
-                  {truncateName(data.sourceName as string, 18)}
-                </Typography>
-              </AccountNameContainer>
-            </NewsAPITitleContainer>
+            <div className={classes().deleteButtonDiv}>
+              <NewsAPITitleContainer>
+                <Avatar
+                  style={{
+                    backgroundColor: randomColor(data.sourceName as string),
+                    color: 'white',
+                  }}
+                  className={classes().profileAvatars}
+                >
+                  {data.sourceName?.charAt(0)}
+                </Avatar>
+                <AccountNameContainer>
+                  <Typography style={{ fontWeight: 600 }}>
+                    {truncateName(data.sourceName as string, 18)}
+                  </Typography>
+                </AccountNameContainer>
+              </NewsAPITitleContainer>
+              <DeleteCollectionContentButton />
+            </div>
             <Typography variant="body2">{data.description}</Typography>
             {!data.urlToImage ? (
               <a
@@ -100,6 +104,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                     <OpenInNewIcon className={classes().linkIcon} />
                   </a>
                 </div>
+
                 <a
                   target="_blank"
                   className={classes().link}

@@ -1513,7 +1513,7 @@ type Publisher {
 
 union ColumnResult = NewsFeed | TwitterFeed | Collection
 
-union CollectionContent = CollectionTweet | CollectionArticle
+union CollectionContent = CollectionTweet | CollectionArticle | CollectionVeraFile
 
 """
 The root mutation type which contains root level fields which mutate data.

@@ -24,9 +24,10 @@ import {
 } from '../../pages/Boards/ColumnsStyle';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import FactCheckButton from '../FactCheck/FactCheckButton';
-import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
+import CardsAddToCollectionButton from '../CardsButtons/CardsAddToCollectionButton';
 import { useDrawerState, DrawerState } from '../FactCheck/FactCheckDrawerState';
 import { CollectionTweet, Tweet } from '../../types.generated';
+import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionContentButton';
 
 interface TwitterDataProps {
   data: Tweet;
@@ -64,38 +65,41 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
-            <TwitterContentContainer>
-              <Avatar
-                alt={data.name as string}
-                src={data.profile_image_url as string}
-                className={classes().profileAvatars}
-                variant="circular"
-              />
-              <AccountNameContainer>
-                <TwitterTitleContainer>
-                  <Typography style={{ fontWeight: 600 }}>
-                    {truncateName(data.name as string, 12)}
+            <div className={classes().deleteButtonDiv}>
+              <TwitterContentContainer>
+                <Avatar
+                  alt={data.name as string}
+                  src={data.profile_image_url as string}
+                  className={classes().profileAvatars}
+                  variant="circular"
+                />
+                <AccountNameContainer>
+                  <TwitterTitleContainer>
+                    <Typography style={{ fontWeight: 600 }}>
+                      {truncateName(data.name as string, 10)}
+                    </Typography>
+                    {data.verified ? (
+                      <Avatar
+                        alt="Verified"
+                        src="https://www.pngitem.com/pimgs/m/3-38867_twitter-verified-badge-twitter-verified-icon-svg-hd.png"
+                        className={classes().verifiedIcon}
+                      />
+                    ) : (
+                      <div />
+                    )}
+                  </TwitterTitleContainer>
+                  <Typography className={classes().dateAndUserName}>
+                    {'@' + data.username}
                   </Typography>
-                  {data.verified ? (
-                    <Avatar
-                      alt="Verified"
-                      src="https://www.pngitem.com/pimgs/m/3-38867_twitter-verified-badge-twitter-verified-icon-svg-hd.png"
-                      className={classes().verifiedIcon}
-                    />
-                  ) : (
-                    <div />
-                  )}
-                </TwitterTitleContainer>
-                <Typography className={classes().dateAndUserName}>
-                  {'@' + data.username}
-                </Typography>
-              </AccountNameContainer>
-              <Avatar
-                alt="Twitter-logo"
-                src="https://static01.nyt.com/images/2014/08/10/magazine/10wmt/10wmt-superJumbo-v4.jpg"
-                className={classes().twitterIcon}
-              />
-            </TwitterContentContainer>
+                </AccountNameContainer>
+                <Avatar
+                  alt="Twitter-logo"
+                  src="https://static01.nyt.com/images/2014/08/10/magazine/10wmt/10wmt-superJumbo-v4.jpg"
+                  className={classes().twitterIcon}
+                />
+              </TwitterContentContainer>
+              <DeleteCollectionContentButton />
+            </div>
             <Linkify
               componentDecorator={(
                 decoratedHref: string,

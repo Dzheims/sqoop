@@ -5,7 +5,10 @@ export const columnResult = gql`
 `;
 
 export const collectionContent = gql`
-  union CollectionContent = CollectionTweet | CollectionArticle
+  union CollectionContent =
+      CollectionTweet
+    | CollectionArticle
+    | CollectionVeraFile
 `;
 
 export const typeDefs = gql`
