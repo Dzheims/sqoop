@@ -1,4 +1,6 @@
+import camelcaseKeys from 'camelcase-keys';
 import keyword_extractor from 'keyword-extractor';
+import { article } from './schema';
 const fetch = require('node-fetch');
 
 interface topHeadlinesParams {
@@ -19,7 +21,7 @@ export const resolvers = {
   Query: {
     topHeadlines: async (_: any, args: topHeadlinesParams, context: any) => {
       let { country, sources, category, keyword } = args;
-      const { jwtClaims } = context;
+      const { jwtClaims, pgClient } = context;
       if (!jwtClaims) throw new Error('Unauthorized user');
 
       const queryParams = new URLSearchParams();
@@ -69,6 +71,31 @@ export const resolvers = {
           sourceName,
         };
       });
+      // sample code for a saved filter
+      // to be updated
+
+      if (category === 'general') {
+        articles.map(async (article: any) => {
+          await pgClient.query(
+            `INSERT INTO top_headlines_cache (author, content, description, published_at, source_name, source_id, title, url, url_to_image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+            [
+              article.author,
+              article.content,
+              article.description,
+              article.publishedAt,
+              article.sourceName,
+              article.sourceId,
+              article.title,
+              article.url,
+              article.urlToImage,
+            ]
+          );
+        });
+        const { rows: topHeadlinesCache } = await pgClient.query(
+          `SELECT * FROM top_headlines_cache`
+        );
+        return camelcaseKeys(topHeadlinesCache);
+      }
       return articles;
     },
     topHeadlinesSources: async (_: any, args: any, context: any) => {
