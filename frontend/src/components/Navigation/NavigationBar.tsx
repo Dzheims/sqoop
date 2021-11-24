@@ -17,10 +17,14 @@ import {
 } from '@material-ui/core';
 import { Alert } from '@mui/material';
 import AddFeedsIcon from '@material-ui/icons/AddCircle';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import ViewColumnIcon from '@material-ui/icons/ViewColumn';
 import { Person } from '@material-ui/icons';
+import FeedIcon from '@mui/icons-material/Feed';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {
   NavigationBarContainer,
@@ -44,11 +48,6 @@ interface DrawerState {
   open: boolean;
 }
 
-interface DrawerProps {
-  drawerStateProps: boolean;
-  titleProps: string;
-}
-
 interface SuccessAlert {
   type: string;
   feedTitle: string;
@@ -58,19 +57,11 @@ interface SuccessAlert {
 const NavigationBar = () => {
   const classes = useStyles();
   const { drawerState, setDrawerState } = useNavDrawerState();
-
-  // const [open, setOpen] = useState<DrawerState>({
-  //   current: '',
-  //   open: false,
-  // });
-
   const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
     type: '',
     feedTitle: '',
     success: false,
   });
-
-  const [title, setTitle] = useState('');
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const onAccountClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -127,22 +118,37 @@ const NavigationBar = () => {
   const AddFeedsButtons = [
     {
       title: 'Twitter Feed',
+      icon: <TwitterIcon style={{ marginRight: '5px' }} />,
       onClick: () => {
-        setTitle('Twitter Feed');
+        setDrawerState({
+          ...drawerState,
+          isOpen: true,
+          current: 'Twitter Feed',
+        });
       },
     },
     {
       title: 'News Feed',
+      icon: <FeedIcon style={{ marginRight: '5px' }} />,
       onClick: () => {
-        setTitle('News Feed');
+        setDrawerState({
+          ...drawerState,
+          isOpen: true,
+          current: 'News Feed',
+        });
       },
     },
   ];
   const AddCollectionButton = [
     {
       title: 'Collection',
+      icon: <CollectionsBookmarkIcon style={{ marginRight: '5px' }} />,
       onClick: () => {
-        setTitle('Collection');
+        setDrawerState({
+          ...drawerState,
+          isOpen: true,
+          current: 'Collection',
+        });
       },
     },
   ];
@@ -156,7 +162,11 @@ const NavigationBar = () => {
       return (
         <IconButton
           onClick={() => {
-            setTitle('Add Column');
+            setDrawerState({
+              ...drawerState,
+              isOpen: true,
+              current: 'Add Column',
+            });
           }}
         >
           <ArrowBackIcon className={classes.backIcon} />
@@ -179,6 +189,7 @@ const NavigationBar = () => {
                 onClick={value.onClick}
                 key={value.title}
               >
+                {value.icon}
                 <ListItemText>{value.title}</ListItemText>
               </ListItem>
             ))}
@@ -195,6 +206,7 @@ const NavigationBar = () => {
                 onClick={value.onClick}
                 key={value.title}
               >
+                {value.icon}
                 <ListItemText>{value.title}</ListItemText>
               </ListItem>
             ))}
@@ -250,13 +262,45 @@ const NavigationBar = () => {
     });
   };
 
+  const helperText = (contentTitle: string) => {
+    switch (contentTitle) {
+      case 'Add Column':
+        return 'Add text here';
+      case 'Search':
+        return 'Add text here';
+      case 'Navigation':
+        return 'Add text here';
+      case 'Twitter Feed':
+        return 'Add text here';
+      case 'News Feed':
+        return 'Add text here';
+      case 'Collection':
+        return 'Add text here';
+      default:
+        return '';
+    }
+  };
+
   const drawerChild = (
     <div className={classes.drawer}>
       <div className={classes.drawerHeader}>
-        {handleBack(title)}
-        <Typography className={classes.drawerTitle}>{title}</Typography>
+        {handleBack(drawerState.current)}
+        <Typography className={classes.drawerTitle}>
+          {drawerState.current}
+        </Typography>
+        <Tooltip
+          arrow
+          title={helperText(drawerState.current)}
+          placement="right-start"
+          classes={{
+            tooltip: classes.tooltip,
+            arrow: classes.arrow,
+          }}
+        >
+          <HelpOutlineIcon className={classes.helperIcon} />
+        </Tooltip>
       </div>
-      {getDrawerContent(title)}
+      {getDrawerContent(drawerState.current)}
     </div>
   );
 
@@ -294,7 +338,11 @@ const NavigationBar = () => {
                       aria-label={item.title}
                       onClick={() => {
                         openDrawer({ current: item.title, open: true });
-                        setTitle(item.title);
+                        setDrawerState({
+                          ...drawerState,
+                          isOpen: true,
+                          current: item.title,
+                        });
                       }}
                     >
                       {item.icon}

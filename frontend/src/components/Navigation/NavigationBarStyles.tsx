@@ -35,19 +35,33 @@ export const useStyles = makeStyles(() => ({
     width: '260px',
     height: '560px',
     backgroundColor: '#f7fafc',
-    margin: '20px 10px 10px 10px',
+    margin: '10px 10px 10px 10px',
     borderRadius: '4px',
     // padding: '8px',
     overflow: 'hidden',
   },
   drawerHeader: {
     display: 'flex',
+    alignItems: 'center',
+    marginLeft: '10px',
+    marginTop: '10px',
   },
   drawerTitle: {
     font: '18px sans-serif',
-    marginTop: '10px',
-    marginLeft: '12px',
     color: theme.palette.primary.main,
+  },
+  helperIcon: {
+    marginLeft: '5px',
+    color: 'lightGray',
+  },
+  tooltip: {
+    backgroundColor: '#f2f5f7',
+    color: 'gray',
+    maxWidth: '200px',
+    fontSize: '12px',
+  },
+  arrow: {
+    color: '#f2f5f7',
   },
   contentContainer: {
     padding: '8px',
@@ -62,12 +76,12 @@ export const useStyles = makeStyles(() => ({
     marginLeft: '12px',
   },
   listItemButtons: {
-    borderRadius: '12px',
+    borderRadius: '8px',
     marginBottom: '5px',
     '&:hover': {
-      color: 'white',
-      backgroundColor: theme.palette.secondary.main,
-      transition: 'all 0.5s ease',
+      border: '1px solid #f04b4c',
+      backgroundColor: 'white',
+      color: theme.palette.secondary.main,
     },
   },
   profileBox: {
