@@ -17,6 +17,8 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { Toolbar, Button, Typography } from '@material-ui/core';
 import Fab from '@mui/material/Fab';
+import FeedIcon from '@mui/icons-material/Feed';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
@@ -25,7 +27,7 @@ import { ColumnsData } from '../components/Columns/ColumnsData';
 import NavigationBar from '../components/Navigation/NavigationBar';
 import { Category } from '../types.generated';
 import {
-  ColumnContainer,
+  DefaultColumnContainer,
   DefaultItemContainer,
   Title,
 } from './Boards/ColumnsStyle';
@@ -47,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
   defaultFeeds: {
     display: 'flex',
+    marginLeft: '7px',
   },
   columnContainers: {
     margin: '5px',
@@ -106,6 +109,11 @@ const useStyles = makeStyles((theme) => ({
       transition: 'border 0.10s ease-out',
     },
   },
+  columnHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: '5px',
+  },
 }));
 
 export interface DrawerState {
@@ -138,6 +146,7 @@ const Homepage = () => {
   const defaultColumns = [
     {
       title: 'News Feed',
+      icon: <FeedIcon style={{ color: '#0036e7' }} />,
       cards: (
         <NewsAPIColumnData
           country=""
@@ -149,6 +158,7 @@ const Homepage = () => {
     },
     {
       title: 'Twitter Feed',
+      icon: <TwitterIcon style={{ color: '#0036e7' }} />,
       cards: <TwitterAPIColumnData keyword={null} sources={null} />,
     },
   ];
@@ -279,11 +289,15 @@ const Homepage = () => {
                       >
                         <Droppable droppableId="droppable">
                           {(provided, snapshot) => (
-                            <ColumnContainer
+                            <DefaultColumnContainer
                               {...provided.droppableProps}
                               ref={provided.innerRef}
                             >
-                              <Title>{column.title}</Title>
+                              <div className={classes.columnHeader}>
+                                <div>{column.icon}</div>
+                                <Title>{column.title}</Title>
+                              </div>
+
                               {column.title === 'News Feed' ? (
                                 <ScrollContainer className="scroll-container">
                                   <div className={classes.buttonContainer}>
@@ -317,7 +331,7 @@ const Homepage = () => {
                               >
                                 {column.cards}
                               </DefaultItemContainer>
-                            </ColumnContainer>
+                            </DefaultColumnContainer>
                           )}
                         </Droppable>
                       </div>

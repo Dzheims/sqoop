@@ -12,10 +12,10 @@ type DefaultColumnContentStylesProps = {
 
 export const useStyles = () =>
   makeStyles(() => ({
-    twitterIcon: {
-      height: '20px',
-      width: '20px',
+    cardsIcon: {
+      fontSize: '5px',
       marginLeft: 'auto',
+      color: '#00acee',
     },
     verifiedIcon: {
       height: '18px',
@@ -39,7 +39,12 @@ export const useStyles = () =>
       fontSize: '14px',
       color: 'black',
     },
-    dateAndUserName: {
+    date: {
+      marginTop: '10px',
+      fontSize: '14px',
+      color: 'gray',
+    },
+    userName: {
       fontSize: '14px',
       color: 'gray',
     },
@@ -111,6 +116,11 @@ export const useStyles = () =>
     },
     dialogTitle: {
       color: theme.palette.secondary.main,
+    },
+    columnHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      marginLeft: '5px',
     },
   }));
 
@@ -195,6 +205,15 @@ export const AccountNameContainer = styled.div`
 export const ColumnContainer = styled.div`
   padding: 8px;
   background-color: #f7fafc;
+  border-radius: 4px;
+  width: 300px;
+  max-width: 320px;
+  margin: 5px 4px;
+  height: 91.5vh;
+`;
+export const DefaultColumnContainer = styled.div`
+  padding: 8px;
+  background-color: #f2f5f7;
   border-radius: 4px;
   width: 300px;
   max-width: 320px;

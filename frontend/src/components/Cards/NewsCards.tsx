@@ -2,6 +2,7 @@ import React, { useState, Dispatch, SetStateAction, useEffect } from 'react';
 import { Typography, Avatar } from '@material-ui/core';
 import { Draggable } from 'react-beautiful-dnd';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import NewsIcon from '@mui/icons-material/Article';
 import {
   AccountNameContainer,
   NewsAPIContentContainer,
@@ -74,6 +75,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                   {truncateName(data.sourceName as string, 18)}
                 </Typography>
               </AccountNameContainer>
+              <NewsIcon className={classes().cardsIcon} />
             </NewsAPITitleContainer>
             <Typography variant="body2">{data.description}</Typography>
             {!data.urlToImage ? (
@@ -111,8 +113,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                 </a>
               </NewsAPIContentContainer>
             )}
-            <br />
-            <Typography className={classes().dateAndUserName}>
+            <Typography className={classes().date}>
               {formatTimeAndDate(data.publishedAt)}
             </Typography>
             <div className={classes().buttonsContainer}>
