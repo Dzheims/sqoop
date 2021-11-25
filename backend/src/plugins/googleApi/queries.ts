@@ -32,7 +32,24 @@ export const resolvers = {
 
       if (result.error) throw new Error(result.error.message);
 
-      return result.claims;
+      const claims = result.claims.map((claim: any) => {
+        const {
+          claimReview: [
+            {
+              publisher: { name: publisherName, site: publisherSite },
+              ...claimReviewContent
+            },
+          ],
+          ...claimant
+        } = claim;
+        return {
+          ...claimReviewContent,
+          publisherName,
+          publisherSite,
+          ...claimant,
+        };
+      });
+      return claims;
     },
   },
 };

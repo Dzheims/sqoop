@@ -1958,21 +1958,13 @@ type Claim {
   text: String
   claimant: String
   claimDate: String
-  claimReview: [ClaimReview!]!
-}
-
-type ClaimReview {
-  publisher: Publisher
+  publisherName: String
+  publisherSite: String
   url: String
   title: String
   reviewDate: String
   textualRating: String
   languageCode: String
-}
-
-type Publisher {
-  name: String
-  site: String
 }
 
 union ColumnResult = NewsFeed | TwitterFeed | Collection

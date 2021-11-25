@@ -5,7 +5,13 @@ export const claim = gql`
     text: String
     claimant: String
     claimDate: String
-    claimReview: [ClaimReview!]!
+    publisherName: String
+    publisherSite: String
+    url: String
+    title: String
+    reviewDate: String
+    textualRating: String
+    languageCode: String
   }
 `;
 
