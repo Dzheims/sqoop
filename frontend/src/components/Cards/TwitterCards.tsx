@@ -87,7 +87,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
                     <div />
                   )}
                 </TwitterTitleContainer>
-                <Typography className={classes().dateAndUserName}>
+                <Typography className={classes().userName}>
                   {'@' + data.username}
                 </Typography>
               </AccountNameContainer>
@@ -127,7 +127,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
                 ))}
               </ImageList>
             )}
-            <Typography className={classes().dateAndUserName}>
+            <Typography className={classes().date}>
               {formatTimeAndDate(data.created_at)}
             </Typography>
             <div className={classes().buttonsContainer}>

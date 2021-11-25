@@ -39,7 +39,12 @@ export const useStyles = () =>
       fontSize: '14px',
       color: 'black',
     },
-    dateAndUserName: {
+    date: {
+      marginTop: '10px',
+      fontSize: '14px',
+      color: 'gray',
+    },
+    userName: {
       fontSize: '14px',
       color: 'gray',
     },

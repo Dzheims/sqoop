@@ -113,8 +113,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                 </a>
               </NewsAPIContentContainer>
             )}
-            <br />
-            <Typography className={classes().dateAndUserName}>
+            <Typography className={classes().date}>
               {formatTimeAndDate(data.publishedAt)}
             </Typography>
             <div className={classes().buttonsContainer}>
