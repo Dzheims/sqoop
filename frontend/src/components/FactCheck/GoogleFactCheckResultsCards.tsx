@@ -53,22 +53,22 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
               style={{ fontWeight: 600 }}
               className={classes.description}
             >
-              {`${value.claimReview[0]?.publisher?.name || ''} Info Rating: ${
-                value.claimReview[0]?.textualRating || ''
+              {`${value.publisherName || ''} Info Rating: ${
+                value.textualRating || ''
               }`}
             </Typography>
             <a
               className={classes.link}
               target="_blank"
               rel="noreferrer"
-              href={value.claimReview[0].url as string}
+              href={value.url as string}
             >
               <Typography className={classes.titleLink} variant="body2">
-                {value.claimReview[0].title}
+                {value.title}
               </Typography>
             </a>
             <Typography className={classes.dateAndUserName}>
-              Review Date {formatTimeAndDate(value?.claimReview[0]?.reviewDate)}
+              Review Date {formatTimeAndDate(value.reviewDate)}
             </Typography>
           </CardsContainer>
         </div>

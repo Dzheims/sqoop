@@ -53,18 +53,14 @@ export const GET_GOOGLE_FACT_CHECK_SEARCH_QUERY = gql`
     googleFactCheckSearch(keyword: $keyword) {
       claimDate
       claimant
+      languageCode
+      publisherName
+      publisherSite
+      reviewDate
       text
-      claimReview {
-        languageCode
-        reviewDate
-        textualRating
-        title
-        url
-        publisher {
-          name
-          site
-        }
-      }
+      textualRating
+      title
+      url
     }
   }
 `;

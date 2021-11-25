@@ -20,19 +20,15 @@ export const GOOGLE_FACTCHECK_SEARCH_QUERY = gql`
   query googleFactCheckSearchResult($keyword: String) {
     googleFactCheckSearch(keyword: $keyword) {
       claimDate
-      claimReview {
-        languageCode
-        publisher {
-          name
-          site
-        }
-        reviewDate
-        textualRating
-        title
-        url
-      }
       claimant
+      languageCode
+      publisherName
+      publisherSite
+      reviewDate
       text
+      textualRating
+      title
+      url
     }
   }
 `;
