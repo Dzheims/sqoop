@@ -45,7 +45,7 @@ export const DELETE_COLLECTION_CONTENT_TWEET = gql`
   }
 `;
 
-export const DELETE_VERA_FILE_CONTENT = gql`
+export const DELETE_COLLECTION_CONTENT_ARTICLE = gql`
   mutation deleteArticleContent($id: Int!) {
     deleteCollectionArticle(input: { id: $id }) {
       clientMutationId

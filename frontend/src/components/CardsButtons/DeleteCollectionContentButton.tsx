@@ -23,9 +23,10 @@ import {
 import {
   DELETE_COLLECTION_CONTENT_TWEET,
   DELETE_COLLECTION_CONTENT_VERA_FILE,
-  DELETE_VERA_FILE_CONTENT,
+  DELETE_COLLECTION_CONTENT_ARTICLE,
 } from '../Collections/query';
 import { CollectionContent } from '../../types.generated';
+import { COLLECTION_CONTENTS_QUERY, GET_COLUMNS_QUERY } from '../Columns/query';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,7 +50,7 @@ interface CollectionContentProps {
   data: CollectionContent;
 }
 
-const DeleteCollectionContentButton = () => {
+const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
   const classes = useStyles();
   const [warningDelete, setWarningDelete] = useState(false);
   const [proceedDelete, setProceedDelete] = useState(false);
@@ -58,14 +59,48 @@ const DeleteCollectionContentButton = () => {
     setWarningDelete(false);
   };
 
+  const [deleteArticle] = useMutation<
+    DeleteArticleContentMutation,
+    DeleteArticleContentMutationVariables
+  >(DELETE_COLLECTION_CONTENT_ARTICLE, {
+    variables: {
+      id: data.id,
+    },
+    onCompleted: () => {
+      setProceedDelete(false);
+    },
+    refetchQueries: [{ query: COLLECTION_CONTENTS_QUERY }],
+  });
+
+  const [deleteTweet] = useMutation<
+    DeleteTweetContentMutation,
+    DeleteTweetContentMutationVariables
+  >(DELETE_COLLECTION_CONTENT_TWEET, {
+    variables: {
+      id: data.id,
+    },
+    onCompleted: () => {
+      setProceedDelete(false);
+    },
+    refetchQueries: [{ query: COLLECTION_CONTENTS_QUERY }],
+  });
+  console.log(data.__typename);
+
   useEffect(() => {
     if (proceedDelete) {
-      console.log('deleted');
+      if (data.__typename === 'CollectionTweet') {
+        deleteTweet();
+      }
+      if (data.__typename === 'CollectionArticle') {
+        deleteArticle();
+      }
+      // add other types of content here
     }
   }, [proceedDelete]);
 
   const handleDelete = () => {
-    console.log('button fired');
+    console.log(data.id);
+
     setWarningDelete(true);
   };
 

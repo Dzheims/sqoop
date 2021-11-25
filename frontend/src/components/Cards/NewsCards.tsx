@@ -17,7 +17,7 @@ import { useDrawerState, DrawerState } from '../FactCheck/FactCheckDrawerState';
 import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionContentButton';
 
 interface NewsDataProps {
-  data: Article;
+  data: Article | CollectionArticle;
   isUnderCollections: boolean | undefined;
 }
 
@@ -35,13 +35,15 @@ const NewsCards: React.FC<NewsDataProps> = ({
     sourceId,
     suggestedKeywords,
     ...collectionArticle
-  } = data;
+  } = data as Article;
 
   useEffect(() => {
-    if (data.suggestedKeywords === state.suggestedKeyWords) {
-      setHighlightCard(!highlightCard);
-    } else {
-      setHighlightCard(false);
+    if (data.__typename === 'Article') {
+      if (data.suggestedKeywords === state.suggestedKeyWords) {
+        setHighlightCard(!highlightCard);
+      } else {
+        setHighlightCard(false);
+      }
     }
   }, [state.suggestedKeyWords]);
 
@@ -81,7 +83,13 @@ const NewsCards: React.FC<NewsDataProps> = ({
                   </Typography>
                 </AccountNameContainer>
               </NewsAPITitleContainer>
-              {isUnderCollections ? <DeleteCollectionContentButton /> : <div />}
+              {isUnderCollections ? (
+                <DeleteCollectionContentButton
+                  data={data as CollectionArticle}
+                />
+              ) : (
+                <div />
+              )}
             </div>
             <Typography variant="body2">{data.description}</Typography>
             {!data.urlToImage ? (
@@ -127,7 +135,7 @@ const NewsCards: React.FC<NewsDataProps> = ({
             <div className={classes().buttonsContainer}>
               <FactCheckButton
                 // setHighlightCard={setHighlightCard}
-                suggestedKeywords={data.suggestedKeywords}
+                suggestedKeywords={suggestedKeywords}
               />
               <CardsAddToCollectionButton
                 data={

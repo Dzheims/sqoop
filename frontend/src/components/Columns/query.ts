@@ -65,9 +65,11 @@ export const COLLECTION_CONTENTS_QUERY = gql`
   query collectionContents($collectionId: Int!) {
     collectionContents(collectionId: $collectionId) {
       ... on CollectionTweet {
+        id
         tweetId
       }
       ... on CollectionArticle {
+        id
         description
         publishedAt
         sourceName
