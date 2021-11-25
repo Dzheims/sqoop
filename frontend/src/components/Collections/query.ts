@@ -28,3 +28,27 @@ export const SAVE_ARTICLE_TO_COLLECTION = gql`
     }
   }
 `;
+
+export const DELETE_COLLECTION_CONTENT_VERA_FILE = gql`
+  mutation deleteVeraFileContent($id: Int!) {
+    deleteCollectionVeraFile(input: { id: $id }) {
+      clientMutationId
+    }
+  }
+`;
+
+export const DELETE_COLLECTION_CONTENT_TWEET = gql`
+  mutation deleteTweetContent($id: Int!) {
+    deleteCollectionTweet(input: { id: $id }) {
+      clientMutationId
+    }
+  }
+`;
+
+export const DELETE_VERA_FILE_CONTENT = gql`
+  mutation deleteArticleContent($id: Int!) {
+    deleteCollectionArticle(input: { id: $id }) {
+      clientMutationId
+    }
+  }
+`;

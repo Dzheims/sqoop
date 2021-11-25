@@ -24,7 +24,7 @@ const CollectionTweets: React.FC<CollectionsTweetsProps> = ({
   if (!data)
     return <Error header="Oops!" subHeader="No Twitter contents data" />;
 
-  return <TwitterCards data={data.tweetLookup} />;
+  return <TwitterCards data={data.tweetLookup} isUnderCollections />;
 };
 
 export default CollectionTweets;

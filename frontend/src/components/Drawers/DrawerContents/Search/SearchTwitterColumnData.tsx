@@ -37,7 +37,7 @@ const SearchAllTweetsColumnData: React.FC<SearchTwitterColumnDataProps> = ({
   return (
     <div>
       {data?.searchAllTweets?.map((value, index) => (
-        <TwitterCards data={value} />
+        <TwitterCards data={value} isUnderCollections={false} />
       ))}
     </div>
   );

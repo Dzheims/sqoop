@@ -31,10 +31,12 @@ import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionConte
 
 interface TwitterDataProps {
   data: Tweet;
+  isUnderCollections: boolean | undefined;
 }
 
 const TwitterCards: React.FC<TwitterDataProps> = ({
   data,
+  isUnderCollections,
 }: TwitterDataProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
@@ -98,7 +100,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
                   className={classes().twitterIcon}
                 />
               </TwitterContentContainer>
-              <DeleteCollectionContentButton />
+              {isUnderCollections ? <DeleteCollectionContentButton /> : <div />}
             </div>
             <Linkify
               componentDecorator={(

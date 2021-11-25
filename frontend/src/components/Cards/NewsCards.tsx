@@ -18,9 +18,13 @@ import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionConte
 
 interface NewsDataProps {
   data: Article;
+  isUnderCollections: boolean | undefined;
 }
 
-const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
+const NewsCards: React.FC<NewsDataProps> = ({
+  data,
+  isUnderCollections,
+}: NewsDataProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
@@ -77,7 +81,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                   </Typography>
                 </AccountNameContainer>
               </NewsAPITitleContainer>
-              <DeleteCollectionContentButton />
+              {isUnderCollections ? <DeleteCollectionContentButton /> : <div />}
             </div>
             <Typography variant="body2">{data.description}</Typography>
             {!data.urlToImage ? (

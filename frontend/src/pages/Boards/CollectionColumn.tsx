@@ -12,7 +12,7 @@ const getCollectionContentType = (value: any) => {
     case 'CollectionTweet':
       return <CollectionTweets id={value.tweetId} />;
     case 'CollectionArticle':
-      return <NewsCards data={value} />;
+      return <NewsCards data={value} isUnderCollections={true} />;
   }
 };
 

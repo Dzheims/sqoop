@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -13,10 +13,18 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import {
-  DELETE_COLLECTION_MUTATION,
-  DELETE_NEWS_MUTATION,
-  DELETE_TWITTER_MUTATION,
-} from '../Columns/query';
+  DeleteArticleContentMutation,
+  DeleteTweetContentMutation,
+  DeleteVeraFileContentMutation,
+  DeleteTweetContentMutationVariables,
+  DeleteArticleContentMutationVariables,
+  DeleteVeraFileContentMutationVariables,
+} from '../Collections/query.generated';
+import {
+  DELETE_COLLECTION_CONTENT_TWEET,
+  DELETE_COLLECTION_CONTENT_VERA_FILE,
+  DELETE_VERA_FILE_CONTENT,
+} from '../Collections/query';
 import { CollectionContent } from '../../types.generated';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +57,12 @@ const DeleteCollectionContentButton = () => {
   const handleCloseDialog = () => {
     setWarningDelete(false);
   };
+
+  useEffect(() => {
+    if (proceedDelete) {
+      console.log('deleted');
+    }
+  }, [proceedDelete]);
 
   const handleDelete = () => {
     console.log('button fired');
