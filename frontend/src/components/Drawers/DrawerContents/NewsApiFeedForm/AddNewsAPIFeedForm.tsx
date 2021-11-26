@@ -3,7 +3,7 @@
 /* eslint import/no-cycle: [2, { maxDepth: 1 }] */
 
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -35,6 +35,7 @@ import countries from './CountriesList';
 import currentUserId from '../../../../authentication/currentUserId';
 import NewsSourcesData from './NewsSourcesData';
 import { NavDrawerState } from '../../../Navigation/NavDrawerState';
+import { validateTitle } from '../FormValidation/FormValidation';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -119,13 +120,6 @@ const AddNewsAPIFeedForm = ({
     if (input === '' || input === undefined) return false;
     return true;
   };
-
-  function validateTitle(title: string) {
-    if (!title) {
-      return 'Title must not be empty';
-    }
-    return '';
-  }
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -214,7 +208,7 @@ const AddNewsAPIFeedForm = ({
     });
   };
 
-  const [createFeed] = useMutation<
+  const [createFeed, { error }] = useMutation<
     CreateNewsFeedMutation,
     CreateNewsFeedMutationVariables
   >(CREATE_NEWS_FEED, {
@@ -240,12 +234,14 @@ const AddNewsAPIFeedForm = ({
       history.push('/');
       drawerStateChanger({ isOpen: false, current: '' });
     },
+    onError: () => {},
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
 
   useEffect(() => {
-    if (isSubmitting) setTitleError(validateTitle(newsFeedForm.newsFeed.title));
-  }, [newsFeedForm, isSubmitting]);
+    if (isSubmitting)
+      setTitleError(validateTitle(newsFeedForm.newsFeed.title, error));
+  }, [newsFeedForm, isSubmitting, error]);
 
   const handleSubmit = () => {
     setIsSubmitting(true);

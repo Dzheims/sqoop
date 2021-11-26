@@ -16,6 +16,7 @@ import currentUserId from '../../../../authentication/currentUserId';
 import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import { GET_COLLECTIONS_LIST_QUERY } from '../../../Collections/query';
 import { NavDrawerState } from '../../../Navigation/NavDrawerState';
+import { validateTitle } from '../FormValidation/FormValidation';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -72,13 +73,6 @@ const AddCollectionForm = ({
     return true;
   };
 
-  function validateTitle(title: string) {
-    if (!title) {
-      return 'Title must not be empty';
-    }
-    return '';
-  }
-
   const [disableCreateButton, setdisableCreateButton] = useState(false);
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +84,7 @@ const AddCollectionForm = ({
     });
   };
 
-  const [createNewCollection] = useMutation<
+  const [createNewCollection, { error }] = useMutation<
     CreateCollectionMutation,
     CreateCollectionMutationVariables
   >(CREATE_COLLECTION, {
@@ -112,6 +106,7 @@ const AddCollectionForm = ({
       history.push('/');
       drawerStateChanger({ isOpen: false, current: '' });
     },
+    onError: () => {},
     refetchQueries: [
       { query: GET_COLUMNS_QUERY },
       {
@@ -126,8 +121,8 @@ const AddCollectionForm = ({
   });
 
   useEffect(() => {
-    if (isSubmitting) setTitleError(validateTitle(collectionForm.title));
-  }, [collectionForm.title, isSubmitting]);
+    if (isSubmitting) setTitleError(validateTitle(collectionForm.title, error));
+  }, [isSubmitting, error]);
 
   const handleSubmit = () => {
     setIsSubmitting(true);
