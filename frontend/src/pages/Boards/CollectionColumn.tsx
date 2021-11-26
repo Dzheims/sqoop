@@ -10,9 +10,9 @@ interface CollectionContentsDataProps {
 const getCollectionContentType = (value: any) => {
   switch (value.__typename) {
     case 'CollectionTweet':
-      return <CollectionTweets id={value.tweetId} />;
+      return <CollectionTweets dataProps={value} />;
     case 'CollectionArticle':
-      return <NewsCards data={value} />;
+      return <NewsCards data={value} isUnderCollections={true} />;
   }
 };
 

@@ -11,9 +11,10 @@ import { ApolloError, useMutation } from '@apollo/client';
 import SIGN_IN_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
 import Cookies from 'js-cookie';
-import { FormValues, validate } from './SignInValidation';
+import { FormValues, validate, Errors } from './SignInValidation';
 import { SigninMutation, SigninMutationVariables } from './query.generated';
 import { SigninInput } from '../../types.generated';
+import { Alert } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,7 +45,7 @@ const SignIn = () => {
     password: '',
   });
 
-  const [errors, setErrors] = useState<FormValues>();
+  const [errors, setErrors] = useState<Errors>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [jwtIsNull, setJwtIsNull] = useState<boolean>(false);
 
@@ -92,9 +93,9 @@ const SignIn = () => {
     }
   );
 
-  // useEffect(() => {
-  //   if (isSubmitting) setErrors(validate(loginInput, jwtIsNull));
-  // }, [loginInput, isSubmitting]);
+  useEffect(() => {
+    if (isSubmitting) setErrors(validate(loginInput, jwtIsNull));
+  }, [isSubmitting]);
 
   const handleSubmit = () => {
     signIn().then((res) => {
@@ -103,7 +104,7 @@ const SignIn = () => {
       } else {
         setJwtIsNull(true);
       }
-      // setIsSubmitting(true);
+      setIsSubmitting(true);
     });
     setErrors(validate(loginInput, jwtIsNull));
   };
@@ -125,7 +126,9 @@ const SignIn = () => {
             fullWidth
             autoFocus
             onChange={onUserNameChange}
-            error={setErrorInForm(errors?.userName || '')}
+            error={
+              setErrorInForm(errors?.userName || '') || errors?.invalidInput
+            }
             helperText={errors?.userName}
           />
           <TextField
@@ -139,9 +142,16 @@ const SignIn = () => {
             required
             fullWidth
             onChange={onPasswordChange}
-            error={setErrorInForm(errors?.password || '')}
+            error={
+              setErrorInForm(errors?.password || '') || errors?.invalidInput
+            }
             helperText={errors?.password}
           />
+          {errors?.invalidInput ? (
+            <Alert severity="error">Invalid username or password</Alert>
+          ) : (
+            <div />
+          )}
           <Button
             fullWidth
             variant="contained"

@@ -4,7 +4,7 @@ import { decodeHTML } from 'entities';
 import { VeraFactCheckSearchResultQuery } from './query.generated';
 import { CardsContainer, useStyles, ContentContainer } from './FactCheckStyles';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
-import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
+import CardsAddToCollectionButton from '../CardsButtons/CardsAddToCollectionButton';
 import { CollectionContent } from '../../types.generated';
 
 interface VeraFactCheckProps {

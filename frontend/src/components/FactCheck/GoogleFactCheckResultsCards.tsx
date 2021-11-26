@@ -4,7 +4,7 @@ import { GoogleFactCheckSearchResultQuery } from './query.generated';
 import { CardsContainer, useStyles, ContentContainer } from './FactCheckStyles';
 import { CollectionContent } from '../../types.generated';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
-import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
+import CardsAddToCollectionButton from '../CardsButtons/CardsAddToCollectionButton';
 
 interface GoogleFactCheckProps {
   data: GoogleFactCheckSearchResultQuery;

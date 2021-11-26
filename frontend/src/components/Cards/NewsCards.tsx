@@ -11,16 +11,21 @@ import {
   Item,
 } from '../../pages/Boards/ColumnsStyle';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
-import CardsAddToCollectionButton from '../Buttons/CardsAddToCollectionButton';
+import CardsAddToCollectionButton from '../CardsButtons/CardsAddToCollectionButton';
 import { Article, CollectionArticle } from '../../types.generated';
 import FactCheckButton from '../FactCheck/FactCheckButton';
 import { useDrawerState, DrawerState } from '../FactCheck/FactCheckDrawerState';
+import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionContentButton';
 
 interface NewsDataProps {
-  data: Article;
+  data: Article | CollectionArticle;
+  isUnderCollections: boolean | undefined;
 }
 
-const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
+const NewsCards: React.FC<NewsDataProps> = ({
+  data,
+  isUnderCollections,
+}: NewsDataProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
@@ -31,13 +36,15 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
     sourceId,
     suggestedKeywords,
     ...collectionArticle
-  } = data;
+  } = data as Article;
 
   useEffect(() => {
-    if (data.suggestedKeywords === state.suggestedKeyWords) {
-      setHighlightCard(!highlightCard);
-    } else {
-      setHighlightCard(false);
+    if (data.__typename === 'Article') {
+      if (data.suggestedKeywords === state.suggestedKeyWords) {
+        setHighlightCard(!highlightCard);
+      } else {
+        setHighlightCard(false);
+      }
     }
   }, [state.suggestedKeyWords]);
 
@@ -60,23 +67,32 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
-            <NewsAPITitleContainer>
-              <Avatar
-                style={{
-                  backgroundColor: randomColor(data.sourceName as string),
-                  color: 'white',
-                }}
-                className={classes().profileAvatars}
-              >
-                {data.sourceName?.charAt(0)}
-              </Avatar>
-              <AccountNameContainer>
-                <Typography style={{ fontWeight: 600 }}>
-                  {truncateName(data.sourceName as string, 18)}
-                </Typography>
-              </AccountNameContainer>
-              <NewsIcon className={classes().cardsIcon} />
-            </NewsAPITitleContainer>
+            <div className={classes().deleteButtonDiv}>
+              <NewsAPITitleContainer>
+                <Avatar
+                  style={{
+                    backgroundColor: randomColor(data.sourceName as string),
+                    color: 'white',
+                  }}
+                  className={classes().profileAvatars}
+                >
+                  {data.sourceName?.charAt(0)}
+                </Avatar>
+                <AccountNameContainer>
+                  <Typography style={{ fontWeight: 600 }}>
+                    {truncateName(data.sourceName as string, 18)}
+                  </Typography>
+                </AccountNameContainer>
+                <NewsIcon className={classes().cardsIcon} />
+              </NewsAPITitleContainer>
+              {data.__typename === 'CollectionArticle' ? (
+                <DeleteCollectionContentButton
+                  data={data as CollectionArticle}
+                />
+              ) : (
+                <div />
+              )}
+            </div>
             <Typography variant="body2">{data.description}</Typography>
             {!data.urlToImage ? (
               <a
@@ -102,6 +118,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                     <OpenInNewIcon className={classes().linkIcon} />
                   </a>
                 </div>
+
                 <a
                   target="_blank"
                   className={classes().link}
@@ -119,7 +136,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
             <div className={classes().buttonsContainer}>
               <FactCheckButton
                 // setHighlightCard={setHighlightCard}
-                suggestedKeywords={data.suggestedKeywords}
+                suggestedKeywords={suggestedKeywords}
               />
               <CardsAddToCollectionButton
                 data={

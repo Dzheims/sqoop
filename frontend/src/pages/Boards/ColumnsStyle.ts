@@ -17,10 +17,16 @@ export const useStyles = () =>
       marginLeft: 'auto',
       color: '#00acee',
     },
+    twitterIcon: {
+      height: '20px',
+      width: '20px',
+      marginLeft: '1px',
+      marginRight: 'auto',
+    },
     verifiedIcon: {
       height: '18px',
       width: '18px',
-      marginLeft: '10px',
+      marginLeft: '5px',
     },
     profileAvatars: {
       height: '40px',
@@ -122,6 +128,10 @@ export const useStyles = () =>
       alignItems: 'center',
       marginLeft: '5px',
     },
+    deleteButtonDiv: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
   }));
 
 export const Item = styled.div`
@@ -183,7 +193,6 @@ export const TwitterTitleContainer = styled.div`
 export const NewsAPITitleContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  padding: 5px;
   margin-bottom: 5px;
 `;
 export const NewsAPIContentContainer = styled.div`

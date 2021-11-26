@@ -65,15 +65,19 @@ export const COLLECTION_CONTENTS_QUERY = gql`
   query collectionContents($collectionId: Int!) {
     collectionContents(collectionId: $collectionId) {
       ... on CollectionTweet {
+        id
         tweetId
+        collectionId
       }
       ... on CollectionArticle {
+        id
         description
         publishedAt
         sourceName
         title
         url
         urlToImage
+        collectionId
       }
     }
   }
