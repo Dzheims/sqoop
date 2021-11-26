@@ -16,6 +16,9 @@ const theme = createMuiTheme({
       black: '#000',
       white: '#fff',
     },
+    text: {
+      primary: '#6a6a6a',
+    },
   },
   typography: {
     fontFamily: '"Roboto", "Arial", "Calibri", "Helvetica"',

@@ -28,12 +28,15 @@ const useStyles = makeStyles(() => ({
     color: 'gray',
   },
   image: {
-    width: '160px',
-    height: '160px',
+    width: '200px',
+    height: '200px',
   },
   button: {
     textTransform: 'none',
     marginTop: '15px',
+  },
+  subTextContainer: {
+    width: '250px',
   },
 }));
 const NoColumns = () => {
@@ -58,10 +61,12 @@ const NoColumns = () => {
         <div>
           <img className={classes.image} src={NoColumnsImage} alt="" />
         </div>
-        <Typography className={classes.headerText}>No columns yet</Typography>
-        <Typography align="center" className={classes.subText}>
-          Add subtext here
-        </Typography>
+        <Typography className={classes.headerText}>Stay Updated!</Typography>
+        <div className={classes.subTextContainer}>
+          <Typography align="center" className={classes.subText}>
+            Create feeds and collections of your favorite contents.
+          </Typography>
+        </div>
         <Button
           className={classes.button}
           fullWidth

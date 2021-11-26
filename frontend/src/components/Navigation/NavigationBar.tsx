@@ -115,10 +115,12 @@ const NavigationBar = () => {
     },
   ];
 
+  const iconStyle = { marginRight: '5px' };
+
   const AddFeedsButtons = [
     {
       title: 'Twitter Feed',
-      icon: <TwitterIcon style={{ marginRight: '5px' }} />,
+      icon: <TwitterIcon style={iconStyle} />,
       onClick: () => {
         setDrawerState({
           ...drawerState,
@@ -129,7 +131,7 @@ const NavigationBar = () => {
     },
     {
       title: 'News Feed',
-      icon: <FeedIcon style={{ marginRight: '5px' }} />,
+      icon: <FeedIcon style={iconStyle} />,
       onClick: () => {
         setDrawerState({
           ...drawerState,
@@ -142,7 +144,7 @@ const NavigationBar = () => {
   const AddCollectionButton = [
     {
       title: 'Collection',
-      icon: <CollectionsBookmarkIcon style={{ marginRight: '5px' }} />,
+      icon: <CollectionsBookmarkIcon style={iconStyle} />,
       onClick: () => {
         setDrawerState({
           ...drawerState,

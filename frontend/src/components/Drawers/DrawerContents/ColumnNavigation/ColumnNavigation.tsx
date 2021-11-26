@@ -25,6 +25,13 @@ const useStyles = makeStyles((theme) => ({
   listItem: {
     marginTop: 0,
     padding: 0,
+    borderRadius: '8px',
+    marginBottom: '5px',
+    '&:hover': {
+      border: '1px solid #f04b4c',
+      backgroundColor: 'white',
+      color: theme.palette.secondary.main,
+    },
   },
 }));
 
