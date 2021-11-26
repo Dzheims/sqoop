@@ -100,6 +100,7 @@ const SignUp = () => {
     onCompleted: () => {
       setSuccessAlert(true);
     },
+    onError: () => {},
   });
 
   const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
