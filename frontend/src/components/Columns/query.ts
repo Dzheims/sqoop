@@ -67,6 +67,7 @@ export const COLLECTION_CONTENTS_QUERY = gql`
       ... on CollectionTweet {
         id
         tweetId
+        collectionId
       }
       ... on CollectionArticle {
         id
@@ -76,6 +77,7 @@ export const COLLECTION_CONTENTS_QUERY = gql`
         title
         url
         urlToImage
+        collectionId
       }
     }
   }

@@ -83,7 +83,7 @@ const NewsCards: React.FC<NewsDataProps> = ({
                   </Typography>
                 </AccountNameContainer>
               </NewsAPITitleContainer>
-              {isUnderCollections ? (
+              {data.__typename === 'CollectionArticle' ? (
                 <DeleteCollectionContentButton
                   data={data as CollectionArticle}
                 />

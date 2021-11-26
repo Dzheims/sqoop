@@ -69,7 +69,12 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
     onCompleted: () => {
       setProceedDelete(false);
     },
-    refetchQueries: [{ query: COLLECTION_CONTENTS_QUERY }],
+    refetchQueries: [
+      {
+        query: COLLECTION_CONTENTS_QUERY,
+        variables: { collectionId: data.collectionId },
+      },
+    ],
   });
 
   const [deleteTweet] = useMutation<
@@ -82,7 +87,12 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
     onCompleted: () => {
       setProceedDelete(false);
     },
-    refetchQueries: [{ query: COLLECTION_CONTENTS_QUERY }],
+    refetchQueries: [
+      {
+        query: COLLECTION_CONTENTS_QUERY,
+        variables: { collectionId: data.collectionId },
+      },
+    ],
   });
   console.log(data.__typename);
 
