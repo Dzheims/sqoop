@@ -9,6 +9,7 @@ export const collectionContent = gql`
       CollectionTweet
     | CollectionArticle
     | CollectionVeraFile
+    | CollectionGoogleFactCheck
 `;
 
 export const typeDefs = gql`
