@@ -679,12 +679,19 @@ type CollectionArticle implements Node {
   url: String
   urlToImage: String
   collectionId: Int!
+  createdAt: Datetime!
 
   """
   Reads a single `Collection` that is related to this `CollectionArticle`.
   """
   collection: Collection
 }
+
+"""
+A point in time as described by the [ISO
+8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+"""
+scalar Datetime
 
 type Collection implements Node {
   """
@@ -887,12 +894,6 @@ type Collection implements Node {
     condition: CollectionGoogleFactCheckCondition
   ): [CollectionGoogleFactCheck!]!
 }
-
-"""
-A point in time as described by the [ISO
-8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
-"""
-scalar Datetime
 
 type User implements Node {
   """
@@ -1278,6 +1279,7 @@ type CollectionTweet implements Node {
   id: Int!
   tweetId: String!
   collectionId: Int!
+  createdAt: Datetime!
 
   """Reads a single `Collection` that is related to this `CollectionTweet`."""
   collection: Collection
@@ -1373,6 +1375,7 @@ type CollectionVeraFile implements Node {
   url: String!
   title: String!
   collectionId: Int!
+  createdAt: Datetime!
 
   """
   Reads a single `Collection` that is related to this `CollectionVeraFile`.
@@ -1448,6 +1451,7 @@ type CollectionGoogleFactCheck implements Node {
   textualrating: String!
   languagecode: String!
   collectionId: Int!
+  createdAt: Datetime!
 
   """
   Reads a single `Collection` that is related to this `CollectionGoogleFactCheck`.
@@ -2418,6 +2422,7 @@ input CollectionArticleInput {
   url: String
   urlToImage: String
   collectionId: Int!
+  createdAt: Datetime
 }
 
 """The output of our create `CollectionGoogleFactCheck` mutation."""
@@ -2474,6 +2479,7 @@ input CollectionGoogleFactCheckInput {
   textualrating: String!
   languagecode: String!
   collectionId: Int!
+  createdAt: Datetime
 }
 
 """The output of our create `CollectionTweet` mutation."""
@@ -2519,6 +2525,7 @@ input CollectionTweetInput {
   id: Int
   tweetId: String!
   collectionId: Int!
+  createdAt: Datetime
 }
 
 """The output of our create `CollectionVeraFile` mutation."""
@@ -2574,6 +2581,7 @@ input CollectionVeraFileInput {
   url: String!
   title: String!
   collectionId: Int!
+  createdAt: Datetime
 }
 
 """The output of our create `Collection` mutation."""
@@ -2954,6 +2962,7 @@ input CollectionArticlePatch {
   url: String
   urlToImage: String
   collectionId: Int
+  createdAt: Datetime
 }
 
 """All input for the `updateCollectionArticle` mutation."""
@@ -3034,6 +3043,7 @@ input CollectionGoogleFactCheckPatch {
   textualrating: String
   languagecode: String
   collectionId: Int
+  createdAt: Datetime
 }
 
 """All input for the `updateCollectionGoogleFactCheck` mutation."""
@@ -3103,6 +3113,7 @@ input CollectionTweetPatch {
   id: Int
   tweetId: String
   collectionId: Int
+  createdAt: Datetime
 }
 
 """All input for the `updateCollectionTweet` mutation."""
@@ -3182,6 +3193,7 @@ input CollectionVeraFilePatch {
   url: String
   title: String
   collectionId: Int
+  createdAt: Datetime
 }
 
 """All input for the `updateCollectionVeraFile` mutation."""
