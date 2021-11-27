@@ -17,12 +17,6 @@ export const useStyles = () =>
       marginLeft: 'auto',
       color: '#00acee',
     },
-    twitterIcon: {
-      height: '20px',
-      width: '20px',
-      marginLeft: '1px',
-      marginRight: 'auto',
-    },
     verifiedIcon: {
       height: '18px',
       width: '18px',
@@ -129,25 +123,21 @@ export const useStyles = () =>
       marginLeft: '5px',
     },
     deleteButtonDiv: {
-      display: 'flex',
-      justifyContent: 'space-between',
+      marginLeft: '85.5%',
     },
   }));
 
 export const Item = styled.div`
-  padding: 15px;
+  padding: 0px 15px 15px 15px;
   background-color: ${(isDragging: BoardColumnContentStylesProps) =>
     isDragging ? '#fff' : '#d3e4ee'};
   border-radius: 4px;
   transition: background-color 0.25s ease-out;
+  overflow: hidden;
+  margin-bottom: 4px;
   &:hover {
     background-color: #f7fafc;
   }
-  & + & {
-    margin-top: 4px;
-  }
-  overflow: hidden;
-  margin-bottom: 4px;
 `;
 
 export const ItemContainer = styled.div`
@@ -193,7 +183,7 @@ export const TwitterTitleContainer = styled.div`
 export const NewsAPITitleContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 `;
 export const NewsAPIContentContainer = styled.div`
   margin-top: 10px;

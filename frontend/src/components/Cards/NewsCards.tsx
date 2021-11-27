@@ -68,31 +68,31 @@ const NewsCards: React.FC<NewsDataProps> = ({
             isDragging={snapshot.isDragging}
           >
             <div className={classes().deleteButtonDiv}>
-              <NewsAPITitleContainer>
-                <Avatar
-                  style={{
-                    backgroundColor: randomColor(data.sourceName as string),
-                    color: 'white',
-                  }}
-                  className={classes().profileAvatars}
-                >
-                  {data.sourceName?.charAt(0)}
-                </Avatar>
-                <AccountNameContainer>
-                  <Typography style={{ fontWeight: 600 }}>
-                    {truncateName(data.sourceName as string, 18)}
-                  </Typography>
-                </AccountNameContainer>
-                <NewsIcon className={classes().cardsIcon} />
-              </NewsAPITitleContainer>
               {data.__typename === 'CollectionArticle' ? (
                 <DeleteCollectionContentButton
                   data={data as CollectionArticle}
                 />
               ) : (
-                <div />
+                <div style={{ padding: '15px 0 0 0' }} />
               )}
             </div>
+            <NewsAPITitleContainer>
+              <Avatar
+                style={{
+                  backgroundColor: randomColor(data.sourceName as string),
+                  color: 'white',
+                }}
+                className={classes().profileAvatars}
+              >
+                {data.sourceName?.charAt(0)}
+              </Avatar>
+              <AccountNameContainer>
+                <Typography style={{ fontWeight: 600 }}>
+                  {truncateName(data.sourceName as string, 18)}
+                </Typography>
+              </AccountNameContainer>
+              <NewsIcon className={classes().cardsIcon} />
+            </NewsAPITitleContainer>
             <Typography variant="body2">{data.description}</Typography>
             {!data.urlToImage ? (
               <a

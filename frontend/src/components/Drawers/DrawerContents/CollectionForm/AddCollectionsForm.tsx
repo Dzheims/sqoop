@@ -2,7 +2,13 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { Button, TextField, Snackbar, IconButton } from '@material-ui/core';
+import {
+  Button,
+  TextField,
+  Snackbar,
+  IconButton,
+  Typography,
+} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { Alert } from '@mui/material';
 import { useMutation } from '@apollo/client';
@@ -35,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     marginTop: theme.spacing(2),
     justifyContent: 'flex-end',
+  },
+  formMessage: {
+    color: 'gray',
+    fontSize: '12px',
   },
 }));
 
@@ -133,6 +143,9 @@ const AddCollectionForm = ({
 
   return (
     <div className={classes.formContainer}>
+      <Typography className={classes.formMessage}>
+        Save your favorite contents.
+      </Typography>
       <TextField
         id="CollectionTitle"
         label="Collection Title"

@@ -13,20 +13,12 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Snackbar,
+  Typography,
 } from '@material-ui/core';
-import {
-  Alert,
-  IconButton,
-  AlertTitle,
-  Autocomplete,
-  TextField,
-} from '@mui/material';
-import CloseIcon from '@material-ui/icons/Close';
+import { Autocomplete, TextField } from '@mui/material';
 import {
   CreateNewsFeedMutation,
   CreateNewsFeedMutationVariables,
-  NewsSourceQuery,
 } from './query.generated';
 import { Category, CreateNewsFeedInput } from '../../../../types.generated';
 import { CREATE_NEWS_FEED } from './query';
@@ -54,9 +46,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     justifyContent: 'flex-end',
   },
-
   flags: {
     marginRight: '5px',
+  },
+  formMessage: {
+    color: 'gray',
+    fontSize: '12px',
+    margin: '5px 0 0 5px',
   },
 }));
 
@@ -254,6 +250,9 @@ const AddNewsAPIFeedForm = ({
 
   return (
     <div className={classes.formContainer}>
+      <Typography className={classes.formMessage}>
+        Discover news contents in the last 7 days.
+      </Typography>
       <TextField
         id="FeedTitle"
         label="Feed Title"

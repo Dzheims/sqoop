@@ -13,16 +13,17 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
   },
   image: {
-    maxWidth: '75px',
-    maxHeight: '75px',
+    maxWidth: '150px',
+    maxHeight: '150px',
   },
   sorryText: {
     padding: '2px',
-    fontSize: '20px',
+    fontSize: '17px',
     color: theme.palette.secondary.main,
   },
   noContentsText: {
     color: 'gray',
+    fontSize: '14px',
   },
 }));
 
@@ -42,7 +43,9 @@ const NoContents: React.FC<NoContentsProps> = ({
       <div>
         <img className={classes.image} src={NoContentsImage} alt="" />
       </div>
-      <Typography className={classes.sorryText}>{header}</Typography>
+      <Typography align="center" className={classes.sorryText}>
+        {header}
+      </Typography>
       <Typography align="center" className={classes.noContentsText}>
         {subHeader}
       </Typography>

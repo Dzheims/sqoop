@@ -85,42 +85,42 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
             isDragging={snapshot.isDragging}
           >
             <div className={classes().deleteButtonDiv}>
-              <TwitterContentContainer>
-                <Avatar
-                  alt={name as string}
-                  src={profile_image_url as string}
-                  className={classes().profileAvatars}
-                  variant="circular"
-                />
-                <AccountNameContainer>
-                  <TwitterTitleContainer>
-                    <Typography style={{ fontWeight: 600 }}>
-                      {truncateName(name as string, 10)}
-                    </Typography>
-                    {verified ? (
-                      <Avatar
-                        alt="Verified"
-                        src="https://www.pngitem.com/pimgs/m/3-38867_twitter-verified-badge-twitter-verified-icon-svg-hd.png"
-                        className={classes().verifiedIcon}
-                      />
-                    ) : (
-                      <div />
-                    )}
-                  </TwitterTitleContainer>
-                  <Typography className={classes().userName}>
-                    {'@' + username}
-                  </Typography>
-                </AccountNameContainer>
-                <TwitterIcon className={classes().cardsIcon} />
-              </TwitterContentContainer>
               {isUnderCollections ? (
                 <DeleteCollectionContentButton
                   data={collectionTweet as CollectionTweet}
                 />
               ) : (
-                <div />
+                <div style={{ padding: '15px 0 0 0' }} />
               )}
             </div>
+            <TwitterContentContainer>
+              <Avatar
+                alt={name as string}
+                src={profile_image_url as string}
+                className={classes().profileAvatars}
+                variant="circular"
+              />
+              <AccountNameContainer>
+                <TwitterTitleContainer>
+                  <Typography style={{ fontWeight: 600 }}>
+                    {truncateName(name as string, 13)}
+                  </Typography>
+                  {verified ? (
+                    <Avatar
+                      alt="Verified"
+                      src="https://www.pngitem.com/pimgs/m/3-38867_twitter-verified-badge-twitter-verified-icon-svg-hd.png"
+                      className={classes().verifiedIcon}
+                    />
+                  ) : (
+                    <div />
+                  )}
+                </TwitterTitleContainer>
+                <Typography className={classes().userName}>
+                  {'@' + username}
+                </Typography>
+              </AccountNameContainer>
+              <TwitterIcon className={classes().cardsIcon} />
+            </TwitterContentContainer>
             <Linkify
               componentDecorator={(
                 decoratedHref: string,

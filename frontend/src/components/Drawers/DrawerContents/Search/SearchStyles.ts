@@ -82,6 +82,11 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '20px',
     maxHeight: '375px',
   },
+  formMessage: {
+    color: 'gray',
+    fontSize: '12px',
+    margin: '5px 0 0 5px',
+  },
 }));
 
 export default useStyles;

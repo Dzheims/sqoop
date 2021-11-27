@@ -31,6 +31,7 @@ import { COLLECTION_CONTENTS_QUERY, GET_COLUMNS_QUERY } from '../Columns/query';
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: '10px',
+    marginTop: '2px',
   },
   icon: {
     color: 'gray',
@@ -123,7 +124,7 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
           }}
         >
           <CloseIcon
-            sx={{ height: '20px', width: '20px' }}
+            sx={{ height: '15px', width: '15px' }}
             className={classes.icon}
           />
         </IconButton>
