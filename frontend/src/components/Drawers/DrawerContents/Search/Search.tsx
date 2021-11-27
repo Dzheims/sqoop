@@ -1,10 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useReducer, useState } from 'react';
-import { Button, InputBase, Paper } from '@material-ui/core';
+import { Button, InputBase, Paper, Typography } from '@material-ui/core';
 import {
   Box,
   Autocomplete,
-  Typography,
   AccordionSummary,
   AccordionDetails,
   Accordion,
@@ -105,6 +104,9 @@ const Search = () => {
 
   return (
     <div className={classes.root}>
+      <Typography className={classes.formMessage}>
+        Search for Twitter and news contents in the last 30 days.
+      </Typography>
       <div className={classes.searchContainer}>
         <Paper variant="outlined" component="form" className={classes.search}>
           <InputBase

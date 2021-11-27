@@ -70,8 +70,7 @@ export const useStyles = makeStyles(() => ({
     color: theme.palette.secondary.main,
   },
   drawerSubtitle: {
-    font: '16px sans-serif',
-    fontWeight: 600,
+    fontSize: '16px',
     marginTop: '10px',
     marginLeft: '12px',
   },

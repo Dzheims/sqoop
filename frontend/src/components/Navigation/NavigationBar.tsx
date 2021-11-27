@@ -7,15 +7,19 @@ import {
   Tooltip,
   Backdrop,
   Typography,
-  ListItemText,
-  List,
-  ListItem,
   Divider,
   Popover,
   Box,
   Snackbar,
 } from '@material-ui/core';
-import { Alert } from '@mui/material';
+import {
+  Alert,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  ListItemIcon,
+} from '@mui/material';
 import AddFeedsIcon from '@material-ui/icons/AddCircle';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import CloseIcon from '@material-ui/icons/Close';
@@ -115,43 +119,22 @@ const NavigationBar = () => {
     },
   ];
 
-  const iconStyle = { marginRight: '5px' };
+  const iconStyle = { height: '18px', width: '18px', marginRight: '5px' };
 
   const AddFeedsButtons = [
     {
       title: 'Twitter Feed',
-      icon: <TwitterIcon style={iconStyle} />,
-      onClick: () => {
-        setDrawerState({
-          ...drawerState,
-          isOpen: true,
-          current: 'Twitter Feed',
-        });
-      },
+      icon: <TwitterIcon sx={iconStyle} />,
     },
     {
       title: 'News Feed',
-      icon: <FeedIcon style={iconStyle} />,
-      onClick: () => {
-        setDrawerState({
-          ...drawerState,
-          isOpen: true,
-          current: 'News Feed',
-        });
-      },
+      icon: <FeedIcon sx={iconStyle} />,
     },
   ];
   const AddCollectionButton = [
     {
       title: 'Collection',
-      icon: <CollectionsBookmarkIcon style={iconStyle} />,
-      onClick: () => {
-        setDrawerState({
-          ...drawerState,
-          isOpen: true,
-          current: 'Collection',
-        });
-      },
+      icon: <CollectionsBookmarkIcon sx={iconStyle} />,
     },
   ];
 
@@ -186,13 +169,22 @@ const NavigationBar = () => {
           <List>
             {AddFeedsButtons.map((value) => (
               <ListItem
-                button
+                disablePadding
                 className={classes.listItemButtons}
-                onClick={value.onClick}
                 key={value.title}
               >
-                {value.icon}
-                <ListItemText>{value.title}</ListItemText>
+                <ListItemButton
+                  onClick={() => {
+                    setDrawerState({
+                      ...drawerState,
+                      isOpen: true,
+                      current: value.title,
+                    });
+                  }}
+                >
+                  {value.icon}
+                  <ListItemText primary={value.title} />
+                </ListItemButton>
               </ListItem>
             ))}
           </List>
@@ -203,13 +195,22 @@ const NavigationBar = () => {
           <List>
             {AddCollectionButton.map((value) => (
               <ListItem
-                button
+                disablePadding
                 className={classes.listItemButtons}
-                onClick={value.onClick}
                 key={value.title}
               >
-                {value.icon}
-                <ListItemText>{value.title}</ListItemText>
+                <ListItemButton
+                  onClick={() => {
+                    setDrawerState({
+                      ...drawerState,
+                      isOpen: true,
+                      current: value.title,
+                    });
+                  }}
+                >
+                  {value.icon}
+                  <ListItemText primary={value.title} />
+                </ListItemButton>
               </ListItem>
             ))}
           </List>

@@ -41,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
   },
   optionsUsername: { fontSize: '14px', color: 'gray' },
+  formMessage: {
+    color: 'gray',
+    fontSize: '12px',
+  },
 }));
 
 interface DrawerState {
@@ -171,6 +175,9 @@ const AddTwitterFeedForm = ({
 
   return (
     <div className={classes.formContainer}>
+      <Typography className={classes.formMessage}>
+        Discover news contents in the last 7 days.
+      </Typography>
       <TextField
         id="Title"
         label="Feed Title"

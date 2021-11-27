@@ -17,7 +17,7 @@ const theme = createMuiTheme({
       white: '#fff',
     },
     text: {
-      primary: '#6a6a6a',
+      primary: '#575757',
     },
   },
   typography: {
