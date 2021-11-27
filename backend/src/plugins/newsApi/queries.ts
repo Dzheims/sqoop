@@ -25,6 +25,11 @@ export const resolvers = {
       const { jwtClaims, pgClient } = context;
       if (!jwtClaims) throw new Error('Unauthorized user');
 
+      await pgClient.query(
+        `DELETE FROM top_headlines_requests WHERE category = $1 AND country = $2 AND keyword = $3 AND sources = $4 AND created_at < Now() - INTERVAL '15 MINUTES'`,
+        [category, country, keyword, sources]
+      );
+
       const {
         rows: [request],
       } = await pgClient.query(

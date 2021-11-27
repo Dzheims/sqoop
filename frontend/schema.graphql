@@ -2186,6 +2186,7 @@ type TopHeadlinesRequest implements Node {
   country: String
   keyword: String
   sources: String
+  createdAt: Datetime!
 
   """
   Reads and enables pagination through a set of `TopHeadlinesCache`.
@@ -3911,6 +3912,7 @@ input TopHeadlinesRequestInput {
   country: String
   keyword: String
   sources: String
+  createdAt: Datetime
 }
 
 """
@@ -4823,6 +4825,7 @@ input TopHeadlinesRequestPatch {
   country: String
   keyword: String
   sources: String
+  createdAt: Datetime
 }
 
 """
