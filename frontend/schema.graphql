@@ -819,10 +819,13 @@ type Query implements Node {
   collectionTweet(id: Int!): CollectionTweet
   collectionVeraFile(id: Int!): CollectionVeraFile
   collection(id: Int!): Collection
+  collectionByTitle(title: String!): Collection
   newsFeed(id: Int!): NewsFeed
+  newsFeedByTitle(title: String!): NewsFeed
   topHeadlinesCache(id: Int!): TopHeadlinesCache
   topHeadlinesRequest(id: Int!): TopHeadlinesRequest
   twitterFeed(id: Int!): TwitterFeed
+  twitterFeedByTitle(title: String!): TwitterFeed
   twitterLocalSource(accountId: Int!): TwitterLocalSource
   twitterLocalSourceByAccountName(accountName: String!): TwitterLocalSource
   twitterLocalSourceByAccountUsername(
@@ -1029,12 +1032,19 @@ type CollectionArticle implements Node {
   url: String
   urlToImage: String
   collectionId: Int!
+  createdAt: Datetime!
 
   """
   Reads a single `Collection` that is related to this `CollectionArticle`.
   """
   collection: Collection
 }
+
+"""
+A point in time as described by the [ISO
+8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+"""
+scalar Datetime
 
 type Collection implements Node {
   """
@@ -1315,12 +1325,6 @@ type Collection implements Node {
     condition: CollectionGoogleFactCheckCondition
   ): [CollectionGoogleFactCheck!]!
 }
-
-"""
-A point in time as described by the [ISO
-8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
-"""
-scalar Datetime
 
 type User implements Node {
   """
@@ -1637,6 +1641,8 @@ enum NewsFeedsOrderBy {
   NATURAL
   ID_ASC
   ID_DESC
+  TITLE_ASC
+  TITLE_DESC
   USER_ID_ASC
   USER_ID_DESC
   PRIMARY_KEY_ASC
@@ -1652,6 +1658,11 @@ input NewsFeedCondition {
   Checks for equality with the object’s `id` field.
   """
   id: Int
+
+  """
+  Checks for equality with the object’s `title` field.
+  """
+  title: String
 
   """
   Checks for equality with the object’s `userId` field.
@@ -1724,6 +1735,8 @@ enum TwitterFeedsOrderBy {
   NATURAL
   ID_ASC
   ID_DESC
+  TITLE_ASC
+  TITLE_DESC
   USER_ID_ASC
   USER_ID_DESC
   PRIMARY_KEY_ASC
@@ -1739,6 +1752,11 @@ input TwitterFeedCondition {
   Checks for equality with the object’s `id` field.
   """
   id: Int
+
+  """
+  Checks for equality with the object’s `title` field.
+  """
+  title: String
 
   """
   Checks for equality with the object’s `userId` field.
@@ -1793,6 +1811,8 @@ enum CollectionsOrderBy {
   NATURAL
   ID_ASC
   ID_DESC
+  TITLE_ASC
+  TITLE_DESC
   USER_ID_ASC
   USER_ID_DESC
   PRIMARY_KEY_ASC
@@ -1808,6 +1828,11 @@ input CollectionCondition {
   Checks for equality with the object’s `id` field.
   """
   id: Int
+
+  """
+  Checks for equality with the object’s `title` field.
+  """
+  title: String
 
   """
   Checks for equality with the object’s `userId` field.
@@ -1848,6 +1873,7 @@ type CollectionTweet implements Node {
   id: Int!
   tweetId: String!
   collectionId: Int!
+  createdAt: Datetime!
 
   """
   Reads a single `Collection` that is related to this `CollectionTweet`.
@@ -1969,6 +1995,7 @@ type CollectionVeraFile implements Node {
   url: String!
   title: String!
   collectionId: Int!
+  createdAt: Datetime!
 
   """
   Reads a single `Collection` that is related to this `CollectionVeraFile`.
@@ -2062,6 +2089,7 @@ type CollectionGoogleFactCheck implements Node {
   textualRating: String!
   languageCode: String!
   collectionId: Int!
+  createdAt: Datetime!
 
   """
   Reads a single `Collection` that is related to this `CollectionGoogleFactCheck`.
@@ -2902,6 +2930,16 @@ type Mutation {
   ): UpdateCollectionPayload
 
   """
+  Updates a single `Collection` using a unique key and a patch.
+  """
+  updateCollectionByTitle(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCollectionByTitleInput!
+  ): UpdateCollectionPayload
+
+  """
   Updates a single `NewsFeed` using its globally unique id and a patch.
   """
   updateNewsFeedByNodeId(
@@ -2919,6 +2957,16 @@ type Mutation {
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
     input: UpdateNewsFeedInput!
+  ): UpdateNewsFeedPayload
+
+  """
+  Updates a single `NewsFeed` using a unique key and a patch.
+  """
+  updateNewsFeedByTitle(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateNewsFeedByTitleInput!
   ): UpdateNewsFeedPayload
 
   """
@@ -2979,6 +3027,16 @@ type Mutation {
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
     input: UpdateTwitterFeedInput!
+  ): UpdateTwitterFeedPayload
+
+  """
+  Updates a single `TwitterFeed` using a unique key and a patch.
+  """
+  updateTwitterFeedByTitle(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTwitterFeedByTitleInput!
   ): UpdateTwitterFeedPayload
 
   """
@@ -3192,6 +3250,16 @@ type Mutation {
   ): DeleteCollectionPayload
 
   """
+  Deletes a single `Collection` using a unique key.
+  """
+  deleteCollectionByTitle(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCollectionByTitleInput!
+  ): DeleteCollectionPayload
+
+  """
   Deletes a single `NewsFeed` using its globally unique id.
   """
   deleteNewsFeedByNodeId(
@@ -3209,6 +3277,16 @@ type Mutation {
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
     input: DeleteNewsFeedInput!
+  ): DeleteNewsFeedPayload
+
+  """
+  Deletes a single `NewsFeed` using a unique key.
+  """
+  deleteNewsFeedByTitle(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteNewsFeedByTitleInput!
   ): DeleteNewsFeedPayload
 
   """
@@ -3269,6 +3347,16 @@ type Mutation {
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
     input: DeleteTwitterFeedInput!
+  ): DeleteTwitterFeedPayload
+
+  """
+  Deletes a single `TwitterFeed` using a unique key.
+  """
+  deleteTwitterFeedByTitle(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTwitterFeedByTitleInput!
   ): DeleteTwitterFeedPayload
 
   """
@@ -3458,6 +3546,7 @@ input CollectionArticleInput {
   url: String
   urlToImage: String
   collectionId: Int!
+  createdAt: Datetime
 }
 
 """
@@ -3528,6 +3617,7 @@ input CollectionGoogleFactCheckInput {
   textualRating: String!
   languageCode: String!
   collectionId: Int!
+  createdAt: Datetime
 }
 
 """
@@ -3589,6 +3679,7 @@ input CollectionTweetInput {
   id: Int
   tweetId: String!
   collectionId: Int!
+  createdAt: Datetime
 }
 
 """
@@ -3658,6 +3749,7 @@ input CollectionVeraFileInput {
   url: String!
   title: String!
   collectionId: Int!
+  createdAt: Datetime
 }
 
 """
@@ -4217,6 +4309,7 @@ input CollectionArticlePatch {
   url: String
   urlToImage: String
   collectionId: Int
+  createdAt: Datetime
 }
 
 """
@@ -4309,6 +4402,7 @@ input CollectionGoogleFactCheckPatch {
   textualRating: String
   languageCode: String
   collectionId: Int
+  createdAt: Datetime
 }
 
 """
@@ -4392,6 +4486,7 @@ input CollectionTweetPatch {
   id: Int
   tweetId: String
   collectionId: Int
+  createdAt: Datetime
 }
 
 """
@@ -4483,6 +4578,7 @@ input CollectionVeraFilePatch {
   url: String
   title: String
   collectionId: Int
+  createdAt: Datetime
 }
 
 """
@@ -4587,6 +4683,23 @@ input UpdateCollectionInput {
 }
 
 """
+All input for the `updateCollectionByTitle` mutation.
+"""
+input UpdateCollectionByTitleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Collection` being updated.
+  """
+  patch: CollectionPatch!
+  title: String!
+}
+
+"""
 The output of our update `NewsFeed` mutation.
 """
 type UpdateNewsFeedPayload {
@@ -4672,6 +4785,23 @@ input UpdateNewsFeedInput {
   """
   patch: NewsFeedPatch!
   id: Int!
+}
+
+"""
+All input for the `updateNewsFeedByTitle` mutation.
+"""
+input UpdateNewsFeedByTitleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `NewsFeed` being updated.
+  """
+  patch: NewsFeedPatch!
+  title: String!
 }
 
 """
@@ -4930,6 +5060,23 @@ input UpdateTwitterFeedInput {
   """
   patch: TwitterFeedPatch!
   id: Int!
+}
+
+"""
+All input for the `updateTwitterFeedByTitle` mutation.
+"""
+input UpdateTwitterFeedByTitleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `TwitterFeed` being updated.
+  """
+  patch: TwitterFeedPatch!
+  title: String!
 }
 
 """
@@ -5577,6 +5724,18 @@ input DeleteCollectionInput {
 }
 
 """
+All input for the `deleteCollectionByTitle` mutation.
+"""
+input DeleteCollectionByTitleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  title: String!
+}
+
+"""
 The output of our delete `NewsFeed` mutation.
 """
 type DeleteNewsFeedPayload {
@@ -5639,6 +5798,18 @@ input DeleteNewsFeedInput {
   """
   clientMutationId: String
   id: Int!
+}
+
+"""
+All input for the `deleteNewsFeedByTitle` mutation.
+"""
+input DeleteNewsFeedByTitleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  title: String!
 }
 
 """
@@ -5829,6 +6000,18 @@ input DeleteTwitterFeedInput {
   """
   clientMutationId: String
   id: Int!
+}
+
+"""
+All input for the `deleteTwitterFeedByTitle` mutation.
+"""
+input DeleteTwitterFeedByTitleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  title: String!
 }
 
 """
