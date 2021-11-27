@@ -1,5 +1,6 @@
 import camelcaseKeys from 'camelcase-keys';
 import keyword_extractor from 'keyword-extractor';
+import { category } from '../../models';
 import { article } from './schema';
 const fetch = require('node-fetch');
 
@@ -24,6 +25,29 @@ export const resolvers = {
       const { jwtClaims, pgClient } = context;
       if (!jwtClaims) throw new Error('Unauthorized user');
 
+      // if request does exists
+      // select from db
+      // if does not exist
+      // call api and store values
+
+      const { rows: request } = await pgClient.query(
+        `SELECT * FROM top_headlines_requests WHERE category = $1 AND country = $2 AND keyword = $3 AND sources = $4`,
+        [category, country, keyword, sources]
+      );
+      console.log(request);
+      // TODO select where using foreign key
+
+      if (request.length) {
+        const { rows: topHeadlinesCache } = await pgClient.query(
+          `SELECT * FROM top_headlines_cache`
+        );
+        return camelcaseKeys(topHeadlinesCache);
+      }
+
+      await pgClient.query(
+        `INSERT INTO top_headlines_requests (category, country, keyword, sources) VALUES ($1, $2, $3, $4)`,
+        [category, country, keyword, sources]
+      );
       const queryParams = new URLSearchParams();
       queryParams.set('country', country || 'ph');
       if (sources) {
@@ -71,31 +95,24 @@ export const resolvers = {
           sourceName,
         };
       });
-      // sample code for a saved filter
-      // to be updated
 
-      if (category === 'general') {
-        articles.map(async (article: any) => {
-          await pgClient.query(
-            `INSERT INTO top_headlines_cache (author, content, description, published_at, source_name, source_id, title, url, url_to_image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-            [
-              article.author,
-              article.content,
-              article.description,
-              article.publishedAt,
-              article.sourceName,
-              article.sourceId,
-              article.title,
-              article.url,
-              article.urlToImage,
-            ]
-          );
-        });
-        const { rows: topHeadlinesCache } = await pgClient.query(
-          `SELECT * FROM top_headlines_cache`
+      articles.map(async (article: any) => {
+        await pgClient.query(
+          `INSERT INTO top_headlines_cache (author, content, description, published_at, source_name, source_id, title, url, url_to_image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+          [
+            article.author,
+            article.content,
+            article.description,
+            article.publishedAt,
+            article.sourceName,
+            article.sourceId,
+            article.title,
+            article.url,
+            article.urlToImage,
+          ]
         );
-        return camelcaseKeys(topHeadlinesCache);
-      }
+      });
+
       return articles;
     },
     topHeadlinesSources: async (_: any, args: any, context: any) => {

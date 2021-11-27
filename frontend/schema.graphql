@@ -486,6 +486,72 @@ type Query implements Node {
   ): [TopHeadlinesCache!]
 
   """
+  Reads and enables pagination through a set of `TopHeadlinesRequest`.
+  """
+  topHeadlinesRequestsConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `TopHeadlinesRequest`.
+    """
+    orderBy: [TopHeadlinesRequestsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TopHeadlinesRequestCondition
+  ): TopHeadlinesRequestsConnection
+
+  """
+  Reads a set of `TopHeadlinesRequest`.
+  """
+  topHeadlinesRequests(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `TopHeadlinesRequest`.
+    """
+    orderBy: [TopHeadlinesRequestsOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TopHeadlinesRequestCondition
+  ): [TopHeadlinesRequest!]
+
+  """
   Reads and enables pagination through a set of `TwitterFeed`.
   """
   twitterFeedsConnection(
@@ -755,6 +821,7 @@ type Query implements Node {
   collection(id: Int!): Collection
   newsFeed(id: Int!): NewsFeed
   topHeadlinesCache(id: Int!): TopHeadlinesCache
+  topHeadlinesRequest(id: Int!): TopHeadlinesRequest
   twitterFeed(id: Int!): TwitterFeed
   twitterLocalSource(accountId: Int!): TwitterLocalSource
   twitterLocalSourceByAccountName(accountName: String!): TwitterLocalSource
@@ -837,6 +904,16 @@ type Query implements Node {
     """
     nodeId: ID!
   ): TopHeadlinesCache
+
+  """
+  Reads a single `TopHeadlinesRequest` using its globally unique `ID`.
+  """
+  topHeadlinesRequestByNodeId(
+    """
+    The globally unique `ID` to be used in selecting a single `TopHeadlinesRequest`.
+    """
+    nodeId: ID!
+  ): TopHeadlinesRequest
 
   """
   Reads a single `TwitterFeed` using its globally unique `ID`.
@@ -2131,6 +2208,80 @@ input TopHeadlinesCacheCondition {
 }
 
 """
+A connection to a list of `TopHeadlinesRequest` values.
+"""
+type TopHeadlinesRequestsConnection {
+  """
+  A list of `TopHeadlinesRequest` objects.
+  """
+  nodes: [TopHeadlinesRequest]!
+
+  """
+  A list of edges which contains the `TopHeadlinesRequest` and cursor to aid in pagination.
+  """
+  edges: [TopHeadlinesRequestsEdge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `TopHeadlinesRequest` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type TopHeadlinesRequest implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+}
+
+"""
+A `TopHeadlinesRequest` edge in the connection.
+"""
+type TopHeadlinesRequestsEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor
+
+  """
+  The `TopHeadlinesRequest` at the end of the edge.
+  """
+  node: TopHeadlinesRequest
+}
+
+"""
+Methods to use when ordering `TopHeadlinesRequest`.
+"""
+enum TopHeadlinesRequestsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `TopHeadlinesRequest` object types. All fields
+are tested for equality and combined with a logical ‘and.’
+"""
+input TopHeadlinesRequestCondition {
+  """
+  Checks for equality with the object’s `id` field.
+  """
+  id: Int
+}
+
+"""
 A connection to a list of `TwitterLocalSource` values.
 """
 type TwitterLocalSourcesConnection {
@@ -2520,6 +2671,16 @@ type Mutation {
   ): CreateTopHeadlinesCachePayload
 
   """
+  Creates a single `TopHeadlinesRequest`.
+  """
+  createTopHeadlinesRequest(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateTopHeadlinesRequestInput!
+  ): CreateTopHeadlinesRequestPayload
+
+  """
   Creates a single `TwitterFeed`.
   """
   createTwitterFeed(
@@ -2698,6 +2859,26 @@ type Mutation {
     """
     input: UpdateTopHeadlinesCacheInput!
   ): UpdateTopHeadlinesCachePayload
+
+  """
+  Updates a single `TopHeadlinesRequest` using its globally unique id and a patch.
+  """
+  updateTopHeadlinesRequestByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTopHeadlinesRequestByNodeIdInput!
+  ): UpdateTopHeadlinesRequestPayload
+
+  """
+  Updates a single `TopHeadlinesRequest` using a unique key and a patch.
+  """
+  updateTopHeadlinesRequest(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTopHeadlinesRequestInput!
+  ): UpdateTopHeadlinesRequestPayload
 
   """
   Updates a single `TwitterFeed` using its globally unique id and a patch.
@@ -2968,6 +3149,26 @@ type Mutation {
     """
     input: DeleteTopHeadlinesCacheInput!
   ): DeleteTopHeadlinesCachePayload
+
+  """
+  Deletes a single `TopHeadlinesRequest` using its globally unique id.
+  """
+  deleteTopHeadlinesRequestByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTopHeadlinesRequestByNodeIdInput!
+  ): DeleteTopHeadlinesRequestPayload
+
+  """
+  Deletes a single `TopHeadlinesRequest` using a unique key.
+  """
+  deleteTopHeadlinesRequest(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTopHeadlinesRequestInput!
+  ): DeleteTopHeadlinesRequestPayload
 
   """
   Deletes a single `TwitterFeed` using its globally unique id.
@@ -3567,6 +3768,64 @@ input TopHeadlinesCacheInput {
   title: String
   url: String
   urlToImage: String
+}
+
+"""
+The output of our create `TopHeadlinesRequest` mutation.
+"""
+type CreateTopHeadlinesRequestPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TopHeadlinesRequest` that was created by this mutation.
+  """
+  topHeadlinesRequest: TopHeadlinesRequest
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `TopHeadlinesRequest`. May be used by Relay 1.
+  """
+  topHeadlinesRequestEdge(
+    """
+    The method to use when ordering `TopHeadlinesRequest`.
+    """
+    orderBy: [TopHeadlinesRequestsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TopHeadlinesRequestsEdge
+}
+
+"""
+All input for the create `TopHeadlinesRequest` mutation.
+"""
+input CreateTopHeadlinesRequestInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The `TopHeadlinesRequest` to be created by this mutation.
+  """
+  topHeadlinesRequest: TopHeadlinesRequestInput!
+}
+
+"""
+An input for mutations affecting `TopHeadlinesRequest`
+"""
+input TopHeadlinesRequestInput {
+  id: Int
+  category: Category
+  country: String
+  keyword: String
+  sources: String
 }
 
 """
@@ -4409,6 +4668,86 @@ input UpdateTopHeadlinesCacheInput {
   An object where the defined keys will be set on the `TopHeadlinesCache` being updated.
   """
   patch: TopHeadlinesCachePatch!
+  id: Int!
+}
+
+"""
+The output of our update `TopHeadlinesRequest` mutation.
+"""
+type UpdateTopHeadlinesRequestPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TopHeadlinesRequest` that was updated by this mutation.
+  """
+  topHeadlinesRequest: TopHeadlinesRequest
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `TopHeadlinesRequest`. May be used by Relay 1.
+  """
+  topHeadlinesRequestEdge(
+    """
+    The method to use when ordering `TopHeadlinesRequest`.
+    """
+    orderBy: [TopHeadlinesRequestsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TopHeadlinesRequestsEdge
+}
+
+"""
+All input for the `updateTopHeadlinesRequestByNodeId` mutation.
+"""
+input UpdateTopHeadlinesRequestByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `TopHeadlinesRequest` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `TopHeadlinesRequest` being updated.
+  """
+  patch: TopHeadlinesRequestPatch!
+}
+
+"""
+Represents an update to a `TopHeadlinesRequest`. Fields that are set will be updated.
+"""
+input TopHeadlinesRequestPatch {
+  id: Int
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+}
+
+"""
+All input for the `updateTopHeadlinesRequest` mutation.
+"""
+input UpdateTopHeadlinesRequestInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `TopHeadlinesRequest` being updated.
+  """
+  patch: TopHeadlinesRequestPatch!
   id: Int!
 }
 
@@ -5259,6 +5598,66 @@ input DeleteTopHeadlinesCacheByNodeIdInput {
 All input for the `deleteTopHeadlinesCache` mutation.
 """
 input DeleteTopHeadlinesCacheInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: Int!
+}
+
+"""
+The output of our delete `TopHeadlinesRequest` mutation.
+"""
+type DeleteTopHeadlinesRequestPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TopHeadlinesRequest` that was deleted by this mutation.
+  """
+  topHeadlinesRequest: TopHeadlinesRequest
+  deletedTopHeadlinesRequestNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  An edge for our `TopHeadlinesRequest`. May be used by Relay 1.
+  """
+  topHeadlinesRequestEdge(
+    """
+    The method to use when ordering `TopHeadlinesRequest`.
+    """
+    orderBy: [TopHeadlinesRequestsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TopHeadlinesRequestsEdge
+}
+
+"""
+All input for the `deleteTopHeadlinesRequestByNodeId` mutation.
+"""
+input DeleteTopHeadlinesRequestByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `TopHeadlinesRequest` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteTopHeadlinesRequest` mutation.
+"""
+input DeleteTopHeadlinesRequestInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
