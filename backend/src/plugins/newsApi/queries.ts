@@ -25,27 +25,25 @@ export const resolvers = {
       const { jwtClaims, pgClient } = context;
       if (!jwtClaims) throw new Error('Unauthorized user');
 
-      // if request does exists
-      // select from db
-      // if does not exist
-      // call api and store values
-
-      const { rows: request } = await pgClient.query(
+      const {
+        rows: [request],
+      } = await pgClient.query(
         `SELECT * FROM top_headlines_requests WHERE category = $1 AND country = $2 AND keyword = $3 AND sources = $4`,
         [category, country, keyword, sources]
       );
-      console.log(request);
-      // TODO select where using foreign key
 
-      if (request.length) {
+      if (request) {
         const { rows: topHeadlinesCache } = await pgClient.query(
-          `SELECT * FROM top_headlines_cache`
+          `SELECT * FROM top_headlines_cache where top_headlines_request_id = $1`,
+          [request.id]
         );
         return camelcaseKeys(topHeadlinesCache);
       }
 
-      await pgClient.query(
-        `INSERT INTO top_headlines_requests (category, country, keyword, sources) VALUES ($1, $2, $3, $4)`,
+      const {
+        rows: [top_headlines_request_id],
+      } = await pgClient.query(
+        `INSERT INTO top_headlines_requests (category, country, keyword, sources) VALUES ($1, $2, $3, $4) RETURNING id`,
         [category, country, keyword, sources]
       );
       const queryParams = new URLSearchParams();
@@ -98,7 +96,7 @@ export const resolvers = {
 
       articles.map(async (article: any) => {
         await pgClient.query(
-          `INSERT INTO top_headlines_cache (author, content, description, published_at, source_name, source_id, title, url, url_to_image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+          `INSERT INTO top_headlines_cache (author, content, description, published_at, source_name, source_id, title, url, url_to_image, top_headlines_request_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
           [
             article.author,
             article.content,
@@ -109,6 +107,7 @@ export const resolvers = {
             article.title,
             article.url,
             article.urlToImage,
+            top_headlines_request_id.id,
           ]
         );
       });

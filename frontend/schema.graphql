@@ -2168,6 +2168,119 @@ type TopHeadlinesCache implements Node {
   title: String
   url: String
   urlToImage: String
+  topHeadlinesRequestId: Int!
+
+  """
+  Reads a single `TopHeadlinesRequest` that is related to this `TopHeadlinesCache`.
+  """
+  topHeadlinesRequest: TopHeadlinesRequest
+}
+
+type TopHeadlinesRequest implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+
+  """
+  Reads and enables pagination through a set of `TopHeadlinesCache`.
+  """
+  topHeadlinesCachesConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `TopHeadlinesCache`.
+    """
+    orderBy: [TopHeadlinesCachesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TopHeadlinesCacheCondition
+  ): TopHeadlinesCachesConnection!
+
+  """
+  Reads and enables pagination through a set of `TopHeadlinesCache`.
+  """
+  topHeadlinesCaches(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `TopHeadlinesCache`.
+    """
+    orderBy: [TopHeadlinesCachesOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TopHeadlinesCacheCondition
+  ): [TopHeadlinesCache!]!
+}
+
+"""
+Methods to use when ordering `TopHeadlinesCache`.
+"""
+enum TopHeadlinesCachesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  TOP_HEADLINES_REQUEST_ID_ASC
+  TOP_HEADLINES_REQUEST_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `TopHeadlinesCache` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input TopHeadlinesCacheCondition {
+  """
+  Checks for equality with the object’s `id` field.
+  """
+  id: Int
+
+  """
+  Checks for equality with the object’s `topHeadlinesRequestId` field.
+  """
+  topHeadlinesRequestId: Int
 }
 
 """
@@ -2183,28 +2296,6 @@ type TopHeadlinesCachesEdge {
   The `TopHeadlinesCache` at the end of the edge.
   """
   node: TopHeadlinesCache
-}
-
-"""
-Methods to use when ordering `TopHeadlinesCache`.
-"""
-enum TopHeadlinesCachesOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
-"""
-A condition to be used against `TopHeadlinesCache` object types. All fields are
-tested for equality and combined with a logical ‘and.’
-"""
-input TopHeadlinesCacheCondition {
-  """
-  Checks for equality with the object’s `id` field.
-  """
-  id: Int
 }
 
 """
@@ -2230,18 +2321,6 @@ type TopHeadlinesRequestsConnection {
   The count of *all* `TopHeadlinesRequest` you could get from the connection.
   """
   totalCount: Int!
-}
-
-type TopHeadlinesRequest implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: Int!
-  category: Category
-  country: String
-  keyword: String
-  sources: String
 }
 
 """
@@ -3728,6 +3807,11 @@ type CreateTopHeadlinesCachePayload {
   query: Query
 
   """
+  Reads a single `TopHeadlinesRequest` that is related to this `TopHeadlinesCache`.
+  """
+  topHeadlinesRequest: TopHeadlinesRequest
+
+  """
   An edge for our `TopHeadlinesCache`. May be used by Relay 1.
   """
   topHeadlinesCacheEdge(
@@ -3768,6 +3852,7 @@ input TopHeadlinesCacheInput {
   title: String
   url: String
   urlToImage: String
+  topHeadlinesRequestId: Int!
 }
 
 """
@@ -4607,6 +4692,11 @@ type UpdateTopHeadlinesCachePayload {
   query: Query
 
   """
+  Reads a single `TopHeadlinesRequest` that is related to this `TopHeadlinesCache`.
+  """
+  topHeadlinesRequest: TopHeadlinesRequest
+
+  """
   An edge for our `TopHeadlinesCache`. May be used by Relay 1.
   """
   topHeadlinesCacheEdge(
@@ -4652,6 +4742,7 @@ input TopHeadlinesCachePatch {
   title: String
   url: String
   urlToImage: String
+  topHeadlinesRequestId: Int
 }
 
 """
@@ -5566,6 +5657,11 @@ type DeleteTopHeadlinesCachePayload {
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+
+  """
+  Reads a single `TopHeadlinesRequest` that is related to this `TopHeadlinesCache`.
+  """
+  topHeadlinesRequest: TopHeadlinesRequest
 
   """
   An edge for our `TopHeadlinesCache`. May be used by Relay 1.
