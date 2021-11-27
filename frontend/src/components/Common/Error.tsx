@@ -13,16 +13,17 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
   },
   image: {
-    maxWidth: '75px',
-    maxHeight: '75px',
+    maxWidth: '150px',
+    maxHeight: '150px',
   },
   oopsText: {
     padding: '2px',
-    fontSize: '20px',
+    fontSize: '17px',
     color: theme.palette.secondary.main,
   },
   errorText: {
     color: 'gray',
+    fontSize: '14px',
   },
 }));
 

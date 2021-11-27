@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
   },
   headerText: {
     padding: '5px',
-    fontSize: '20px',
+    fontSize: '17px',
     color: theme.palette.primary.main,
   },
   contentContainer: {
@@ -26,6 +26,7 @@ const useStyles = makeStyles(() => ({
   },
   subText: {
     color: 'gray',
+    fontSize: '14px',
   },
   image: {
     width: '200px',

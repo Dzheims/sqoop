@@ -13,11 +13,12 @@ const useStyles = makeStyles(() => ({
   },
   waitText: {
     padding: '5px',
-    fontSize: '20px',
+    fontSize: '17px',
     color: theme.palette.primary.main,
   },
   loaderText: {
     color: 'gray',
+    fontSize: '14px',
   },
 }));
 

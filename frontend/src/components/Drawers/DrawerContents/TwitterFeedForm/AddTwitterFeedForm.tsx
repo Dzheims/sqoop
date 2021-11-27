@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
   formMessage: {
     color: 'gray',
     fontSize: '12px',
+    margin: '5px 0 0 5px',
   },
 }));
 
