@@ -2675,6 +2675,7 @@ union CollectionContent =
     CollectionTweet
   | CollectionArticle
   | CollectionVeraFile
+  | CollectionGoogleFactCheck
 
 """
 The root mutation type which contains root level fields which mutate data.

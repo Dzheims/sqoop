@@ -100,6 +100,7 @@ const SignUp = () => {
     onCompleted: () => {
       setSuccessAlert(true);
     },
+    onError: () => {},
   });
 
   const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,7 +150,7 @@ const SignUp = () => {
   useEffect(() => {
     if (isSubmitting) setErrors(validate(signupInput, error));
     if (triggerSubmit) validateSignUp();
-  }, [signupInput, triggerSubmit]);
+  }, [signupInput, triggerSubmit, error]);
 
   const passwordStrengthIndicator = () => {
     if (signupInput.password) {

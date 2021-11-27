@@ -22,6 +22,7 @@ import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import accountSources from './SourcesList';
 import currentUserId from '../../../../authentication/currentUserId';
 import { NavDrawerState } from '../../../Navigation/NavDrawerState';
+import { validateTitle } from '../FormValidation/FormValidation';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -75,13 +76,6 @@ const AddTwitterFeedForm = ({
     return true;
   };
 
-  function validateTitle(title: string) {
-    if (!title) {
-      return 'Title must not be empty';
-    }
-    return '';
-  }
-
   const [twitterFeedForm, setTwitterFeedForm] =
     useState<CreateTwitterFeedInput>({
       twitterFeed: {
@@ -130,7 +124,7 @@ const AddTwitterFeedForm = ({
     });
   };
 
-  const [createFeed] = useMutation<
+  const [createFeed, { error }] = useMutation<
     CreateTwitterFeedMutation,
     CreateTwitterFeedMutationVariables
   >(CREATE_TWITTER_FEED, {
@@ -154,13 +148,14 @@ const AddTwitterFeedForm = ({
       history.push('/');
       drawerStateChanger({ isOpen: false, current: '' });
     },
+    onError: () => {},
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
 
   useEffect(() => {
     if (isSubmitting)
-      setTitleError(validateTitle(twitterFeedForm.twitterFeed.title));
-  }, [twitterFeedForm.twitterFeed.title, isSubmitting]);
+      setTitleError(validateTitle(twitterFeedForm.twitterFeed.title, error));
+  }, [titleError, error]);
 
   const handleSubmit = () => {
     setIsSubmitting(true);
