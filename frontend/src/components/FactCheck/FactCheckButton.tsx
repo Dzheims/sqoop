@@ -96,7 +96,7 @@ FactCheckProps) => {
     } else {
       setHighlightButton(false);
     }
-  }, [state.suggestedKeyWords, openDrawer]);
+  }, [state.suggestedKeyWords]);
 
   useEffect(() => {
     setOpenDrawer(state.open);
