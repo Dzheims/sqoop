@@ -575,13 +575,13 @@ type Query implements Node {
   collectionTweet(id: Int!): CollectionTweet
   collectionVeraFile(id: Int!): CollectionVeraFile
   collection(id: Int!): Collection
-  collectionByTitle(title: String!): Collection
+  collectionByTitleAndId(title: String!, id: Int!): Collection
   newsFeed(id: Int!): NewsFeed
-  newsFeedByTitle(title: String!): NewsFeed
+  newsFeedByTitleAndId(title: String!, id: Int!): NewsFeed
   topHeadlinesCache(id: Int!): TopHeadlinesCache
   topHeadlinesRequest(id: Int!): TopHeadlinesRequest
   twitterFeed(id: Int!): TwitterFeed
-  twitterFeedByTitle(title: String!): TwitterFeed
+  twitterFeedByTitleAndId(title: String!, id: Int!): TwitterFeed
   twitterLocalSource(accountId: Int!): TwitterLocalSource
   twitterLocalSourceByAccountName(accountName: String!): TwitterLocalSource
   twitterLocalSourceByAccountUsername(accountUsername: String!): TwitterLocalSource
@@ -2195,11 +2195,11 @@ type Mutation {
   ): UpdateCollectionPayload
 
   """Updates a single `Collection` using a unique key and a patch."""
-  updateCollectionByTitle(
+  updateCollectionByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateCollectionByTitleInput!
+    input: UpdateCollectionByTitleAndIdInput!
   ): UpdateCollectionPayload
 
   """Updates a single `NewsFeed` using its globally unique id and a patch."""
@@ -2219,11 +2219,11 @@ type Mutation {
   ): UpdateNewsFeedPayload
 
   """Updates a single `NewsFeed` using a unique key and a patch."""
-  updateNewsFeedByTitle(
+  updateNewsFeedByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateNewsFeedByTitleInput!
+    input: UpdateNewsFeedByTitleAndIdInput!
   ): UpdateNewsFeedPayload
 
   """
@@ -2281,11 +2281,11 @@ type Mutation {
   ): UpdateTwitterFeedPayload
 
   """Updates a single `TwitterFeed` using a unique key and a patch."""
-  updateTwitterFeedByTitle(
+  updateTwitterFeedByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateTwitterFeedByTitleInput!
+    input: UpdateTwitterFeedByTitleAndIdInput!
   ): UpdateTwitterFeedPayload
 
   """
@@ -2463,11 +2463,11 @@ type Mutation {
   ): DeleteCollectionPayload
 
   """Deletes a single `Collection` using a unique key."""
-  deleteCollectionByTitle(
+  deleteCollectionByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteCollectionByTitleInput!
+    input: DeleteCollectionByTitleAndIdInput!
   ): DeleteCollectionPayload
 
   """Deletes a single `NewsFeed` using its globally unique id."""
@@ -2487,11 +2487,11 @@ type Mutation {
   ): DeleteNewsFeedPayload
 
   """Deletes a single `NewsFeed` using a unique key."""
-  deleteNewsFeedByTitle(
+  deleteNewsFeedByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteNewsFeedByTitleInput!
+    input: DeleteNewsFeedByTitleAndIdInput!
   ): DeleteNewsFeedPayload
 
   """Deletes a single `TopHeadlinesCache` using its globally unique id."""
@@ -2543,11 +2543,11 @@ type Mutation {
   ): DeleteTwitterFeedPayload
 
   """Deletes a single `TwitterFeed` using a unique key."""
-  deleteTwitterFeedByTitle(
+  deleteTwitterFeedByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteTwitterFeedByTitleInput!
+    input: DeleteTwitterFeedByTitleAndIdInput!
   ): DeleteTwitterFeedPayload
 
   """Deletes a single `TwitterLocalSource` using its globally unique id."""
@@ -3611,8 +3611,8 @@ input UpdateCollectionInput {
   id: Int!
 }
 
-"""All input for the `updateCollectionByTitle` mutation."""
-input UpdateCollectionByTitleInput {
+"""All input for the `updateCollectionByTitleAndId` mutation."""
+input UpdateCollectionByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -3624,6 +3624,7 @@ input UpdateCollectionByTitleInput {
   """
   patch: CollectionPatch!
   title: String!
+  id: Int!
 }
 
 """The output of our update `NewsFeed` mutation."""
@@ -3700,8 +3701,8 @@ input UpdateNewsFeedInput {
   id: Int!
 }
 
-"""All input for the `updateNewsFeedByTitle` mutation."""
-input UpdateNewsFeedByTitleInput {
+"""All input for the `updateNewsFeedByTitleAndId` mutation."""
+input UpdateNewsFeedByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -3713,6 +3714,7 @@ input UpdateNewsFeedByTitleInput {
   """
   patch: NewsFeedPatch!
   title: String!
+  id: Int!
 }
 
 """The output of our update `TopHeadlinesCache` mutation."""
@@ -3935,8 +3937,8 @@ input UpdateTwitterFeedInput {
   id: Int!
 }
 
-"""All input for the `updateTwitterFeedByTitle` mutation."""
-input UpdateTwitterFeedByTitleInput {
+"""All input for the `updateTwitterFeedByTitleAndId` mutation."""
+input UpdateTwitterFeedByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -3948,6 +3950,7 @@ input UpdateTwitterFeedByTitleInput {
   """
   patch: TwitterFeedPatch!
   title: String!
+  id: Int!
 }
 
 """The output of our update `TwitterLocalSource` mutation."""
@@ -4484,14 +4487,15 @@ input DeleteCollectionInput {
   id: Int!
 }
 
-"""All input for the `deleteCollectionByTitle` mutation."""
-input DeleteCollectionByTitleInput {
+"""All input for the `deleteCollectionByTitleAndId` mutation."""
+input DeleteCollectionByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
   title: String!
+  id: Int!
 }
 
 """The output of our delete `NewsFeed` mutation."""
@@ -4545,14 +4549,15 @@ input DeleteNewsFeedInput {
   id: Int!
 }
 
-"""All input for the `deleteNewsFeedByTitle` mutation."""
-input DeleteNewsFeedByTitleInput {
+"""All input for the `deleteNewsFeedByTitleAndId` mutation."""
+input DeleteNewsFeedByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
   title: String!
+  id: Int!
 }
 
 """The output of our delete `TopHeadlinesCache` mutation."""
@@ -4707,14 +4712,15 @@ input DeleteTwitterFeedInput {
   id: Int!
 }
 
-"""All input for the `deleteTwitterFeedByTitle` mutation."""
-input DeleteTwitterFeedByTitleInput {
+"""All input for the `deleteTwitterFeedByTitleAndId` mutation."""
+input DeleteTwitterFeedByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
   title: String!
+  id: Int!
 }
 
 """The output of our delete `TwitterLocalSource` mutation."""
