@@ -19,10 +19,16 @@ import {
   SaveTweetToCollectionMutationVariables,
   SaveArticleToCollectionMutation,
   SaveArticleToCollectionMutationVariables,
+  SaveVeraFileToCollectionMutation,
+  SaveVeraFileToCollectionMutationVariables,
+  SaveGoogleFactCheckToCollectionMutation,
+  SaveGoogleFactCheckToCollectionMutationVariables,
 } from '../Collections/query.generated';
 import {
   SAVE_TWEET_TO_COLLECTION,
   SAVE_ARTICLE_TO_COLLECTION,
+  SAVE_VERA_FILE_TO_COLLECTION,
+  SAVE_GOOGLE_FACT_CHECK_TO_COLLECTION,
 } from '../Collections/query';
 import { COLLECTION_CONTENTS_QUERY } from '../Columns/query';
 import { CollectionContent } from '../../types.generated';
@@ -73,6 +79,16 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
     SaveArticleToCollectionMutationVariables
   >(SAVE_ARTICLE_TO_COLLECTION);
 
+  const [saveVeraFileToCollection] = useMutation<
+    SaveVeraFileToCollectionMutation,
+    SaveVeraFileToCollectionMutationVariables
+  >(SAVE_VERA_FILE_TO_COLLECTION);
+
+  const [saveGoogleFactCheckToCollection] = useMutation<
+    SaveGoogleFactCheckToCollectionMutation,
+    SaveGoogleFactCheckToCollectionMutationVariables
+  >(SAVE_GOOGLE_FACT_CHECK_TO_COLLECTION);
+
   const handleSave = () => {
     if (data.__typename) {
       switch (data.__typename) {
@@ -109,6 +125,35 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
                   sourceName: data.sourceName,
                   url: data.url,
                   urlToImage: data.urlToImage,
+                },
+              },
+            },
+            onCompleted: () => {
+              handleClickClose();
+            },
+            refetchQueries: [
+              {
+                query: COLLECTION_CONTENTS_QUERY,
+                variables: { collectionId: state.collectionId },
+              },
+            ],
+          });
+          break;
+        case 'CollectionVeraFile':
+          saveVeraFileToCollection({
+            variables: {
+              input: {
+                collectionVeraFile: {
+                  collectionId: state.collectionId,
+                  author: data.author,
+                  category: data.category,
+                  date: data.date,
+                  dateText: data.dateText,
+                  description: data.description,
+                  imageStyle: data.imageStyle,
+                  imageUrl: data.imageUrl,
+                  url: data.url,
+                  title: data.title,
                 },
               },
             },

@@ -30,7 +30,13 @@ const VeraFactCheckData: React.FC<SearchQueryProps> = ({
       />
     );
 
-  return <VeraFactCheckResultsCards data={data} />;
+  return (
+    <div>
+      {data?.veraFilesFactCheck.map((value, index) => (
+        <VeraFactCheckResultsCards data={value} />
+      ))}
+    </div>
+  );
 };
 
 export default VeraFactCheckData;
