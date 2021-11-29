@@ -132,7 +132,7 @@ const SignUp = () => {
 
   const validateSignUp = () => {
     if (errors) {
-      if (Object.values(errors).every((err) => err === '')) {
+      if (Object.values(errors).every((err) => err === '') || error) {
         if (signupInput.confirmedPassword === signupInput.password) {
           signUp();
         }
