@@ -2,6 +2,7 @@ import React from 'react';
 import { CollectionContentsQuery } from '../../components/Columns/query.generated';
 import CollectionTweets from './CollectionTweetsData';
 import NewsCards from '../../components/Cards/NewsCards';
+import VeraFactCheckResultsCards from '../../components/FactCheck/VeraFactCheckResultsCards';
 
 interface CollectionContentsDataProps {
   data: CollectionContentsQuery;
@@ -12,7 +13,15 @@ const getCollectionContentType = (value: any) => {
     case 'CollectionTweet':
       return <CollectionTweets dataProps={value} />;
     case 'CollectionArticle':
-      return <NewsCards data={value} isUnderCollections={true} />;
+      const { articleTitle: title, ...collectionArticle } = value;
+      return (
+        <NewsCards
+          data={{ title, ...collectionArticle }}
+          isUnderCollections={true}
+        />
+      );
+    case 'CollectionVeraFile':
+      return <VeraFactCheckResultsCards data={value} />;
   }
 };
 

@@ -1985,15 +1985,15 @@ type CollectionVeraFile implements Node {
   """
   nodeId: ID!
   id: Int!
-  author: String!
-  category: String!
-  date: String!
-  dateText: String!
-  description: String!
-  imageStyle: String!
-  imageUrl: String!
-  url: String!
-  title: String!
+  author: String
+  category: String
+  date: String
+  dateText: String
+  description: String
+  imageStyle: String
+  imageUrl: String
+  url: String
+  title: String
   collectionId: Int!
   createdAt: Datetime!
 
@@ -2672,7 +2672,7 @@ type TwitterPhoto {
 }
 
 type VeraFiles {
-  id: Int
+  id: Int!
   author: String
   description: String
   title: String
@@ -3739,15 +3739,15 @@ An input for mutations affecting `CollectionVeraFile`
 """
 input CollectionVeraFileInput {
   id: Int
-  author: String!
-  category: String!
-  date: String!
-  dateText: String!
-  description: String!
-  imageStyle: String!
-  imageUrl: String!
-  url: String!
-  title: String!
+  author: String
+  category: String
+  date: String
+  dateText: String
+  description: String
+  imageStyle: String
+  imageUrl: String
+  url: String
+  title: String
   collectionId: Int!
   createdAt: Datetime
 }

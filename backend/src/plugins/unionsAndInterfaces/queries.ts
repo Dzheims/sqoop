@@ -23,7 +23,9 @@ export const resolvers = (getNamedType: any) => {
     CollectionContent: {
       __resolveType(keys: any) {
         if ('tweetId' in keys) return 'CollectionTweet';
-        return 'CollectionArticle';
+        if ('urlToImage' in keys) return 'CollectionArticle';
+        if ('claimant' in keys) return 'CollectionGoogleFactCheck';
+        return 'CollectionVeraFile';
       },
     },
     Query: {
@@ -55,9 +57,13 @@ export const resolvers = (getNamedType: any) => {
         const { rows: collectionArticles } = await pgClient.query(
           `SELECT * FROM collection_articles WHERE collection_id = ${collectionId}`
         );
+        const { rows: collectionVeraFile } = await pgClient.query(
+          `SELECT * FROM collection_vera_files WHERE collection_id = ${collectionId}`
+        );
         const result = camelcaseKeys([
           ...collectionTweets,
           ...collectionArticles,
+          ...collectionVeraFile,
         ]);
         return result;
       },

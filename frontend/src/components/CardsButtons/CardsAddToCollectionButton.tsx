@@ -12,7 +12,6 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
-
 import CollectionsList from '../Collections/CollectionsList';
 import {
   SaveTweetToCollectionMutation,
@@ -33,6 +32,7 @@ import {
 import { COLLECTION_CONTENTS_QUERY } from '../Columns/query';
 import { CollectionContent } from '../../types.generated';
 import { useCollectionsListState } from '../Collections/CollectionsListState';
+import { useDrawerState } from '../FactCheck/FactCheckDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +58,8 @@ interface CollectionContentProps {
 
 const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
   const classes = useStyles();
-  const { state, setState } = useCollectionsListState();
+  const { collectionListState, collectionListSetState } =
+    useCollectionsListState();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -97,7 +98,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             variables: {
               input: {
                 collectionTweet: {
-                  collectionId: state.collectionId,
+                  collectionId: collectionListState.collectionId,
                   tweetId: data.tweetId,
                 },
               },
@@ -108,7 +109,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             refetchQueries: [
               {
                 query: COLLECTION_CONTENTS_QUERY,
-                variables: { collectionId: state.collectionId },
+                variables: { collectionId: collectionListState.collectionId },
               },
             ],
           });
@@ -118,7 +119,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             variables: {
               input: {
                 collectionArticle: {
-                  collectionId: state.collectionId,
+                  collectionId: collectionListState.collectionId,
                   title: data.title,
                   description: data.description,
                   publishedAt: data.publishedAt,
@@ -134,7 +135,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             refetchQueries: [
               {
                 query: COLLECTION_CONTENTS_QUERY,
-                variables: { collectionId: state.collectionId },
+                variables: { collectionId: collectionListState.collectionId },
               },
             ],
           });
@@ -144,7 +145,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             variables: {
               input: {
                 collectionVeraFile: {
-                  collectionId: state.collectionId,
+                  collectionId: collectionListState.collectionId,
                   author: data.author,
                   category: data.category,
                   date: data.date,
@@ -163,7 +164,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             refetchQueries: [
               {
                 query: COLLECTION_CONTENTS_QUERY,
-                variables: { collectionId: state.collectionId },
+                variables: { collectionId: collectionListState.collectionId },
               },
             ],
           });
