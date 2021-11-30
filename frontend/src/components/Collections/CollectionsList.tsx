@@ -49,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
 
 const CollectionsList = () => {
   const classes = useStyles();
-  const { state, setState } = useCollectionsListState();
+  const { collectionListState, collectionListSetState } =
+    useCollectionsListState();
   const [selectedButton, setSelectedButton] = useState(false);
 
   const { data, loading, error } = useGetCollectionsListQuery({
@@ -81,15 +82,15 @@ const CollectionsList = () => {
             <div>
               <ListItem
                 className={
-                  state.collectionId === value.id
+                  collectionListState.collectionId === value.id
                     ? classes.selectedButton
                     : classes.button
                 }
               >
                 <ListItemButton
                   onClick={() => {
-                    setState({
-                      ...state,
+                    collectionListSetState({
+                      ...collectionListState,
                       collectionId: value.id,
                     });
                     handleSelectButton();

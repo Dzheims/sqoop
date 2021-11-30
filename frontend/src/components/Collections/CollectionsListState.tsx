@@ -5,8 +5,8 @@ export interface CollectionsListState {
 }
 
 export const CollectionsListContext = React.createContext({
-  state: {} as CollectionsListState,
-  setState: {} as Dispatch<SetStateAction<CollectionsListState>>,
+  collectionListState: {} as CollectionsListState,
+  collectionListSetState: {} as Dispatch<SetStateAction<CollectionsListState>>,
 });
 
 export const CollectionsListStateProvider = ({
@@ -16,9 +16,11 @@ export const CollectionsListStateProvider = ({
   children: React.ReactNode;
   value: CollectionsListState;
 }) => {
-  const [state, setState] = useState(value);
+  const [collectionListState, collectionListSetState] = useState(value);
   return (
-    <CollectionsListContext.Provider value={{ state, setState }}>
+    <CollectionsListContext.Provider
+      value={{ collectionListState, collectionListSetState }}
+    >
       {children}
     </CollectionsListContext.Provider>
   );

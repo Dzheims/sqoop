@@ -1,4 +1,6 @@
-"""The root query type which gives access points into the data universe."""
+"""
+The root query type which gives access points into the data universe.
+"""
 type Query implements Node {
   """
   Exposes the root query type nested one level down. This is helpful for Relay 1
@@ -11,18 +13,28 @@ type Query implements Node {
   """
   nodeId: ID!
 
-  """Fetches an object given its globally unique `ID`."""
+  """
+  Fetches an object given its globally unique `ID`.
+  """
   node(
-    """The globally unique `ID`."""
+    """
+    The globally unique `ID`.
+    """
     nodeId: ID!
   ): Node
 
-  """Reads and enables pagination through a set of `CollectionArticle`."""
+  """
+  Reads and enables pagination through a set of `CollectionArticle`.
+  """
   collectionArticlesConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -31,13 +43,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `CollectionArticle`."""
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
     orderBy: [CollectionArticlesOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -46,15 +64,23 @@ type Query implements Node {
     condition: CollectionArticleCondition
   ): CollectionArticlesConnection
 
-  """Reads a set of `CollectionArticle`."""
+  """
+  Reads a set of `CollectionArticle`.
+  """
   collectionArticles(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `CollectionArticle`."""
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
     orderBy: [CollectionArticlesOrderBy!]
 
     """
@@ -67,10 +93,14 @@ type Query implements Node {
   Reads and enables pagination through a set of `CollectionGoogleFactCheck`.
   """
   collectionGoogleFactChecksConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -79,13 +109,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `CollectionGoogleFactCheck`."""
+    """
+    The method to use when ordering `CollectionGoogleFactCheck`.
+    """
     orderBy: [CollectionGoogleFactChecksOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -94,15 +130,23 @@ type Query implements Node {
     condition: CollectionGoogleFactCheckCondition
   ): CollectionGoogleFactChecksConnection
 
-  """Reads a set of `CollectionGoogleFactCheck`."""
+  """
+  Reads a set of `CollectionGoogleFactCheck`.
+  """
   collectionGoogleFactChecks(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `CollectionGoogleFactCheck`."""
+    """
+    The method to use when ordering `CollectionGoogleFactCheck`.
+    """
     orderBy: [CollectionGoogleFactChecksOrderBy!]
 
     """
@@ -111,12 +155,18 @@ type Query implements Node {
     condition: CollectionGoogleFactCheckCondition
   ): [CollectionGoogleFactCheck!]
 
-  """Reads and enables pagination through a set of `CollectionTweet`."""
+  """
+  Reads and enables pagination through a set of `CollectionTweet`.
+  """
   collectionTweetsConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -125,13 +175,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `CollectionTweet`."""
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
     orderBy: [CollectionTweetsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -140,15 +196,23 @@ type Query implements Node {
     condition: CollectionTweetCondition
   ): CollectionTweetsConnection
 
-  """Reads a set of `CollectionTweet`."""
+  """
+  Reads a set of `CollectionTweet`.
+  """
   collectionTweets(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `CollectionTweet`."""
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
     orderBy: [CollectionTweetsOrderBy!]
 
     """
@@ -157,12 +221,18 @@ type Query implements Node {
     condition: CollectionTweetCondition
   ): [CollectionTweet!]
 
-  """Reads and enables pagination through a set of `CollectionVeraFile`."""
+  """
+  Reads and enables pagination through a set of `CollectionVeraFile`.
+  """
   collectionVeraFilesConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -171,13 +241,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `CollectionVeraFile`."""
+    """
+    The method to use when ordering `CollectionVeraFile`.
+    """
     orderBy: [CollectionVeraFilesOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -186,15 +262,23 @@ type Query implements Node {
     condition: CollectionVeraFileCondition
   ): CollectionVeraFilesConnection
 
-  """Reads a set of `CollectionVeraFile`."""
+  """
+  Reads a set of `CollectionVeraFile`.
+  """
   collectionVeraFiles(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `CollectionVeraFile`."""
+    """
+    The method to use when ordering `CollectionVeraFile`.
+    """
     orderBy: [CollectionVeraFilesOrderBy!]
 
     """
@@ -203,12 +287,18 @@ type Query implements Node {
     condition: CollectionVeraFileCondition
   ): [CollectionVeraFile!]
 
-  """Reads and enables pagination through a set of `Collection`."""
+  """
+  Reads and enables pagination through a set of `Collection`.
+  """
   collectionsConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -217,13 +307,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `Collection`."""
+    """
+    The method to use when ordering `Collection`.
+    """
     orderBy: [CollectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -232,15 +328,23 @@ type Query implements Node {
     condition: CollectionCondition
   ): CollectionsConnection
 
-  """Reads a set of `Collection`."""
+  """
+  Reads a set of `Collection`.
+  """
   collections(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `Collection`."""
+    """
+    The method to use when ordering `Collection`.
+    """
     orderBy: [CollectionsOrderBy!]
 
     """
@@ -249,12 +353,18 @@ type Query implements Node {
     condition: CollectionCondition
   ): [Collection!]
 
-  """Reads and enables pagination through a set of `NewsFeed`."""
+  """
+  Reads and enables pagination through a set of `NewsFeed`.
+  """
   newsFeedsConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -263,13 +373,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `NewsFeed`."""
+    """
+    The method to use when ordering `NewsFeed`.
+    """
     orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -278,15 +394,23 @@ type Query implements Node {
     condition: NewsFeedCondition
   ): NewsFeedsConnection
 
-  """Reads a set of `NewsFeed`."""
+  """
+  Reads a set of `NewsFeed`.
+  """
   newsFeeds(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `NewsFeed`."""
+    """
+    The method to use when ordering `NewsFeed`.
+    """
     orderBy: [NewsFeedsOrderBy!]
 
     """
@@ -295,12 +419,18 @@ type Query implements Node {
     condition: NewsFeedCondition
   ): [NewsFeed!]
 
-  """Reads and enables pagination through a set of `TopHeadlinesCache`."""
+  """
+  Reads and enables pagination through a set of `TopHeadlinesCache`.
+  """
   topHeadlinesCachesConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -309,13 +439,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `TopHeadlinesCache`."""
+    """
+    The method to use when ordering `TopHeadlinesCache`.
+    """
     orderBy: [TopHeadlinesCachesOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -324,15 +460,23 @@ type Query implements Node {
     condition: TopHeadlinesCacheCondition
   ): TopHeadlinesCachesConnection
 
-  """Reads a set of `TopHeadlinesCache`."""
+  """
+  Reads a set of `TopHeadlinesCache`.
+  """
   topHeadlinesCaches(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `TopHeadlinesCache`."""
+    """
+    The method to use when ordering `TopHeadlinesCache`.
+    """
     orderBy: [TopHeadlinesCachesOrderBy!]
 
     """
@@ -341,12 +485,18 @@ type Query implements Node {
     condition: TopHeadlinesCacheCondition
   ): [TopHeadlinesCache!]
 
-  """Reads and enables pagination through a set of `TopHeadlinesRequest`."""
+  """
+  Reads and enables pagination through a set of `TopHeadlinesRequest`.
+  """
   topHeadlinesRequestsConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -355,13 +505,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `TopHeadlinesRequest`."""
+    """
+    The method to use when ordering `TopHeadlinesRequest`.
+    """
     orderBy: [TopHeadlinesRequestsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -370,15 +526,23 @@ type Query implements Node {
     condition: TopHeadlinesRequestCondition
   ): TopHeadlinesRequestsConnection
 
-  """Reads a set of `TopHeadlinesRequest`."""
+  """
+  Reads a set of `TopHeadlinesRequest`.
+  """
   topHeadlinesRequests(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `TopHeadlinesRequest`."""
+    """
+    The method to use when ordering `TopHeadlinesRequest`.
+    """
     orderBy: [TopHeadlinesRequestsOrderBy!]
 
     """
@@ -387,12 +551,18 @@ type Query implements Node {
     condition: TopHeadlinesRequestCondition
   ): [TopHeadlinesRequest!]
 
-  """Reads and enables pagination through a set of `TwitterFeed`."""
+  """
+  Reads and enables pagination through a set of `TwitterFeed`.
+  """
   twitterFeedsConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -401,13 +571,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `TwitterFeed`."""
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
     orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -416,15 +592,23 @@ type Query implements Node {
     condition: TwitterFeedCondition
   ): TwitterFeedsConnection
 
-  """Reads a set of `TwitterFeed`."""
+  """
+  Reads a set of `TwitterFeed`.
+  """
   twitterFeeds(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `TwitterFeed`."""
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
     orderBy: [TwitterFeedsOrderBy!]
 
     """
@@ -433,12 +617,18 @@ type Query implements Node {
     condition: TwitterFeedCondition
   ): [TwitterFeed!]
 
-  """Reads and enables pagination through a set of `TwitterLocalSource`."""
+  """
+  Reads and enables pagination through a set of `TwitterLocalSource`.
+  """
   twitterLocalSourcesConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -447,13 +637,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `TwitterLocalSource`."""
+    """
+    The method to use when ordering `TwitterLocalSource`.
+    """
     orderBy: [TwitterLocalSourcesOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -462,15 +658,23 @@ type Query implements Node {
     condition: TwitterLocalSourceCondition
   ): TwitterLocalSourcesConnection
 
-  """Reads a set of `TwitterLocalSource`."""
+  """
+  Reads a set of `TwitterLocalSource`.
+  """
   twitterLocalSources(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `TwitterLocalSource`."""
+    """
+    The method to use when ordering `TwitterLocalSource`.
+    """
     orderBy: [TwitterLocalSourcesOrderBy!]
 
     """
@@ -479,12 +683,18 @@ type Query implements Node {
     condition: TwitterLocalSourceCondition
   ): [TwitterLocalSource!]
 
-  """Reads and enables pagination through a set of `TwitterSource`."""
+  """
+  Reads and enables pagination through a set of `TwitterSource`.
+  """
   twitterSourcesConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -493,13 +703,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `TwitterSource`."""
+    """
+    The method to use when ordering `TwitterSource`.
+    """
     orderBy: [TwitterSourcesOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -508,15 +724,23 @@ type Query implements Node {
     condition: TwitterSourceCondition
   ): TwitterSourcesConnection
 
-  """Reads a set of `TwitterSource`."""
+  """
+  Reads a set of `TwitterSource`.
+  """
   twitterSources(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `TwitterSource`."""
+    """
+    The method to use when ordering `TwitterSource`.
+    """
     orderBy: [TwitterSourcesOrderBy!]
 
     """
@@ -525,12 +749,18 @@ type Query implements Node {
     condition: TwitterSourceCondition
   ): [TwitterSource!]
 
-  """Reads and enables pagination through a set of `User`."""
+  """
+  Reads and enables pagination through a set of `User`.
+  """
   usersConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -539,13 +769,19 @@ type Query implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `User`."""
+    """
+    The method to use when ordering `User`.
+    """
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -554,15 +790,23 @@ type Query implements Node {
     condition: UserCondition
   ): UsersConnection
 
-  """Reads a set of `User`."""
+  """
+  Reads a set of `User`.
+  """
   users(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `User`."""
+    """
+    The method to use when ordering `User`.
+    """
     orderBy: [UsersOrderBy!]
 
     """
@@ -584,7 +828,9 @@ type Query implements Node {
   twitterFeedByTitleAndId(title: String!, id: Int!): TwitterFeed
   twitterLocalSource(accountId: Int!): TwitterLocalSource
   twitterLocalSourceByAccountName(accountName: String!): TwitterLocalSource
-  twitterLocalSourceByAccountUsername(accountUsername: String!): TwitterLocalSource
+  twitterLocalSourceByAccountUsername(
+    accountUsername: String!
+  ): TwitterLocalSource
   twitterSource(accountId: Int!): TwitterSource
   twitterSourceByAccountName(accountName: String!): TwitterSource
   twitterSourceByAccountUsername(accountUsername: String!): TwitterSource
@@ -592,7 +838,9 @@ type Query implements Node {
   userByUsername(username: String!): User
   currentUserId: Int
 
-  """Reads a single `CollectionArticle` using its globally unique `ID`."""
+  """
+  Reads a single `CollectionArticle` using its globally unique `ID`.
+  """
   collectionArticleByNodeId(
     """
     The globally unique `ID` to be used in selecting a single `CollectionArticle`.
@@ -610,7 +858,9 @@ type Query implements Node {
     nodeId: ID!
   ): CollectionGoogleFactCheck
 
-  """Reads a single `CollectionTweet` using its globally unique `ID`."""
+  """
+  Reads a single `CollectionTweet` using its globally unique `ID`.
+  """
   collectionTweetByNodeId(
     """
     The globally unique `ID` to be used in selecting a single `CollectionTweet`.
@@ -618,7 +868,9 @@ type Query implements Node {
     nodeId: ID!
   ): CollectionTweet
 
-  """Reads a single `CollectionVeraFile` using its globally unique `ID`."""
+  """
+  Reads a single `CollectionVeraFile` using its globally unique `ID`.
+  """
   collectionVeraFileByNodeId(
     """
     The globally unique `ID` to be used in selecting a single `CollectionVeraFile`.
@@ -626,7 +878,9 @@ type Query implements Node {
     nodeId: ID!
   ): CollectionVeraFile
 
-  """Reads a single `Collection` using its globally unique `ID`."""
+  """
+  Reads a single `Collection` using its globally unique `ID`.
+  """
   collectionByNodeId(
     """
     The globally unique `ID` to be used in selecting a single `Collection`.
@@ -634,13 +888,19 @@ type Query implements Node {
     nodeId: ID!
   ): Collection
 
-  """Reads a single `NewsFeed` using its globally unique `ID`."""
+  """
+  Reads a single `NewsFeed` using its globally unique `ID`.
+  """
   newsFeedByNodeId(
-    """The globally unique `ID` to be used in selecting a single `NewsFeed`."""
+    """
+    The globally unique `ID` to be used in selecting a single `NewsFeed`.
+    """
     nodeId: ID!
   ): NewsFeed
 
-  """Reads a single `TopHeadlinesCache` using its globally unique `ID`."""
+  """
+  Reads a single `TopHeadlinesCache` using its globally unique `ID`.
+  """
   topHeadlinesCacheByNodeId(
     """
     The globally unique `ID` to be used in selecting a single `TopHeadlinesCache`.
@@ -648,7 +908,9 @@ type Query implements Node {
     nodeId: ID!
   ): TopHeadlinesCache
 
-  """Reads a single `TopHeadlinesRequest` using its globally unique `ID`."""
+  """
+  Reads a single `TopHeadlinesRequest` using its globally unique `ID`.
+  """
   topHeadlinesRequestByNodeId(
     """
     The globally unique `ID` to be used in selecting a single `TopHeadlinesRequest`.
@@ -656,7 +918,9 @@ type Query implements Node {
     nodeId: ID!
   ): TopHeadlinesRequest
 
-  """Reads a single `TwitterFeed` using its globally unique `ID`."""
+  """
+  Reads a single `TwitterFeed` using its globally unique `ID`.
+  """
   twitterFeedByNodeId(
     """
     The globally unique `ID` to be used in selecting a single `TwitterFeed`.
@@ -664,7 +928,9 @@ type Query implements Node {
     nodeId: ID!
   ): TwitterFeed
 
-  """Reads a single `TwitterLocalSource` using its globally unique `ID`."""
+  """
+  Reads a single `TwitterLocalSource` using its globally unique `ID`.
+  """
   twitterLocalSourceByNodeId(
     """
     The globally unique `ID` to be used in selecting a single `TwitterLocalSource`.
@@ -672,7 +938,9 @@ type Query implements Node {
     nodeId: ID!
   ): TwitterLocalSource
 
-  """Reads a single `TwitterSource` using its globally unique `ID`."""
+  """
+  Reads a single `TwitterSource` using its globally unique `ID`.
+  """
   twitterSourceByNodeId(
     """
     The globally unique `ID` to be used in selecting a single `TwitterSource`.
@@ -680,16 +948,35 @@ type Query implements Node {
     nodeId: ID!
   ): TwitterSource
 
-  """Reads a single `User` using its globally unique `ID`."""
+  """
+  Reads a single `User` using its globally unique `ID`.
+  """
   userByNodeId(
-    """The globally unique `ID` to be used in selecting a single `User`."""
+    """
+    The globally unique `ID` to be used in selecting a single `User`.
+    """
     nodeId: ID!
   ): User
-  topHeadlines(country: String = "ph", sources: String, category: Category, keyword: String): [Article!]!
+  topHeadlines(
+    country: String = "ph"
+    sources: String
+    category: Category
+    keyword: String
+  ): [Article!]!
   topHeadlinesSources(country: String = "us", category: Category): [Source!]!
-  searchArticles(keyword: String!, sources: String, from: String, to: String): [Article!]!
+  searchArticles(
+    keyword: String!
+    sources: String
+    from: String
+    to: String
+  ): [Article!]!
   searchTweets(keyword: [String], sources: [String]): [Tweet!]!
-  searchAllTweets(keyword: [String!]!, sources: [String], fromDate: String, toDate: String): [Tweet!]!
+  searchAllTweets(
+    keyword: [String!]!
+    sources: [String]
+    fromDate: String
+    toDate: String
+  ): [Tweet!]!
   tweetLookup(id: String!): Tweet!
   veraFilesFactCheck(keyword: String): [VeraFiles!]!
   googleFactCheckSearch(keyword: String): [Claim!]!
@@ -697,7 +984,9 @@ type Query implements Node {
   collectionContents(collectionId: Int!): [CollectionContent!]!
 }
 
-"""An object with a globally unique `ID`."""
+"""
+An object with a globally unique `ID`.
+"""
 interface Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -705,9 +994,13 @@ interface Node {
   nodeId: ID!
 }
 
-"""A connection to a list of `CollectionArticle` values."""
+"""
+A connection to a list of `CollectionArticle` values.
+"""
 type CollectionArticlesConnection {
-  """A list of `CollectionArticle` objects."""
+  """
+  A list of `CollectionArticle` objects.
+  """
   nodes: [CollectionArticle]!
 
   """
@@ -715,7 +1008,9 @@ type CollectionArticlesConnection {
   """
   edges: [CollectionArticlesEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
   """
@@ -733,7 +1028,7 @@ type CollectionArticle implements Node {
   description: String
   publishedAt: String
   sourceName: String
-  title: String!
+  title: String
   url: String
   urlToImage: String
   collectionId: Int!
@@ -761,15 +1056,23 @@ type Collection implements Node {
   userId: Int
   createdAt: Datetime!
 
-  """Reads a single `User` that is related to this `Collection`."""
+  """
+  Reads a single `User` that is related to this `Collection`.
+  """
   user: User
 
-  """Reads and enables pagination through a set of `CollectionTweet`."""
+  """
+  Reads and enables pagination through a set of `CollectionTweet`.
+  """
   collectionTweetsConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -778,13 +1081,19 @@ type Collection implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `CollectionTweet`."""
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
     orderBy: [CollectionTweetsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -793,15 +1102,23 @@ type Collection implements Node {
     condition: CollectionTweetCondition
   ): CollectionTweetsConnection!
 
-  """Reads and enables pagination through a set of `CollectionTweet`."""
+  """
+  Reads and enables pagination through a set of `CollectionTweet`.
+  """
   collectionTweets(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `CollectionTweet`."""
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
     orderBy: [CollectionTweetsOrderBy!]
 
     """
@@ -810,12 +1127,18 @@ type Collection implements Node {
     condition: CollectionTweetCondition
   ): [CollectionTweet!]!
 
-  """Reads and enables pagination through a set of `CollectionArticle`."""
+  """
+  Reads and enables pagination through a set of `CollectionArticle`.
+  """
   collectionArticlesConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -824,13 +1147,19 @@ type Collection implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `CollectionArticle`."""
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
     orderBy: [CollectionArticlesOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -839,15 +1168,23 @@ type Collection implements Node {
     condition: CollectionArticleCondition
   ): CollectionArticlesConnection!
 
-  """Reads and enables pagination through a set of `CollectionArticle`."""
+  """
+  Reads and enables pagination through a set of `CollectionArticle`.
+  """
   collectionArticles(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `CollectionArticle`."""
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
     orderBy: [CollectionArticlesOrderBy!]
 
     """
@@ -856,12 +1193,18 @@ type Collection implements Node {
     condition: CollectionArticleCondition
   ): [CollectionArticle!]!
 
-  """Reads and enables pagination through a set of `CollectionVeraFile`."""
+  """
+  Reads and enables pagination through a set of `CollectionVeraFile`.
+  """
   collectionVeraFilesConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -870,13 +1213,19 @@ type Collection implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `CollectionVeraFile`."""
+    """
+    The method to use when ordering `CollectionVeraFile`.
+    """
     orderBy: [CollectionVeraFilesOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -885,15 +1234,23 @@ type Collection implements Node {
     condition: CollectionVeraFileCondition
   ): CollectionVeraFilesConnection!
 
-  """Reads and enables pagination through a set of `CollectionVeraFile`."""
+  """
+  Reads and enables pagination through a set of `CollectionVeraFile`.
+  """
   collectionVeraFiles(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `CollectionVeraFile`."""
+    """
+    The method to use when ordering `CollectionVeraFile`.
+    """
     orderBy: [CollectionVeraFilesOrderBy!]
 
     """
@@ -906,10 +1263,14 @@ type Collection implements Node {
   Reads and enables pagination through a set of `CollectionGoogleFactCheck`.
   """
   collectionGoogleFactChecksConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -918,13 +1279,19 @@ type Collection implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `CollectionGoogleFactCheck`."""
+    """
+    The method to use when ordering `CollectionGoogleFactCheck`.
+    """
     orderBy: [CollectionGoogleFactChecksOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -937,13 +1304,19 @@ type Collection implements Node {
   Reads and enables pagination through a set of `CollectionGoogleFactCheck`.
   """
   collectionGoogleFactChecks(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `CollectionGoogleFactCheck`."""
+    """
+    The method to use when ordering `CollectionGoogleFactCheck`.
+    """
     orderBy: [CollectionGoogleFactChecksOrderBy!]
 
     """
@@ -962,12 +1335,18 @@ type User implements Node {
   username: String!
   hashedPassword: String!
 
-  """Reads and enables pagination through a set of `NewsFeed`."""
+  """
+  Reads and enables pagination through a set of `NewsFeed`.
+  """
   newsFeedsConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -976,13 +1355,19 @@ type User implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `NewsFeed`."""
+    """
+    The method to use when ordering `NewsFeed`.
+    """
     orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -991,15 +1376,23 @@ type User implements Node {
     condition: NewsFeedCondition
   ): NewsFeedsConnection!
 
-  """Reads and enables pagination through a set of `NewsFeed`."""
+  """
+  Reads and enables pagination through a set of `NewsFeed`.
+  """
   newsFeeds(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `NewsFeed`."""
+    """
+    The method to use when ordering `NewsFeed`.
+    """
     orderBy: [NewsFeedsOrderBy!]
 
     """
@@ -1008,12 +1401,18 @@ type User implements Node {
     condition: NewsFeedCondition
   ): [NewsFeed!]!
 
-  """Reads and enables pagination through a set of `TwitterFeed`."""
+  """
+  Reads and enables pagination through a set of `TwitterFeed`.
+  """
   twitterFeedsConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -1022,13 +1421,19 @@ type User implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `TwitterFeed`."""
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
     orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -1037,15 +1442,23 @@ type User implements Node {
     condition: TwitterFeedCondition
   ): TwitterFeedsConnection!
 
-  """Reads and enables pagination through a set of `TwitterFeed`."""
+  """
+  Reads and enables pagination through a set of `TwitterFeed`.
+  """
   twitterFeeds(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `TwitterFeed`."""
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
     orderBy: [TwitterFeedsOrderBy!]
 
     """
@@ -1054,12 +1467,18 @@ type User implements Node {
     condition: TwitterFeedCondition
   ): [TwitterFeed!]!
 
-  """Reads and enables pagination through a set of `Collection`."""
+  """
+  Reads and enables pagination through a set of `Collection`.
+  """
   collectionsConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -1068,13 +1487,19 @@ type User implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `Collection`."""
+    """
+    The method to use when ordering `Collection`.
+    """
     orderBy: [CollectionsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -1083,15 +1508,23 @@ type User implements Node {
     condition: CollectionCondition
   ): CollectionsConnection!
 
-  """Reads and enables pagination through a set of `Collection`."""
+  """
+  Reads and enables pagination through a set of `Collection`.
+  """
   collections(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `Collection`."""
+    """
+    The method to use when ordering `Collection`.
+    """
     orderBy: [CollectionsOrderBy!]
 
     """
@@ -1101,9 +1534,13 @@ type User implements Node {
   ): [Collection!]!
 }
 
-"""A connection to a list of `NewsFeed` values."""
+"""
+A connection to a list of `NewsFeed` values.
+"""
 type NewsFeedsConnection {
-  """A list of `NewsFeed` objects."""
+  """
+  A list of `NewsFeed` objects.
+  """
   nodes: [NewsFeed]!
 
   """
@@ -1111,10 +1548,14 @@ type NewsFeedsConnection {
   """
   edges: [NewsFeedsEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
-  """The count of *all* `NewsFeed` you could get from the connection."""
+  """
+  The count of *all* `NewsFeed` you could get from the connection.
+  """
   totalCount: Int!
 }
 
@@ -1132,7 +1573,9 @@ type NewsFeed implements Node {
   userId: Int
   createdAt: Datetime!
 
-  """Reads a single `User` that is related to this `NewsFeed`."""
+  """
+  Reads a single `User` that is related to this `NewsFeed`.
+  """
   user: User
 }
 
@@ -1146,34 +1589,54 @@ enum Category {
   TECHNOLOGY
 }
 
-"""A `NewsFeed` edge in the connection."""
+"""
+A `NewsFeed` edge in the connection.
+"""
 type NewsFeedsEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `NewsFeed` at the end of the edge."""
+  """
+  The `NewsFeed` at the end of the edge.
+  """
   node: NewsFeed
 }
 
-"""A location in a connection that can be used for resuming pagination."""
+"""
+A location in a connection that can be used for resuming pagination.
+"""
 scalar Cursor
 
-"""Information about pagination in a connection."""
+"""
+Information about pagination in a connection.
+"""
 type PageInfo {
-  """When paginating forwards, are there more items?"""
+  """
+  When paginating forwards, are there more items?
+  """
   hasNextPage: Boolean!
 
-  """When paginating backwards, are there more items?"""
+  """
+  When paginating backwards, are there more items?
+  """
   hasPreviousPage: Boolean!
 
-  """When paginating backwards, the cursor to continue."""
+  """
+  When paginating backwards, the cursor to continue.
+  """
   startCursor: Cursor
 
-  """When paginating forwards, the cursor to continue."""
+  """
+  When paginating forwards, the cursor to continue.
+  """
   endCursor: Cursor
 }
 
-"""Methods to use when ordering `NewsFeed`."""
+"""
+Methods to use when ordering `NewsFeed`.
+"""
 enum NewsFeedsOrderBy {
   NATURAL
   ID_ASC
@@ -1191,19 +1654,29 @@ A condition to be used against `NewsFeed` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input NewsFeedCondition {
-  """Checks for equality with the object’s `id` field."""
+  """
+  Checks for equality with the object’s `id` field.
+  """
   id: Int
 
-  """Checks for equality with the object’s `title` field."""
+  """
+  Checks for equality with the object’s `title` field.
+  """
   title: String
 
-  """Checks for equality with the object’s `userId` field."""
+  """
+  Checks for equality with the object’s `userId` field.
+  """
   userId: Int
 }
 
-"""A connection to a list of `TwitterFeed` values."""
+"""
+A connection to a list of `TwitterFeed` values.
+"""
 type TwitterFeedsConnection {
-  """A list of `TwitterFeed` objects."""
+  """
+  A list of `TwitterFeed` objects.
+  """
   nodes: [TwitterFeed]!
 
   """
@@ -1211,10 +1684,14 @@ type TwitterFeedsConnection {
   """
   edges: [TwitterFeedsEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
-  """The count of *all* `TwitterFeed` you could get from the connection."""
+  """
+  The count of *all* `TwitterFeed` you could get from the connection.
+  """
   totalCount: Int!
 }
 
@@ -1230,20 +1707,30 @@ type TwitterFeed implements Node {
   userId: Int
   createdAt: Datetime!
 
-  """Reads a single `User` that is related to this `TwitterFeed`."""
+  """
+  Reads a single `User` that is related to this `TwitterFeed`.
+  """
   user: User
 }
 
-"""A `TwitterFeed` edge in the connection."""
+"""
+A `TwitterFeed` edge in the connection.
+"""
 type TwitterFeedsEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `TwitterFeed` at the end of the edge."""
+  """
+  The `TwitterFeed` at the end of the edge.
+  """
   node: TwitterFeed
 }
 
-"""Methods to use when ordering `TwitterFeed`."""
+"""
+Methods to use when ordering `TwitterFeed`.
+"""
 enum TwitterFeedsOrderBy {
   NATURAL
   ID_ASC
@@ -1261,19 +1748,29 @@ A condition to be used against `TwitterFeed` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input TwitterFeedCondition {
-  """Checks for equality with the object’s `id` field."""
+  """
+  Checks for equality with the object’s `id` field.
+  """
   id: Int
 
-  """Checks for equality with the object’s `title` field."""
+  """
+  Checks for equality with the object’s `title` field.
+  """
   title: String
 
-  """Checks for equality with the object’s `userId` field."""
+  """
+  Checks for equality with the object’s `userId` field.
+  """
   userId: Int
 }
 
-"""A connection to a list of `Collection` values."""
+"""
+A connection to a list of `Collection` values.
+"""
 type CollectionsConnection {
-  """A list of `Collection` objects."""
+  """
+  A list of `Collection` objects.
+  """
   nodes: [Collection]!
 
   """
@@ -1281,23 +1778,35 @@ type CollectionsConnection {
   """
   edges: [CollectionsEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
-  """The count of *all* `Collection` you could get from the connection."""
+  """
+  The count of *all* `Collection` you could get from the connection.
+  """
   totalCount: Int!
 }
 
-"""A `Collection` edge in the connection."""
+"""
+A `Collection` edge in the connection.
+"""
 type CollectionsEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `Collection` at the end of the edge."""
+  """
+  The `Collection` at the end of the edge.
+  """
   node: Collection
 }
 
-"""Methods to use when ordering `Collection`."""
+"""
+Methods to use when ordering `Collection`.
+"""
 enum CollectionsOrderBy {
   NATURAL
   ID_ASC
@@ -1315,19 +1824,29 @@ A condition to be used against `Collection` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input CollectionCondition {
-  """Checks for equality with the object’s `id` field."""
+  """
+  Checks for equality with the object’s `id` field.
+  """
   id: Int
 
-  """Checks for equality with the object’s `title` field."""
+  """
+  Checks for equality with the object’s `title` field.
+  """
   title: String
 
-  """Checks for equality with the object’s `userId` field."""
+  """
+  Checks for equality with the object’s `userId` field.
+  """
   userId: Int
 }
 
-"""A connection to a list of `CollectionTweet` values."""
+"""
+A connection to a list of `CollectionTweet` values.
+"""
 type CollectionTweetsConnection {
-  """A list of `CollectionTweet` objects."""
+  """
+  A list of `CollectionTweet` objects.
+  """
   nodes: [CollectionTweet]!
 
   """
@@ -1335,7 +1854,9 @@ type CollectionTweetsConnection {
   """
   edges: [CollectionTweetsEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
   """
@@ -1354,20 +1875,30 @@ type CollectionTweet implements Node {
   collectionId: Int!
   createdAt: Datetime!
 
-  """Reads a single `Collection` that is related to this `CollectionTweet`."""
+  """
+  Reads a single `Collection` that is related to this `CollectionTweet`.
+  """
   collection: Collection
 }
 
-"""A `CollectionTweet` edge in the connection."""
+"""
+A `CollectionTweet` edge in the connection.
+"""
 type CollectionTweetsEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `CollectionTweet` at the end of the edge."""
+  """
+  The `CollectionTweet` at the end of the edge.
+  """
   node: CollectionTweet
 }
 
-"""Methods to use when ordering `CollectionTweet`."""
+"""
+Methods to use when ordering `CollectionTweet`.
+"""
 enum CollectionTweetsOrderBy {
   NATURAL
   ID_ASC
@@ -1383,14 +1914,20 @@ A condition to be used against `CollectionTweet` object types. All fields are
 tested for equality and combined with a logical ‘and.’
 """
 input CollectionTweetCondition {
-  """Checks for equality with the object’s `id` field."""
+  """
+  Checks for equality with the object’s `id` field.
+  """
   id: Int
 
-  """Checks for equality with the object’s `collectionId` field."""
+  """
+  Checks for equality with the object’s `collectionId` field.
+  """
   collectionId: Int
 }
 
-"""Methods to use when ordering `CollectionArticle`."""
+"""
+Methods to use when ordering `CollectionArticle`.
+"""
 enum CollectionArticlesOrderBy {
   NATURAL
   ID_ASC
@@ -1406,16 +1943,24 @@ A condition to be used against `CollectionArticle` object types. All fields are
 tested for equality and combined with a logical ‘and.’
 """
 input CollectionArticleCondition {
-  """Checks for equality with the object’s `id` field."""
+  """
+  Checks for equality with the object’s `id` field.
+  """
   id: Int
 
-  """Checks for equality with the object’s `collectionId` field."""
+  """
+  Checks for equality with the object’s `collectionId` field.
+  """
   collectionId: Int
 }
 
-"""A connection to a list of `CollectionVeraFile` values."""
+"""
+A connection to a list of `CollectionVeraFile` values.
+"""
 type CollectionVeraFilesConnection {
-  """A list of `CollectionVeraFile` objects."""
+  """
+  A list of `CollectionVeraFile` objects.
+  """
   nodes: [CollectionVeraFile]!
 
   """
@@ -1423,7 +1968,9 @@ type CollectionVeraFilesConnection {
   """
   edges: [CollectionVeraFilesEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
   """
@@ -1438,15 +1985,15 @@ type CollectionVeraFile implements Node {
   """
   nodeId: ID!
   id: Int!
-  author: String!
-  category: String!
-  date: String!
-  dateText: String!
-  description: String!
-  imageStyle: String!
-  imageUrl: String!
-  url: String!
-  title: String!
+  author: String
+  category: String
+  date: String
+  dateText: String
+  description: String
+  imageStyle: String
+  imageUrl: String
+  url: String
+  title: String
   collectionId: Int!
   createdAt: Datetime!
 
@@ -1456,16 +2003,24 @@ type CollectionVeraFile implements Node {
   collection: Collection
 }
 
-"""A `CollectionVeraFile` edge in the connection."""
+"""
+A `CollectionVeraFile` edge in the connection.
+"""
 type CollectionVeraFilesEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `CollectionVeraFile` at the end of the edge."""
+  """
+  The `CollectionVeraFile` at the end of the edge.
+  """
   node: CollectionVeraFile
 }
 
-"""Methods to use when ordering `CollectionVeraFile`."""
+"""
+Methods to use when ordering `CollectionVeraFile`.
+"""
 enum CollectionVeraFilesOrderBy {
   NATURAL
   ID_ASC
@@ -1481,16 +2036,24 @@ A condition to be used against `CollectionVeraFile` object types. All fields are
 tested for equality and combined with a logical ‘and.’
 """
 input CollectionVeraFileCondition {
-  """Checks for equality with the object’s `id` field."""
+  """
+  Checks for equality with the object’s `id` field.
+  """
   id: Int
 
-  """Checks for equality with the object’s `collectionId` field."""
+  """
+  Checks for equality with the object’s `collectionId` field.
+  """
   collectionId: Int
 }
 
-"""A connection to a list of `CollectionGoogleFactCheck` values."""
+"""
+A connection to a list of `CollectionGoogleFactCheck` values.
+"""
 type CollectionGoogleFactChecksConnection {
-  """A list of `CollectionGoogleFactCheck` objects."""
+  """
+  A list of `CollectionGoogleFactCheck` objects.
+  """
   nodes: [CollectionGoogleFactCheck]!
 
   """
@@ -1498,7 +2061,9 @@ type CollectionGoogleFactChecksConnection {
   """
   edges: [CollectionGoogleFactChecksEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
   """
@@ -1513,16 +2078,16 @@ type CollectionGoogleFactCheck implements Node {
   """
   nodeId: ID!
   id: Int!
-  text: String!
-  claimant: String!
-  claimDate: String!
-  publisherName: String!
-  publisherSite: String!
-  url: String!
-  title: String!
-  reviewDate: String!
-  textualRating: String!
-  languageCode: String!
+  text: String
+  claimant: String
+  claimDate: String
+  publisherName: String
+  publisherSite: String
+  url: String
+  title: String
+  reviewDate: String
+  textualRating: String
+  languageCode: String
   collectionId: Int!
   createdAt: Datetime!
 
@@ -1532,16 +2097,24 @@ type CollectionGoogleFactCheck implements Node {
   collection: Collection
 }
 
-"""A `CollectionGoogleFactCheck` edge in the connection."""
+"""
+A `CollectionGoogleFactCheck` edge in the connection.
+"""
 type CollectionGoogleFactChecksEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `CollectionGoogleFactCheck` at the end of the edge."""
+  """
+  The `CollectionGoogleFactCheck` at the end of the edge.
+  """
   node: CollectionGoogleFactCheck
 }
 
-"""Methods to use when ordering `CollectionGoogleFactCheck`."""
+"""
+Methods to use when ordering `CollectionGoogleFactCheck`.
+"""
 enum CollectionGoogleFactChecksOrderBy {
   NATURAL
   ID_ASC
@@ -1557,25 +2130,39 @@ A condition to be used against `CollectionGoogleFactCheck` object types. All
 fields are tested for equality and combined with a logical ‘and.’
 """
 input CollectionGoogleFactCheckCondition {
-  """Checks for equality with the object’s `id` field."""
+  """
+  Checks for equality with the object’s `id` field.
+  """
   id: Int
 
-  """Checks for equality with the object’s `collectionId` field."""
+  """
+  Checks for equality with the object’s `collectionId` field.
+  """
   collectionId: Int
 }
 
-"""A `CollectionArticle` edge in the connection."""
+"""
+A `CollectionArticle` edge in the connection.
+"""
 type CollectionArticlesEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `CollectionArticle` at the end of the edge."""
+  """
+  The `CollectionArticle` at the end of the edge.
+  """
   node: CollectionArticle
 }
 
-"""A connection to a list of `TopHeadlinesCache` values."""
+"""
+A connection to a list of `TopHeadlinesCache` values.
+"""
 type TopHeadlinesCachesConnection {
-  """A list of `TopHeadlinesCache` objects."""
+  """
+  A list of `TopHeadlinesCache` objects.
+  """
   nodes: [TopHeadlinesCache]!
 
   """
@@ -1583,7 +2170,9 @@ type TopHeadlinesCachesConnection {
   """
   edges: [TopHeadlinesCachesEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
   """
@@ -1627,12 +2216,18 @@ type TopHeadlinesRequest implements Node {
   sources: String
   createdAt: Datetime!
 
-  """Reads and enables pagination through a set of `TopHeadlinesCache`."""
+  """
+  Reads and enables pagination through a set of `TopHeadlinesCache`.
+  """
   topHeadlinesCachesConnection(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Only read the last `n` values of the set."""
+    """
+    Only read the last `n` values of the set.
+    """
     last: Int
 
     """
@@ -1641,13 +2236,19 @@ type TopHeadlinesRequest implements Node {
     """
     offset: Int
 
-    """Read all values in the set before (above) this cursor."""
+    """
+    Read all values in the set before (above) this cursor.
+    """
     before: Cursor
 
-    """Read all values in the set after (below) this cursor."""
+    """
+    Read all values in the set after (below) this cursor.
+    """
     after: Cursor
 
-    """The method to use when ordering `TopHeadlinesCache`."""
+    """
+    The method to use when ordering `TopHeadlinesCache`.
+    """
     orderBy: [TopHeadlinesCachesOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
@@ -1656,15 +2257,23 @@ type TopHeadlinesRequest implements Node {
     condition: TopHeadlinesCacheCondition
   ): TopHeadlinesCachesConnection!
 
-  """Reads and enables pagination through a set of `TopHeadlinesCache`."""
+  """
+  Reads and enables pagination through a set of `TopHeadlinesCache`.
+  """
   topHeadlinesCaches(
-    """Only read the first `n` values of the set."""
+    """
+    Only read the first `n` values of the set.
+    """
     first: Int
 
-    """Skip the first `n` values."""
+    """
+    Skip the first `n` values.
+    """
     offset: Int
 
-    """The method to use when ordering `TopHeadlinesCache`."""
+    """
+    The method to use when ordering `TopHeadlinesCache`.
+    """
     orderBy: [TopHeadlinesCachesOrderBy!]
 
     """
@@ -1674,7 +2283,9 @@ type TopHeadlinesRequest implements Node {
   ): [TopHeadlinesCache!]!
 }
 
-"""Methods to use when ordering `TopHeadlinesCache`."""
+"""
+Methods to use when ordering `TopHeadlinesCache`.
+"""
 enum TopHeadlinesCachesOrderBy {
   NATURAL
   ID_ASC
@@ -1690,25 +2301,39 @@ A condition to be used against `TopHeadlinesCache` object types. All fields are
 tested for equality and combined with a logical ‘and.’
 """
 input TopHeadlinesCacheCondition {
-  """Checks for equality with the object’s `id` field."""
+  """
+  Checks for equality with the object’s `id` field.
+  """
   id: Int
 
-  """Checks for equality with the object’s `topHeadlinesRequestId` field."""
+  """
+  Checks for equality with the object’s `topHeadlinesRequestId` field.
+  """
   topHeadlinesRequestId: Int
 }
 
-"""A `TopHeadlinesCache` edge in the connection."""
+"""
+A `TopHeadlinesCache` edge in the connection.
+"""
 type TopHeadlinesCachesEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `TopHeadlinesCache` at the end of the edge."""
+  """
+  The `TopHeadlinesCache` at the end of the edge.
+  """
   node: TopHeadlinesCache
 }
 
-"""A connection to a list of `TopHeadlinesRequest` values."""
+"""
+A connection to a list of `TopHeadlinesRequest` values.
+"""
 type TopHeadlinesRequestsConnection {
-  """A list of `TopHeadlinesRequest` objects."""
+  """
+  A list of `TopHeadlinesRequest` objects.
+  """
   nodes: [TopHeadlinesRequest]!
 
   """
@@ -1716,7 +2341,9 @@ type TopHeadlinesRequestsConnection {
   """
   edges: [TopHeadlinesRequestsEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
   """
@@ -1725,16 +2352,24 @@ type TopHeadlinesRequestsConnection {
   totalCount: Int!
 }
 
-"""A `TopHeadlinesRequest` edge in the connection."""
+"""
+A `TopHeadlinesRequest` edge in the connection.
+"""
 type TopHeadlinesRequestsEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `TopHeadlinesRequest` at the end of the edge."""
+  """
+  The `TopHeadlinesRequest` at the end of the edge.
+  """
   node: TopHeadlinesRequest
 }
 
-"""Methods to use when ordering `TopHeadlinesRequest`."""
+"""
+Methods to use when ordering `TopHeadlinesRequest`.
+"""
 enum TopHeadlinesRequestsOrderBy {
   NATURAL
   ID_ASC
@@ -1748,13 +2383,19 @@ A condition to be used against `TopHeadlinesRequest` object types. All fields
 are tested for equality and combined with a logical ‘and.’
 """
 input TopHeadlinesRequestCondition {
-  """Checks for equality with the object’s `id` field."""
+  """
+  Checks for equality with the object’s `id` field.
+  """
   id: Int
 }
 
-"""A connection to a list of `TwitterLocalSource` values."""
+"""
+A connection to a list of `TwitterLocalSource` values.
+"""
 type TwitterLocalSourcesConnection {
-  """A list of `TwitterLocalSource` objects."""
+  """
+  A list of `TwitterLocalSource` objects.
+  """
   nodes: [TwitterLocalSource]!
 
   """
@@ -1762,7 +2403,9 @@ type TwitterLocalSourcesConnection {
   """
   edges: [TwitterLocalSourcesEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
   """
@@ -1781,16 +2424,24 @@ type TwitterLocalSource implements Node {
   accountUsername: String!
 }
 
-"""A `TwitterLocalSource` edge in the connection."""
+"""
+A `TwitterLocalSource` edge in the connection.
+"""
 type TwitterLocalSourcesEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `TwitterLocalSource` at the end of the edge."""
+  """
+  The `TwitterLocalSource` at the end of the edge.
+  """
   node: TwitterLocalSource
 }
 
-"""Methods to use when ordering `TwitterLocalSource`."""
+"""
+Methods to use when ordering `TwitterLocalSource`.
+"""
 enum TwitterLocalSourcesOrderBy {
   NATURAL
   ACCOUNT_ID_ASC
@@ -1808,19 +2459,29 @@ A condition to be used against `TwitterLocalSource` object types. All fields are
 tested for equality and combined with a logical ‘and.’
 """
 input TwitterLocalSourceCondition {
-  """Checks for equality with the object’s `accountId` field."""
+  """
+  Checks for equality with the object’s `accountId` field.
+  """
   accountId: Int
 
-  """Checks for equality with the object’s `accountName` field."""
+  """
+  Checks for equality with the object’s `accountName` field.
+  """
   accountName: String
 
-  """Checks for equality with the object’s `accountUsername` field."""
+  """
+  Checks for equality with the object’s `accountUsername` field.
+  """
   accountUsername: String
 }
 
-"""A connection to a list of `TwitterSource` values."""
+"""
+A connection to a list of `TwitterSource` values.
+"""
 type TwitterSourcesConnection {
-  """A list of `TwitterSource` objects."""
+  """
+  A list of `TwitterSource` objects.
+  """
   nodes: [TwitterSource]!
 
   """
@@ -1828,10 +2489,14 @@ type TwitterSourcesConnection {
   """
   edges: [TwitterSourcesEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
-  """The count of *all* `TwitterSource` you could get from the connection."""
+  """
+  The count of *all* `TwitterSource` you could get from the connection.
+  """
   totalCount: Int!
 }
 
@@ -1845,16 +2510,24 @@ type TwitterSource implements Node {
   accountUsername: String!
 }
 
-"""A `TwitterSource` edge in the connection."""
+"""
+A `TwitterSource` edge in the connection.
+"""
 type TwitterSourcesEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `TwitterSource` at the end of the edge."""
+  """
+  The `TwitterSource` at the end of the edge.
+  """
   node: TwitterSource
 }
 
-"""Methods to use when ordering `TwitterSource`."""
+"""
+Methods to use when ordering `TwitterSource`.
+"""
 enum TwitterSourcesOrderBy {
   NATURAL
   ACCOUNT_ID_ASC
@@ -1872,19 +2545,29 @@ A condition to be used against `TwitterSource` object types. All fields are
 tested for equality and combined with a logical ‘and.’
 """
 input TwitterSourceCondition {
-  """Checks for equality with the object’s `accountId` field."""
+  """
+  Checks for equality with the object’s `accountId` field.
+  """
   accountId: Int
 
-  """Checks for equality with the object’s `accountName` field."""
+  """
+  Checks for equality with the object’s `accountName` field.
+  """
   accountName: String
 
-  """Checks for equality with the object’s `accountUsername` field."""
+  """
+  Checks for equality with the object’s `accountUsername` field.
+  """
   accountUsername: String
 }
 
-"""A connection to a list of `User` values."""
+"""
+A connection to a list of `User` values.
+"""
 type UsersConnection {
-  """A list of `User` objects."""
+  """
+  A list of `User` objects.
+  """
   nodes: [User]!
 
   """
@@ -1892,23 +2575,35 @@ type UsersConnection {
   """
   edges: [UsersEdge!]!
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
-  """The count of *all* `User` you could get from the connection."""
+  """
+  The count of *all* `User` you could get from the connection.
+  """
   totalCount: Int!
 }
 
-"""A `User` edge in the connection."""
+"""
+A `User` edge in the connection.
+"""
 type UsersEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: Cursor
 
-  """The `User` at the end of the edge."""
+  """
+  The `User` at the end of the edge.
+  """
   node: User
 }
 
-"""Methods to use when ordering `User`."""
+"""
+Methods to use when ordering `User`.
+"""
 enum UsersOrderBy {
   NATURAL
   ID_ASC
@@ -1923,10 +2618,14 @@ enum UsersOrderBy {
 A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input UserCondition {
-  """Checks for equality with the object’s `id` field."""
+  """
+  Checks for equality with the object’s `id` field.
+  """
   id: Int
 
-  """Checks for equality with the object’s `username` field."""
+  """
+  Checks for equality with the object’s `username` field.
+  """
   username: String
 }
 
@@ -1973,7 +2672,7 @@ type TwitterPhoto {
 }
 
 type VeraFiles {
-  id: Int
+  id: Int!
   author: String
   description: String
   title: String
@@ -2000,13 +2699,19 @@ type Claim {
 
 union ColumnResult = NewsFeed | TwitterFeed | Collection
 
-union CollectionContent = CollectionTweet | CollectionArticle | CollectionVeraFile | CollectionGoogleFactCheck
+union CollectionContent =
+    CollectionTweet
+  | CollectionArticle
+  | CollectionVeraFile
+  | CollectionGoogleFactCheck
 
 """
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
-  """Creates a single `CollectionArticle`."""
+  """
+  Creates a single `CollectionArticle`.
+  """
   createCollectionArticle(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2014,7 +2719,9 @@ type Mutation {
     input: CreateCollectionArticleInput!
   ): CreateCollectionArticlePayload
 
-  """Creates a single `CollectionGoogleFactCheck`."""
+  """
+  Creates a single `CollectionGoogleFactCheck`.
+  """
   createCollectionGoogleFactCheck(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2022,7 +2729,9 @@ type Mutation {
     input: CreateCollectionGoogleFactCheckInput!
   ): CreateCollectionGoogleFactCheckPayload
 
-  """Creates a single `CollectionTweet`."""
+  """
+  Creates a single `CollectionTweet`.
+  """
   createCollectionTweet(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2030,7 +2739,9 @@ type Mutation {
     input: CreateCollectionTweetInput!
   ): CreateCollectionTweetPayload
 
-  """Creates a single `CollectionVeraFile`."""
+  """
+  Creates a single `CollectionVeraFile`.
+  """
   createCollectionVeraFile(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2038,7 +2749,9 @@ type Mutation {
     input: CreateCollectionVeraFileInput!
   ): CreateCollectionVeraFilePayload
 
-  """Creates a single `Collection`."""
+  """
+  Creates a single `Collection`.
+  """
   createCollection(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2046,7 +2759,9 @@ type Mutation {
     input: CreateCollectionInput!
   ): CreateCollectionPayload
 
-  """Creates a single `NewsFeed`."""
+  """
+  Creates a single `NewsFeed`.
+  """
   createNewsFeed(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2054,7 +2769,9 @@ type Mutation {
     input: CreateNewsFeedInput!
   ): CreateNewsFeedPayload
 
-  """Creates a single `TopHeadlinesCache`."""
+  """
+  Creates a single `TopHeadlinesCache`.
+  """
   createTopHeadlinesCache(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2062,7 +2779,9 @@ type Mutation {
     input: CreateTopHeadlinesCacheInput!
   ): CreateTopHeadlinesCachePayload
 
-  """Creates a single `TopHeadlinesRequest`."""
+  """
+  Creates a single `TopHeadlinesRequest`.
+  """
   createTopHeadlinesRequest(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2070,7 +2789,9 @@ type Mutation {
     input: CreateTopHeadlinesRequestInput!
   ): CreateTopHeadlinesRequestPayload
 
-  """Creates a single `TwitterFeed`."""
+  """
+  Creates a single `TwitterFeed`.
+  """
   createTwitterFeed(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2078,7 +2799,9 @@ type Mutation {
     input: CreateTwitterFeedInput!
   ): CreateTwitterFeedPayload
 
-  """Creates a single `TwitterLocalSource`."""
+  """
+  Creates a single `TwitterLocalSource`.
+  """
   createTwitterLocalSource(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2086,7 +2809,9 @@ type Mutation {
     input: CreateTwitterLocalSourceInput!
   ): CreateTwitterLocalSourcePayload
 
-  """Creates a single `TwitterSource`."""
+  """
+  Creates a single `TwitterSource`.
+  """
   createTwitterSource(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2094,7 +2819,9 @@ type Mutation {
     input: CreateTwitterSourceInput!
   ): CreateTwitterSourcePayload
 
-  """Creates a single `User`."""
+  """
+  Creates a single `User`.
+  """
   createUser(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2112,7 +2839,9 @@ type Mutation {
     input: UpdateCollectionArticleByNodeIdInput!
   ): UpdateCollectionArticlePayload
 
-  """Updates a single `CollectionArticle` using a unique key and a patch."""
+  """
+  Updates a single `CollectionArticle` using a unique key and a patch.
+  """
   updateCollectionArticle(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2150,7 +2879,9 @@ type Mutation {
     input: UpdateCollectionTweetByNodeIdInput!
   ): UpdateCollectionTweetPayload
 
-  """Updates a single `CollectionTweet` using a unique key and a patch."""
+  """
+  Updates a single `CollectionTweet` using a unique key and a patch.
+  """
   updateCollectionTweet(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2168,7 +2899,9 @@ type Mutation {
     input: UpdateCollectionVeraFileByNodeIdInput!
   ): UpdateCollectionVeraFilePayload
 
-  """Updates a single `CollectionVeraFile` using a unique key and a patch."""
+  """
+  Updates a single `CollectionVeraFile` using a unique key and a patch.
+  """
   updateCollectionVeraFile(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2186,7 +2919,9 @@ type Mutation {
     input: UpdateCollectionByNodeIdInput!
   ): UpdateCollectionPayload
 
-  """Updates a single `Collection` using a unique key and a patch."""
+  """
+  Updates a single `Collection` using a unique key and a patch.
+  """
   updateCollection(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2194,7 +2929,9 @@ type Mutation {
     input: UpdateCollectionInput!
   ): UpdateCollectionPayload
 
-  """Updates a single `Collection` using a unique key and a patch."""
+  """
+  Updates a single `Collection` using a unique key and a patch.
+  """
   updateCollectionByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2202,7 +2939,9 @@ type Mutation {
     input: UpdateCollectionByTitleAndIdInput!
   ): UpdateCollectionPayload
 
-  """Updates a single `NewsFeed` using its globally unique id and a patch."""
+  """
+  Updates a single `NewsFeed` using its globally unique id and a patch.
+  """
   updateNewsFeedByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2210,7 +2949,9 @@ type Mutation {
     input: UpdateNewsFeedByNodeIdInput!
   ): UpdateNewsFeedPayload
 
-  """Updates a single `NewsFeed` using a unique key and a patch."""
+  """
+  Updates a single `NewsFeed` using a unique key and a patch.
+  """
   updateNewsFeed(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2218,7 +2959,9 @@ type Mutation {
     input: UpdateNewsFeedInput!
   ): UpdateNewsFeedPayload
 
-  """Updates a single `NewsFeed` using a unique key and a patch."""
+  """
+  Updates a single `NewsFeed` using a unique key and a patch.
+  """
   updateNewsFeedByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2236,7 +2979,9 @@ type Mutation {
     input: UpdateTopHeadlinesCacheByNodeIdInput!
   ): UpdateTopHeadlinesCachePayload
 
-  """Updates a single `TopHeadlinesCache` using a unique key and a patch."""
+  """
+  Updates a single `TopHeadlinesCache` using a unique key and a patch.
+  """
   updateTopHeadlinesCache(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2254,7 +2999,9 @@ type Mutation {
     input: UpdateTopHeadlinesRequestByNodeIdInput!
   ): UpdateTopHeadlinesRequestPayload
 
-  """Updates a single `TopHeadlinesRequest` using a unique key and a patch."""
+  """
+  Updates a single `TopHeadlinesRequest` using a unique key and a patch.
+  """
   updateTopHeadlinesRequest(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2272,7 +3019,9 @@ type Mutation {
     input: UpdateTwitterFeedByNodeIdInput!
   ): UpdateTwitterFeedPayload
 
-  """Updates a single `TwitterFeed` using a unique key and a patch."""
+  """
+  Updates a single `TwitterFeed` using a unique key and a patch.
+  """
   updateTwitterFeed(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2280,7 +3029,9 @@ type Mutation {
     input: UpdateTwitterFeedInput!
   ): UpdateTwitterFeedPayload
 
-  """Updates a single `TwitterFeed` using a unique key and a patch."""
+  """
+  Updates a single `TwitterFeed` using a unique key and a patch.
+  """
   updateTwitterFeedByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2298,7 +3049,9 @@ type Mutation {
     input: UpdateTwitterLocalSourceByNodeIdInput!
   ): UpdateTwitterLocalSourcePayload
 
-  """Updates a single `TwitterLocalSource` using a unique key and a patch."""
+  """
+  Updates a single `TwitterLocalSource` using a unique key and a patch.
+  """
   updateTwitterLocalSource(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2306,7 +3059,9 @@ type Mutation {
     input: UpdateTwitterLocalSourceInput!
   ): UpdateTwitterLocalSourcePayload
 
-  """Updates a single `TwitterLocalSource` using a unique key and a patch."""
+  """
+  Updates a single `TwitterLocalSource` using a unique key and a patch.
+  """
   updateTwitterLocalSourceByAccountName(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2314,7 +3069,9 @@ type Mutation {
     input: UpdateTwitterLocalSourceByAccountNameInput!
   ): UpdateTwitterLocalSourcePayload
 
-  """Updates a single `TwitterLocalSource` using a unique key and a patch."""
+  """
+  Updates a single `TwitterLocalSource` using a unique key and a patch.
+  """
   updateTwitterLocalSourceByAccountUsername(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2332,7 +3089,9 @@ type Mutation {
     input: UpdateTwitterSourceByNodeIdInput!
   ): UpdateTwitterSourcePayload
 
-  """Updates a single `TwitterSource` using a unique key and a patch."""
+  """
+  Updates a single `TwitterSource` using a unique key and a patch.
+  """
   updateTwitterSource(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2340,7 +3099,9 @@ type Mutation {
     input: UpdateTwitterSourceInput!
   ): UpdateTwitterSourcePayload
 
-  """Updates a single `TwitterSource` using a unique key and a patch."""
+  """
+  Updates a single `TwitterSource` using a unique key and a patch.
+  """
   updateTwitterSourceByAccountName(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2348,7 +3109,9 @@ type Mutation {
     input: UpdateTwitterSourceByAccountNameInput!
   ): UpdateTwitterSourcePayload
 
-  """Updates a single `TwitterSource` using a unique key and a patch."""
+  """
+  Updates a single `TwitterSource` using a unique key and a patch.
+  """
   updateTwitterSourceByAccountUsername(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2356,7 +3119,9 @@ type Mutation {
     input: UpdateTwitterSourceByAccountUsernameInput!
   ): UpdateTwitterSourcePayload
 
-  """Updates a single `User` using its globally unique id and a patch."""
+  """
+  Updates a single `User` using its globally unique id and a patch.
+  """
   updateUserByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2364,7 +3129,9 @@ type Mutation {
     input: UpdateUserByNodeIdInput!
   ): UpdateUserPayload
 
-  """Updates a single `User` using a unique key and a patch."""
+  """
+  Updates a single `User` using a unique key and a patch.
+  """
   updateUser(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2372,7 +3139,9 @@ type Mutation {
     input: UpdateUserInput!
   ): UpdateUserPayload
 
-  """Updates a single `User` using a unique key and a patch."""
+  """
+  Updates a single `User` using a unique key and a patch.
+  """
   updateUserByUsername(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2380,7 +3149,9 @@ type Mutation {
     input: UpdateUserByUsernameInput!
   ): UpdateUserPayload
 
-  """Deletes a single `CollectionArticle` using its globally unique id."""
+  """
+  Deletes a single `CollectionArticle` using its globally unique id.
+  """
   deleteCollectionArticleByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2388,7 +3159,9 @@ type Mutation {
     input: DeleteCollectionArticleByNodeIdInput!
   ): DeleteCollectionArticlePayload
 
-  """Deletes a single `CollectionArticle` using a unique key."""
+  """
+  Deletes a single `CollectionArticle` using a unique key.
+  """
   deleteCollectionArticle(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2406,7 +3179,9 @@ type Mutation {
     input: DeleteCollectionGoogleFactCheckByNodeIdInput!
   ): DeleteCollectionGoogleFactCheckPayload
 
-  """Deletes a single `CollectionGoogleFactCheck` using a unique key."""
+  """
+  Deletes a single `CollectionGoogleFactCheck` using a unique key.
+  """
   deleteCollectionGoogleFactCheck(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2414,7 +3189,9 @@ type Mutation {
     input: DeleteCollectionGoogleFactCheckInput!
   ): DeleteCollectionGoogleFactCheckPayload
 
-  """Deletes a single `CollectionTweet` using its globally unique id."""
+  """
+  Deletes a single `CollectionTweet` using its globally unique id.
+  """
   deleteCollectionTweetByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2422,7 +3199,9 @@ type Mutation {
     input: DeleteCollectionTweetByNodeIdInput!
   ): DeleteCollectionTweetPayload
 
-  """Deletes a single `CollectionTweet` using a unique key."""
+  """
+  Deletes a single `CollectionTweet` using a unique key.
+  """
   deleteCollectionTweet(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2430,7 +3209,9 @@ type Mutation {
     input: DeleteCollectionTweetInput!
   ): DeleteCollectionTweetPayload
 
-  """Deletes a single `CollectionVeraFile` using its globally unique id."""
+  """
+  Deletes a single `CollectionVeraFile` using its globally unique id.
+  """
   deleteCollectionVeraFileByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2438,7 +3219,9 @@ type Mutation {
     input: DeleteCollectionVeraFileByNodeIdInput!
   ): DeleteCollectionVeraFilePayload
 
-  """Deletes a single `CollectionVeraFile` using a unique key."""
+  """
+  Deletes a single `CollectionVeraFile` using a unique key.
+  """
   deleteCollectionVeraFile(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2446,7 +3229,9 @@ type Mutation {
     input: DeleteCollectionVeraFileInput!
   ): DeleteCollectionVeraFilePayload
 
-  """Deletes a single `Collection` using its globally unique id."""
+  """
+  Deletes a single `Collection` using its globally unique id.
+  """
   deleteCollectionByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2454,7 +3239,9 @@ type Mutation {
     input: DeleteCollectionByNodeIdInput!
   ): DeleteCollectionPayload
 
-  """Deletes a single `Collection` using a unique key."""
+  """
+  Deletes a single `Collection` using a unique key.
+  """
   deleteCollection(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2462,7 +3249,9 @@ type Mutation {
     input: DeleteCollectionInput!
   ): DeleteCollectionPayload
 
-  """Deletes a single `Collection` using a unique key."""
+  """
+  Deletes a single `Collection` using a unique key.
+  """
   deleteCollectionByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2470,7 +3259,9 @@ type Mutation {
     input: DeleteCollectionByTitleAndIdInput!
   ): DeleteCollectionPayload
 
-  """Deletes a single `NewsFeed` using its globally unique id."""
+  """
+  Deletes a single `NewsFeed` using its globally unique id.
+  """
   deleteNewsFeedByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2478,7 +3269,9 @@ type Mutation {
     input: DeleteNewsFeedByNodeIdInput!
   ): DeleteNewsFeedPayload
 
-  """Deletes a single `NewsFeed` using a unique key."""
+  """
+  Deletes a single `NewsFeed` using a unique key.
+  """
   deleteNewsFeed(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2486,7 +3279,9 @@ type Mutation {
     input: DeleteNewsFeedInput!
   ): DeleteNewsFeedPayload
 
-  """Deletes a single `NewsFeed` using a unique key."""
+  """
+  Deletes a single `NewsFeed` using a unique key.
+  """
   deleteNewsFeedByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2494,7 +3289,9 @@ type Mutation {
     input: DeleteNewsFeedByTitleAndIdInput!
   ): DeleteNewsFeedPayload
 
-  """Deletes a single `TopHeadlinesCache` using its globally unique id."""
+  """
+  Deletes a single `TopHeadlinesCache` using its globally unique id.
+  """
   deleteTopHeadlinesCacheByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2502,7 +3299,9 @@ type Mutation {
     input: DeleteTopHeadlinesCacheByNodeIdInput!
   ): DeleteTopHeadlinesCachePayload
 
-  """Deletes a single `TopHeadlinesCache` using a unique key."""
+  """
+  Deletes a single `TopHeadlinesCache` using a unique key.
+  """
   deleteTopHeadlinesCache(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2510,7 +3309,9 @@ type Mutation {
     input: DeleteTopHeadlinesCacheInput!
   ): DeleteTopHeadlinesCachePayload
 
-  """Deletes a single `TopHeadlinesRequest` using its globally unique id."""
+  """
+  Deletes a single `TopHeadlinesRequest` using its globally unique id.
+  """
   deleteTopHeadlinesRequestByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2518,7 +3319,9 @@ type Mutation {
     input: DeleteTopHeadlinesRequestByNodeIdInput!
   ): DeleteTopHeadlinesRequestPayload
 
-  """Deletes a single `TopHeadlinesRequest` using a unique key."""
+  """
+  Deletes a single `TopHeadlinesRequest` using a unique key.
+  """
   deleteTopHeadlinesRequest(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2526,7 +3329,9 @@ type Mutation {
     input: DeleteTopHeadlinesRequestInput!
   ): DeleteTopHeadlinesRequestPayload
 
-  """Deletes a single `TwitterFeed` using its globally unique id."""
+  """
+  Deletes a single `TwitterFeed` using its globally unique id.
+  """
   deleteTwitterFeedByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2534,7 +3339,9 @@ type Mutation {
     input: DeleteTwitterFeedByNodeIdInput!
   ): DeleteTwitterFeedPayload
 
-  """Deletes a single `TwitterFeed` using a unique key."""
+  """
+  Deletes a single `TwitterFeed` using a unique key.
+  """
   deleteTwitterFeed(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2542,7 +3349,9 @@ type Mutation {
     input: DeleteTwitterFeedInput!
   ): DeleteTwitterFeedPayload
 
-  """Deletes a single `TwitterFeed` using a unique key."""
+  """
+  Deletes a single `TwitterFeed` using a unique key.
+  """
   deleteTwitterFeedByTitleAndId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2550,7 +3359,9 @@ type Mutation {
     input: DeleteTwitterFeedByTitleAndIdInput!
   ): DeleteTwitterFeedPayload
 
-  """Deletes a single `TwitterLocalSource` using its globally unique id."""
+  """
+  Deletes a single `TwitterLocalSource` using its globally unique id.
+  """
   deleteTwitterLocalSourceByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2558,7 +3369,9 @@ type Mutation {
     input: DeleteTwitterLocalSourceByNodeIdInput!
   ): DeleteTwitterLocalSourcePayload
 
-  """Deletes a single `TwitterLocalSource` using a unique key."""
+  """
+  Deletes a single `TwitterLocalSource` using a unique key.
+  """
   deleteTwitterLocalSource(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2566,7 +3379,9 @@ type Mutation {
     input: DeleteTwitterLocalSourceInput!
   ): DeleteTwitterLocalSourcePayload
 
-  """Deletes a single `TwitterLocalSource` using a unique key."""
+  """
+  Deletes a single `TwitterLocalSource` using a unique key.
+  """
   deleteTwitterLocalSourceByAccountName(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2574,7 +3389,9 @@ type Mutation {
     input: DeleteTwitterLocalSourceByAccountNameInput!
   ): DeleteTwitterLocalSourcePayload
 
-  """Deletes a single `TwitterLocalSource` using a unique key."""
+  """
+  Deletes a single `TwitterLocalSource` using a unique key.
+  """
   deleteTwitterLocalSourceByAccountUsername(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2582,7 +3399,9 @@ type Mutation {
     input: DeleteTwitterLocalSourceByAccountUsernameInput!
   ): DeleteTwitterLocalSourcePayload
 
-  """Deletes a single `TwitterSource` using its globally unique id."""
+  """
+  Deletes a single `TwitterSource` using its globally unique id.
+  """
   deleteTwitterSourceByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2590,7 +3409,9 @@ type Mutation {
     input: DeleteTwitterSourceByNodeIdInput!
   ): DeleteTwitterSourcePayload
 
-  """Deletes a single `TwitterSource` using a unique key."""
+  """
+  Deletes a single `TwitterSource` using a unique key.
+  """
   deleteTwitterSource(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2598,7 +3419,9 @@ type Mutation {
     input: DeleteTwitterSourceInput!
   ): DeleteTwitterSourcePayload
 
-  """Deletes a single `TwitterSource` using a unique key."""
+  """
+  Deletes a single `TwitterSource` using a unique key.
+  """
   deleteTwitterSourceByAccountName(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2606,7 +3429,9 @@ type Mutation {
     input: DeleteTwitterSourceByAccountNameInput!
   ): DeleteTwitterSourcePayload
 
-  """Deletes a single `TwitterSource` using a unique key."""
+  """
+  Deletes a single `TwitterSource` using a unique key.
+  """
   deleteTwitterSourceByAccountUsername(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2614,7 +3439,9 @@ type Mutation {
     input: DeleteTwitterSourceByAccountUsernameInput!
   ): DeleteTwitterSourcePayload
 
-  """Deletes a single `User` using its globally unique id."""
+  """
+  Deletes a single `User` using its globally unique id.
+  """
   deleteUserByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2622,7 +3449,9 @@ type Mutation {
     input: DeleteUserByNodeIdInput!
   ): DeleteUserPayload
 
-  """Deletes a single `User` using a unique key."""
+  """
+  Deletes a single `User` using a unique key.
+  """
   deleteUser(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2630,7 +3459,9 @@ type Mutation {
     input: DeleteUserInput!
   ): DeleteUserPayload
 
-  """Deletes a single `User` using a unique key."""
+  """
+  Deletes a single `User` using a unique key.
+  """
   deleteUserByUsername(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -2651,7 +3482,9 @@ type Mutation {
   ): SignupPayload
 }
 
-"""The output of our create `CollectionArticle` mutation."""
+"""
+The output of our create `CollectionArticle` mutation.
+"""
 type CreateCollectionArticlePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -2659,7 +3492,9 @@ type CreateCollectionArticlePayload {
   """
   clientMutationId: String
 
-  """The `CollectionArticle` that was created by this mutation."""
+  """
+  The `CollectionArticle` that was created by this mutation.
+  """
   collectionArticle: CollectionArticle
 
   """
@@ -2672,14 +3507,20 @@ type CreateCollectionArticlePayload {
   """
   collection: Collection
 
-  """An edge for our `CollectionArticle`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionArticle`. May be used by Relay 1.
+  """
   collectionArticleEdge(
-    """The method to use when ordering `CollectionArticle`."""
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
     orderBy: [CollectionArticlesOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionArticlesEdge
 }
 
-"""All input for the create `CollectionArticle` mutation."""
+"""
+All input for the create `CollectionArticle` mutation.
+"""
 input CreateCollectionArticleInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -2687,24 +3528,30 @@ input CreateCollectionArticleInput {
   """
   clientMutationId: String
 
-  """The `CollectionArticle` to be created by this mutation."""
+  """
+  The `CollectionArticle` to be created by this mutation.
+  """
   collectionArticle: CollectionArticleInput!
 }
 
-"""An input for mutations affecting `CollectionArticle`"""
+"""
+An input for mutations affecting `CollectionArticle`
+"""
 input CollectionArticleInput {
   id: Int
   description: String
   publishedAt: String
   sourceName: String
-  title: String!
+  title: String
   url: String
   urlToImage: String
   collectionId: Int!
   createdAt: Datetime
 }
 
-"""The output of our create `CollectionGoogleFactCheck` mutation."""
+"""
+The output of our create `CollectionGoogleFactCheck` mutation.
+"""
 type CreateCollectionGoogleFactCheckPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -2712,7 +3559,9 @@ type CreateCollectionGoogleFactCheckPayload {
   """
   clientMutationId: String
 
-  """The `CollectionGoogleFactCheck` that was created by this mutation."""
+  """
+  The `CollectionGoogleFactCheck` that was created by this mutation.
+  """
   collectionGoogleFactCheck: CollectionGoogleFactCheck
 
   """
@@ -2725,14 +3574,20 @@ type CreateCollectionGoogleFactCheckPayload {
   """
   collection: Collection
 
-  """An edge for our `CollectionGoogleFactCheck`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionGoogleFactCheck`. May be used by Relay 1.
+  """
   collectionGoogleFactCheckEdge(
-    """The method to use when ordering `CollectionGoogleFactCheck`."""
+    """
+    The method to use when ordering `CollectionGoogleFactCheck`.
+    """
     orderBy: [CollectionGoogleFactChecksOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionGoogleFactChecksEdge
 }
 
-"""All input for the create `CollectionGoogleFactCheck` mutation."""
+"""
+All input for the create `CollectionGoogleFactCheck` mutation.
+"""
 input CreateCollectionGoogleFactCheckInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -2740,28 +3595,34 @@ input CreateCollectionGoogleFactCheckInput {
   """
   clientMutationId: String
 
-  """The `CollectionGoogleFactCheck` to be created by this mutation."""
+  """
+  The `CollectionGoogleFactCheck` to be created by this mutation.
+  """
   collectionGoogleFactCheck: CollectionGoogleFactCheckInput!
 }
 
-"""An input for mutations affecting `CollectionGoogleFactCheck`"""
+"""
+An input for mutations affecting `CollectionGoogleFactCheck`
+"""
 input CollectionGoogleFactCheckInput {
   id: Int
-  text: String!
-  claimant: String!
-  claimDate: String!
-  publisherName: String!
-  publisherSite: String!
-  url: String!
-  title: String!
-  reviewDate: String!
-  textualRating: String!
-  languageCode: String!
+  text: String
+  claimant: String
+  claimDate: String
+  publisherName: String
+  publisherSite: String
+  url: String
+  title: String
+  reviewDate: String
+  textualRating: String
+  languageCode: String
   collectionId: Int!
   createdAt: Datetime
 }
 
-"""The output of our create `CollectionTweet` mutation."""
+"""
+The output of our create `CollectionTweet` mutation.
+"""
 type CreateCollectionTweetPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -2769,7 +3630,9 @@ type CreateCollectionTweetPayload {
   """
   clientMutationId: String
 
-  """The `CollectionTweet` that was created by this mutation."""
+  """
+  The `CollectionTweet` that was created by this mutation.
+  """
   collectionTweet: CollectionTweet
 
   """
@@ -2777,17 +3640,25 @@ type CreateCollectionTweetPayload {
   """
   query: Query
 
-  """Reads a single `Collection` that is related to this `CollectionTweet`."""
+  """
+  Reads a single `Collection` that is related to this `CollectionTweet`.
+  """
   collection: Collection
 
-  """An edge for our `CollectionTweet`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionTweet`. May be used by Relay 1.
+  """
   collectionTweetEdge(
-    """The method to use when ordering `CollectionTweet`."""
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
     orderBy: [CollectionTweetsOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionTweetsEdge
 }
 
-"""All input for the create `CollectionTweet` mutation."""
+"""
+All input for the create `CollectionTweet` mutation.
+"""
 input CreateCollectionTweetInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -2795,11 +3666,15 @@ input CreateCollectionTweetInput {
   """
   clientMutationId: String
 
-  """The `CollectionTweet` to be created by this mutation."""
+  """
+  The `CollectionTweet` to be created by this mutation.
+  """
   collectionTweet: CollectionTweetInput!
 }
 
-"""An input for mutations affecting `CollectionTweet`"""
+"""
+An input for mutations affecting `CollectionTweet`
+"""
 input CollectionTweetInput {
   id: Int
   tweetId: String!
@@ -2807,7 +3682,9 @@ input CollectionTweetInput {
   createdAt: Datetime
 }
 
-"""The output of our create `CollectionVeraFile` mutation."""
+"""
+The output of our create `CollectionVeraFile` mutation.
+"""
 type CreateCollectionVeraFilePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -2815,7 +3692,9 @@ type CreateCollectionVeraFilePayload {
   """
   clientMutationId: String
 
-  """The `CollectionVeraFile` that was created by this mutation."""
+  """
+  The `CollectionVeraFile` that was created by this mutation.
+  """
   collectionVeraFile: CollectionVeraFile
 
   """
@@ -2828,14 +3707,20 @@ type CreateCollectionVeraFilePayload {
   """
   collection: Collection
 
-  """An edge for our `CollectionVeraFile`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionVeraFile`. May be used by Relay 1.
+  """
   collectionVeraFileEdge(
-    """The method to use when ordering `CollectionVeraFile`."""
+    """
+    The method to use when ordering `CollectionVeraFile`.
+    """
     orderBy: [CollectionVeraFilesOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionVeraFilesEdge
 }
 
-"""All input for the create `CollectionVeraFile` mutation."""
+"""
+All input for the create `CollectionVeraFile` mutation.
+"""
 input CreateCollectionVeraFileInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -2843,27 +3728,33 @@ input CreateCollectionVeraFileInput {
   """
   clientMutationId: String
 
-  """The `CollectionVeraFile` to be created by this mutation."""
+  """
+  The `CollectionVeraFile` to be created by this mutation.
+  """
   collectionVeraFile: CollectionVeraFileInput!
 }
 
-"""An input for mutations affecting `CollectionVeraFile`"""
+"""
+An input for mutations affecting `CollectionVeraFile`
+"""
 input CollectionVeraFileInput {
   id: Int
-  author: String!
-  category: String!
-  date: String!
-  dateText: String!
-  description: String!
-  imageStyle: String!
-  imageUrl: String!
-  url: String!
-  title: String!
+  author: String
+  category: String
+  date: String
+  dateText: String
+  description: String
+  imageStyle: String
+  imageUrl: String
+  url: String
+  title: String
   collectionId: Int!
   createdAt: Datetime
 }
 
-"""The output of our create `Collection` mutation."""
+"""
+The output of our create `Collection` mutation.
+"""
 type CreateCollectionPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -2871,7 +3762,9 @@ type CreateCollectionPayload {
   """
   clientMutationId: String
 
-  """The `Collection` that was created by this mutation."""
+  """
+  The `Collection` that was created by this mutation.
+  """
   collection: Collection
 
   """
@@ -2879,17 +3772,25 @@ type CreateCollectionPayload {
   """
   query: Query
 
-  """Reads a single `User` that is related to this `Collection`."""
+  """
+  Reads a single `User` that is related to this `Collection`.
+  """
   user: User
 
-  """An edge for our `Collection`. May be used by Relay 1."""
+  """
+  An edge for our `Collection`. May be used by Relay 1.
+  """
   collectionEdge(
-    """The method to use when ordering `Collection`."""
+    """
+    The method to use when ordering `Collection`.
+    """
     orderBy: [CollectionsOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionsEdge
 }
 
-"""All input for the create `Collection` mutation."""
+"""
+All input for the create `Collection` mutation.
+"""
 input CreateCollectionInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -2897,11 +3798,15 @@ input CreateCollectionInput {
   """
   clientMutationId: String
 
-  """The `Collection` to be created by this mutation."""
+  """
+  The `Collection` to be created by this mutation.
+  """
   collection: CollectionInput!
 }
 
-"""An input for mutations affecting `Collection`"""
+"""
+An input for mutations affecting `Collection`
+"""
 input CollectionInput {
   id: Int
   title: String!
@@ -2909,7 +3814,9 @@ input CollectionInput {
   createdAt: Datetime
 }
 
-"""The output of our create `NewsFeed` mutation."""
+"""
+The output of our create `NewsFeed` mutation.
+"""
 type CreateNewsFeedPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -2917,7 +3824,9 @@ type CreateNewsFeedPayload {
   """
   clientMutationId: String
 
-  """The `NewsFeed` that was created by this mutation."""
+  """
+  The `NewsFeed` that was created by this mutation.
+  """
   newsFeed: NewsFeed
 
   """
@@ -2925,17 +3834,25 @@ type CreateNewsFeedPayload {
   """
   query: Query
 
-  """Reads a single `User` that is related to this `NewsFeed`."""
+  """
+  Reads a single `User` that is related to this `NewsFeed`.
+  """
   user: User
 
-  """An edge for our `NewsFeed`. May be used by Relay 1."""
+  """
+  An edge for our `NewsFeed`. May be used by Relay 1.
+  """
   newsFeedEdge(
-    """The method to use when ordering `NewsFeed`."""
+    """
+    The method to use when ordering `NewsFeed`.
+    """
     orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
   ): NewsFeedsEdge
 }
 
-"""All input for the create `NewsFeed` mutation."""
+"""
+All input for the create `NewsFeed` mutation.
+"""
 input CreateNewsFeedInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -2943,11 +3860,15 @@ input CreateNewsFeedInput {
   """
   clientMutationId: String
 
-  """The `NewsFeed` to be created by this mutation."""
+  """
+  The `NewsFeed` to be created by this mutation.
+  """
   newsFeed: NewsFeedInput!
 }
 
-"""An input for mutations affecting `NewsFeed`"""
+"""
+An input for mutations affecting `NewsFeed`
+"""
 input NewsFeedInput {
   id: Int
   title: String!
@@ -2959,7 +3880,9 @@ input NewsFeedInput {
   createdAt: Datetime
 }
 
-"""The output of our create `TopHeadlinesCache` mutation."""
+"""
+The output of our create `TopHeadlinesCache` mutation.
+"""
 type CreateTopHeadlinesCachePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -2967,7 +3890,9 @@ type CreateTopHeadlinesCachePayload {
   """
   clientMutationId: String
 
-  """The `TopHeadlinesCache` that was created by this mutation."""
+  """
+  The `TopHeadlinesCache` that was created by this mutation.
+  """
   topHeadlinesCache: TopHeadlinesCache
 
   """
@@ -2980,14 +3905,20 @@ type CreateTopHeadlinesCachePayload {
   """
   topHeadlinesRequest: TopHeadlinesRequest
 
-  """An edge for our `TopHeadlinesCache`. May be used by Relay 1."""
+  """
+  An edge for our `TopHeadlinesCache`. May be used by Relay 1.
+  """
   topHeadlinesCacheEdge(
-    """The method to use when ordering `TopHeadlinesCache`."""
+    """
+    The method to use when ordering `TopHeadlinesCache`.
+    """
     orderBy: [TopHeadlinesCachesOrderBy!] = [PRIMARY_KEY_ASC]
   ): TopHeadlinesCachesEdge
 }
 
-"""All input for the create `TopHeadlinesCache` mutation."""
+"""
+All input for the create `TopHeadlinesCache` mutation.
+"""
 input CreateTopHeadlinesCacheInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -2995,11 +3926,15 @@ input CreateTopHeadlinesCacheInput {
   """
   clientMutationId: String
 
-  """The `TopHeadlinesCache` to be created by this mutation."""
+  """
+  The `TopHeadlinesCache` to be created by this mutation.
+  """
   topHeadlinesCache: TopHeadlinesCacheInput!
 }
 
-"""An input for mutations affecting `TopHeadlinesCache`"""
+"""
+An input for mutations affecting `TopHeadlinesCache`
+"""
 input TopHeadlinesCacheInput {
   id: Int
   author: String
@@ -3014,7 +3949,9 @@ input TopHeadlinesCacheInput {
   topHeadlinesRequestId: Int!
 }
 
-"""The output of our create `TopHeadlinesRequest` mutation."""
+"""
+The output of our create `TopHeadlinesRequest` mutation.
+"""
 type CreateTopHeadlinesRequestPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3022,7 +3959,9 @@ type CreateTopHeadlinesRequestPayload {
   """
   clientMutationId: String
 
-  """The `TopHeadlinesRequest` that was created by this mutation."""
+  """
+  The `TopHeadlinesRequest` that was created by this mutation.
+  """
   topHeadlinesRequest: TopHeadlinesRequest
 
   """
@@ -3030,14 +3969,20 @@ type CreateTopHeadlinesRequestPayload {
   """
   query: Query
 
-  """An edge for our `TopHeadlinesRequest`. May be used by Relay 1."""
+  """
+  An edge for our `TopHeadlinesRequest`. May be used by Relay 1.
+  """
   topHeadlinesRequestEdge(
-    """The method to use when ordering `TopHeadlinesRequest`."""
+    """
+    The method to use when ordering `TopHeadlinesRequest`.
+    """
     orderBy: [TopHeadlinesRequestsOrderBy!] = [PRIMARY_KEY_ASC]
   ): TopHeadlinesRequestsEdge
 }
 
-"""All input for the create `TopHeadlinesRequest` mutation."""
+"""
+All input for the create `TopHeadlinesRequest` mutation.
+"""
 input CreateTopHeadlinesRequestInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3045,11 +3990,15 @@ input CreateTopHeadlinesRequestInput {
   """
   clientMutationId: String
 
-  """The `TopHeadlinesRequest` to be created by this mutation."""
+  """
+  The `TopHeadlinesRequest` to be created by this mutation.
+  """
   topHeadlinesRequest: TopHeadlinesRequestInput!
 }
 
-"""An input for mutations affecting `TopHeadlinesRequest`"""
+"""
+An input for mutations affecting `TopHeadlinesRequest`
+"""
 input TopHeadlinesRequestInput {
   id: Int
   category: Category
@@ -3059,7 +4008,9 @@ input TopHeadlinesRequestInput {
   createdAt: Datetime
 }
 
-"""The output of our create `TwitterFeed` mutation."""
+"""
+The output of our create `TwitterFeed` mutation.
+"""
 type CreateTwitterFeedPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3067,7 +4018,9 @@ type CreateTwitterFeedPayload {
   """
   clientMutationId: String
 
-  """The `TwitterFeed` that was created by this mutation."""
+  """
+  The `TwitterFeed` that was created by this mutation.
+  """
   twitterFeed: TwitterFeed
 
   """
@@ -3075,17 +4028,25 @@ type CreateTwitterFeedPayload {
   """
   query: Query
 
-  """Reads a single `User` that is related to this `TwitterFeed`."""
+  """
+  Reads a single `User` that is related to this `TwitterFeed`.
+  """
   user: User
 
-  """An edge for our `TwitterFeed`. May be used by Relay 1."""
+  """
+  An edge for our `TwitterFeed`. May be used by Relay 1.
+  """
   twitterFeedEdge(
-    """The method to use when ordering `TwitterFeed`."""
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
     orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
   ): TwitterFeedsEdge
 }
 
-"""All input for the create `TwitterFeed` mutation."""
+"""
+All input for the create `TwitterFeed` mutation.
+"""
 input CreateTwitterFeedInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3093,11 +4054,15 @@ input CreateTwitterFeedInput {
   """
   clientMutationId: String
 
-  """The `TwitterFeed` to be created by this mutation."""
+  """
+  The `TwitterFeed` to be created by this mutation.
+  """
   twitterFeed: TwitterFeedInput!
 }
 
-"""An input for mutations affecting `TwitterFeed`"""
+"""
+An input for mutations affecting `TwitterFeed`
+"""
 input TwitterFeedInput {
   id: Int
   title: String!
@@ -3107,7 +4072,9 @@ input TwitterFeedInput {
   createdAt: Datetime
 }
 
-"""The output of our create `TwitterLocalSource` mutation."""
+"""
+The output of our create `TwitterLocalSource` mutation.
+"""
 type CreateTwitterLocalSourcePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3115,7 +4082,9 @@ type CreateTwitterLocalSourcePayload {
   """
   clientMutationId: String
 
-  """The `TwitterLocalSource` that was created by this mutation."""
+  """
+  The `TwitterLocalSource` that was created by this mutation.
+  """
   twitterLocalSource: TwitterLocalSource
 
   """
@@ -3123,14 +4092,20 @@ type CreateTwitterLocalSourcePayload {
   """
   query: Query
 
-  """An edge for our `TwitterLocalSource`. May be used by Relay 1."""
+  """
+  An edge for our `TwitterLocalSource`. May be used by Relay 1.
+  """
   twitterLocalSourceEdge(
-    """The method to use when ordering `TwitterLocalSource`."""
+    """
+    The method to use when ordering `TwitterLocalSource`.
+    """
     orderBy: [TwitterLocalSourcesOrderBy!] = [PRIMARY_KEY_ASC]
   ): TwitterLocalSourcesEdge
 }
 
-"""All input for the create `TwitterLocalSource` mutation."""
+"""
+All input for the create `TwitterLocalSource` mutation.
+"""
 input CreateTwitterLocalSourceInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3138,18 +4113,24 @@ input CreateTwitterLocalSourceInput {
   """
   clientMutationId: String
 
-  """The `TwitterLocalSource` to be created by this mutation."""
+  """
+  The `TwitterLocalSource` to be created by this mutation.
+  """
   twitterLocalSource: TwitterLocalSourceInput!
 }
 
-"""An input for mutations affecting `TwitterLocalSource`"""
+"""
+An input for mutations affecting `TwitterLocalSource`
+"""
 input TwitterLocalSourceInput {
   accountId: Int
   accountName: String!
   accountUsername: String!
 }
 
-"""The output of our create `TwitterSource` mutation."""
+"""
+The output of our create `TwitterSource` mutation.
+"""
 type CreateTwitterSourcePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3157,7 +4138,9 @@ type CreateTwitterSourcePayload {
   """
   clientMutationId: String
 
-  """The `TwitterSource` that was created by this mutation."""
+  """
+  The `TwitterSource` that was created by this mutation.
+  """
   twitterSource: TwitterSource
 
   """
@@ -3165,14 +4148,20 @@ type CreateTwitterSourcePayload {
   """
   query: Query
 
-  """An edge for our `TwitterSource`. May be used by Relay 1."""
+  """
+  An edge for our `TwitterSource`. May be used by Relay 1.
+  """
   twitterSourceEdge(
-    """The method to use when ordering `TwitterSource`."""
+    """
+    The method to use when ordering `TwitterSource`.
+    """
     orderBy: [TwitterSourcesOrderBy!] = [PRIMARY_KEY_ASC]
   ): TwitterSourcesEdge
 }
 
-"""All input for the create `TwitterSource` mutation."""
+"""
+All input for the create `TwitterSource` mutation.
+"""
 input CreateTwitterSourceInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3180,18 +4169,24 @@ input CreateTwitterSourceInput {
   """
   clientMutationId: String
 
-  """The `TwitterSource` to be created by this mutation."""
+  """
+  The `TwitterSource` to be created by this mutation.
+  """
   twitterSource: TwitterSourceInput!
 }
 
-"""An input for mutations affecting `TwitterSource`"""
+"""
+An input for mutations affecting `TwitterSource`
+"""
 input TwitterSourceInput {
   accountId: Int
   accountName: String!
   accountUsername: String!
 }
 
-"""The output of our create `User` mutation."""
+"""
+The output of our create `User` mutation.
+"""
 type CreateUserPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3199,7 +4194,9 @@ type CreateUserPayload {
   """
   clientMutationId: String
 
-  """The `User` that was created by this mutation."""
+  """
+  The `User` that was created by this mutation.
+  """
   user: User
 
   """
@@ -3207,14 +4204,20 @@ type CreateUserPayload {
   """
   query: Query
 
-  """An edge for our `User`. May be used by Relay 1."""
+  """
+  An edge for our `User`. May be used by Relay 1.
+  """
   userEdge(
-    """The method to use when ordering `User`."""
+    """
+    The method to use when ordering `User`.
+    """
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
 }
 
-"""All input for the create `User` mutation."""
+"""
+All input for the create `User` mutation.
+"""
 input CreateUserInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3222,18 +4225,24 @@ input CreateUserInput {
   """
   clientMutationId: String
 
-  """The `User` to be created by this mutation."""
+  """
+  The `User` to be created by this mutation.
+  """
   user: UserInput!
 }
 
-"""An input for mutations affecting `User`"""
+"""
+An input for mutations affecting `User`
+"""
 input UserInput {
   id: Int
   username: String!
   hashedPassword: String!
 }
 
-"""The output of our update `CollectionArticle` mutation."""
+"""
+The output of our update `CollectionArticle` mutation.
+"""
 type UpdateCollectionArticlePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3241,7 +4250,9 @@ type UpdateCollectionArticlePayload {
   """
   clientMutationId: String
 
-  """The `CollectionArticle` that was updated by this mutation."""
+  """
+  The `CollectionArticle` that was updated by this mutation.
+  """
   collectionArticle: CollectionArticle
 
   """
@@ -3254,14 +4265,20 @@ type UpdateCollectionArticlePayload {
   """
   collection: Collection
 
-  """An edge for our `CollectionArticle`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionArticle`. May be used by Relay 1.
+  """
   collectionArticleEdge(
-    """The method to use when ordering `CollectionArticle`."""
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
     orderBy: [CollectionArticlesOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionArticlesEdge
 }
 
-"""All input for the `updateCollectionArticleByNodeId` mutation."""
+"""
+All input for the `updateCollectionArticleByNodeId` mutation.
+"""
 input UpdateCollectionArticleByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3295,7 +4312,9 @@ input CollectionArticlePatch {
   createdAt: Datetime
 }
 
-"""All input for the `updateCollectionArticle` mutation."""
+"""
+All input for the `updateCollectionArticle` mutation.
+"""
 input UpdateCollectionArticleInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3310,7 +4329,9 @@ input UpdateCollectionArticleInput {
   id: Int!
 }
 
-"""The output of our update `CollectionGoogleFactCheck` mutation."""
+"""
+The output of our update `CollectionGoogleFactCheck` mutation.
+"""
 type UpdateCollectionGoogleFactCheckPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3318,7 +4339,9 @@ type UpdateCollectionGoogleFactCheckPayload {
   """
   clientMutationId: String
 
-  """The `CollectionGoogleFactCheck` that was updated by this mutation."""
+  """
+  The `CollectionGoogleFactCheck` that was updated by this mutation.
+  """
   collectionGoogleFactCheck: CollectionGoogleFactCheck
 
   """
@@ -3331,14 +4354,20 @@ type UpdateCollectionGoogleFactCheckPayload {
   """
   collection: Collection
 
-  """An edge for our `CollectionGoogleFactCheck`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionGoogleFactCheck`. May be used by Relay 1.
+  """
   collectionGoogleFactCheckEdge(
-    """The method to use when ordering `CollectionGoogleFactCheck`."""
+    """
+    The method to use when ordering `CollectionGoogleFactCheck`.
+    """
     orderBy: [CollectionGoogleFactChecksOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionGoogleFactChecksEdge
 }
 
-"""All input for the `updateCollectionGoogleFactCheckByNodeId` mutation."""
+"""
+All input for the `updateCollectionGoogleFactCheckByNodeId` mutation.
+"""
 input UpdateCollectionGoogleFactCheckByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3376,7 +4405,9 @@ input CollectionGoogleFactCheckPatch {
   createdAt: Datetime
 }
 
-"""All input for the `updateCollectionGoogleFactCheck` mutation."""
+"""
+All input for the `updateCollectionGoogleFactCheck` mutation.
+"""
 input UpdateCollectionGoogleFactCheckInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3391,7 +4422,9 @@ input UpdateCollectionGoogleFactCheckInput {
   id: Int!
 }
 
-"""The output of our update `CollectionTweet` mutation."""
+"""
+The output of our update `CollectionTweet` mutation.
+"""
 type UpdateCollectionTweetPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3399,7 +4432,9 @@ type UpdateCollectionTweetPayload {
   """
   clientMutationId: String
 
-  """The `CollectionTweet` that was updated by this mutation."""
+  """
+  The `CollectionTweet` that was updated by this mutation.
+  """
   collectionTweet: CollectionTweet
 
   """
@@ -3407,17 +4442,25 @@ type UpdateCollectionTweetPayload {
   """
   query: Query
 
-  """Reads a single `Collection` that is related to this `CollectionTweet`."""
+  """
+  Reads a single `Collection` that is related to this `CollectionTweet`.
+  """
   collection: Collection
 
-  """An edge for our `CollectionTweet`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionTweet`. May be used by Relay 1.
+  """
   collectionTweetEdge(
-    """The method to use when ordering `CollectionTweet`."""
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
     orderBy: [CollectionTweetsOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionTweetsEdge
 }
 
-"""All input for the `updateCollectionTweetByNodeId` mutation."""
+"""
+All input for the `updateCollectionTweetByNodeId` mutation.
+"""
 input UpdateCollectionTweetByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3446,7 +4489,9 @@ input CollectionTweetPatch {
   createdAt: Datetime
 }
 
-"""All input for the `updateCollectionTweet` mutation."""
+"""
+All input for the `updateCollectionTweet` mutation.
+"""
 input UpdateCollectionTweetInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3461,7 +4506,9 @@ input UpdateCollectionTweetInput {
   id: Int!
 }
 
-"""The output of our update `CollectionVeraFile` mutation."""
+"""
+The output of our update `CollectionVeraFile` mutation.
+"""
 type UpdateCollectionVeraFilePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3469,7 +4516,9 @@ type UpdateCollectionVeraFilePayload {
   """
   clientMutationId: String
 
-  """The `CollectionVeraFile` that was updated by this mutation."""
+  """
+  The `CollectionVeraFile` that was updated by this mutation.
+  """
   collectionVeraFile: CollectionVeraFile
 
   """
@@ -3482,14 +4531,20 @@ type UpdateCollectionVeraFilePayload {
   """
   collection: Collection
 
-  """An edge for our `CollectionVeraFile`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionVeraFile`. May be used by Relay 1.
+  """
   collectionVeraFileEdge(
-    """The method to use when ordering `CollectionVeraFile`."""
+    """
+    The method to use when ordering `CollectionVeraFile`.
+    """
     orderBy: [CollectionVeraFilesOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionVeraFilesEdge
 }
 
-"""All input for the `updateCollectionVeraFileByNodeId` mutation."""
+"""
+All input for the `updateCollectionVeraFileByNodeId` mutation.
+"""
 input UpdateCollectionVeraFileByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3526,7 +4581,9 @@ input CollectionVeraFilePatch {
   createdAt: Datetime
 }
 
-"""All input for the `updateCollectionVeraFile` mutation."""
+"""
+All input for the `updateCollectionVeraFile` mutation.
+"""
 input UpdateCollectionVeraFileInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3541,7 +4598,9 @@ input UpdateCollectionVeraFileInput {
   id: Int!
 }
 
-"""The output of our update `Collection` mutation."""
+"""
+The output of our update `Collection` mutation.
+"""
 type UpdateCollectionPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3549,7 +4608,9 @@ type UpdateCollectionPayload {
   """
   clientMutationId: String
 
-  """The `Collection` that was updated by this mutation."""
+  """
+  The `Collection` that was updated by this mutation.
+  """
   collection: Collection
 
   """
@@ -3557,17 +4618,25 @@ type UpdateCollectionPayload {
   """
   query: Query
 
-  """Reads a single `User` that is related to this `Collection`."""
+  """
+  Reads a single `User` that is related to this `Collection`.
+  """
   user: User
 
-  """An edge for our `Collection`. May be used by Relay 1."""
+  """
+  An edge for our `Collection`. May be used by Relay 1.
+  """
   collectionEdge(
-    """The method to use when ordering `Collection`."""
+    """
+    The method to use when ordering `Collection`.
+    """
     orderBy: [CollectionsOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionsEdge
 }
 
-"""All input for the `updateCollectionByNodeId` mutation."""
+"""
+All input for the `updateCollectionByNodeId` mutation.
+"""
 input UpdateCollectionByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3596,7 +4665,9 @@ input CollectionPatch {
   createdAt: Datetime
 }
 
-"""All input for the `updateCollection` mutation."""
+"""
+All input for the `updateCollection` mutation.
+"""
 input UpdateCollectionInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3611,7 +4682,9 @@ input UpdateCollectionInput {
   id: Int!
 }
 
-"""All input for the `updateCollectionByTitleAndId` mutation."""
+"""
+All input for the `updateCollectionByTitleAndId` mutation.
+"""
 input UpdateCollectionByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3627,7 +4700,9 @@ input UpdateCollectionByTitleAndIdInput {
   id: Int!
 }
 
-"""The output of our update `NewsFeed` mutation."""
+"""
+The output of our update `NewsFeed` mutation.
+"""
 type UpdateNewsFeedPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3635,7 +4710,9 @@ type UpdateNewsFeedPayload {
   """
   clientMutationId: String
 
-  """The `NewsFeed` that was updated by this mutation."""
+  """
+  The `NewsFeed` that was updated by this mutation.
+  """
   newsFeed: NewsFeed
 
   """
@@ -3643,17 +4720,25 @@ type UpdateNewsFeedPayload {
   """
   query: Query
 
-  """Reads a single `User` that is related to this `NewsFeed`."""
+  """
+  Reads a single `User` that is related to this `NewsFeed`.
+  """
   user: User
 
-  """An edge for our `NewsFeed`. May be used by Relay 1."""
+  """
+  An edge for our `NewsFeed`. May be used by Relay 1.
+  """
   newsFeedEdge(
-    """The method to use when ordering `NewsFeed`."""
+    """
+    The method to use when ordering `NewsFeed`.
+    """
     orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
   ): NewsFeedsEdge
 }
 
-"""All input for the `updateNewsFeedByNodeId` mutation."""
+"""
+All input for the `updateNewsFeedByNodeId` mutation.
+"""
 input UpdateNewsFeedByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3686,7 +4771,9 @@ input NewsFeedPatch {
   createdAt: Datetime
 }
 
-"""All input for the `updateNewsFeed` mutation."""
+"""
+All input for the `updateNewsFeed` mutation.
+"""
 input UpdateNewsFeedInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3701,7 +4788,9 @@ input UpdateNewsFeedInput {
   id: Int!
 }
 
-"""All input for the `updateNewsFeedByTitleAndId` mutation."""
+"""
+All input for the `updateNewsFeedByTitleAndId` mutation.
+"""
 input UpdateNewsFeedByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3717,7 +4806,9 @@ input UpdateNewsFeedByTitleAndIdInput {
   id: Int!
 }
 
-"""The output of our update `TopHeadlinesCache` mutation."""
+"""
+The output of our update `TopHeadlinesCache` mutation.
+"""
 type UpdateTopHeadlinesCachePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3725,7 +4816,9 @@ type UpdateTopHeadlinesCachePayload {
   """
   clientMutationId: String
 
-  """The `TopHeadlinesCache` that was updated by this mutation."""
+  """
+  The `TopHeadlinesCache` that was updated by this mutation.
+  """
   topHeadlinesCache: TopHeadlinesCache
 
   """
@@ -3738,14 +4831,20 @@ type UpdateTopHeadlinesCachePayload {
   """
   topHeadlinesRequest: TopHeadlinesRequest
 
-  """An edge for our `TopHeadlinesCache`. May be used by Relay 1."""
+  """
+  An edge for our `TopHeadlinesCache`. May be used by Relay 1.
+  """
   topHeadlinesCacheEdge(
-    """The method to use when ordering `TopHeadlinesCache`."""
+    """
+    The method to use when ordering `TopHeadlinesCache`.
+    """
     orderBy: [TopHeadlinesCachesOrderBy!] = [PRIMARY_KEY_ASC]
   ): TopHeadlinesCachesEdge
 }
 
-"""All input for the `updateTopHeadlinesCacheByNodeId` mutation."""
+"""
+All input for the `updateTopHeadlinesCacheByNodeId` mutation.
+"""
 input UpdateTopHeadlinesCacheByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3781,7 +4880,9 @@ input TopHeadlinesCachePatch {
   topHeadlinesRequestId: Int
 }
 
-"""All input for the `updateTopHeadlinesCache` mutation."""
+"""
+All input for the `updateTopHeadlinesCache` mutation.
+"""
 input UpdateTopHeadlinesCacheInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3796,7 +4897,9 @@ input UpdateTopHeadlinesCacheInput {
   id: Int!
 }
 
-"""The output of our update `TopHeadlinesRequest` mutation."""
+"""
+The output of our update `TopHeadlinesRequest` mutation.
+"""
 type UpdateTopHeadlinesRequestPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3804,7 +4907,9 @@ type UpdateTopHeadlinesRequestPayload {
   """
   clientMutationId: String
 
-  """The `TopHeadlinesRequest` that was updated by this mutation."""
+  """
+  The `TopHeadlinesRequest` that was updated by this mutation.
+  """
   topHeadlinesRequest: TopHeadlinesRequest
 
   """
@@ -3812,14 +4917,20 @@ type UpdateTopHeadlinesRequestPayload {
   """
   query: Query
 
-  """An edge for our `TopHeadlinesRequest`. May be used by Relay 1."""
+  """
+  An edge for our `TopHeadlinesRequest`. May be used by Relay 1.
+  """
   topHeadlinesRequestEdge(
-    """The method to use when ordering `TopHeadlinesRequest`."""
+    """
+    The method to use when ordering `TopHeadlinesRequest`.
+    """
     orderBy: [TopHeadlinesRequestsOrderBy!] = [PRIMARY_KEY_ASC]
   ): TopHeadlinesRequestsEdge
 }
 
-"""All input for the `updateTopHeadlinesRequestByNodeId` mutation."""
+"""
+All input for the `updateTopHeadlinesRequestByNodeId` mutation.
+"""
 input UpdateTopHeadlinesRequestByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3850,7 +4961,9 @@ input TopHeadlinesRequestPatch {
   createdAt: Datetime
 }
 
-"""All input for the `updateTopHeadlinesRequest` mutation."""
+"""
+All input for the `updateTopHeadlinesRequest` mutation.
+"""
 input UpdateTopHeadlinesRequestInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3865,7 +4978,9 @@ input UpdateTopHeadlinesRequestInput {
   id: Int!
 }
 
-"""The output of our update `TwitterFeed` mutation."""
+"""
+The output of our update `TwitterFeed` mutation.
+"""
 type UpdateTwitterFeedPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3873,7 +4988,9 @@ type UpdateTwitterFeedPayload {
   """
   clientMutationId: String
 
-  """The `TwitterFeed` that was updated by this mutation."""
+  """
+  The `TwitterFeed` that was updated by this mutation.
+  """
   twitterFeed: TwitterFeed
 
   """
@@ -3881,17 +4998,25 @@ type UpdateTwitterFeedPayload {
   """
   query: Query
 
-  """Reads a single `User` that is related to this `TwitterFeed`."""
+  """
+  Reads a single `User` that is related to this `TwitterFeed`.
+  """
   user: User
 
-  """An edge for our `TwitterFeed`. May be used by Relay 1."""
+  """
+  An edge for our `TwitterFeed`. May be used by Relay 1.
+  """
   twitterFeedEdge(
-    """The method to use when ordering `TwitterFeed`."""
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
     orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
   ): TwitterFeedsEdge
 }
 
-"""All input for the `updateTwitterFeedByNodeId` mutation."""
+"""
+All input for the `updateTwitterFeedByNodeId` mutation.
+"""
 input UpdateTwitterFeedByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3922,7 +5047,9 @@ input TwitterFeedPatch {
   createdAt: Datetime
 }
 
-"""All input for the `updateTwitterFeed` mutation."""
+"""
+All input for the `updateTwitterFeed` mutation.
+"""
 input UpdateTwitterFeedInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3937,7 +5064,9 @@ input UpdateTwitterFeedInput {
   id: Int!
 }
 
-"""All input for the `updateTwitterFeedByTitleAndId` mutation."""
+"""
+All input for the `updateTwitterFeedByTitleAndId` mutation.
+"""
 input UpdateTwitterFeedByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -3953,7 +5082,9 @@ input UpdateTwitterFeedByTitleAndIdInput {
   id: Int!
 }
 
-"""The output of our update `TwitterLocalSource` mutation."""
+"""
+The output of our update `TwitterLocalSource` mutation.
+"""
 type UpdateTwitterLocalSourcePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -3961,7 +5092,9 @@ type UpdateTwitterLocalSourcePayload {
   """
   clientMutationId: String
 
-  """The `TwitterLocalSource` that was updated by this mutation."""
+  """
+  The `TwitterLocalSource` that was updated by this mutation.
+  """
   twitterLocalSource: TwitterLocalSource
 
   """
@@ -3969,14 +5102,20 @@ type UpdateTwitterLocalSourcePayload {
   """
   query: Query
 
-  """An edge for our `TwitterLocalSource`. May be used by Relay 1."""
+  """
+  An edge for our `TwitterLocalSource`. May be used by Relay 1.
+  """
   twitterLocalSourceEdge(
-    """The method to use when ordering `TwitterLocalSource`."""
+    """
+    The method to use when ordering `TwitterLocalSource`.
+    """
     orderBy: [TwitterLocalSourcesOrderBy!] = [PRIMARY_KEY_ASC]
   ): TwitterLocalSourcesEdge
 }
 
-"""All input for the `updateTwitterLocalSourceByNodeId` mutation."""
+"""
+All input for the `updateTwitterLocalSourceByNodeId` mutation.
+"""
 input UpdateTwitterLocalSourceByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4004,7 +5143,9 @@ input TwitterLocalSourcePatch {
   accountUsername: String
 }
 
-"""All input for the `updateTwitterLocalSource` mutation."""
+"""
+All input for the `updateTwitterLocalSource` mutation.
+"""
 input UpdateTwitterLocalSourceInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4019,7 +5160,9 @@ input UpdateTwitterLocalSourceInput {
   accountId: Int!
 }
 
-"""All input for the `updateTwitterLocalSourceByAccountName` mutation."""
+"""
+All input for the `updateTwitterLocalSourceByAccountName` mutation.
+"""
 input UpdateTwitterLocalSourceByAccountNameInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4051,7 +5194,9 @@ input UpdateTwitterLocalSourceByAccountUsernameInput {
   accountUsername: String!
 }
 
-"""The output of our update `TwitterSource` mutation."""
+"""
+The output of our update `TwitterSource` mutation.
+"""
 type UpdateTwitterSourcePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4059,7 +5204,9 @@ type UpdateTwitterSourcePayload {
   """
   clientMutationId: String
 
-  """The `TwitterSource` that was updated by this mutation."""
+  """
+  The `TwitterSource` that was updated by this mutation.
+  """
   twitterSource: TwitterSource
 
   """
@@ -4067,14 +5214,20 @@ type UpdateTwitterSourcePayload {
   """
   query: Query
 
-  """An edge for our `TwitterSource`. May be used by Relay 1."""
+  """
+  An edge for our `TwitterSource`. May be used by Relay 1.
+  """
   twitterSourceEdge(
-    """The method to use when ordering `TwitterSource`."""
+    """
+    The method to use when ordering `TwitterSource`.
+    """
     orderBy: [TwitterSourcesOrderBy!] = [PRIMARY_KEY_ASC]
   ): TwitterSourcesEdge
 }
 
-"""All input for the `updateTwitterSourceByNodeId` mutation."""
+"""
+All input for the `updateTwitterSourceByNodeId` mutation.
+"""
 input UpdateTwitterSourceByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4102,7 +5255,9 @@ input TwitterSourcePatch {
   accountUsername: String
 }
 
-"""All input for the `updateTwitterSource` mutation."""
+"""
+All input for the `updateTwitterSource` mutation.
+"""
 input UpdateTwitterSourceInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4117,7 +5272,9 @@ input UpdateTwitterSourceInput {
   accountId: Int!
 }
 
-"""All input for the `updateTwitterSourceByAccountName` mutation."""
+"""
+All input for the `updateTwitterSourceByAccountName` mutation.
+"""
 input UpdateTwitterSourceByAccountNameInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4132,7 +5289,9 @@ input UpdateTwitterSourceByAccountNameInput {
   accountName: String!
 }
 
-"""All input for the `updateTwitterSourceByAccountUsername` mutation."""
+"""
+All input for the `updateTwitterSourceByAccountUsername` mutation.
+"""
 input UpdateTwitterSourceByAccountUsernameInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4147,7 +5306,9 @@ input UpdateTwitterSourceByAccountUsernameInput {
   accountUsername: String!
 }
 
-"""The output of our update `User` mutation."""
+"""
+The output of our update `User` mutation.
+"""
 type UpdateUserPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4155,7 +5316,9 @@ type UpdateUserPayload {
   """
   clientMutationId: String
 
-  """The `User` that was updated by this mutation."""
+  """
+  The `User` that was updated by this mutation.
+  """
   user: User
 
   """
@@ -4163,14 +5326,20 @@ type UpdateUserPayload {
   """
   query: Query
 
-  """An edge for our `User`. May be used by Relay 1."""
+  """
+  An edge for our `User`. May be used by Relay 1.
+  """
   userEdge(
-    """The method to use when ordering `User`."""
+    """
+    The method to use when ordering `User`.
+    """
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
 }
 
-"""All input for the `updateUserByNodeId` mutation."""
+"""
+All input for the `updateUserByNodeId` mutation.
+"""
 input UpdateUserByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4189,14 +5358,18 @@ input UpdateUserByNodeIdInput {
   patch: UserPatch!
 }
 
-"""Represents an update to a `User`. Fields that are set will be updated."""
+"""
+Represents an update to a `User`. Fields that are set will be updated.
+"""
 input UserPatch {
   id: Int
   username: String
   hashedPassword: String
 }
 
-"""All input for the `updateUser` mutation."""
+"""
+All input for the `updateUser` mutation.
+"""
 input UpdateUserInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4211,7 +5384,9 @@ input UpdateUserInput {
   id: Int!
 }
 
-"""All input for the `updateUserByUsername` mutation."""
+"""
+All input for the `updateUserByUsername` mutation.
+"""
 input UpdateUserByUsernameInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4226,7 +5401,9 @@ input UpdateUserByUsernameInput {
   username: String!
 }
 
-"""The output of our delete `CollectionArticle` mutation."""
+"""
+The output of our delete `CollectionArticle` mutation.
+"""
 type DeleteCollectionArticlePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4234,7 +5411,9 @@ type DeleteCollectionArticlePayload {
   """
   clientMutationId: String
 
-  """The `CollectionArticle` that was deleted by this mutation."""
+  """
+  The `CollectionArticle` that was deleted by this mutation.
+  """
   collectionArticle: CollectionArticle
   deletedCollectionArticleNodeId: ID
 
@@ -4248,14 +5427,20 @@ type DeleteCollectionArticlePayload {
   """
   collection: Collection
 
-  """An edge for our `CollectionArticle`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionArticle`. May be used by Relay 1.
+  """
   collectionArticleEdge(
-    """The method to use when ordering `CollectionArticle`."""
+    """
+    The method to use when ordering `CollectionArticle`.
+    """
     orderBy: [CollectionArticlesOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionArticlesEdge
 }
 
-"""All input for the `deleteCollectionArticleByNodeId` mutation."""
+"""
+All input for the `deleteCollectionArticleByNodeId` mutation.
+"""
 input DeleteCollectionArticleByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4269,7 +5454,9 @@ input DeleteCollectionArticleByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteCollectionArticle` mutation."""
+"""
+All input for the `deleteCollectionArticle` mutation.
+"""
 input DeleteCollectionArticleInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4279,7 +5466,9 @@ input DeleteCollectionArticleInput {
   id: Int!
 }
 
-"""The output of our delete `CollectionGoogleFactCheck` mutation."""
+"""
+The output of our delete `CollectionGoogleFactCheck` mutation.
+"""
 type DeleteCollectionGoogleFactCheckPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4287,7 +5476,9 @@ type DeleteCollectionGoogleFactCheckPayload {
   """
   clientMutationId: String
 
-  """The `CollectionGoogleFactCheck` that was deleted by this mutation."""
+  """
+  The `CollectionGoogleFactCheck` that was deleted by this mutation.
+  """
   collectionGoogleFactCheck: CollectionGoogleFactCheck
   deletedCollectionGoogleFactCheckNodeId: ID
 
@@ -4301,14 +5492,20 @@ type DeleteCollectionGoogleFactCheckPayload {
   """
   collection: Collection
 
-  """An edge for our `CollectionGoogleFactCheck`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionGoogleFactCheck`. May be used by Relay 1.
+  """
   collectionGoogleFactCheckEdge(
-    """The method to use when ordering `CollectionGoogleFactCheck`."""
+    """
+    The method to use when ordering `CollectionGoogleFactCheck`.
+    """
     orderBy: [CollectionGoogleFactChecksOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionGoogleFactChecksEdge
 }
 
-"""All input for the `deleteCollectionGoogleFactCheckByNodeId` mutation."""
+"""
+All input for the `deleteCollectionGoogleFactCheckByNodeId` mutation.
+"""
 input DeleteCollectionGoogleFactCheckByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4322,7 +5519,9 @@ input DeleteCollectionGoogleFactCheckByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteCollectionGoogleFactCheck` mutation."""
+"""
+All input for the `deleteCollectionGoogleFactCheck` mutation.
+"""
 input DeleteCollectionGoogleFactCheckInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4332,7 +5531,9 @@ input DeleteCollectionGoogleFactCheckInput {
   id: Int!
 }
 
-"""The output of our delete `CollectionTweet` mutation."""
+"""
+The output of our delete `CollectionTweet` mutation.
+"""
 type DeleteCollectionTweetPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4340,7 +5541,9 @@ type DeleteCollectionTweetPayload {
   """
   clientMutationId: String
 
-  """The `CollectionTweet` that was deleted by this mutation."""
+  """
+  The `CollectionTweet` that was deleted by this mutation.
+  """
   collectionTweet: CollectionTweet
   deletedCollectionTweetNodeId: ID
 
@@ -4349,17 +5552,25 @@ type DeleteCollectionTweetPayload {
   """
   query: Query
 
-  """Reads a single `Collection` that is related to this `CollectionTweet`."""
+  """
+  Reads a single `Collection` that is related to this `CollectionTweet`.
+  """
   collection: Collection
 
-  """An edge for our `CollectionTweet`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionTweet`. May be used by Relay 1.
+  """
   collectionTweetEdge(
-    """The method to use when ordering `CollectionTweet`."""
+    """
+    The method to use when ordering `CollectionTweet`.
+    """
     orderBy: [CollectionTweetsOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionTweetsEdge
 }
 
-"""All input for the `deleteCollectionTweetByNodeId` mutation."""
+"""
+All input for the `deleteCollectionTweetByNodeId` mutation.
+"""
 input DeleteCollectionTweetByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4373,7 +5584,9 @@ input DeleteCollectionTweetByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteCollectionTweet` mutation."""
+"""
+All input for the `deleteCollectionTweet` mutation.
+"""
 input DeleteCollectionTweetInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4383,7 +5596,9 @@ input DeleteCollectionTweetInput {
   id: Int!
 }
 
-"""The output of our delete `CollectionVeraFile` mutation."""
+"""
+The output of our delete `CollectionVeraFile` mutation.
+"""
 type DeleteCollectionVeraFilePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4391,7 +5606,9 @@ type DeleteCollectionVeraFilePayload {
   """
   clientMutationId: String
 
-  """The `CollectionVeraFile` that was deleted by this mutation."""
+  """
+  The `CollectionVeraFile` that was deleted by this mutation.
+  """
   collectionVeraFile: CollectionVeraFile
   deletedCollectionVeraFileNodeId: ID
 
@@ -4405,14 +5622,20 @@ type DeleteCollectionVeraFilePayload {
   """
   collection: Collection
 
-  """An edge for our `CollectionVeraFile`. May be used by Relay 1."""
+  """
+  An edge for our `CollectionVeraFile`. May be used by Relay 1.
+  """
   collectionVeraFileEdge(
-    """The method to use when ordering `CollectionVeraFile`."""
+    """
+    The method to use when ordering `CollectionVeraFile`.
+    """
     orderBy: [CollectionVeraFilesOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionVeraFilesEdge
 }
 
-"""All input for the `deleteCollectionVeraFileByNodeId` mutation."""
+"""
+All input for the `deleteCollectionVeraFileByNodeId` mutation.
+"""
 input DeleteCollectionVeraFileByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4426,7 +5649,9 @@ input DeleteCollectionVeraFileByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteCollectionVeraFile` mutation."""
+"""
+All input for the `deleteCollectionVeraFile` mutation.
+"""
 input DeleteCollectionVeraFileInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4436,7 +5661,9 @@ input DeleteCollectionVeraFileInput {
   id: Int!
 }
 
-"""The output of our delete `Collection` mutation."""
+"""
+The output of our delete `Collection` mutation.
+"""
 type DeleteCollectionPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4444,7 +5671,9 @@ type DeleteCollectionPayload {
   """
   clientMutationId: String
 
-  """The `Collection` that was deleted by this mutation."""
+  """
+  The `Collection` that was deleted by this mutation.
+  """
   collection: Collection
   deletedCollectionNodeId: ID
 
@@ -4453,17 +5682,25 @@ type DeleteCollectionPayload {
   """
   query: Query
 
-  """Reads a single `User` that is related to this `Collection`."""
+  """
+  Reads a single `User` that is related to this `Collection`.
+  """
   user: User
 
-  """An edge for our `Collection`. May be used by Relay 1."""
+  """
+  An edge for our `Collection`. May be used by Relay 1.
+  """
   collectionEdge(
-    """The method to use when ordering `Collection`."""
+    """
+    The method to use when ordering `Collection`.
+    """
     orderBy: [CollectionsOrderBy!] = [PRIMARY_KEY_ASC]
   ): CollectionsEdge
 }
 
-"""All input for the `deleteCollectionByNodeId` mutation."""
+"""
+All input for the `deleteCollectionByNodeId` mutation.
+"""
 input DeleteCollectionByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4477,7 +5714,9 @@ input DeleteCollectionByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteCollection` mutation."""
+"""
+All input for the `deleteCollection` mutation.
+"""
 input DeleteCollectionInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4487,7 +5726,9 @@ input DeleteCollectionInput {
   id: Int!
 }
 
-"""All input for the `deleteCollectionByTitleAndId` mutation."""
+"""
+All input for the `deleteCollectionByTitleAndId` mutation.
+"""
 input DeleteCollectionByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4498,7 +5739,9 @@ input DeleteCollectionByTitleAndIdInput {
   id: Int!
 }
 
-"""The output of our delete `NewsFeed` mutation."""
+"""
+The output of our delete `NewsFeed` mutation.
+"""
 type DeleteNewsFeedPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4506,7 +5749,9 @@ type DeleteNewsFeedPayload {
   """
   clientMutationId: String
 
-  """The `NewsFeed` that was deleted by this mutation."""
+  """
+  The `NewsFeed` that was deleted by this mutation.
+  """
   newsFeed: NewsFeed
   deletedNewsFeedNodeId: ID
 
@@ -4515,17 +5760,25 @@ type DeleteNewsFeedPayload {
   """
   query: Query
 
-  """Reads a single `User` that is related to this `NewsFeed`."""
+  """
+  Reads a single `User` that is related to this `NewsFeed`.
+  """
   user: User
 
-  """An edge for our `NewsFeed`. May be used by Relay 1."""
+  """
+  An edge for our `NewsFeed`. May be used by Relay 1.
+  """
   newsFeedEdge(
-    """The method to use when ordering `NewsFeed`."""
+    """
+    The method to use when ordering `NewsFeed`.
+    """
     orderBy: [NewsFeedsOrderBy!] = [PRIMARY_KEY_ASC]
   ): NewsFeedsEdge
 }
 
-"""All input for the `deleteNewsFeedByNodeId` mutation."""
+"""
+All input for the `deleteNewsFeedByNodeId` mutation.
+"""
 input DeleteNewsFeedByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4539,7 +5792,9 @@ input DeleteNewsFeedByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteNewsFeed` mutation."""
+"""
+All input for the `deleteNewsFeed` mutation.
+"""
 input DeleteNewsFeedInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4549,7 +5804,9 @@ input DeleteNewsFeedInput {
   id: Int!
 }
 
-"""All input for the `deleteNewsFeedByTitleAndId` mutation."""
+"""
+All input for the `deleteNewsFeedByTitleAndId` mutation.
+"""
 input DeleteNewsFeedByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4560,7 +5817,9 @@ input DeleteNewsFeedByTitleAndIdInput {
   id: Int!
 }
 
-"""The output of our delete `TopHeadlinesCache` mutation."""
+"""
+The output of our delete `TopHeadlinesCache` mutation.
+"""
 type DeleteTopHeadlinesCachePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4568,7 +5827,9 @@ type DeleteTopHeadlinesCachePayload {
   """
   clientMutationId: String
 
-  """The `TopHeadlinesCache` that was deleted by this mutation."""
+  """
+  The `TopHeadlinesCache` that was deleted by this mutation.
+  """
   topHeadlinesCache: TopHeadlinesCache
   deletedTopHeadlinesCacheNodeId: ID
 
@@ -4582,14 +5843,20 @@ type DeleteTopHeadlinesCachePayload {
   """
   topHeadlinesRequest: TopHeadlinesRequest
 
-  """An edge for our `TopHeadlinesCache`. May be used by Relay 1."""
+  """
+  An edge for our `TopHeadlinesCache`. May be used by Relay 1.
+  """
   topHeadlinesCacheEdge(
-    """The method to use when ordering `TopHeadlinesCache`."""
+    """
+    The method to use when ordering `TopHeadlinesCache`.
+    """
     orderBy: [TopHeadlinesCachesOrderBy!] = [PRIMARY_KEY_ASC]
   ): TopHeadlinesCachesEdge
 }
 
-"""All input for the `deleteTopHeadlinesCacheByNodeId` mutation."""
+"""
+All input for the `deleteTopHeadlinesCacheByNodeId` mutation.
+"""
 input DeleteTopHeadlinesCacheByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4603,7 +5870,9 @@ input DeleteTopHeadlinesCacheByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteTopHeadlinesCache` mutation."""
+"""
+All input for the `deleteTopHeadlinesCache` mutation.
+"""
 input DeleteTopHeadlinesCacheInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4613,7 +5882,9 @@ input DeleteTopHeadlinesCacheInput {
   id: Int!
 }
 
-"""The output of our delete `TopHeadlinesRequest` mutation."""
+"""
+The output of our delete `TopHeadlinesRequest` mutation.
+"""
 type DeleteTopHeadlinesRequestPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4621,7 +5892,9 @@ type DeleteTopHeadlinesRequestPayload {
   """
   clientMutationId: String
 
-  """The `TopHeadlinesRequest` that was deleted by this mutation."""
+  """
+  The `TopHeadlinesRequest` that was deleted by this mutation.
+  """
   topHeadlinesRequest: TopHeadlinesRequest
   deletedTopHeadlinesRequestNodeId: ID
 
@@ -4630,14 +5903,20 @@ type DeleteTopHeadlinesRequestPayload {
   """
   query: Query
 
-  """An edge for our `TopHeadlinesRequest`. May be used by Relay 1."""
+  """
+  An edge for our `TopHeadlinesRequest`. May be used by Relay 1.
+  """
   topHeadlinesRequestEdge(
-    """The method to use when ordering `TopHeadlinesRequest`."""
+    """
+    The method to use when ordering `TopHeadlinesRequest`.
+    """
     orderBy: [TopHeadlinesRequestsOrderBy!] = [PRIMARY_KEY_ASC]
   ): TopHeadlinesRequestsEdge
 }
 
-"""All input for the `deleteTopHeadlinesRequestByNodeId` mutation."""
+"""
+All input for the `deleteTopHeadlinesRequestByNodeId` mutation.
+"""
 input DeleteTopHeadlinesRequestByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4651,7 +5930,9 @@ input DeleteTopHeadlinesRequestByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteTopHeadlinesRequest` mutation."""
+"""
+All input for the `deleteTopHeadlinesRequest` mutation.
+"""
 input DeleteTopHeadlinesRequestInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4661,7 +5942,9 @@ input DeleteTopHeadlinesRequestInput {
   id: Int!
 }
 
-"""The output of our delete `TwitterFeed` mutation."""
+"""
+The output of our delete `TwitterFeed` mutation.
+"""
 type DeleteTwitterFeedPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4669,7 +5952,9 @@ type DeleteTwitterFeedPayload {
   """
   clientMutationId: String
 
-  """The `TwitterFeed` that was deleted by this mutation."""
+  """
+  The `TwitterFeed` that was deleted by this mutation.
+  """
   twitterFeed: TwitterFeed
   deletedTwitterFeedNodeId: ID
 
@@ -4678,17 +5963,25 @@ type DeleteTwitterFeedPayload {
   """
   query: Query
 
-  """Reads a single `User` that is related to this `TwitterFeed`."""
+  """
+  Reads a single `User` that is related to this `TwitterFeed`.
+  """
   user: User
 
-  """An edge for our `TwitterFeed`. May be used by Relay 1."""
+  """
+  An edge for our `TwitterFeed`. May be used by Relay 1.
+  """
   twitterFeedEdge(
-    """The method to use when ordering `TwitterFeed`."""
+    """
+    The method to use when ordering `TwitterFeed`.
+    """
     orderBy: [TwitterFeedsOrderBy!] = [PRIMARY_KEY_ASC]
   ): TwitterFeedsEdge
 }
 
-"""All input for the `deleteTwitterFeedByNodeId` mutation."""
+"""
+All input for the `deleteTwitterFeedByNodeId` mutation.
+"""
 input DeleteTwitterFeedByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4702,7 +5995,9 @@ input DeleteTwitterFeedByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteTwitterFeed` mutation."""
+"""
+All input for the `deleteTwitterFeed` mutation.
+"""
 input DeleteTwitterFeedInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4712,7 +6007,9 @@ input DeleteTwitterFeedInput {
   id: Int!
 }
 
-"""All input for the `deleteTwitterFeedByTitleAndId` mutation."""
+"""
+All input for the `deleteTwitterFeedByTitleAndId` mutation.
+"""
 input DeleteTwitterFeedByTitleAndIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4723,7 +6020,9 @@ input DeleteTwitterFeedByTitleAndIdInput {
   id: Int!
 }
 
-"""The output of our delete `TwitterLocalSource` mutation."""
+"""
+The output of our delete `TwitterLocalSource` mutation.
+"""
 type DeleteTwitterLocalSourcePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4731,7 +6030,9 @@ type DeleteTwitterLocalSourcePayload {
   """
   clientMutationId: String
 
-  """The `TwitterLocalSource` that was deleted by this mutation."""
+  """
+  The `TwitterLocalSource` that was deleted by this mutation.
+  """
   twitterLocalSource: TwitterLocalSource
   deletedTwitterLocalSourceNodeId: ID
 
@@ -4740,14 +6041,20 @@ type DeleteTwitterLocalSourcePayload {
   """
   query: Query
 
-  """An edge for our `TwitterLocalSource`. May be used by Relay 1."""
+  """
+  An edge for our `TwitterLocalSource`. May be used by Relay 1.
+  """
   twitterLocalSourceEdge(
-    """The method to use when ordering `TwitterLocalSource`."""
+    """
+    The method to use when ordering `TwitterLocalSource`.
+    """
     orderBy: [TwitterLocalSourcesOrderBy!] = [PRIMARY_KEY_ASC]
   ): TwitterLocalSourcesEdge
 }
 
-"""All input for the `deleteTwitterLocalSourceByNodeId` mutation."""
+"""
+All input for the `deleteTwitterLocalSourceByNodeId` mutation.
+"""
 input DeleteTwitterLocalSourceByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4761,7 +6068,9 @@ input DeleteTwitterLocalSourceByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteTwitterLocalSource` mutation."""
+"""
+All input for the `deleteTwitterLocalSource` mutation.
+"""
 input DeleteTwitterLocalSourceInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4771,7 +6080,9 @@ input DeleteTwitterLocalSourceInput {
   accountId: Int!
 }
 
-"""All input for the `deleteTwitterLocalSourceByAccountName` mutation."""
+"""
+All input for the `deleteTwitterLocalSourceByAccountName` mutation.
+"""
 input DeleteTwitterLocalSourceByAccountNameInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4793,7 +6104,9 @@ input DeleteTwitterLocalSourceByAccountUsernameInput {
   accountUsername: String!
 }
 
-"""The output of our delete `TwitterSource` mutation."""
+"""
+The output of our delete `TwitterSource` mutation.
+"""
 type DeleteTwitterSourcePayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4801,7 +6114,9 @@ type DeleteTwitterSourcePayload {
   """
   clientMutationId: String
 
-  """The `TwitterSource` that was deleted by this mutation."""
+  """
+  The `TwitterSource` that was deleted by this mutation.
+  """
   twitterSource: TwitterSource
   deletedTwitterSourceNodeId: ID
 
@@ -4810,14 +6125,20 @@ type DeleteTwitterSourcePayload {
   """
   query: Query
 
-  """An edge for our `TwitterSource`. May be used by Relay 1."""
+  """
+  An edge for our `TwitterSource`. May be used by Relay 1.
+  """
   twitterSourceEdge(
-    """The method to use when ordering `TwitterSource`."""
+    """
+    The method to use when ordering `TwitterSource`.
+    """
     orderBy: [TwitterSourcesOrderBy!] = [PRIMARY_KEY_ASC]
   ): TwitterSourcesEdge
 }
 
-"""All input for the `deleteTwitterSourceByNodeId` mutation."""
+"""
+All input for the `deleteTwitterSourceByNodeId` mutation.
+"""
 input DeleteTwitterSourceByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4831,7 +6152,9 @@ input DeleteTwitterSourceByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteTwitterSource` mutation."""
+"""
+All input for the `deleteTwitterSource` mutation.
+"""
 input DeleteTwitterSourceInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4841,7 +6164,9 @@ input DeleteTwitterSourceInput {
   accountId: Int!
 }
 
-"""All input for the `deleteTwitterSourceByAccountName` mutation."""
+"""
+All input for the `deleteTwitterSourceByAccountName` mutation.
+"""
 input DeleteTwitterSourceByAccountNameInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4851,7 +6176,9 @@ input DeleteTwitterSourceByAccountNameInput {
   accountName: String!
 }
 
-"""All input for the `deleteTwitterSourceByAccountUsername` mutation."""
+"""
+All input for the `deleteTwitterSourceByAccountUsername` mutation.
+"""
 input DeleteTwitterSourceByAccountUsernameInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4861,7 +6188,9 @@ input DeleteTwitterSourceByAccountUsernameInput {
   accountUsername: String!
 }
 
-"""The output of our delete `User` mutation."""
+"""
+The output of our delete `User` mutation.
+"""
 type DeleteUserPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4869,7 +6198,9 @@ type DeleteUserPayload {
   """
   clientMutationId: String
 
-  """The `User` that was deleted by this mutation."""
+  """
+  The `User` that was deleted by this mutation.
+  """
   user: User
   deletedUserNodeId: ID
 
@@ -4878,14 +6209,20 @@ type DeleteUserPayload {
   """
   query: Query
 
-  """An edge for our `User`. May be used by Relay 1."""
+  """
+  An edge for our `User`. May be used by Relay 1.
+  """
   userEdge(
-    """The method to use when ordering `User`."""
+    """
+    The method to use when ordering `User`.
+    """
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
 }
 
-"""All input for the `deleteUserByNodeId` mutation."""
+"""
+All input for the `deleteUserByNodeId` mutation.
+"""
 input DeleteUserByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4899,7 +6236,9 @@ input DeleteUserByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteUser` mutation."""
+"""
+All input for the `deleteUser` mutation.
+"""
 input DeleteUserInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4909,7 +6248,9 @@ input DeleteUserInput {
   id: Int!
 }
 
-"""All input for the `deleteUserByUsername` mutation."""
+"""
+All input for the `deleteUserByUsername` mutation.
+"""
 input DeleteUserByUsernameInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4919,7 +6260,9 @@ input DeleteUserByUsernameInput {
   username: String!
 }
 
-"""The output of our `signin` mutation."""
+"""
+The output of our `signin` mutation.
+"""
 type SigninPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4940,7 +6283,9 @@ which securely represents claims between two parties.
 """
 scalar JwtToken
 
-"""All input for the `signin` mutation."""
+"""
+All input for the `signin` mutation.
+"""
 input SigninInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
@@ -4951,7 +6296,9 @@ input SigninInput {
   password: String!
 }
 
-"""The output of our `signup` mutation."""
+"""
+The output of our `signup` mutation.
+"""
 type SignupPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
@@ -4966,7 +6313,9 @@ type SignupPayload {
   query: Query
 }
 
-"""All input for the `signup` mutation."""
+"""
+All input for the `signup` mutation.
+"""
 input SignupInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the

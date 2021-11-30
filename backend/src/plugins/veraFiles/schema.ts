@@ -2,7 +2,7 @@ import { gql } from 'graphile-utils';
 
 export const veraFiles = gql`
   type VeraFiles {
-    id: Int
+    id: Int!
     author: String
     description: String
     title: String

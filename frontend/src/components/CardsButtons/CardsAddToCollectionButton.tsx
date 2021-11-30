@@ -12,17 +12,22 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
-
 import CollectionsList from '../Collections/CollectionsList';
 import {
   SaveTweetToCollectionMutation,
   SaveTweetToCollectionMutationVariables,
   SaveArticleToCollectionMutation,
   SaveArticleToCollectionMutationVariables,
+  SaveVeraFileToCollectionMutation,
+  SaveVeraFileToCollectionMutationVariables,
+  SaveGoogleFactCheckToCollectionMutation,
+  SaveGoogleFactCheckToCollectionMutationVariables,
 } from '../Collections/query.generated';
 import {
   SAVE_TWEET_TO_COLLECTION,
   SAVE_ARTICLE_TO_COLLECTION,
+  SAVE_VERA_FILE_TO_COLLECTION,
+  SAVE_GOOGLE_FACT_CHECK_TO_COLLECTION,
 } from '../Collections/query';
 import { COLLECTION_CONTENTS_QUERY } from '../Columns/query';
 import { CollectionContent } from '../../types.generated';
@@ -52,7 +57,8 @@ interface CollectionContentProps {
 
 const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
   const classes = useStyles();
-  const { state, setState } = useCollectionsListState();
+  const { collectionListState, collectionListSetState } =
+    useCollectionsListState();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -73,6 +79,16 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
     SaveArticleToCollectionMutationVariables
   >(SAVE_ARTICLE_TO_COLLECTION);
 
+  const [saveVeraFileToCollection] = useMutation<
+    SaveVeraFileToCollectionMutation,
+    SaveVeraFileToCollectionMutationVariables
+  >(SAVE_VERA_FILE_TO_COLLECTION);
+
+  const [saveGoogleFactCheckToCollection] = useMutation<
+    SaveGoogleFactCheckToCollectionMutation,
+    SaveGoogleFactCheckToCollectionMutationVariables
+  >(SAVE_GOOGLE_FACT_CHECK_TO_COLLECTION);
+
   const handleSave = () => {
     if (data.__typename) {
       switch (data.__typename) {
@@ -81,7 +97,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             variables: {
               input: {
                 collectionTweet: {
-                  collectionId: state.collectionId,
+                  collectionId: collectionListState.collectionId,
                   tweetId: data.tweetId,
                 },
               },
@@ -92,7 +108,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             refetchQueries: [
               {
                 query: COLLECTION_CONTENTS_QUERY,
-                variables: { collectionId: state.collectionId },
+                variables: { collectionId: collectionListState.collectionId },
               },
             ],
           });
@@ -102,7 +118,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             variables: {
               input: {
                 collectionArticle: {
-                  collectionId: state.collectionId,
+                  collectionId: collectionListState.collectionId,
                   title: data.title,
                   description: data.description,
                   publishedAt: data.publishedAt,
@@ -118,7 +134,67 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
             refetchQueries: [
               {
                 query: COLLECTION_CONTENTS_QUERY,
-                variables: { collectionId: state.collectionId },
+                variables: { collectionId: collectionListState.collectionId },
+              },
+            ],
+          });
+          break;
+        case 'CollectionVeraFile':
+          saveVeraFileToCollection({
+            variables: {
+              input: {
+                collectionVeraFile: {
+                  collectionId: collectionListState.collectionId,
+                  author: data.author,
+                  category: data.category,
+                  date: data.date,
+                  dateText: data.dateText,
+                  description: data.description,
+                  imageStyle: data.imageStyle,
+                  imageUrl: data.imageUrl,
+                  url: data.url,
+                  title: data.title,
+                },
+              },
+            },
+            onCompleted: () => {
+              handleClickClose();
+            },
+            refetchQueries: [
+              {
+                query: COLLECTION_CONTENTS_QUERY,
+                variables: { collectionId: collectionListState.collectionId },
+              },
+            ],
+          });
+          break;
+        case 'CollectionGoogleFactCheck':
+          saveGoogleFactCheckToCollection({
+            variables: {
+              input: {
+                collectionGoogleFactCheck: {
+                  collectionId: collectionListState.collectionId,
+                  claimDate: data.claimDate,
+                  claimant: data.claimant,
+                  createdAt: data.createdAt,
+                  languageCode: data.languageCode,
+                  publisherName: data.publisherName,
+                  publisherSite: data.publisherSite,
+                  reviewDate: data.reviewDate,
+                  text: data.text,
+                  title: data.title,
+                  textualRating: data.textualRating,
+                  url: data.url,
+                },
+              },
+            },
+            onCompleted: () => {
+              handleClickClose();
+            },
+            refetchQueries: [
+              {
+                query: COLLECTION_CONTENTS_QUERY,
+                variables: { collectionId: collectionListState.collectionId },
               },
             ],
           });

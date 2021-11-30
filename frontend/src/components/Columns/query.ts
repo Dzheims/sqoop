@@ -74,9 +74,38 @@ export const COLLECTION_CONTENTS_QUERY = gql`
         description
         publishedAt
         sourceName
-        title
+        articleTitle: title
         url
         urlToImage
+        collectionId
+      }
+      ... on CollectionVeraFile {
+        id
+        author
+        category
+        createdAt
+        date
+        dateText
+        description
+        imageStyle
+        imageUrl
+        title
+        url
+        collectionId
+      }
+      ... on CollectionGoogleFactCheck {
+        id
+        claimDate
+        claimant
+        createdAt
+        languageCode
+        publisherName
+        publisherSite
+        reviewDate
+        text
+        textualRating
+        title
+        url
         collectionId
       }
     }
