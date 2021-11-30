@@ -1028,7 +1028,7 @@ type CollectionArticle implements Node {
   description: String
   publishedAt: String
   sourceName: String
-  title: String!
+  title: String
   url: String
   urlToImage: String
   collectionId: Int!
@@ -2078,16 +2078,16 @@ type CollectionGoogleFactCheck implements Node {
   """
   nodeId: ID!
   id: Int!
-  text: String!
-  claimant: String!
-  claimDate: String!
-  publisherName: String!
-  publisherSite: String!
-  url: String!
-  title: String!
-  reviewDate: String!
-  textualRating: String!
-  languageCode: String!
+  text: String
+  claimant: String
+  claimDate: String
+  publisherName: String
+  publisherSite: String
+  url: String
+  title: String
+  reviewDate: String
+  textualRating: String
+  languageCode: String
   collectionId: Int!
   createdAt: Datetime!
 
@@ -3542,7 +3542,7 @@ input CollectionArticleInput {
   description: String
   publishedAt: String
   sourceName: String
-  title: String!
+  title: String
   url: String
   urlToImage: String
   collectionId: Int!
@@ -3606,16 +3606,16 @@ An input for mutations affecting `CollectionGoogleFactCheck`
 """
 input CollectionGoogleFactCheckInput {
   id: Int
-  text: String!
-  claimant: String!
-  claimDate: String!
-  publisherName: String!
-  publisherSite: String!
-  url: String!
-  title: String!
-  reviewDate: String!
-  textualRating: String!
-  languageCode: String!
+  text: String
+  claimant: String
+  claimDate: String
+  publisherName: String
+  publisherSite: String
+  url: String
+  title: String
+  reviewDate: String
+  textualRating: String
+  languageCode: String
   collectionId: Int!
   createdAt: Datetime
 }

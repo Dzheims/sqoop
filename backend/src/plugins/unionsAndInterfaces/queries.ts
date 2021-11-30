@@ -60,11 +60,17 @@ export const resolvers = (getNamedType: any) => {
         const { rows: collectionVeraFile } = await pgClient.query(
           `SELECT * FROM collection_vera_files WHERE collection_id = ${collectionId}`
         );
-        const result = camelcaseKeys([
-          ...collectionTweets,
-          ...collectionArticles,
-          ...collectionVeraFile,
-        ]);
+        const { rows: collectionGoogleFactCheck } = await pgClient.query(
+          `SELECT * FROM collection_google_fact_check WHERE collection_id = ${collectionId}`
+        );
+        const result = camelcaseKeys(
+          [
+            ...collectionTweets,
+            ...collectionArticles,
+            ...collectionVeraFile,
+            ...collectionGoogleFactCheck,
+          ].sort((a: any, b: any) => a.created_at - b.created_at)
+        );
         return result;
       },
     },
