@@ -30,7 +30,13 @@ const GoogleFactCheckData: React.FC<SearchQueryProps> = ({
       />
     );
 
-  return <GoogleFactCheckResultsCards data={data} />;
+  return (
+    <div>
+      {data?.googleFactCheckSearch.map((value) => (
+        <GoogleFactCheckResultsCards data={value} />
+      ))}
+    </div>
+  );
 };
 
 export default GoogleFactCheckData;

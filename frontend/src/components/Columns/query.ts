@@ -83,7 +83,6 @@ export const COLLECTION_CONTENTS_QUERY = gql`
         id
         author
         category
-        collectionId
         createdAt
         date
         dateText
@@ -92,6 +91,22 @@ export const COLLECTION_CONTENTS_QUERY = gql`
         imageUrl
         title
         url
+        collectionId
+      }
+      ... on CollectionGoogleFactCheck {
+        id
+        claimDate
+        claimant
+        createdAt
+        languageCode
+        publisherName
+        publisherSite
+        reviewDate
+        text
+        textualRating
+        title
+        url
+        collectionId
       }
     }
   }

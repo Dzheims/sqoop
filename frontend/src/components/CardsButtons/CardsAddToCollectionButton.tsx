@@ -32,7 +32,6 @@ import {
 import { COLLECTION_CONTENTS_QUERY } from '../Columns/query';
 import { CollectionContent } from '../../types.generated';
 import { useCollectionsListState } from '../Collections/CollectionsListState';
-import { useDrawerState } from '../FactCheck/FactCheckDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -155,6 +154,37 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
                   imageUrl: data.imageUrl,
                   url: data.url,
                   title: data.title,
+                },
+              },
+            },
+            onCompleted: () => {
+              handleClickClose();
+            },
+            refetchQueries: [
+              {
+                query: COLLECTION_CONTENTS_QUERY,
+                variables: { collectionId: collectionListState.collectionId },
+              },
+            ],
+          });
+          break;
+        case 'CollectionGoogleFactCheck':
+          saveGoogleFactCheckToCollection({
+            variables: {
+              input: {
+                collectionGoogleFactCheck: {
+                  collectionId: collectionListState.collectionId,
+                  claimDate: data.claimDate,
+                  claimant: data.claimant,
+                  createdAt: data.createdAt,
+                  languageCode: data.languageCode,
+                  publisherName: data.publisherName,
+                  publisherSite: data.publisherSite,
+                  reviewDate: data.reviewDate,
+                  text: data.text,
+                  title: data.title,
+                  textualRating: data.textualRating,
+                  url: data.url,
                 },
               },
             },

@@ -3,6 +3,7 @@ import { CollectionContentsQuery } from '../../components/Columns/query.generate
 import CollectionTweets from './CollectionTweetsData';
 import NewsCards from '../../components/Cards/NewsCards';
 import VeraFactCheckResultsCards from '../../components/FactCheck/VeraFactCheckResultsCards';
+import GoogleFactCheckResultsCards from '../../components/FactCheck/GoogleFactCheckResultsCards';
 
 interface CollectionContentsDataProps {
   data: CollectionContentsQuery;
@@ -13,15 +14,11 @@ const getCollectionContentType = (value: any) => {
     case 'CollectionTweet':
       return <CollectionTweets dataProps={value} />;
     case 'CollectionArticle':
-      const { articleTitle: title, ...collectionArticle } = value;
-      return (
-        <NewsCards
-          data={{ title, ...collectionArticle }}
-          isUnderCollections={true}
-        />
-      );
+      return <NewsCards data={value} isUnderCollections={true} />;
     case 'CollectionVeraFile':
       return <VeraFactCheckResultsCards data={value} />;
+    case 'CollectionGoogleFactCheck':
+      return <GoogleFactCheckResultsCards data={value} />;
   }
 };
 
