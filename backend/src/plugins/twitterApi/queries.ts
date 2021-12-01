@@ -40,6 +40,31 @@ export const resolvers = {
       const { pgClient, jwtClaims } = context;
       if (!jwtClaims) throw new Error('Unauthorized user');
 
+      await pgClient.query(
+        `DELETE FROM twitter_recent_search_requests WHERE keyword = $1 AND sources = $2 AND created_at < Now() - INTERVAL '15 MINUTES'`,
+        [keyword, sources]
+      );
+
+      const {
+        rows: [request],
+      } = await pgClient.query(
+        `SELECT * FROM twitter_recent_search_requests WHERE keyword = $1 AND sources = $2`,
+        [keyword, sources]
+      );
+
+      if (request) {
+        console.log(request);
+        console.log('cache');
+      } else {
+        const {
+          rows: [twitter_recent_search_request_id],
+        } = await pgClient.query(
+          `INSERT INTO twitter_recent_search_requests (keyword, sources) VALUES ($1, $2) RETURNING id`,
+          [keyword, sources]
+        );
+        console.log('api');
+      }
+
       const { rows } = await pgClient.query(
         `SELECT account_username FROM twitter_sources`
       );
@@ -50,7 +75,10 @@ export const resolvers = {
       queryParams.set(
         'query',
         queryFormatter({
-          sources: sources || defaultSources.slice(0, 26),
+          sources:
+            !sources || sources[0] === ''
+              ? defaultSources.slice(0, 26)
+              : sources,
           keyword: keyword || '',
         })
       );
