@@ -35,16 +35,16 @@ export const SEARCH_TWITTER_CONTENTS_QUERY = gql`
       fromDate: $fromDate
       toDate: $toDate
     ) {
-      author_id
-      created_at
+      authorId
+      createdAt
       id
       name
       photos {
-        media_key
+        mediaKey
         type
         url
       }
-      profile_image_url
+      profileImageUrl
       suggestedKeywords
       text
       username

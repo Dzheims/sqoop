@@ -1,5 +1,6 @@
 import { Client } from 'pg';
 import keyword_extractor from 'keyword-extractor';
+const camelcaseKeys = require('camelcase-keys');
 const fetch = require('node-fetch');
 require('dotenv').config();
 
@@ -98,7 +99,7 @@ export const resolvers = {
             }
           })
         : [];
-      return searchTweets;
+      return camelcaseKeys(searchTweets);
     },
     searchAllTweets: async (_: any, args: any, context: any) => {
       const { keyword, sources, fromDate, toDate } = args;
@@ -144,8 +145,9 @@ export const resolvers = {
               return_changed_case: true,
               remove_duplicates: true,
             });
-            const photos = tweet.entities.media
-              ? tweet.entities.media.map((media: any) => {
+
+            const photos = tweet.extended_tweet.entities.media
+              ? tweet.extended_tweet.entities.media.map((media: any) => {
                   const { media_url, id_str, type } = media;
                   return { url: media_url, media_key: id_str, type };
                 })
@@ -172,7 +174,7 @@ export const resolvers = {
             };
           })
         : [];
-      return searchAllTweets;
+      return camelcaseKeys(searchAllTweets);
     },
     tweetLookup: async (_: any, args: tweetLookupParams, context: any) => {
       const { id } = args;
@@ -211,7 +213,12 @@ export const resolvers = {
         return_changed_case: true,
         remove_duplicates: true,
       });
-      return { ...tweet, photos, ...userInfo, suggestedKeywords };
+      return camelcaseKeys({
+        ...tweet,
+        photos,
+        ...userInfo,
+        suggestedKeywords,
+      });
     },
   },
 };

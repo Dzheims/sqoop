@@ -30,17 +30,17 @@ export const GET_NEWS_API_CONTENTS_QUERY = gql`
 export const GET_TWITTER_API_CONTENTS_QUERY = gql`
   query getTwitterAPIContents($keyword: [String], $sources: [String]) {
     searchTweets(keyword: $keyword, sources: $sources) {
-      author_id
-      created_at
+      authorId
+      createdAt
       id
       name
       photos {
-        media_key
+        mediaKey
         type
         url
       }
       suggestedKeywords
-      profile_image_url
+      profileImageUrl
       text
       username
       verified

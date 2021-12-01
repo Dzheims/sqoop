@@ -46,14 +46,14 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
 
   const {
-    author_id,
+    authorId,
     id,
     name,
-    profile_image_url,
+    profileImageUrl,
     verified,
     username,
     photos,
-    created_at,
+    createdAt,
     suggestedKeywords,
     text,
     __typename,
@@ -73,7 +73,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
 
   return (
     <div>
-      <Draggable draggableId={author_id as string} index={0}>
+      <Draggable draggableId={authorId as string} index={0}>
         {(provided, snapshot) => (
           <Item
             className={
@@ -96,7 +96,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
             <TwitterContentContainer>
               <Avatar
                 alt={name as string}
-                src={profile_image_url as string}
+                src={profileImageUrl as string}
                 className={classes().profileAvatars}
                 variant="circular"
               />
@@ -146,7 +146,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
                 cols={itemListCols(photos?.length)}
               >
                 {photos?.map((photo: any) => (
-                  <ImageListItem key={photo?.media_key} cols={1}>
+                  <ImageListItem key={photo?.mediaKey} cols={1}>
                     <img
                       src={photo?.url as string}
                       alt={photo?.type as string}
@@ -156,7 +156,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
               </ImageList>
             )}
             <Typography className={classes().date}>
-              {formatTimeAndDate(data.created_at)}
+              {formatTimeAndDate(data.createdAt)}
             </Typography>
             <div className={classes().buttonsContainer}>
               <FactCheckButton
