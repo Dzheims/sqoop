@@ -53,7 +53,6 @@ export const resolvers = {
       );
 
       if (request) {
-        console.log(request);
         console.log('cache');
       } else {
         const {
@@ -117,8 +116,10 @@ export const resolvers = {
             for (var user of result.includes.users) {
               if (user.id === tweet.author_id) {
                 const { id, ...userInfo } = user;
+                const { id: tweetId, ...tweetInfo } = tweet;
                 return {
-                  ...tweet,
+                  tweetId,
+                  ...tweetInfo,
                   ...userInfo,
                   photos,
                   suggestedKeywords,
@@ -187,9 +188,9 @@ export const resolvers = {
               verified,
               profile_image_url,
             } = tweet.user;
-            const { id_str: id, created_at, text } = tweet;
+            const { id_str: tweetId, created_at, text } = tweet;
             return {
-              id,
+              tweetId,
               created_at,
               text,
               author_id,

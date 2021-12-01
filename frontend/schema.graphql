@@ -2803,7 +2803,7 @@ type Source {
 }
 
 type Tweet {
-  id: String
+  tweetId: String
   authorId: String
   createdAt: String
   text: String

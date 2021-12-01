@@ -37,7 +37,7 @@ export const SEARCH_TWITTER_CONTENTS_QUERY = gql`
     ) {
       authorId
       createdAt
-      id
+      tweetId
       name
       photos {
         mediaKey

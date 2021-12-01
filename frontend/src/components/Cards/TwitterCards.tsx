@@ -47,7 +47,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
 
   const {
     authorId,
-    id,
+    tweetId,
     name,
     profileImageUrl,
     verified,
@@ -166,7 +166,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
               <CardsAddToCollectionButton
                 data={
                   {
-                    tweetId: id,
+                    tweetId,
                     __typename: 'CollectionTweet',
                   } as CollectionTweet
                 }

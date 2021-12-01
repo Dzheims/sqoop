@@ -117,7 +117,7 @@ export const COLLECTION_TWEETS = gql`
     tweetLookup(id: $id) {
       authorId
       createdAt
-      id
+      tweetId
       name
       photos {
         mediaKey

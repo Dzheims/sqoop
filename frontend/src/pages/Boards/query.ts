@@ -32,7 +32,7 @@ export const GET_TWITTER_API_CONTENTS_QUERY = gql`
     searchTweets(keyword: $keyword, sources: $sources) {
       authorId
       createdAt
-      id
+      tweetId
       name
       photos {
         mediaKey
