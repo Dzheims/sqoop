@@ -684,6 +684,72 @@ type Query implements Node {
   ): [TwitterLocalSource!]
 
   """
+  Reads and enables pagination through a set of `TwitterRecentSearchCache`.
+  """
+  twitterRecentSearchCachesConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `TwitterRecentSearchCache`.
+    """
+    orderBy: [TwitterRecentSearchCachesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TwitterRecentSearchCacheCondition
+  ): TwitterRecentSearchCachesConnection
+
+  """
+  Reads a set of `TwitterRecentSearchCache`.
+  """
+  twitterRecentSearchCaches(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `TwitterRecentSearchCache`.
+    """
+    orderBy: [TwitterRecentSearchCachesOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TwitterRecentSearchCacheCondition
+  ): [TwitterRecentSearchCache!]
+
+  """
   Reads and enables pagination through a set of `TwitterRecentSearchRequest`.
   """
   twitterRecentSearchRequestsConnection(
@@ -897,6 +963,7 @@ type Query implements Node {
   twitterLocalSourceByAccountUsername(
     accountUsername: String!
   ): TwitterLocalSource
+  twitterRecentSearchCache(id: Int!): TwitterRecentSearchCache
   twitterRecentSearchRequest(id: Int!): TwitterRecentSearchRequest
   twitterSource(accountId: Int!): TwitterSource
   twitterSourceByAccountName(accountName: String!): TwitterSource
@@ -1004,6 +1071,16 @@ type Query implements Node {
     """
     nodeId: ID!
   ): TwitterLocalSource
+
+  """
+  Reads a single `TwitterRecentSearchCache` using its globally unique `ID`.
+  """
+  twitterRecentSearchCacheByNodeId(
+    """
+    The globally unique `ID` to be used in selecting a single `TwitterRecentSearchCache`.
+    """
+    nodeId: ID!
+  ): TwitterRecentSearchCache
 
   """
   Reads a single `TwitterRecentSearchRequest` using its globally unique `ID`.
@@ -2553,6 +2630,174 @@ input TwitterLocalSourceCondition {
 }
 
 """
+A connection to a list of `TwitterRecentSearchCache` values.
+"""
+type TwitterRecentSearchCachesConnection {
+  """
+  A list of `TwitterRecentSearchCache` objects.
+  """
+  nodes: [TwitterRecentSearchCache]!
+
+  """
+  A list of edges which contains the `TwitterRecentSearchCache` and cursor to aid in pagination.
+  """
+  edges: [TwitterRecentSearchCachesEdge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `TwitterRecentSearchCache` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type TwitterRecentSearchCache implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  tweetId: String
+  authorId: String
+  createdAt: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  twitterRecentSearchRequestId: Int!
+
+  """
+  Reads a single `TwitterRecentSearchRequest` that is related to this `TwitterRecentSearchCache`.
+  """
+  twitterRecentSearchRequest: TwitterRecentSearchRequest
+}
+
+type TwitterRecentSearchRequest implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  keyword: String
+  sources: String
+  createdAt: Datetime!
+
+  """
+  Reads and enables pagination through a set of `TwitterRecentSearchCache`.
+  """
+  twitterRecentSearchCachesConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `TwitterRecentSearchCache`.
+    """
+    orderBy: [TwitterRecentSearchCachesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TwitterRecentSearchCacheCondition
+  ): TwitterRecentSearchCachesConnection!
+
+  """
+  Reads and enables pagination through a set of `TwitterRecentSearchCache`.
+  """
+  twitterRecentSearchCaches(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `TwitterRecentSearchCache`.
+    """
+    orderBy: [TwitterRecentSearchCachesOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TwitterRecentSearchCacheCondition
+  ): [TwitterRecentSearchCache!]!
+}
+
+"""
+Methods to use when ordering `TwitterRecentSearchCache`.
+"""
+enum TwitterRecentSearchCachesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  TWITTER_RECENT_SEARCH_REQUEST_ID_ASC
+  TWITTER_RECENT_SEARCH_REQUEST_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `TwitterRecentSearchCache` object types. All
+fields are tested for equality and combined with a logical ‘and.’
+"""
+input TwitterRecentSearchCacheCondition {
+  """
+  Checks for equality with the object’s `id` field.
+  """
+  id: Int
+
+  """
+  Checks for equality with the object’s `twitterRecentSearchRequestId` field.
+  """
+  twitterRecentSearchRequestId: Int
+}
+
+"""
+A `TwitterRecentSearchCache` edge in the connection.
+"""
+type TwitterRecentSearchCachesEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor
+
+  """
+  The `TwitterRecentSearchCache` at the end of the edge.
+  """
+  node: TwitterRecentSearchCache
+}
+
+"""
 A connection to a list of `TwitterRecentSearchRequest` values.
 """
 type TwitterRecentSearchRequestsConnection {
@@ -2575,17 +2820,6 @@ type TwitterRecentSearchRequestsConnection {
   The count of *all* `TwitterRecentSearchRequest` you could get from the connection.
   """
   totalCount: Int!
-}
-
-type TwitterRecentSearchRequest implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: Int!
-  keyword: String
-  sources: String
-  createdAt: Datetime!
 }
 
 """
@@ -2960,6 +3194,16 @@ type Mutation {
   ): CreateTwitterLocalSourcePayload
 
   """
+  Creates a single `TwitterRecentSearchCache`.
+  """
+  createTwitterRecentSearchCache(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateTwitterRecentSearchCacheInput!
+  ): CreateTwitterRecentSearchCachePayload
+
+  """
   Creates a single `TwitterRecentSearchRequest`.
   """
   createTwitterRecentSearchRequest(
@@ -3238,6 +3482,26 @@ type Mutation {
     """
     input: UpdateTwitterLocalSourceByAccountUsernameInput!
   ): UpdateTwitterLocalSourcePayload
+
+  """
+  Updates a single `TwitterRecentSearchCache` using its globally unique id and a patch.
+  """
+  updateTwitterRecentSearchCacheByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTwitterRecentSearchCacheByNodeIdInput!
+  ): UpdateTwitterRecentSearchCachePayload
+
+  """
+  Updates a single `TwitterRecentSearchCache` using a unique key and a patch.
+  """
+  updateTwitterRecentSearchCache(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTwitterRecentSearchCacheInput!
+  ): UpdateTwitterRecentSearchCachePayload
 
   """
   Updates a single `TwitterRecentSearchRequest` using its globally unique id and a patch.
@@ -3578,6 +3842,26 @@ type Mutation {
     """
     input: DeleteTwitterLocalSourceByAccountUsernameInput!
   ): DeleteTwitterLocalSourcePayload
+
+  """
+  Deletes a single `TwitterRecentSearchCache` using its globally unique id.
+  """
+  deleteTwitterRecentSearchCacheByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTwitterRecentSearchCacheByNodeIdInput!
+  ): DeleteTwitterRecentSearchCachePayload
+
+  """
+  Deletes a single `TwitterRecentSearchCache` using a unique key.
+  """
+  deleteTwitterRecentSearchCache(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTwitterRecentSearchCacheInput!
+  ): DeleteTwitterRecentSearchCachePayload
 
   """
   Deletes a single `TwitterRecentSearchRequest` using its globally unique id.
@@ -4326,6 +4610,74 @@ input TwitterLocalSourceInput {
   accountId: Int
   accountName: String!
   accountUsername: String!
+}
+
+"""
+The output of our create `TwitterRecentSearchCache` mutation.
+"""
+type CreateTwitterRecentSearchCachePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterRecentSearchCache` that was created by this mutation.
+  """
+  twitterRecentSearchCache: TwitterRecentSearchCache
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `TwitterRecentSearchRequest` that is related to this `TwitterRecentSearchCache`.
+  """
+  twitterRecentSearchRequest: TwitterRecentSearchRequest
+
+  """
+  An edge for our `TwitterRecentSearchCache`. May be used by Relay 1.
+  """
+  twitterRecentSearchCacheEdge(
+    """
+    The method to use when ordering `TwitterRecentSearchCache`.
+    """
+    orderBy: [TwitterRecentSearchCachesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TwitterRecentSearchCachesEdge
+}
+
+"""
+All input for the create `TwitterRecentSearchCache` mutation.
+"""
+input CreateTwitterRecentSearchCacheInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterRecentSearchCache` to be created by this mutation.
+  """
+  twitterRecentSearchCache: TwitterRecentSearchCacheInput!
+}
+
+"""
+An input for mutations affecting `TwitterRecentSearchCache`
+"""
+input TwitterRecentSearchCacheInput {
+  id: Int
+  tweetId: String
+  authorId: String
+  createdAt: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  twitterRecentSearchRequestId: Int!
 }
 
 """
@@ -5452,6 +5804,96 @@ input UpdateTwitterLocalSourceByAccountUsernameInput {
 }
 
 """
+The output of our update `TwitterRecentSearchCache` mutation.
+"""
+type UpdateTwitterRecentSearchCachePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterRecentSearchCache` that was updated by this mutation.
+  """
+  twitterRecentSearchCache: TwitterRecentSearchCache
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `TwitterRecentSearchRequest` that is related to this `TwitterRecentSearchCache`.
+  """
+  twitterRecentSearchRequest: TwitterRecentSearchRequest
+
+  """
+  An edge for our `TwitterRecentSearchCache`. May be used by Relay 1.
+  """
+  twitterRecentSearchCacheEdge(
+    """
+    The method to use when ordering `TwitterRecentSearchCache`.
+    """
+    orderBy: [TwitterRecentSearchCachesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TwitterRecentSearchCachesEdge
+}
+
+"""
+All input for the `updateTwitterRecentSearchCacheByNodeId` mutation.
+"""
+input UpdateTwitterRecentSearchCacheByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `TwitterRecentSearchCache` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `TwitterRecentSearchCache` being updated.
+  """
+  patch: TwitterRecentSearchCachePatch!
+}
+
+"""
+Represents an update to a `TwitterRecentSearchCache`. Fields that are set will be updated.
+"""
+input TwitterRecentSearchCachePatch {
+  id: Int
+  tweetId: String
+  authorId: String
+  createdAt: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  twitterRecentSearchRequestId: Int
+}
+
+"""
+All input for the `updateTwitterRecentSearchCache` mutation.
+"""
+input UpdateTwitterRecentSearchCacheInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `TwitterRecentSearchCache` being updated.
+  """
+  patch: TwitterRecentSearchCachePatch!
+  id: Int!
+}
+
+"""
 The output of our update `TwitterRecentSearchRequest` mutation.
 """
 type UpdateTwitterRecentSearchRequestPayload {
@@ -6438,6 +6880,71 @@ input DeleteTwitterLocalSourceByAccountUsernameInput {
   """
   clientMutationId: String
   accountUsername: String!
+}
+
+"""
+The output of our delete `TwitterRecentSearchCache` mutation.
+"""
+type DeleteTwitterRecentSearchCachePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `TwitterRecentSearchCache` that was deleted by this mutation.
+  """
+  twitterRecentSearchCache: TwitterRecentSearchCache
+  deletedTwitterRecentSearchCacheNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `TwitterRecentSearchRequest` that is related to this `TwitterRecentSearchCache`.
+  """
+  twitterRecentSearchRequest: TwitterRecentSearchRequest
+
+  """
+  An edge for our `TwitterRecentSearchCache`. May be used by Relay 1.
+  """
+  twitterRecentSearchCacheEdge(
+    """
+    The method to use when ordering `TwitterRecentSearchCache`.
+    """
+    orderBy: [TwitterRecentSearchCachesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TwitterRecentSearchCachesEdge
+}
+
+"""
+All input for the `deleteTwitterRecentSearchCacheByNodeId` mutation.
+"""
+input DeleteTwitterRecentSearchCacheByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `TwitterRecentSearchCache` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteTwitterRecentSearchCache` mutation.
+"""
+input DeleteTwitterRecentSearchCacheInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: Int!
 }
 
 """

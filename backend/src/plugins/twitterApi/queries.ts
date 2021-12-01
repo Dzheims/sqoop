@@ -53,16 +53,19 @@ export const resolvers = {
       );
 
       if (request) {
-        console.log('cache');
-      } else {
-        const {
-          rows: [twitter_recent_search_request_id],
-        } = await pgClient.query(
-          `INSERT INTO twitter_recent_search_requests (keyword, sources) VALUES ($1, $2) RETURNING id`,
-          [keyword, sources]
+        const { rows: twitterRecentSearchCache } = await pgClient.query(
+          `SELECT * FROM twitter_recent_search_cache where twitter_recent_search_request_id = $1`,
+          [request.id]
         );
-        console.log('api');
+        return camelcaseKeys(twitterRecentSearchCache);
       }
+
+      const {
+        rows: [twitter_recent_search_request_id],
+      } = await pgClient.query(
+        `INSERT INTO twitter_recent_search_requests (keyword, sources) VALUES ($1, $2) RETURNING id`,
+        [keyword, sources]
+      );
 
       const { rows } = await pgClient.query(
         `SELECT account_username FROM twitter_sources`
@@ -128,6 +131,22 @@ export const resolvers = {
             }
           })
         : [];
+      searchTweets.map(async (tweet: any) => {
+        await pgClient.query(
+          `INSERT INTO twitter_recent_search_cache (tweet_id, author_id, created_at, text, name, profile_image_url, username, verified, twitter_recent_search_request_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+          [
+            tweet.tweetId,
+            tweet.author_id,
+            tweet.created_at,
+            tweet.text,
+            tweet.name,
+            tweet.profile_image_url,
+            tweet.username,
+            tweet.verified,
+            twitter_recent_search_request_id.id,
+          ]
+        );
+      });
       return camelcaseKeys(searchTweets);
     },
     searchAllTweets: async (_: any, args: any, context: any) => {
