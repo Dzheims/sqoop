@@ -16,7 +16,9 @@ const getCollectionContentType = (value: any) => {
     case 'CollectionArticle':
       return <NewsCards data={value} isUnderCollections={true} />;
     case 'CollectionVeraFile':
-      return <VeraFactCheckResultsCards data={value} />;
+      return (
+        <VeraFactCheckResultsCards data={value} isUnderCollections={true} />
+      );
     case 'CollectionGoogleFactCheck':
       return <GoogleFactCheckResultsCards data={value} />;
   }

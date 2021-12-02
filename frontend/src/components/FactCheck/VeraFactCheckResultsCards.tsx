@@ -6,13 +6,16 @@ import { CardsContainer, useStyles, ContentContainer } from './FactCheckStyles';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
 import CardsAddToCollectionButton from '../CardsButtons/CardsAddToCollectionButton';
 import { CollectionVeraFile, VeraFiles } from '../../types.generated';
+import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionContentButton';
 
 interface VeraFactCheckProps {
   data: VeraFiles | CollectionVeraFile;
+  isUnderCollections: boolean | undefined;
 }
 
 const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
   data,
+  isUnderCollections,
 }: VeraFactCheckProps) => {
   const classes = useStyles();
   const { __typename, ...collectionVeraFile } = data as VeraFiles;
@@ -20,6 +23,13 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
   return (
     <div key={data.url}>
       <CardsContainer key={data.id}>
+        <div className={classes.deleteButtonDiv}>
+          {isUnderCollections ? (
+            <DeleteCollectionContentButton data={data as CollectionVeraFile} />
+          ) : (
+            <div style={{ padding: '15px 0 0 0' }} />
+          )}
+        </div>
         <ContentContainer>
           <div
             style={{

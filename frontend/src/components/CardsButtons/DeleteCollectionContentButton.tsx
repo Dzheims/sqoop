@@ -95,7 +95,24 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
       },
     ],
   });
-  console.log(data.__typename);
+
+  const [deleteVeraFilesContent] = useMutation<
+    DeleteVeraFileContentMutation,
+    DeleteVeraFileContentMutationVariables
+  >(DELETE_COLLECTION_CONTENT_VERA_FILE, {
+    variables: {
+      id: data.id,
+    },
+    onCompleted: () => {
+      setProceedDelete(false);
+    },
+    refetchQueries: [
+      {
+        query: COLLECTION_CONTENTS_QUERY,
+        variables: { collectionId: data.collectionId },
+      },
+    ],
+  });
 
   useEffect(() => {
     if (proceedDelete) {
@@ -104,6 +121,9 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
       }
       if (data.__typename === 'CollectionArticle') {
         deleteArticle();
+      }
+      if (data.__typename === 'CollectionVeraFile') {
+        deleteVeraFilesContent();
       }
       // add other types of content here
     }

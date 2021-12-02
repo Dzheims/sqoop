@@ -33,6 +33,9 @@ export const useStyles = makeStyles(() => ({
   titleLink: {
     marginLeft: '10px',
   },
+  deleteButtonDiv: {
+    marginLeft: '85.5%',
+  },
 }));
 
 export const CardsContainer = styled.div`
