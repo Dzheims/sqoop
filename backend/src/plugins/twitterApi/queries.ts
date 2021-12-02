@@ -134,8 +134,10 @@ export const resolvers = {
           })
         : [];
       searchTweets.map(async (tweet: any) => {
-        await pgClient.query(
-          `INSERT INTO twitter_recent_search_cache (tweet_id, author_id, created_at, text, name, profile_image_url, username, verified, twitter_recent_search_request_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        const {
+          rows: [cacheId],
+        } = await pgClient.query(
+          `INSERT INTO twitter_recent_search_cache (tweet_id, author_id, created_at, text, name, profile_image_url, username, verified, twitter_recent_search_request_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id`,
           [
             tweet.tweetId,
             tweet.author_id,
@@ -148,6 +150,12 @@ export const resolvers = {
             twitter_recent_search_request_id.id,
           ]
         );
+        tweet?.photos?.map(async (photo: any) => {
+          await pgClient.query(
+            `INSERT INTO twitter_recent_search_cache_photos (media_key, type, url, twitter_recent_search_cache_id) VALUES ($1, $2, $3, $4)`,
+            [photo.mediaKey, photo.type, photo.url, cacheId.id]
+          );
+        });
       });
       return camelcaseKeys(searchTweets);
     },

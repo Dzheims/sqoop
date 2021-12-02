@@ -52,7 +52,7 @@ export const resolvers = {
         [category, country, keyword, sources]
       );
       const queryParams = new URLSearchParams();
-      queryParams.set('country', country || 'ph');
+      queryParams.set('country', !country || !country.length ? 'ph' : country);
       if (sources) {
         queryParams.set('country', '');
         category = '';
