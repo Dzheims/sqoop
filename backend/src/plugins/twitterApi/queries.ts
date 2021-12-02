@@ -108,13 +108,15 @@ export const resolvers = {
               return_changed_case: true,
               remove_duplicates: true,
             });
-            const photos = tweet.attachments
-              ? tweet.attachments.media_keys.map((attachment: any) => {
-                  for (var media of result.includes.media) {
-                    if (media.media_key === attachment) return media;
-                  }
-                })
-              : [];
+
+            const photos = tweet?.attachments?.media_keys?.map(
+              (attachment: any) => {
+                for (var media of result.includes.media) {
+                  if (media.media_key === attachment)
+                    return camelcaseKeys(media);
+                }
+              }
+            );
 
             for (var user of result.includes.users) {
               if (user.id === tweet.author_id) {
@@ -194,12 +196,13 @@ export const resolvers = {
               remove_duplicates: true,
             });
 
-            const photos = tweet.extended_tweet.entities.media
-              ? tweet.extended_tweet.entities.media.map((media: any) => {
-                  const { media_url, id_str, type } = media;
-                  return { url: media_url, media_key: id_str, type };
-                })
-              : [];
+            const photos = tweet.extended_tweet?.entities?.media?.map(
+              (media: any) => {
+                const { media_url: url, id_str: mediaKey, type } = media;
+                return { url, mediaKey, type };
+              }
+            );
+
             const {
               id: author_id,
               screen_name: username,
