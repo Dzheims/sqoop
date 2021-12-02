@@ -19,11 +19,14 @@ import {
   DeleteTweetContentMutationVariables,
   DeleteArticleContentMutationVariables,
   DeleteVeraFileContentMutationVariables,
+  DeleteGoogleFactCheckContentMutation,
+  DeleteGoogleFactCheckContentMutationVariables,
 } from '../Collections/query.generated';
 import {
   DELETE_COLLECTION_CONTENT_TWEET,
   DELETE_COLLECTION_CONTENT_VERA_FILE,
   DELETE_COLLECTION_CONTENT_ARTICLE,
+  DELETE_COLLECTION_CONTENT_GOOGLE_FACT_CHECK,
 } from '../Collections/query';
 import { CollectionContent } from '../../types.generated';
 import { COLLECTION_CONTENTS_QUERY, GET_COLUMNS_QUERY } from '../Columns/query';
@@ -114,6 +117,24 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
     ],
   });
 
+  const [deleteGoogleFactCheckContent] = useMutation<
+    DeleteGoogleFactCheckContentMutation,
+    DeleteGoogleFactCheckContentMutationVariables
+  >(DELETE_COLLECTION_CONTENT_GOOGLE_FACT_CHECK, {
+    variables: {
+      id: data.id,
+    },
+    onCompleted: () => {
+      setProceedDelete(false);
+    },
+    refetchQueries: [
+      {
+        query: COLLECTION_CONTENTS_QUERY,
+        variables: { collectionId: data.collectionId },
+      },
+    ],
+  });
+
   useEffect(() => {
     if (proceedDelete) {
       if (data.__typename === 'CollectionTweet') {
@@ -125,7 +146,9 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
       if (data.__typename === 'CollectionVeraFile') {
         deleteVeraFilesContent();
       }
-      // add other types of content here
+      if (data.__typename === 'CollectionGoogleFactCheck') {
+        deleteGoogleFactCheckContent();
+      }
     }
   }, [proceedDelete]);
 

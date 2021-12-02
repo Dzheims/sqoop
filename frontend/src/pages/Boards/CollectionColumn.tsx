@@ -20,7 +20,9 @@ const getCollectionContentType = (value: any) => {
         <VeraFactCheckResultsCards data={value} isUnderCollections={true} />
       );
     case 'CollectionGoogleFactCheck':
-      return <GoogleFactCheckResultsCards data={value} />;
+      return (
+        <GoogleFactCheckResultsCards data={value} isUnderCollections={true} />
+      );
   }
 };
 

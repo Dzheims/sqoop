@@ -73,3 +73,10 @@ export const DELETE_COLLECTION_CONTENT_ARTICLE = gql`
     }
   }
 `;
+export const DELETE_COLLECTION_CONTENT_GOOGLE_FACT_CHECK = gql`
+  mutation deleteGoogleFactCheckContent($id: Int!) {
+    deleteCollectionGoogleFactCheck(input: { id: $id }) {
+      clientMutationId
+    }
+  }
+`;
