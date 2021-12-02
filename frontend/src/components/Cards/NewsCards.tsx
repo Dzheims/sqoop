@@ -9,7 +9,7 @@ import {
   NewsAPITitleContainer,
   useStyles,
   Item,
-} from '../../pages/Boards/ColumnsStyle';
+} from './CardsStyles';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import CardsAddToCollectionButton from '../CardsButtons/CardsAddToCollectionButton';
 import { Article, CollectionArticle } from '../../types.generated';
@@ -73,7 +73,7 @@ const NewsCards: React.FC<NewsDataProps> = ({
                   data={data as CollectionArticle}
                 />
               ) : (
-                <div style={{ padding: '15px 0 0 0' }} />
+                <div className={classes().empty} />
               )}
             </div>
             <NewsAPITitleContainer>
@@ -110,13 +110,15 @@ const NewsCards: React.FC<NewsDataProps> = ({
                   }}
                   className={classes().imageContainer}
                 >
-                  <a
-                    target="_blank"
-                    className={classes().link}
-                    href={data?.url as string}
-                  >
-                    <OpenInNewIcon className={classes().linkIcon} />
-                  </a>
+                  <div className={classes().linkIconDiv}>
+                    <a
+                      target="_blank"
+                      className={classes().link}
+                      href={data?.url as string}
+                    >
+                      <OpenInNewIcon className={classes().linkIcon} />
+                    </a>
+                  </div>
                 </div>
 
                 <a

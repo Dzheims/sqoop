@@ -4,13 +4,13 @@ import { VeraFactCheckSearchResultQuery } from './query.generated';
 import { VERA_FACTCHECK_SEARCH_QUERY } from './query';
 import Loader from '../Common/Loader';
 import Error from '../Common/Error';
-import VeraFactCheckResultsCards from './VeraFactCheckResultsCards';
+import VeraFilesCards from '../Cards/VeraFilesCards';
 
 interface SearchQueryProps {
   keyword: string;
 }
 
-const VeraFactCheckData: React.FC<SearchQueryProps> = ({
+const VeraFilesData: React.FC<SearchQueryProps> = ({
   keyword,
 }: SearchQueryProps) => {
   const { data, loading, error } = useQuery<VeraFactCheckSearchResultQuery>(
@@ -33,10 +33,10 @@ const VeraFactCheckData: React.FC<SearchQueryProps> = ({
   return (
     <div>
       {data?.veraFilesFactCheck.map((value, index) => (
-        <VeraFactCheckResultsCards data={value} />
+        <VeraFilesCards data={value} />
       ))}
     </div>
   );
 };
 
-export default VeraFactCheckData;
+export default VeraFilesData;

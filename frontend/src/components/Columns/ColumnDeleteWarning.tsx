@@ -25,7 +25,7 @@ import {
   GET_COLUMNS_QUERY,
   DELETE_NEWS_MUTATION,
 } from './query';
-import { useStyles } from '../../pages/Boards/ColumnsStyle';
+import { useStyles } from './ColumnsStyle';
 
 interface ColumnDataProps {
   data: GetColumnsQuery;

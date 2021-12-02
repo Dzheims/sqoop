@@ -2,8 +2,8 @@ import React from 'react';
 import { CollectionContentsQuery } from '../../components/Columns/query.generated';
 import CollectionTweets from './CollectionTweetsData';
 import NewsCards from '../../components/Cards/NewsCards';
-import VeraFactCheckResultsCards from '../../components/FactCheck/VeraFactCheckResultsCards';
-import GoogleFactCheckResultsCards from '../../components/FactCheck/GoogleFactCheckResultsCards';
+import VeraFilesCards from '../../components/Cards/VeraFilesCards';
+import GoogleFactCheckCards from '../../components/Cards/GoogleFactCheckCards';
 
 interface CollectionContentsDataProps {
   data: CollectionContentsQuery;
@@ -16,9 +16,9 @@ const getCollectionContentType = (value: any) => {
     case 'CollectionArticle':
       return <NewsCards data={value} isUnderCollections={true} />;
     case 'CollectionVeraFile':
-      return <VeraFactCheckResultsCards data={value} />;
+      return <VeraFilesCards data={value} />;
     case 'CollectionGoogleFactCheck':
-      return <GoogleFactCheckResultsCards data={value} />;
+      return <GoogleFactCheckCards data={value} />;
   }
 };
 

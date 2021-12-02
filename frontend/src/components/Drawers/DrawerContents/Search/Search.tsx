@@ -14,7 +14,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import useStyles from './SearchStyles';
 import SearchNewsAPIColumnData from './SearchNewsApiColumnData';
-import { ResultsContainer } from '../../../../pages/Boards/ColumnsStyle';
+import { ResultsContainer } from '../../../Columns/ColumnsStyle';
 import NewsSourcesData from '../NewsApiFeedForm/NewsSourcesData';
 import TwitterSourcesData from '../TwitterFeedForm/TwitterSourcesData';
 import {

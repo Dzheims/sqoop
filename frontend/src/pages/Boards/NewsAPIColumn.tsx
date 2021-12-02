@@ -1,12 +1,6 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { Draggable } from 'react-beautiful-dnd';
+import React from 'react';
 import { GetNewsApiContentsQuery } from './query.generated';
-import { Item } from './ColumnsStyle';
 import NewsCards from '../../components/Cards/NewsCards';
-
-// interface NewsAPIDataProps {
-//   data: GetNewsApiContentsQuery;
-// }
 
 interface NewsAPIDataProps {
   data: GetNewsApiContentsQuery;

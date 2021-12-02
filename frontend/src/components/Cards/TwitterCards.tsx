@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  Dispatch,
-  Key,
-  SetStateAction,
-  useEffect,
-} from 'react';
+import React, { useState, Key, useEffect } from 'react';
 import Linkify from 'react-linkify';
 import { SecureLink } from 'react-secure-link';
 import { decodeHTML } from 'entities';
@@ -22,11 +16,11 @@ import {
   TwitterTitleContainer,
   useStyles,
   Item,
-} from '../../pages/Boards/ColumnsStyle';
+} from './CardsStyles';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import FactCheckButton from '../FactCheck/FactCheckButton';
 import CardsAddToCollectionButton from '../CardsButtons/CardsAddToCollectionButton';
-import { useDrawerState, DrawerState } from '../FactCheck/FactCheckDrawerState';
+import { useDrawerState } from '../FactCheck/FactCheckDrawerState';
 import { CollectionTweet, Tweet } from '../../types.generated';
 import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionContentButton';
 
@@ -90,7 +84,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
                   data={collectionTweet as CollectionTweet}
                 />
               ) : (
-                <div style={{ padding: '15px 0 0 0' }} />
+                <div className={classes().empty} />
               )}
             </div>
             <TwitterContentContainer>

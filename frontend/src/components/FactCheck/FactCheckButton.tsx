@@ -1,17 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-  useContext,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
-import CancelIcon from '@mui/icons-material/Cancel';
-import { Button, Drawer, IconButton } from '@material-ui/core';
-import FactCheckDrawerContent from '../Drawers/DrawerContents/FactCheck/FactCheckDrawerContent';
-import { useDrawerState, DrawerState } from './FactCheckDrawerState';
+import { Button } from '@material-ui/core';
+import { useDrawerState } from './FactCheckDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   factCheckIcon: {

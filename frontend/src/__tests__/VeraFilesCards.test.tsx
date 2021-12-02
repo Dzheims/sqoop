@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import VeraFactCheckResultsCards from '../components/FactCheck/VeraFactCheckResultsCards';
+import VeraFactCheckResultsCards from '../components/Cards/VeraFilesCards';
 import { VeraFiles } from '../types.generated';
 
 const data: VeraFiles = {

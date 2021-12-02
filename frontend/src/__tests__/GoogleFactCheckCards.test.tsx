@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import GoogleFactCheckResultsCards from '../components/FactCheck/GoogleFactCheckResultsCards';
+import GoogleFactCheckResultsCards from '../components/Cards/GoogleFactCheckCards';
 import { Claim } from '../types.generated';
 
 const data: Claim = {

@@ -13,7 +13,7 @@ import { Button, Drawer, IconButton } from '@material-ui/core';
 import FactCheckDrawerContent from '../Drawers/DrawerContents/FactCheck/FactCheckDrawerContent';
 import FactCheckButton from './FactCheckButton';
 import { useDrawerState } from './FactCheckDrawerState';
-import { Title } from '../../pages/Boards/ColumnsStyle';
+import { Title } from '../Columns/ColumnsStyle';
 
 const useStyles = makeStyles((theme) => ({
   factCheckIcon: {
@@ -71,11 +71,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
 }));
-
-interface DrawerState {
-  data: any;
-  open: boolean;
-}
 
 const FactCheck = () => {
   const classes = useStyles();

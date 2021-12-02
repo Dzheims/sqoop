@@ -3,7 +3,7 @@ import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { VERA_FACTCHECK_SEARCH_QUERY } from '../components/FactCheck/query';
-import VeraFactCheckData from '../components/FactCheck/VeraFactCheckData';
+import VeraFactCheckData from '../components/FactCheck/VeraFilesData';
 
 const keyword = 'Duterte';
 

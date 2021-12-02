@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, InputBase, Paper, Chip } from '@material-ui/core';
-import VeraFactCheckData from '../../../FactCheck/VeraFactCheckData';
+import VeraFilesData from '../../../FactCheck/VeraFilesData';
 import GoogleFactCheckData from '../../../FactCheck/GoogleFactCheckData';
 
 const useStyles = makeStyles((theme) => ({
@@ -103,7 +103,7 @@ const FactCheckDrawerContent = ({
     if (searchType === 'Google Fact Check')
       return <GoogleFactCheckData keyword={searchKey} />;
     if (searchType === 'Vera Files')
-      return <VeraFactCheckData keyword={searchKey} />;
+      return <VeraFilesData keyword={searchKey} />;
     return <div />;
   };
 

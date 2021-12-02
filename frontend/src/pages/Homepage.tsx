@@ -30,7 +30,7 @@ import {
   DefaultColumnContainer,
   DefaultItemContainer,
   Title,
-} from './Boards/ColumnsStyle';
+} from '../components/Columns/ColumnsStyle';
 import NewsAPIColumnData from './Boards/NewsAPIColumnData';
 import TwitterAPIColumnData from './Boards/TwitterAPIColumnData';
 import AUTH_TOKEN from '../constants';
