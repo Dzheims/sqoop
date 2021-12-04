@@ -1,6 +1,5 @@
 import { userSchema } from '../helpers/setupEasyGraphqlTester';
 import { gql } from 'graphile-utils';
-import { text } from 'express';
 const EasyGraphQLTester = require('easygraphql-tester');
 
 describe('test google claim search on schema', () => {
@@ -16,17 +15,13 @@ describe('test google claim search on schema', () => {
           text
           claimant
           claimDate
-          claimReview {
-            publisher {
-              name
-              site
-            }
-            url
-            title
-            reviewDate
-            textualRating
-            languageCode
-          }
+          publisherName
+          publisherSite
+          url
+          title
+          reviewDate
+          textualRating
+          languageCode
         }
       }
     `;
