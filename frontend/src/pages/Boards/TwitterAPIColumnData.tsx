@@ -19,7 +19,7 @@ const TwitterAPIColumnData: React.FC<TwitterApiColumnDataProps> = ({
 }: TwitterApiColumnDataProps) => {
   const { data, loading, error } = useQuery<GetTwitterApiContentsQuery>(
     GET_TWITTER_API_CONTENTS_QUERY,
-    { variables: { keyword, sources }, pollInterval: 1000 }
+    { variables: { keyword, sources }, pollInterval: 60000 }
   );
   if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
   if (loading) return <CardsLoaderSkeleton />;

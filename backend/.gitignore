@@ -4,3 +4,4 @@ scripts/migrate/make
 scripts/migrate/make-e
 dist/
 coverage/
+src/models/

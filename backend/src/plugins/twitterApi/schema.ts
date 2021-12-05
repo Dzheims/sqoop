@@ -1,12 +1,12 @@
 import { gql } from 'graphile-utils';
 export const tweet = gql`
   type Tweet {
-    id: String
-    author_id: String
-    created_at: String
+    tweetId: String
+    authorId: String
+    createdAt: String
     text: String
     name: String
-    profile_image_url: String
+    profileImageUrl: String
     username: String
     verified: Boolean
     photos: [TwitterPhoto]
@@ -15,7 +15,7 @@ export const tweet = gql`
 `;
 export const twitterPhoto = gql`
   type TwitterPhoto {
-    media_key: String
+    mediaKey: String
     type: String
     url: String
   }

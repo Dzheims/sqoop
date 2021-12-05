@@ -151,15 +151,15 @@ const Homepage = () => {
         <NewsAPIColumnData
           country=""
           category={category as Category}
-          keyword={null}
-          sources={null}
+          keyword=""
+          sources=""
         />
       ),
     },
     {
       title: 'Twitter Feed',
       icon: <TwitterIcon style={{ color: '#0036e7' }} />,
-      cards: <TwitterAPIColumnData keyword={null} sources={null} />,
+      cards: <TwitterAPIColumnData keyword="" sources="" />,
     },
   ];
 

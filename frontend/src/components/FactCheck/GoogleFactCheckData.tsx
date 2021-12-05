@@ -4,7 +4,7 @@ import { GoogleFactCheckSearchResultQuery } from './query.generated';
 import { GOOGLE_FACTCHECK_SEARCH_QUERY } from './query';
 import Loader from '../Common/Loader';
 import Error from '../Common/Error';
-import GoogleFactCheckResultsCards from '../Cards/GoogleFactCheckCards';
+import GoogleFactCheckCards from '../Cards/GoogleFactCheckCards';
 
 interface SearchQueryProps {
   keyword: string;
@@ -33,7 +33,7 @@ const GoogleFactCheckData: React.FC<SearchQueryProps> = ({
   return (
     <div>
       {data?.googleFactCheckSearch.map((value) => (
-        <GoogleFactCheckResultsCards data={value} />
+        <GoogleFactCheckCards data={value} isUnderCollections={false} />
       ))}
     </div>
   );

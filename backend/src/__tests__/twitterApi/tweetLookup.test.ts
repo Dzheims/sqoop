@@ -12,16 +12,16 @@ describe('test tweetLookup schema', () => {
     const query = gql`
       query TESTQUERY {
         tweetLookup(id: "1445740660384927745") {
-          created_at
-          author_id
-          id
+          createdAt
+          authorId
+          tweetId
           name
           photos {
-            media_key
+            mediaKey
             type
             url
           }
-          profile_image_url
+          profileImageUrl
           suggestedKeywords
           text
           username
@@ -35,16 +35,16 @@ describe('test tweetLookup schema', () => {
     const query = gql`
       query TESTQUERY {
         tweetLookup(id: 1) {
-          created_at
-          author_id
+          createdAt
+          authorId
           id
           name
           photos {
-            media_key
+            mediaKey
             type
             url
           }
-          profile_image_url
+          profileImageUrl
           suggestedKeywords
           text
           username
@@ -68,18 +68,18 @@ describe('mock tweetLookup query', () => {
     const fixture = {
       data: {
         tweetLookup: {
-          created_at: '2021-10-06T13:20:08.000Z',
-          author_id: '15448383',
-          id: '1445740660384927745',
+          createdAt: '2021-10-06T13:20:08.000Z',
+          authorId: '15448383',
+          tweetId: '1445740660384927745',
           name: 'Inquirer',
           photos: [
             {
-              media_key: '3_1445740652570894346',
+              mediaKey: '3_1445740652570894346',
               type: 'photo',
               url: 'https://pbs.twimg.com/media/FBBNdrHUYAokMPj.jpg',
             },
           ],
-          profile_image_url:
+          profileImageUrl:
             'https://pbs.twimg.com/profile_images/1427192891126915082/NNybyA9y_normal.jpg',
           suggestedKeywords: ['quezon', 'city', 'regional', 'trial', 'court'],
           text: 'JUST IN: The Quezon City Regional Trial Court has cleared 19 cops of homicide for the death of Albuera, Leyte mayor Rolando Espinosa and a fellow inmate. | @T2TupasINQ https://t.co/BUHNTFgIHY',
@@ -92,16 +92,16 @@ describe('mock tweetLookup query', () => {
     const query = gql`
       query TESTQUERY {
         tweetLookup(id: "1445740660384927745") {
-          created_at
-          author_id
-          id
+          createdAt
+          authorId
+          tweetId
           name
           photos {
-            media_key
+            mediaKey
             type
             url
           }
-          profile_image_url
+          profileImageUrl
           suggestedKeywords
           text
           username
@@ -113,8 +113,8 @@ describe('mock tweetLookup query', () => {
       data: { tweetLookup },
     } = await tester.mock({ query, fixture });
     expect(tweetLookup).toBeObject();
-    expect(tweetLookup.author_id).toBe('15448383');
-    expect(tweetLookup.id).toBe('1445740660384927745');
+    expect(tweetLookup.authorId).toBe('15448383');
+    expect(tweetLookup.tweetId).toBe('1445740660384927745');
     expect(tweetLookup.photos).toBeArrayOfSize(1);
     expect(tweetLookup.verified).toBeTrue();
     expect(tweetLookup.username).toBe('inquirerdotnet');
