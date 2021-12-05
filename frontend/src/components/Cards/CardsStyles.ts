@@ -6,131 +6,130 @@ type BoardColumnContentStylesProps = {
   isDragging: boolean;
 };
 
-export const useStyles = () =>
-  makeStyles(() => ({
-    highlightBorder: {
-      border: '2px solid #f04b4c',
-      transition: 'border 0.25s ease-out',
+export const useStyles = makeStyles(() => ({
+  highlightBorder: {
+    border: '2px solid #f04b4c',
+    transition: 'border 0.25s ease-out',
+  },
+  border: {
+    border: 'thin solid lightgray',
+    transition: 'border 0.25s ease-out',
+  },
+  deleteButtonDiv: {
+    marginLeft: '85.5%',
+  },
+  empty: {
+    padding: '15px 0 0 0',
+  },
+  profileAvatars: {
+    height: '40px',
+    width: '40px',
+    marginRight: '10px',
+  },
+  cardsIcon: {
+    fontSize: '5px',
+    marginLeft: 'auto',
+    color: '#00acee',
+  },
+  verifiedIcon: {
+    height: '18px',
+    width: '18px',
+    marginLeft: '5px',
+  },
+  imageContainer: {
+    height: '120px',
+    width: 'auto',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundColor: 'gray',
+  },
+  description: {
+    padding: '10px',
+    fontSize: '14px',
+    color: 'black',
+  },
+  date: {
+    padding: '10px',
+    fontSize: '14px',
+    color: 'gray',
+  },
+  userName: {
+    fontSize: '14px',
+    color: 'gray',
+  },
+  imageList: {
+    marginTop: '10px',
+    width: 'auto',
+    height: '150px',
+    '&::-webkit-scrollbar': {
+      width: '0.4em',
     },
-    border: {
-      border: 'thin solid lightgray',
-      transition: 'border 0.25s ease-out',
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      borderRadius: 8,
     },
-    deleteButtonDiv: {
-      marginLeft: '85.5%',
+  },
+  linkIconDiv: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  link: {
+    textDecoration: 'none',
+  },
+  linkIcon: {
+    color: 'white',
+  },
+  itemContainer: {
+    '&::-webkit-scrollbar': {
+      width: '0.4em',
     },
-    empty: {
-      padding: '15px 0 0 0',
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      borderRadius: 8,
     },
-    profileAvatars: {
-      height: '40px',
-      width: '40px',
-      marginRight: '10px',
-    },
-    cardsIcon: {
-      fontSize: '5px',
-      marginLeft: 'auto',
-      color: '#00acee',
-    },
-    verifiedIcon: {
-      height: '18px',
-      width: '18px',
-      marginLeft: '5px',
-    },
-    imageContainer: {
-      height: '120px',
-      width: 'auto',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundColor: 'gray',
-    },
-    description: {
-      padding: '10px',
-      fontSize: '14px',
-      color: 'black',
-    },
-    date: {
-      padding: '10px',
-      fontSize: '14px',
-      color: 'gray',
-    },
-    userName: {
-      fontSize: '14px',
-      color: 'gray',
-    },
-    imageList: {
-      marginTop: '10px',
-      width: 'auto',
-      height: '150px',
-      '&::-webkit-scrollbar': {
-        width: '0.4em',
-      },
-      '&::-webkit-scrollbar-thumb': {
-        backgroundColor: 'rgba(0,0,0,.1)',
-        borderRadius: 8,
-      },
-    },
-    linkIconDiv: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-    },
-    link: {
-      textDecoration: 'none',
-    },
-    linkIcon: {
-      color: 'white',
-    },
-    itemContainer: {
-      '&::-webkit-scrollbar': {
-        width: '0.4em',
-      },
-      '&::-webkit-scrollbar-thumb': {
-        backgroundColor: 'rgba(0,0,0,.1)',
-        borderRadius: 8,
-      },
-    },
-    buttonsContainer: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    titleContainer: {
-      marginTop: '5px',
-      display: 'flex',
-      justifyContent: 'space-between',
-      height: '40px',
-      alignItems: 'center',
-    },
-    delete: {
-      marginBottom: '5px',
-    },
-    iconButton: {
-      color: 'gray',
-      '&:hover': {
-        color: theme.palette.secondary.main,
-      },
-    },
-    columnHighlightBorder: {
-      '&:focus': {
-        border: '2px solid #f04b4c',
-        transition: 'border 0.10s ease-out',
-      },
-    },
-    dialogTitle: {
+  },
+  buttonsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  titleContainer: {
+    marginTop: '5px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    height: '40px',
+    alignItems: 'center',
+  },
+  delete: {
+    marginBottom: '5px',
+  },
+  iconButton: {
+    color: 'gray',
+    '&:hover': {
       color: theme.palette.secondary.main,
     },
-    columnHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      marginLeft: '5px',
+  },
+  columnHighlightBorder: {
+    '&:focus': {
+      border: '2px solid #f04b4c',
+      transition: 'border 0.10s ease-out',
     },
-    titleLink: {
-      marginLeft: '10px',
-    },
-    claimant: {
-      padding: '10px',
-    },
-  }));
+  },
+  dialogTitle: {
+    color: theme.palette.secondary.main,
+  },
+  columnHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: '5px',
+  },
+  titleLink: {
+    marginLeft: '10px',
+  },
+  claimant: {
+    padding: '10px',
+  },
+}));
 
 export const Item = styled.div`
   padding: 0px 15px 15px 15px;

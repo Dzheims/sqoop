@@ -31,7 +31,7 @@ const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
 }: NewsApiColumnDataProps) => {
   const { data, loading, error } = useQuery<GetNewsApiContentsQuery>(
     GET_NEWS_API_CONTENTS_QUERY,
-    { variables: { country, category, keyword, sources } }
+    { variables: { country, category, keyword, sources }, pollInterval: 1000 }
   );
   if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
   if (loading) return <CardsLoaderSkeleton />;

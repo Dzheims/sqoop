@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_TWITTER_API_CONTENTS_QUERY } from './query';
 import { GetTwitterApiContentsQuery } from './query.generated';
@@ -19,7 +19,7 @@ const TwitterAPIColumnData: React.FC<TwitterApiColumnDataProps> = ({
 }: TwitterApiColumnDataProps) => {
   const { data, loading, error } = useQuery<GetTwitterApiContentsQuery>(
     GET_TWITTER_API_CONTENTS_QUERY,
-    { variables: { keyword, sources } }
+    { variables: { keyword, sources }, pollInterval: 1000 }
   );
   if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
   if (loading) return <CardsLoaderSkeleton />;

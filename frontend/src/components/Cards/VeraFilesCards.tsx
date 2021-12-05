@@ -33,15 +33,15 @@ const VeraFilesCards: React.FC<VeraFactCheckProps> = ({
             style={{
               backgroundImage: `url(${String(data.imageUrl)})`,
             }}
-            className={classes().imageContainer}
+            className={classes.imageContainer}
           />
           <a
-            className={classes().link}
+            className={classes.link}
             target="_blank"
             rel="noreferrer"
             href={data.url as string}
           >
-            <Typography color="primary" className={classes().description}>
+            <Typography color="primary" className={classes.description}>
               {decodeHTML(data.title as string)}
             </Typography>
           </a>
@@ -52,7 +52,7 @@ const VeraFilesCards: React.FC<VeraFactCheckProps> = ({
         >
           By {decodeHTML(data.author as string)}
         </Typography>
-        <Typography className={classes().date}>
+        <Typography className={classes.date}>
           {formatTimeAndDate(data.date)}
         </Typography>
         <div style={{ marginLeft: '80%' }}>

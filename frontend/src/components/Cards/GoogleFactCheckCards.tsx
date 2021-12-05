@@ -30,7 +30,7 @@ const GoogleFactCheckCards: React.FC<GoogleFactCheckProps> = ({
         <ContentContainer>
           {data.claimant !== null ? (
             <Typography
-              className={classes().claimant}
+              className={classes.claimant}
               style={{ fontWeight: 600 }}
               variant="body2"
             >
@@ -39,34 +39,31 @@ const GoogleFactCheckCards: React.FC<GoogleFactCheckProps> = ({
           ) : (
             <div />
           )}
-          <Typography className={classes().description}>{data.text}</Typography>
+          <Typography className={classes.description}>{data.text}</Typography>
           {data.claimDate !== null ? (
-            <Typography className={classes().date}>
+            <Typography className={classes.date}>
               Claim Date {formatTimeAndDate(data.claimDate)}
             </Typography>
           ) : (
             <div />
           )}
         </ContentContainer>
-        <Typography
-          style={{ fontWeight: 600 }}
-          className={classes().description}
-        >
+        <Typography style={{ fontWeight: 600 }} className={classes.description}>
           {`${data.publisherName || ''} Info Rating: ${
             data.textualRating || ''
           }`}
         </Typography>
         <a
-          className={classes().link}
+          className={classes.link}
           target="_blank"
           rel="noreferrer"
           href={data.url as string}
         >
-          <Typography className={classes().titleLink} variant="body2">
+          <Typography className={classes.titleLink} variant="body2">
             {data.title}
           </Typography>
         </a>
-        <Typography className={classes().date}>
+        <Typography className={classes.date}>
           Review Date {formatTimeAndDate(data.reviewDate)}
         </Typography>
         <div style={{ marginLeft: '80%' }}>

@@ -59,21 +59,19 @@ const NewsCards: React.FC<NewsDataProps> = ({
       <Draggable draggableId={data.publishedAt as string} index={0}>
         {(provided, snapshot) => (
           <Item
-            className={
-              highlightCard ? classes().highlightBorder : classes().border
-            }
+            className={highlightCard ? classes.highlightBorder : classes.border}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
-            <div className={classes().deleteButtonDiv}>
+            <div className={classes.deleteButtonDiv}>
               {data.__typename === 'CollectionArticle' ? (
                 <DeleteCollectionContentButton
                   data={data as CollectionArticle}
                 />
               ) : (
-                <div className={classes().empty} />
+                <div className={classes.empty} />
               )}
             </div>
             <NewsAPITitleContainer>
@@ -82,7 +80,7 @@ const NewsCards: React.FC<NewsDataProps> = ({
                   backgroundColor: randomColor(data.sourceName as string),
                   color: 'white',
                 }}
-                className={classes().profileAvatars}
+                className={classes.profileAvatars}
               >
                 {data.sourceName?.charAt(0)}
               </Avatar>
@@ -91,13 +89,13 @@ const NewsCards: React.FC<NewsDataProps> = ({
                   {truncateName(data.sourceName as string, 18)}
                 </Typography>
               </AccountNameContainer>
-              <NewsIcon className={classes().cardsIcon} />
+              <NewsIcon className={classes.cardsIcon} />
             </NewsAPITitleContainer>
             <Typography variant="body2">{data.description}</Typography>
             {!data.urlToImage ? (
               <a
                 target="_blank"
-                className={classes().link}
+                className={classes.link}
                 href={data?.url as string}
               >
                 <Typography variant="body2">{data.title}</Typography>
@@ -108,34 +106,34 @@ const NewsCards: React.FC<NewsDataProps> = ({
                   style={{
                     backgroundImage: `url(${data.urlToImage})`,
                   }}
-                  className={classes().imageContainer}
+                  className={classes.imageContainer}
                 >
-                  <div className={classes().linkIconDiv}>
+                  <div className={classes.linkIconDiv}>
                     <a
                       target="_blank"
-                      className={classes().link}
+                      className={classes.link}
                       href={data?.url as string}
                     >
-                      <OpenInNewIcon className={classes().linkIcon} />
+                      <OpenInNewIcon className={classes.linkIcon} />
                     </a>
                   </div>
                 </div>
 
                 <a
                   target="_blank"
-                  className={classes().link}
+                  className={classes.link}
                   href={data?.url as string}
                 >
-                  <Typography className={classes().description}>
+                  <Typography className={classes.description}>
                     {data.title}
                   </Typography>
                 </a>
               </NewsAPIContentContainer>
             )}
-            <Typography className={classes().date}>
+            <Typography className={classes.date}>
               {formatTimeAndDate(data.publishedAt)}
             </Typography>
-            <div className={classes().buttonsContainer}>
+            <div className={classes.buttonsContainer}>
               <FactCheckButton
                 // setHighlightCard={setHighlightCard}
                 suggestedKeywords={suggestedKeywords}
