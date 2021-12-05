@@ -10,6 +10,7 @@ describe('on sign in', () => {
     const errors = {
       userName: 'Please enter your username',
       password: 'Please enter your password',
+      invalidInput: false,
     };
     expect(validate(values, true)).toStrictEqual(errors);
   });
@@ -22,6 +23,7 @@ describe('on sign in', () => {
     const errors = {
       userName: '',
       password: 'Please enter your password',
+      invalidInput: false,
     };
     expect(validate(values, true)).toStrictEqual(errors);
   });
@@ -34,6 +36,7 @@ describe('on sign in', () => {
     const errors = {
       userName: 'Please enter your username',
       password: '',
+      invalidInput: false,
     };
     expect(validate(values, true)).toStrictEqual(errors);
   });
@@ -43,8 +46,9 @@ describe('on sign in', () => {
       password: '1234+ABc',
     };
     const errors = {
-      userName: 'Invalid username or password',
+      userName: '',
       password: '',
+      invalidInput: true,
     };
     expect(validate(values, true)).toStrictEqual(errors);
   });
@@ -56,6 +60,7 @@ describe('on sign in', () => {
     const errors = {
       userName: '',
       password: '',
+      invalidInput: false,
     };
     expect(validate(values, false)).toStrictEqual(errors);
   });

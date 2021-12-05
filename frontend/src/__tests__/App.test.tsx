@@ -28,6 +28,7 @@ const customNewsFeed1 = {
   keyword: '',
   sources: '',
   title: 'Custom News Feed',
+  createdAt: '2021-11-25 21:42:43.828621+08',
 };
 
 const customNewsFeed2 = {
@@ -38,6 +39,7 @@ const customNewsFeed2 = {
   keyword: 'iloilo',
   sources: '',
   title: 'Iloilo News Feed',
+  createdAt: '2021-11-25 21:42:43.828621+08',
 };
 
 const customNewsFeed3 = {
@@ -48,6 +50,7 @@ const customNewsFeed3 = {
   keyword: '',
   sources: '',
   title: 'Custom News Feed 4',
+  createdAt: '2021-11-25 21:42:43.828621+08',
 };
 
 const customTwitterFeed = {
@@ -56,12 +59,14 @@ const customTwitterFeed = {
   title: 'Custom Twitter Feed',
   sources: null,
   keyword: 'President Duterte',
+  createdAt: '2021-11-25 21:42:43.828621+08',
 };
 
 const collection = {
   __typename: 'Collection',
   id: 6,
   title: 'Collection Bookmarks',
+  createdAt: '2021-11-25 21:42:43.828621+08',
 };
 
 const mocks: ReadonlyArray<MockedResponse> = [

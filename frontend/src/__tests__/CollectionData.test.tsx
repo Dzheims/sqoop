@@ -20,6 +20,8 @@ const mocks: ReadonlyArray<MockedResponse> = [
           {
             __typename: 'CollectionTweet',
             tweetId: '123456789',
+            collectionId: 1,
+            id: 1,
           },
         ],
       },
@@ -33,12 +35,12 @@ const mocks: ReadonlyArray<MockedResponse> = [
     result: {
       data: {
         tweetLookup: {
-          author_id: '15448383',
-          created_at: '2021-10-12T10:30:47.000Z',
-          id: '123456789',
+          authorId: '15448383',
+          createdAt: '2021-10-12T10:30:47.000Z',
+          tweetId: '123456789',
           name: 'Inquirer',
-          photos: [],
-          profile_image_url:
+          photos: null,
+          profileImageUrl:
             'https://pbs.twimg.com/profile_images/1427192891126915082/NNybyA9y_normal.jpg',
           suggestedKeywords: ['man', 'tagged', 'wanted', 'persons'],
           text: 'A man tagged as one of the most wanted persons in Sta. Cruz, Zambales.',
