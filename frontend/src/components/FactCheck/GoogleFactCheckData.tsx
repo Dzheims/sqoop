@@ -4,7 +4,7 @@ import { GoogleFactCheckSearchResultQuery } from './query.generated';
 import { GOOGLE_FACTCHECK_SEARCH_QUERY } from './query';
 import Loader from '../Common/Loader';
 import Error from '../Common/Error';
-import GoogleFactCheckResultsCards from './GoogleFactCheckResultsCards';
+import GoogleFactCheckResultsCards from '../Cards/GoogleFactCheckCards';
 
 interface SearchQueryProps {
   keyword: string;

@@ -74,7 +74,7 @@ export const COLLECTION_CONTENTS_QUERY = gql`
         description
         publishedAt
         sourceName
-        articleTitle: title
+        title
         url
         urlToImage
         collectionId

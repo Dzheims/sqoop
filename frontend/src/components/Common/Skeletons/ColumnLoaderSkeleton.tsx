@@ -1,6 +1,6 @@
 import React from 'react';
 import Skeleton from '@mui/material/Skeleton';
-import { ColumnContainer } from '../../../pages/Boards/ColumnsStyle';
+import { ColumnContainer } from '../../Columns/ColumnsStyle';
 
 const ColumnLoaderSkeleton = () => (
   <ColumnContainer>

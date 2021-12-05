@@ -2,7 +2,8 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { decodeHTML } from 'entities';
-import { CardsContainer, useStyles, ContentContainer } from './FactCheckStyles';
+import FactCheckIcon from '@mui/icons-material/FactCheck';
+import { CardsContainer, useStyles, ContentContainer } from './CardsStyles';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
 import CardsAddToCollectionButton from '../CardsButtons/CardsAddToCollectionButton';
 import { CollectionVeraFile, VeraFiles } from '../../types.generated';
@@ -13,7 +14,7 @@ interface VeraFactCheckProps {
   isUnderCollections: boolean | undefined;
 }
 
-const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
+const VeraFilesCards: React.FC<VeraFactCheckProps> = ({
   data,
   isUnderCollections,
 }: VeraFactCheckProps) => {
@@ -29,6 +30,13 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
           ) : (
             <div style={{ padding: '15px 0 0 0' }} />
           )}
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <FactCheckIcon
+            style={{
+              color: '#00acee',
+            }}
+          />
         </div>
         <ContentContainer>
           <div
@@ -54,7 +62,7 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
         >
           By {decodeHTML(data.author as string)}
         </Typography>
-        <Typography className={classes.dateAndUserName}>
+        <Typography className={classes.date}>
           {formatTimeAndDate(data.date)}
         </Typography>
         <div style={{ marginLeft: '80%' }}>
@@ -72,4 +80,4 @@ const VeraFactCheckResultsCards: React.FC<VeraFactCheckProps> = ({
   );
 };
 
-export default VeraFactCheckResultsCards;
+export default VeraFilesCards;

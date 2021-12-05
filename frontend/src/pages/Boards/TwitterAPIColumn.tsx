@@ -1,9 +1,6 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { Draggable } from 'react-beautiful-dnd';
+import React from 'react';
 import { GetTwitterApiContentsQuery } from './query.generated';
-import { Item } from './ColumnsStyle';
 import TwitterCards from '../../components/Cards/TwitterCards';
-import { DrawerState } from '../../components/FactCheck/FactCheckDrawerState';
 
 interface TwitterAPIDataProps {
   data: GetTwitterApiContentsQuery;

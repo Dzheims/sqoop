@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react';
 import { Typography } from '@material-ui/core';
-import { CardsContainer, useStyles, ContentContainer } from './FactCheckStyles';
+import FactCheckIcon from '@mui/icons-material/FactCheck';
+import { CardsContainer, useStyles, ContentContainer } from './CardsStyles';
 import { CollectionGoogleFactCheck, Claim } from '../../types.generated';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
 import CardsAddToCollectionButton from '../CardsButtons/CardsAddToCollectionButton';
@@ -12,7 +13,7 @@ interface GoogleFactCheckProps {
   isUnderCollections: boolean | undefined;
 }
 
-const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
+const GoogleFactCheckCards: React.FC<GoogleFactCheckProps> = ({
   data,
   isUnderCollections,
 }: GoogleFactCheckProps) => {
@@ -31,6 +32,13 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
             <div style={{ padding: '15px 0 0 0' }} />
           )}
         </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <FactCheckIcon
+            style={{
+              color: '#00acee',
+            }}
+          />
+        </div>
         <ContentContainer>
           {data.claimant !== null ? (
             <Typography
@@ -45,7 +53,7 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
           )}
           <Typography className={classes.description}>{data.text}</Typography>
           {data.claimDate !== null ? (
-            <Typography className={classes.dateAndUserName}>
+            <Typography className={classes.date}>
               Claim Date {formatTimeAndDate(data.claimDate)}
             </Typography>
           ) : (
@@ -67,7 +75,7 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
             {data.title}
           </Typography>
         </a>
-        <Typography className={classes.dateAndUserName}>
+        <Typography className={classes.date}>
           Review Date {formatTimeAndDate(data.reviewDate)}
         </Typography>
         <div style={{ marginLeft: '80%' }}>
@@ -85,4 +93,4 @@ const GoogleFactCheckResultsCards: React.FC<GoogleFactCheckProps> = ({
   );
 };
 
-export default GoogleFactCheckResultsCards;
+export default GoogleFactCheckCards;

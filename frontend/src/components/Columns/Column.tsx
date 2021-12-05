@@ -11,7 +11,7 @@ import {
   ItemContainer,
   ColumnWrapper,
   useStyles,
-} from '../../pages/Boards/ColumnsStyle';
+} from './ColumnsStyle';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import FeedIcon from '@mui/icons-material/Feed';
