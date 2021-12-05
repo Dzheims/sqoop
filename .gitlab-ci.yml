@@ -13,6 +13,7 @@ backend:
   before_script:
     - cd backend
     - npm install
+    - npm run generate
     - npm run migrate:test
   script:
     - npm run test
