@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import theme from '../../theme';
 
+export const iconStyle = { height: '18px', width: '18px', marginRight: '5px' };
+
 export const useStyles = makeStyles(() => ({
   icons: {
     height: '35px',
