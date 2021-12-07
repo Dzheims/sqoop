@@ -23,6 +23,7 @@ import accountSources from './SourcesList';
 import currentUserId from '../../../../authentication/currentUserId';
 import { NavDrawerState } from '../../../Navigation/NavDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
+import { scrollToElement } from '../../../Common/Functions/Functions';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -152,8 +153,10 @@ const AddTwitterFeedForm = ({
       setdisableCreateButton(true);
       history.push('/');
       drawerStateChanger({ isOpen: false, current: '' });
+      scrollToElement(twitterFeedForm.twitterFeed.title);
     },
     onError: () => {},
+    awaitRefetchQueries: true,
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
   });
 

@@ -23,6 +23,7 @@ import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import { GET_COLLECTIONS_LIST_QUERY } from '../../../Collections/query';
 import { NavDrawerState } from '../../../Navigation/NavDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
+import { scrollToElement } from '../../../Common/Functions/Functions';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -115,8 +116,10 @@ const AddCollectionForm = ({
       setdisableCreateButton(true);
       history.push('/');
       drawerStateChanger({ isOpen: false, current: '' });
+      scrollToElement(collectionForm.title);
     },
     onError: () => {},
+    awaitRefetchQueries: true,
     refetchQueries: [
       { query: GET_COLUMNS_QUERY },
       {
