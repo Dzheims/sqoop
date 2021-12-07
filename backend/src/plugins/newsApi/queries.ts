@@ -1,6 +1,5 @@
 import camelcaseKeys from 'camelcase-keys';
 import keyword_extractor from 'keyword-extractor';
-import { category } from '../../models';
 import { article } from './schema';
 const fetch = require('node-fetch');
 

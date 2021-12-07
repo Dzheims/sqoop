@@ -13,8 +13,6 @@ export function validateTitle(title: string, error: ApolloError | undefined) {
     error?.message ===
     'duplicate key value violates unique constraint "news_feed_unique_title"'
   ) {
-    console.log('duplicate news feed title');
-
     return 'News feed title already exists';
   }
   if (

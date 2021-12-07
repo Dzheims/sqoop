@@ -3,15 +3,8 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, Snackbar, Typography } from '@material-ui/core';
-import {
-  Alert,
-  AlertTitle,
-  Autocomplete,
-  IconButton,
-  TextField,
-} from '@mui/material';
-import CloseIcon from '@material-ui/icons/Close';
+import { Box, Button, Typography } from '@material-ui/core';
+import { Autocomplete, TextField } from '@mui/material';
 import {
   CreateTwitterFeedMutation,
   CreateTwitterFeedMutationVariables,
@@ -48,11 +41,6 @@ const useStyles = makeStyles((theme) => ({
     margin: '5px 0 0 5px',
   },
 }));
-
-interface DrawerState {
-  current: string;
-  open: boolean;
-}
 
 interface SuccessAlert {
   type: string;

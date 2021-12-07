@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { SEARCH_NEWS_API_CONTENTS_QUERY } from './query';
 import { SearchNewsApiContentsQuery } from './query.generated';
@@ -36,7 +33,7 @@ const SearchNewsAPIColumnData: React.FC<SearchNewsApiColumnDataProps> = ({
 
   return (
     <div>
-      {data?.searchArticles?.map((value, index) => (
+      {data?.searchArticles?.map((value) => (
         <NewsCards data={value} isUnderCollections={false} />
       ))}
     </div>

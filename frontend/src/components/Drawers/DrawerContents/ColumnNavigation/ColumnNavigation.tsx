@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useRef } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import List from '@mui/material/List';
@@ -8,7 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import FeedIcon from '@mui/icons-material/Feed';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import CollectionsIcon from '@mui/icons-material/CollectionsBookmark';
 import { GetColumnsQuery } from '../../../Columns/query.generated';
 import { scrollToElement } from '../../../Common/Functions/Functions';
 
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
       width: '0.4em',
     },
     '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'lightGray',
+      backgroundColor: '#d3d3d3',
       borderRadius: 8,
     },
   },
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '8px',
     '&:hover': {
       border: '1px solid #f04b4c',
-      backgroundColor: 'white',
+      backgroundColor: '#fff',
       color: theme.palette.secondary.main,
     },
   },
@@ -41,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     width: '15px',
   },
   formMessage: {
-    color: 'gray',
+    color: '#808080',
     fontSize: '12px',
     margin: '5px 0 0 5px',
   },
@@ -55,18 +54,16 @@ const ColumnNavigation: React.FC<ColumnsListProps> = ({
   data,
 }: ColumnsListProps) => {
   const classes = useStyles();
+  const iconSize = { height: '18px', width: '18px' };
 
-  const getIcon = (typeName: any) => {
-    const iconSize = { height: '18px', width: '18px' };
+  const getTypeIcons = (typeName: string | undefined) => {
     switch (typeName) {
       case 'NewsFeed':
         return <FeedIcon sx={iconSize} className={classes.icons} />;
       case 'TwitterFeed':
         return <TwitterIcon sx={iconSize} className={classes.icons} />;
       case 'Collection':
-        return (
-          <CollectionsBookmarkIcon sx={iconSize} className={classes.icons} />
-        );
+        return <CollectionsIcon sx={iconSize} className={classes.icons} />;
       default:
         return <div />;
     }
@@ -75,21 +72,11 @@ const ColumnNavigation: React.FC<ColumnsListProps> = ({
   const defaultColumns = [
     {
       title: 'News Feed',
-      icon: (
-        <FeedIcon
-          sx={{ height: '18px', width: '18px' }}
-          className={classes.icons}
-        />
-      ),
+      icon: <FeedIcon sx={iconSize} className={classes.icons} />,
     },
     {
       title: 'Twitter Feed',
-      icon: (
-        <TwitterIcon
-          sx={{ height: '18px', width: '18px' }}
-          className={classes.icons}
-        />
-      ),
+      icon: <TwitterIcon sx={iconSize} className={classes.icons} />,
     },
   ];
 
@@ -110,7 +97,7 @@ const ColumnNavigation: React.FC<ColumnsListProps> = ({
         {data.getColumnResult.map((value) => (
           <ListItem disablePadding className={classes.listItem}>
             <ListItemButton onClick={() => scrollToElement(value.title)}>
-              {getIcon(value.__typename)}
+              {getTypeIcons(value.__typename)}
               <ListItemText primary={value.title} />
             </ListItemButton>
           </ListItem>

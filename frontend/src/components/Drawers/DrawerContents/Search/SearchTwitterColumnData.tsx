@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { SEARCH_TWITTER_CONTENTS_QUERY } from './query';
@@ -36,7 +33,7 @@ const SearchAllTweetsColumnData: React.FC<SearchTwitterColumnDataProps> = ({
 
   return (
     <div>
-      {data?.searchAllTweets?.map((value, index) => (
+      {data?.searchAllTweets?.map((value) => (
         <TwitterCards
           data={value}
           isUnderCollections={false}

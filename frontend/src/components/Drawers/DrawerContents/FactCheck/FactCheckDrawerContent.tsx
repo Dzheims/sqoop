@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, InputBase, Paper, Chip } from '@material-ui/core';
@@ -25,10 +22,6 @@ const useStyles = makeStyles((theme) => ({
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
-  },
-  iconButton: {
-    padding: 10,
-    color: theme.palette.secondary.main,
   },
   buttonContainer: {
     display: 'flex',
@@ -88,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface FactCheckDrawerContentsProps {
-  suggestedKeyWords: any;
+  suggestedKeyWords: string[];
 }
 
 const FactCheckDrawerContent = ({

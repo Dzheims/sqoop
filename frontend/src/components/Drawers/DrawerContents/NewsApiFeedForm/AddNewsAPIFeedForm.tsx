@@ -1,9 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint import/no-cycle: [2, { maxDepth: 1 }] */
-
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { ApolloError, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -60,11 +57,6 @@ interface FormsDisabled {
   category: boolean;
   country: boolean;
   sources: boolean;
-}
-
-interface DrawerState {
-  current: string;
-  open: boolean;
 }
 
 interface SuccessAlert {
@@ -245,8 +237,6 @@ const AddNewsAPIFeedForm = ({
       createFeed();
     }
   };
-
-  const handleClose = () => {};
 
   return (
     <div className={classes.formContainer}>
