@@ -2,7 +2,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import Error from '../../components/Common/Error';
-import Loader from '../../components/Common/Loader';
 import { CollectionContentsQuery } from '../../components/Columns/query.generated';
 import { COLLECTION_CONTENTS_QUERY } from '../../components/Columns/query';
 import CollectionColumn from './CollectionColumn';

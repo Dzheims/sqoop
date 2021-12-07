@@ -57,8 +57,7 @@ interface CollectionContentProps {
 
 const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
   const classes = useStyles();
-  const { collectionListState, collectionListSetState } =
-    useCollectionsListState();
+  const { collectionListState } = useCollectionsListState();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOpen = () => {

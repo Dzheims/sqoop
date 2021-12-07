@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useRef } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import List from '@mui/material/List';
@@ -56,7 +56,7 @@ const ColumnNavigation: React.FC<ColumnsListProps> = ({
 }: ColumnsListProps) => {
   const classes = useStyles();
 
-  const getIcon = (typeName: any) => {
+  const getIcon = (typeName: string | undefined) => {
     const iconSize = { height: '18px', width: '18px' };
     switch (typeName) {
       case 'NewsFeed':

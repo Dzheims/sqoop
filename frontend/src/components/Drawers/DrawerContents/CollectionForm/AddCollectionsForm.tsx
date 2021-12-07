@@ -2,15 +2,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import {
-  Button,
-  TextField,
-  Snackbar,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import { Alert } from '@mui/material';
+import { Button, TextField, Typography } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import {
   CreateCollectionMutation,
@@ -48,11 +40,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '12px',
   },
 }));
-
-interface DrawerState {
-  current: string;
-  open: boolean;
-}
 
 interface SuccessAlert {
   type: string;

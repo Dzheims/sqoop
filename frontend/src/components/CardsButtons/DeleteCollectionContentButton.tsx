@@ -29,7 +29,7 @@ import {
   DELETE_COLLECTION_CONTENT_GOOGLE_FACT_CHECK,
 } from '../Collections/query';
 import { CollectionContent } from '../../types.generated';
-import { COLLECTION_CONTENTS_QUERY, GET_COLUMNS_QUERY } from '../Columns/query';
+import { COLLECTION_CONTENTS_QUERY } from '../Columns/query';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -153,8 +153,6 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
   }, [proceedDelete]);
 
   const handleDelete = () => {
-    console.log(data.id);
-
     setWarningDelete(true);
   };
 

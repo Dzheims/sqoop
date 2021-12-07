@@ -2,7 +2,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import Error from '../../components/Common/Error';
-import Loader from '../../components/Common/Loader';
 import CardsLoaderSkeleton from '../../components/Common/Skeletons/CardsLoaderSkeleton';
 import { CollectionTweetsQuery } from '../../components/Columns/query.generated';
 import { COLLECTION_TWEETS } from '../../components/Columns/query';
