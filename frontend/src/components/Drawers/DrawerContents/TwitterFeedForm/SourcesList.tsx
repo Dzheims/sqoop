@@ -1,4 +1,5 @@
 const accountSources = [
+  { label: 'All Accounts', username: '' },
   { label: 'ABS-CBN News', username: 'ABSCBNNews' },
   { label: 'CNN Philippines', username: 'cnnphilippines' },
   { label: 'GMA News', username: 'gmanews' },

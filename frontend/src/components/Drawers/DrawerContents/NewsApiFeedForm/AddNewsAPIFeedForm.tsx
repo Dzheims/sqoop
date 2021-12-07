@@ -85,11 +85,17 @@ const AddNewsAPIFeedForm = ({
   const classes = useStyles();
   const history = useHistory();
   const [country, setCountry] = useState({ code: '', label: '' });
-
   const [newsSource, setNewsSource] = useState({
     name: '',
     id: '',
   });
+
+  const newsSourcesData = [
+    {
+      name: 'All Sources',
+      id: '',
+    },
+  ].concat(NewsSourcesData());
 
   const [newsFeedForm, setNewsFeedForm] = useState<CreateNewsFeedInput>({
     newsFeed: {
@@ -161,22 +167,12 @@ const AddNewsAPIFeedForm = ({
   };
 
   useEffect(() => {
-    if (newsFeedForm.newsFeed.sources) {
-      setDisableForm({ ...disableForm, category: true, country: true });
-    } else if (
-      newsFeedForm.newsFeed.country ||
-      newsFeedForm.newsFeed.category
-    ) {
-      setDisableForm({ ...disableForm, sources: true });
+    if (newsFeedForm.newsFeed.sources === newsSourcesData[0].id) {
+      setDisableForm({ ...disableForm, category: false, country: false });
     } else {
-      setDisableForm({
-        ...disableForm,
-        sources: false,
-        category: false,
-        country: false,
-      });
+      setDisableForm({ ...disableForm, category: true, country: true });
     }
-  }, [newsFeedForm.newsFeed]);
+  }, [newsFeedForm.newsFeed.sources]);
 
   const onCountryChange = (value: string) => {
     setNewsFeedForm({
@@ -272,11 +268,11 @@ const AddNewsAPIFeedForm = ({
         size="small"
         fullWidth
         className={classes.formControl}
-        // disabled={disableForm.category}
+        disabled={disableForm.category}
       >
         <InputLabel>Categories</InputLabel>
         <Select
-          defaultValue=""
+          defaultValue={Category.General}
           label="Category"
           value={newsFeedForm.newsFeed.category}
           onChange={(e) => onCategoryChange(e.target.value as Category)}
@@ -293,7 +289,7 @@ const AddNewsAPIFeedForm = ({
       <Autocomplete
         id="countries"
         disableClearable
-        value={country}
+        defaultValue={countries[0]}
         onChange={(event, newValue) => {
           setCountry(newValue);
           onCountryChange(newValue.code);
@@ -316,7 +312,7 @@ const AddNewsAPIFeedForm = ({
             {...params}
             id="Country"
             label="Country"
-            // disabled={disableForm.country}
+            disabled={disableForm.country}
             placeholder="Country"
             variant="outlined"
             margin="dense"
@@ -338,13 +334,13 @@ const AddNewsAPIFeedForm = ({
       <Autocomplete
         id="Sources"
         disableClearable
-        value={newsSource}
+        defaultValue={newsSourcesData[0]}
         onChange={(event, newValue) => {
           setNewsSource({ name: newValue.name, id: newValue.id });
           onSourcesChange(newValue.id);
         }}
         size="small"
-        options={NewsSourcesData() || []}
+        options={newsSourcesData || []}
         getOptionLabel={(option) => option.name}
         renderInput={(params) => (
           <TextField

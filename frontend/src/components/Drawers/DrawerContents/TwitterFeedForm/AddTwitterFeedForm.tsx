@@ -200,7 +200,7 @@ const AddTwitterFeedForm = ({
       <Autocomplete
         id="sources"
         disableClearable
-        value={source}
+        // value={source}
         onChange={(event, newValue) => {
           setSource(newValue);
           onSourcesChange(newValue.username);
@@ -208,11 +208,12 @@ const AddTwitterFeedForm = ({
         size="small"
         options={accountSources}
         getOptionLabel={(option) => option.label}
+        defaultValue={accountSources[0]}
         renderOption={(props, option) => (
           <Box component="li" {...props}>
             <div className={classes.options}>
               <Typography>{option.label}</Typography>
-              {option.label === 'All accounts' ? (
+              {option.label === 'All Accounts' ? (
                 <Typography>{option.username}</Typography>
               ) : (
                 <Typography className={classes.optionsUsername}>
@@ -232,6 +233,7 @@ const AddTwitterFeedForm = ({
             margin="dense"
             size="small"
             fullWidth
+            defaultValue="All Accounts"
           />
         )}
       />
