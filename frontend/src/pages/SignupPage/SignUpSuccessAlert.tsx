@@ -1,23 +1,20 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import { Box, Modal } from '@mui/material';
+import { Box } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Grid from '@material-ui/core/Grid';
 import Cookies from 'js-cookie';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { ApolloError, useMutation } from '@apollo/client';
-import SIGN_UP_MUTATION from './query';
+import { useMutation } from '@apollo/client';
 import AUTH_TOKEN from '../../constants';
-import { SignupMutation, SignupMutationVariables } from './query.generated';
-import { SignupInput } from '../../types.generated';
 import {
   SigninMutation,
   SigninMutationVariables,
 } from '../SignInPage/query.generated';
 import SIGN_IN_MUTATION from '../SignInPage/query';
-import { FormValues, validate } from './SignUpValidation';
+import { FormValues } from './SignUpValidation';
 
 const useStyles = makeStyles((theme) => ({
   submit: {

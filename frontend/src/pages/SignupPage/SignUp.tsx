@@ -1,24 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import { Box, Modal } from '@mui/material';
+import { Modal } from '@mui/material';
 import TextField from '@material-ui/core/TextField';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Cookies from 'js-cookie';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { ApolloError, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import SIGN_UP_MUTATION from './query';
-import AUTH_TOKEN from '../../constants';
 import { SignupMutation, SignupMutationVariables } from './query.generated';
-import { SignupInput } from '../../types.generated';
-import {
-  SigninMutation,
-  SigninMutationVariables,
-} from '../SignInPage/query.generated';
-import SIGN_IN_MUTATION from '../SignInPage/query';
 import { FormValues, validate } from './SignUpValidation';
 import SignUpSuccessAlertBox from './SignUpSuccessAlert';
 
@@ -70,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
   const classes = useStyles();
-  const history = useHistory();
 
   const [signupInput, setSignupInput] = useState<FormValues>({
     userName: '',
