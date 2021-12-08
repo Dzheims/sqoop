@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import Error from '../../components/Common/Error';
-import Loader from '../../components/Common/Loader';
-import CardsLoaderSkeleton from '../../components/Common/Skeletons/CardsLoaderSkeleton';
 import { CollectionTweetsQuery } from '../../components/Columns/query.generated';
 import { COLLECTION_TWEETS } from '../../components/Columns/query';
-import TwitterCards from '../../components/Cards/TwitterCards';
 import { CollectionTweet } from '../../types.generated';
+import TwitterCards from '../../components/Cards/TwitterCards';
+import Error from '../../components/Common/Error';
+import CardsLoaderSkeleton from '../../components/Common/Skeletons/CardsLoaderSkeleton';
 
 interface CollectionsTweetsProps {
   dataProps: CollectionTweet;
