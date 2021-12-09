@@ -8,10 +8,10 @@ import {
 } from '@material-ui/core';
 import { Alert } from '@mui/material';
 import AddFeedsIcon from '@material-ui/icons/AddCircle';
-import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import ViewColumnIcon from '@material-ui/icons/ViewColumn';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowBackIcon from '@mui/icons-material/ArrowBackIosNew';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   NavigationBarContainer,
   MenuContainer,
@@ -116,7 +116,7 @@ const NavigationBar = () => {
     },
   ];
 
-  const handleBack = (contentTitle: string) => {
+  const getDrawerTitleIcon = (contentTitle: string) => {
     if (
       contentTitle === 'News Feed' ||
       contentTitle === 'Twitter Feed' ||
@@ -128,10 +128,13 @@ const NavigationBar = () => {
             setDrawer('Add Column', true);
           }}
         >
-          <ArrowBackIcon className={classes.backIcon} />
+          <ArrowBackIcon
+            className={classes.backIcon}
+            sx={{ height: '15px', width: '15px' }}
+          />
         </IconButton>
       );
-    return <div />;
+    return <></>;
   };
 
   const getDrawerContent = (contentTitle: string) => {
@@ -180,10 +183,18 @@ const NavigationBar = () => {
   const drawerChild = (
     <div className={classes.drawer}>
       <div className={classes.drawerHeader}>
-        {handleBack(drawerState.current)}
-        <Typography className={classes.drawerTitle}>
-          {drawerState.current}
-        </Typography>
+        <div className={classes.drawerTitleContainer}>
+          {getDrawerTitleIcon(drawerState.current)}
+          <Typography className={classes.drawerTitle}>
+            {drawerState.current}
+          </Typography>
+        </div>
+        <IconButton onClick={closeDrawer}>
+          <CloseIcon
+            className={classes.closeIcon}
+            sx={{ height: '15px', width: '15px' }}
+          />
+        </IconButton>
       </div>
       {getDrawerContent(drawerState.current)}
     </div>

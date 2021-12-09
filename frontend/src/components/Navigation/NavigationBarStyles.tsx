@@ -37,24 +37,23 @@ export const useStyles = makeStyles(() => ({
     width: '260px',
     height: '560px',
     backgroundColor: '#f7fafc',
-    margin: '10px 10px 10px 10px',
+    margin: '24px 10px',
     borderRadius: '4px',
-    // padding: '8px',
     overflow: 'hidden',
   },
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: '10px',
-    marginTop: '10px',
+    justifyContent: 'space-between',
   },
   drawerTitle: {
-    font: '18px sans-serif',
+    fontSize: '18px',
     color: theme.palette.primary.main,
+    marginLeft: '8px',
   },
-  helperIcon: {
-    marginLeft: '5px',
-    color: 'lightGray',
+  drawerTitleContainer: {
+    display: 'flex',
+    alignItems: 'center',
   },
   tooltip: {
     backgroundColor: '#f2f5f7',
@@ -64,6 +63,9 @@ export const useStyles = makeStyles(() => ({
   },
   arrow: {
     color: '#f2f5f7',
+  },
+  closeIcon: {
+    color: 'gray',
   },
   contentContainer: {
     padding: '8px',
