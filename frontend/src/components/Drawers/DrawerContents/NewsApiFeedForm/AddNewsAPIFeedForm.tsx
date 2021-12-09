@@ -25,6 +25,7 @@ import currentUserId from '../../../../authentication/currentUserId';
 import NewsSourcesData from './NewsSourcesData';
 import { NavDrawerState } from '../../../Navigation/NavDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
+import MutationLoader from '../../../Common/MutationLoader';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -196,7 +197,7 @@ const AddNewsAPIFeedForm = ({
     });
   };
 
-  const [createFeed, { error }] = useMutation<
+  const [createFeed, { error, loading: mutationLoading }] = useMutation<
     CreateNewsFeedMutation,
     CreateNewsFeedMutationVariables
   >(CREATE_NEWS_FEED, {
@@ -360,7 +361,8 @@ const AddNewsAPIFeedForm = ({
           color="secondary"
           onClick={handleSubmit}
         >
-          Create
+          {mutationLoading && <MutationLoader color="inherit" />}
+          {mutationLoading ? 'Creating...' : 'Create'}
         </Button>
       </div>
     </div>

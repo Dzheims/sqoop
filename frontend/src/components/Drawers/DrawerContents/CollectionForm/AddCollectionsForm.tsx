@@ -14,6 +14,7 @@ import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import { GET_COLLECTIONS_LIST_QUERY } from '../../../Collections/query';
 import { NavDrawerState } from '../../../Navigation/NavDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
+import MutationLoader from '../../../Common/MutationLoader';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -80,41 +81,42 @@ const AddCollectionForm = ({
     });
   };
 
-  const [createNewCollection, { error }] = useMutation<
-    CreateCollectionMutation,
-    CreateCollectionMutationVariables
-  >(CREATE_COLLECTION, {
-    variables: {
-      input: {
-        collection: {
-          title: collectionForm.title,
-          userId: currentUserId(),
-        },
-      },
-    },
-    onCompleted: ({ createCollection }) => {
-      snackbarStateChanger({
-        type: 'Collection',
-        feedTitle: createCollection?.collection?.title as string,
-        success: true,
-      });
-      setdisableCreateButton(true);
-      history.push('/');
-      drawerStateChanger({ isOpen: false, current: '' });
-    },
-    onError: () => {},
-    refetchQueries: [
-      { query: GET_COLUMNS_QUERY },
+  const [createNewCollection, { error, loading: mutationLoading }] =
+    useMutation<CreateCollectionMutation, CreateCollectionMutationVariables>(
+      CREATE_COLLECTION,
       {
-        query: GET_COLLECTIONS_LIST_QUERY,
         variables: {
-          condition: {
-            userId: currentUserId(),
+          input: {
+            collection: {
+              title: collectionForm.title,
+              userId: currentUserId(),
+            },
           },
         },
-      },
-    ],
-  });
+        onCompleted: ({ createCollection }) => {
+          snackbarStateChanger({
+            type: 'Collection',
+            feedTitle: createCollection?.collection?.title as string,
+            success: true,
+          });
+          setdisableCreateButton(true);
+          history.push('/');
+          drawerStateChanger({ isOpen: false, current: '' });
+        },
+        onError: () => {},
+        refetchQueries: [
+          { query: GET_COLUMNS_QUERY },
+          {
+            query: GET_COLLECTIONS_LIST_QUERY,
+            variables: {
+              condition: {
+                userId: currentUserId(),
+              },
+            },
+          },
+        ],
+      }
+    );
 
   useEffect(() => {
     if (isSubmitting) setTitleError(validateTitle(collectionForm.title, error));
@@ -155,7 +157,8 @@ const AddCollectionForm = ({
           onClick={handleSubmit}
           disabled={disableCreateButton}
         >
-          Create
+          {mutationLoading && <MutationLoader color="inherit" />}
+          {mutationLoading ? 'Creating...' : 'Create'}
         </Button>
       </div>
     </div>

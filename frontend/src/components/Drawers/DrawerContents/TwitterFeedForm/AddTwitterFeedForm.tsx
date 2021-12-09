@@ -16,6 +16,7 @@ import accountSources from './SourcesList';
 import currentUserId from '../../../../authentication/currentUserId';
 import { NavDrawerState } from '../../../Navigation/NavDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
+import MutationLoader from '../../../Common/MutationLoader';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -117,7 +118,7 @@ const AddTwitterFeedForm = ({
     });
   };
 
-  const [createFeed, { error }] = useMutation<
+  const [createFeed, { error, loading: mutationLoading }] = useMutation<
     CreateTwitterFeedMutation,
     CreateTwitterFeedMutationVariables
   >(CREATE_TWITTER_FEED, {
@@ -233,7 +234,8 @@ const AddTwitterFeedForm = ({
           disabled={disableCreateButton}
           onClick={handleSubmit}
         >
-          Create
+          {mutationLoading && <MutationLoader color="inherit" />}
+          {mutationLoading ? 'Creating...' : 'Create'}
         </Button>
       </div>
     </div>
