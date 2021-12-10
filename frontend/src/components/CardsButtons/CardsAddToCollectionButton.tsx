@@ -32,6 +32,7 @@ import {
 import { COLLECTION_CONTENTS_QUERY } from '../Columns/query';
 import { CollectionContent } from '../../types.generated';
 import { useCollectionsListState } from '../Collections/CollectionsListState';
+import MutationLoader from '../Common/MutationLoader';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,22 +70,28 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
     setIsOpen(false);
   };
 
-  const [saveTweetToCollection] = useMutation<
-    SaveTweetToCollectionMutation,
-    SaveTweetToCollectionMutationVariables
-  >(SAVE_TWEET_TO_COLLECTION);
+  const [saveTweetToCollection, { loading: mutationTweetLoading }] =
+    useMutation<
+      SaveTweetToCollectionMutation,
+      SaveTweetToCollectionMutationVariables
+    >(SAVE_TWEET_TO_COLLECTION);
 
-  const [saveArticleToCollection] = useMutation<
-    SaveArticleToCollectionMutation,
-    SaveArticleToCollectionMutationVariables
-  >(SAVE_ARTICLE_TO_COLLECTION);
+  const [saveArticleToCollection, { loading: mutationArticleLoading }] =
+    useMutation<
+      SaveArticleToCollectionMutation,
+      SaveArticleToCollectionMutationVariables
+    >(SAVE_ARTICLE_TO_COLLECTION);
 
-  const [saveVeraFileToCollection] = useMutation<
-    SaveVeraFileToCollectionMutation,
-    SaveVeraFileToCollectionMutationVariables
-  >(SAVE_VERA_FILE_TO_COLLECTION);
+  const [saveVeraFileToCollection, { loading: mutationVeraFileLoading }] =
+    useMutation<
+      SaveVeraFileToCollectionMutation,
+      SaveVeraFileToCollectionMutationVariables
+    >(SAVE_VERA_FILE_TO_COLLECTION);
 
-  const [saveGoogleFactCheckToCollection] = useMutation<
+  const [
+    saveGoogleFactCheckToCollection,
+    { loading: mutationGoogleFactCheckLoading },
+  ] = useMutation<
     SaveGoogleFactCheckToCollectionMutation,
     SaveGoogleFactCheckToCollectionMutationVariables
   >(SAVE_GOOGLE_FACT_CHECK_TO_COLLECTION);
@@ -229,7 +236,20 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
           <DialogActions>
             <Button onClick={handleClickClose}>Cancel</Button>
             <Button onClick={handleSave} autoFocus data-testid="submit-save">
-              Save
+              {mutationTweetLoading ||
+              mutationArticleLoading ||
+              mutationVeraFileLoading ||
+              mutationGoogleFactCheckLoading ? (
+                <MutationLoader color="primary" />
+              ) : (
+                <div />
+              )}
+              {mutationTweetLoading ||
+              mutationArticleLoading ||
+              mutationVeraFileLoading ||
+              mutationGoogleFactCheckLoading
+                ? 'Saving'
+                : 'Save'}
             </Button>
           </DialogActions>
         </DialogContent>
