@@ -32,7 +32,7 @@ describe('Collection Articles', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <NewsCards data={data} />
+                <NewsCards data={data} isUnderCollections={true} />
               </div>
             )}
           </Droppable>

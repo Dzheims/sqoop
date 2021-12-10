@@ -1,5 +1,10 @@
 import React from 'react';
-import { render, RenderResult } from '@testing-library/react';
+import {
+  render,
+  RenderResult,
+  waitFor,
+  fireEvent,
+} from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import GoogleFactCheckResultsCards from '../components/Cards/GoogleFactCheckCards';
@@ -28,7 +33,10 @@ describe('Google Fact Check Cards', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <GoogleFactCheckResultsCards data={data} />
+                <GoogleFactCheckResultsCards
+                  data={data}
+                  isUnderCollections={false}
+                />
               </div>
             )}
           </Droppable>

@@ -1,5 +1,10 @@
 import React from 'react';
-import { render, RenderResult } from '@testing-library/react';
+import {
+  render,
+  RenderResult,
+  fireEvent,
+  waitFor,
+} from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import VeraFactCheckResultsCards from '../components/Cards/VeraFilesCards';
@@ -31,7 +36,10 @@ describe('Google Fact Check Cards', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <VeraFactCheckResultsCards data={data} />
+                <VeraFactCheckResultsCards
+                  data={data}
+                  isUnderCollections={true}
+                />
               </div>
             )}
           </Droppable>
@@ -54,5 +62,29 @@ describe('Google Fact Check Cards', () => {
       'Virologists as gatekeepers: Local scientists prepare for the next pandemic'
     );
     expect(text).toBeInTheDocument();
+  });
+  test('dialog box', async () => {
+    const removeFromCollectionButton = await documentBody.findByTestId(
+      'remove-from-collections'
+    );
+    const dialogBox = documentBody.queryByText(
+      'Are you sure you want to remove this article from the collection?'
+    );
+    expect(removeFromCollectionButton).toBeInTheDocument();
+    expect(dialogBox).not.toBeInTheDocument();
+
+    fireEvent.click(removeFromCollectionButton);
+    await waitFor(async () => {
+      expect(
+        await documentBody.findByTestId('cancel-delete')
+      ).toBeInTheDocument();
+      expect(
+        await documentBody.findByTestId('agree-delete')
+      ).toBeInTheDocument();
+    });
+    const warningDialogBox = documentBody.queryByText(
+      'Are you sure you want to remove this article from the collection?'
+    );
+    expect(warningDialogBox).toBeInTheDocument();
   });
 });
