@@ -36,10 +36,7 @@ describe('Google Fact Check Cards', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <VeraFactCheckResultsCards
-                  data={data}
-                  isUnderCollections={true}
-                />
+                <VeraFactCheckResultsCards data={data} />
               </div>
             )}
           </Droppable>
@@ -62,29 +59,5 @@ describe('Google Fact Check Cards', () => {
       'Virologists as gatekeepers: Local scientists prepare for the next pandemic'
     );
     expect(text).toBeInTheDocument();
-  });
-  test('dialog box', async () => {
-    const removeFromCollectionButton = await documentBody.findByTestId(
-      'remove-from-collections'
-    );
-    const dialogBox = documentBody.queryByText(
-      'Are you sure you want to remove this article from the collection?'
-    );
-    expect(removeFromCollectionButton).toBeInTheDocument();
-    expect(dialogBox).not.toBeInTheDocument();
-
-    fireEvent.click(removeFromCollectionButton);
-    await waitFor(async () => {
-      expect(
-        await documentBody.findByTestId('cancel-delete')
-      ).toBeInTheDocument();
-      expect(
-        await documentBody.findByTestId('agree-delete')
-      ).toBeInTheDocument();
-    });
-    const warningDialogBox = documentBody.queryByText(
-      'Are you sure you want to remove this article from the collection?'
-    );
-    expect(warningDialogBox).toBeInTheDocument();
   });
 });

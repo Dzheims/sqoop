@@ -33,10 +33,7 @@ describe('Google Fact Check Cards', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <GoogleFactCheckResultsCards
-                  data={data}
-                  isUnderCollections={false}
-                />
+                <GoogleFactCheckResultsCards data={data} />
               </div>
             )}
           </Droppable>

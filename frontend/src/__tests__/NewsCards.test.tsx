@@ -31,7 +31,7 @@ describe('News Cards', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <NewsCards data={data} isUnderCollections={false} />
+                <NewsCards data={data} />
               </div>
             )}
           </Droppable>
