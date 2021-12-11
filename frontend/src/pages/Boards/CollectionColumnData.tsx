@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import Error from '../../components/Common/Error';
 import { CollectionContentsQuery } from '../../components/Columns/query.generated';
 import { COLLECTION_CONTENTS_QUERY } from '../../components/Columns/query';
 import CollectionColumn from './CollectionColumn';
 import NoContents from '../../components/Common/NoContents';
+import Error from '../../components/Common/Error';
 
 interface CollectionsColumnDataProps {
   collectionId: number;

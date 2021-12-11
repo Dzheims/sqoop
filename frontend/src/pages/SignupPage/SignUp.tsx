@@ -11,6 +11,7 @@ import SIGN_UP_MUTATION from './query';
 import { SignupMutation, SignupMutationVariables } from './query.generated';
 import { FormValues, validate } from './SignUpValidation';
 import SignUpSuccessAlertBox from './SignUpSuccessAlert';
+import MutationLoader from '../../components/Common/MutationLoader';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    textTransform: 'none',
   },
   welcome: {
     fontWeight: 'bold',
@@ -76,7 +78,7 @@ const SignUp = () => {
     return true;
   };
 
-  const [signUp, { error }] = useMutation<
+  const [signUp, { error, loading: mutationLoading }] = useMutation<
     SignupMutation,
     SignupMutationVariables
   >(SIGN_UP_MUTATION, {
@@ -219,7 +221,8 @@ const SignUp = () => {
               className={classes.submit}
               onClick={handleSubmit}
             >
-              Sign Up
+              {mutationLoading && <MutationLoader color="inherit" />}
+              {mutationLoading ? 'Signing up...' : 'Sign up'}
             </Button>
             <Modal open={successAlert}>
               <SignUpSuccessAlertBox

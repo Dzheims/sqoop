@@ -3,15 +3,8 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, Snackbar, Typography } from '@material-ui/core';
-import {
-  Alert,
-  AlertTitle,
-  Autocomplete,
-  IconButton,
-  TextField,
-} from '@mui/material';
-import CloseIcon from '@material-ui/icons/Close';
+import { Box, Button, Typography } from '@material-ui/core';
+import { Autocomplete, TextField } from '@mui/material';
 import {
   CreateTwitterFeedMutation,
   CreateTwitterFeedMutationVariables,
@@ -24,6 +17,7 @@ import currentUserId from '../../../../authentication/currentUserId';
 import { NavDrawerState } from '../../../Navigation/NavDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
 import { scrollToElement } from '../../../Common/Functions/Functions';
+import MutationLoader from '../../../Common/MutationLoader';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -49,11 +43,6 @@ const useStyles = makeStyles((theme) => ({
     margin: '5px 0 0 5px',
   },
 }));
-
-interface DrawerState {
-  current: string;
-  open: boolean;
-}
 
 interface SuccessAlert {
   type: string;
@@ -130,7 +119,7 @@ const AddTwitterFeedForm = ({
     });
   };
 
-  const [createFeed, { error }] = useMutation<
+  const [createFeed, { error, loading: mutationLoading }] = useMutation<
     CreateTwitterFeedMutation,
     CreateTwitterFeedMutationVariables
   >(CREATE_TWITTER_FEED, {
@@ -250,7 +239,8 @@ const AddTwitterFeedForm = ({
           disabled={disableCreateButton}
           onClick={handleSubmit}
         >
-          Create
+          {mutationLoading && <MutationLoader color="inherit" />}
+          {mutationLoading ? 'Creating...' : 'Create'}
         </Button>
       </div>
     </div>

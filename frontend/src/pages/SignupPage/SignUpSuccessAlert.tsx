@@ -1,4 +1,6 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { Box } from '@mui/material';
@@ -6,8 +8,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Grid from '@material-ui/core/Grid';
 import Cookies from 'js-cookie';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { useMutation } from '@apollo/client';
+import Welcome from '../../assets/welcome.png';
 import AUTH_TOKEN from '../../constants';
 import {
   SigninMutation,
@@ -19,14 +20,18 @@ import { FormValues } from './SignUpValidation';
 const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
+    textTransform: 'none',
+    boxShadow: 'none',
   },
-  successIcon: { margin: theme.spacing(2, 0, 4) },
+  successIcon: {
+    margin: theme.spacing(2, 0, 4),
+  },
   box: {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%,-50%)',
-    width: 500,
+    width: 400,
     backgroundColor: 'white',
     padding: theme.spacing(4),
     borderRadius: '1vh',
@@ -36,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     textAlign: 'center',
+  },
+  image: {
+    width: '200px',
+    height: '200px',
   },
 }));
 
@@ -67,22 +76,16 @@ const SignUpSuccessAlertBox = ({ userName, password }: FormValues) => {
     <Box className={classes.box}>
       <Grid className={classes.divBox}>
         <div>
-          <CheckCircleOutlineIcon
-            color="success"
-            fontSize="inherit"
-            style={{ fontSize: 150 }}
-            className={classes.successIcon}
-          />
+          <img className={classes.image} src={Welcome} alt="" />
         </div>
-        <Typography variant="h2" component="h1">
+        <Typography color="primary" variant="h4">
           Awesome!
         </Typography>
-        <Typography variant="h6">Your account was created</Typography>
+        <Typography variant="body1">Your account was created</Typography>
         <Button
           data-testid="btn-get-started"
-          fullWidth
           variant="contained"
-          color="primary"
+          color="secondary"
           className={classes.submit}
           onClick={handleSignIn}
         >

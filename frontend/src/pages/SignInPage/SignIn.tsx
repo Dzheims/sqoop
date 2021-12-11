@@ -16,6 +16,8 @@ import { FormValues, validate, Errors, LoginInput } from './SignInValidation';
 import { SigninMutation, SigninMutationVariables } from './query.generated';
 import { Alert, IconButton, InputAdornment } from '@mui/material';
 import { VisibilityTwoTone, VisibilityOffTwoTone } from '@mui/icons-material';
+import { SigninInput } from '../../types.generated';
+import MutationLoader from '../../components/Common/MutationLoader';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    textTransform: 'none',
   },
   welcome: {
     marginTop: theme.spacing(10),
@@ -84,23 +87,23 @@ const SignIn = () => {
     });
   };
 
-  const [signIn] = useMutation<SigninMutation, SigninMutationVariables>(
-    SIGN_IN_MUTATION,
-    {
-      variables: {
-        input: {
-          userName: loginInput.userName,
-          password: loginInput.password,
-        },
+  const [signIn, { loading: mutationLoading }] = useMutation<
+    SigninMutation,
+    SigninMutationVariables
+  >(SIGN_IN_MUTATION, {
+    variables: {
+      input: {
+        userName: loginInput.userName,
+        password: loginInput.password,
       },
-      onCompleted: ({ signin }) => {
-        if (signin?.jwtToken) {
-          Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
-          history.push('/');
-        }
-      },
-    }
-  );
+    },
+    onCompleted: ({ signin }) => {
+      if (signin?.jwtToken) {
+        Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
+        history.push('/');
+      }
+    },
+  });
 
   useEffect(() => {
     if (isSubmitting) setErrors(validate(loginInput, jwtIsNull));
@@ -185,7 +188,8 @@ const SignIn = () => {
             className={classes.submit}
             onClick={handleSubmit}
           >
-            Sign In
+            {mutationLoading && <MutationLoader color="inherit" />}
+            {mutationLoading ? 'Signing In...' : 'Sign In'}
           </Button>
           <Grid container>
             <Grid item>

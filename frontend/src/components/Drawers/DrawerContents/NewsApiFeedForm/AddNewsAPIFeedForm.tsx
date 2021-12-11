@@ -1,9 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint import/no-cycle: [2, { maxDepth: 1 }] */
-
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { ApolloError, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -29,6 +26,7 @@ import NewsSourcesData from './NewsSourcesData';
 import { NavDrawerState } from '../../../Navigation/NavDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
 import { scrollToElement } from '../../../Common/Functions/Functions';
+import MutationLoader from '../../../Common/MutationLoader';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -61,11 +59,6 @@ interface FormsDisabled {
   category: boolean;
   country: boolean;
   sources: boolean;
-}
-
-interface DrawerState {
-  current: string;
-  open: boolean;
 }
 
 interface SuccessAlert {
@@ -201,7 +194,7 @@ const AddNewsAPIFeedForm = ({
     });
   };
 
-  const [createFeed, { error }] = useMutation<
+  const [createFeed, { error, loading: mutationLoading }] = useMutation<
     CreateNewsFeedMutation,
     CreateNewsFeedMutationVariables
   >(CREATE_NEWS_FEED, {
@@ -244,8 +237,6 @@ const AddNewsAPIFeedForm = ({
       createFeed();
     }
   };
-
-  const handleClose = () => {};
 
   return (
     <div className={classes.formContainer}>
@@ -369,7 +360,8 @@ const AddNewsAPIFeedForm = ({
           color="secondary"
           onClick={handleSubmit}
         >
-          Create
+          {mutationLoading && <MutationLoader color="inherit" />}
+          {mutationLoading ? 'Creating...' : 'Create'}
         </Button>
       </div>
     </div>

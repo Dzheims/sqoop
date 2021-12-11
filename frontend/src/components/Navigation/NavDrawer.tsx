@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
-import React, { useState } from 'react';
+import React from 'react';
 import { Drawer } from '@material-ui/core';
 import { useStyles } from './NavigationBarStyles';
 

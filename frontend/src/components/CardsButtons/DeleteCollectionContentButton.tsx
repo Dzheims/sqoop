@@ -29,7 +29,8 @@ import {
   DELETE_COLLECTION_CONTENT_GOOGLE_FACT_CHECK,
 } from '../Collections/query';
 import { CollectionContent } from '../../types.generated';
-import { COLLECTION_CONTENTS_QUERY } from '../Columns/query';
+import { COLLECTION_CONTENTS_QUERY, GET_COLUMNS_QUERY } from '../Columns/query';
+import MutationLoader from '../Common/MutationLoader';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +64,7 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
     setWarningDelete(false);
   };
 
-  const [deleteArticle] = useMutation<
+  const [deleteArticle, { loading: mutationArticleLoading }] = useMutation<
     DeleteArticleContentMutation,
     DeleteArticleContentMutationVariables
   >(DELETE_COLLECTION_CONTENT_ARTICLE, {
@@ -81,7 +82,7 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
     ],
   });
 
-  const [deleteTweet] = useMutation<
+  const [deleteTweet, { loading: mutationTweetLoading }] = useMutation<
     DeleteTweetContentMutation,
     DeleteTweetContentMutationVariables
   >(DELETE_COLLECTION_CONTENT_TWEET, {
@@ -99,25 +100,29 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
     ],
   });
 
-  const [deleteVeraFilesContent] = useMutation<
-    DeleteVeraFileContentMutation,
-    DeleteVeraFileContentMutationVariables
-  >(DELETE_COLLECTION_CONTENT_VERA_FILE, {
-    variables: {
-      id: data.id,
-    },
-    onCompleted: () => {
-      setProceedDelete(false);
-    },
-    refetchQueries: [
-      {
-        query: COLLECTION_CONTENTS_QUERY,
-        variables: { collectionId: data.collectionId },
+  const [deleteVeraFilesContent, { loading: mutationVeraFilesLoading }] =
+    useMutation<
+      DeleteVeraFileContentMutation,
+      DeleteVeraFileContentMutationVariables
+    >(DELETE_COLLECTION_CONTENT_VERA_FILE, {
+      variables: {
+        id: data.id,
       },
-    ],
-  });
+      onCompleted: () => {
+        setProceedDelete(false);
+      },
+      refetchQueries: [
+        {
+          query: COLLECTION_CONTENTS_QUERY,
+          variables: { collectionId: data.collectionId },
+        },
+      ],
+    });
 
-  const [deleteGoogleFactCheckContent] = useMutation<
+  const [
+    deleteGoogleFactCheckContent,
+    { loading: mutationGoogleFactCheckLoading },
+  ] = useMutation<
     DeleteGoogleFactCheckContentMutation,
     DeleteGoogleFactCheckContentMutationVariables
   >(DELETE_COLLECTION_CONTENT_GOOGLE_FACT_CHECK, {
@@ -151,6 +156,8 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
       }
     }
   }, [proceedDelete]);
+
+  const handleMutationLoading = () => {};
 
   const handleDelete = () => {
     setWarningDelete(true);
@@ -193,6 +200,14 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
             }}
             autoFocus
           >
+            {mutationArticleLoading ||
+            mutationTweetLoading ||
+            mutationVeraFilesLoading ||
+            mutationGoogleFactCheckLoading ? (
+              <MutationLoader color="primary" />
+            ) : (
+              <div />
+            )}
             Agree
           </Button>
         </DialogActions>
