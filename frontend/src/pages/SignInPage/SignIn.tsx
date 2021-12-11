@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -11,10 +12,10 @@ import { ApolloError, useMutation } from '@apollo/client';
 import SIGN_IN_MUTATION from './query';
 import AUTH_TOKEN from '../../constants';
 import Cookies from 'js-cookie';
-import { FormValues, validate, Errors } from './SignInValidation';
+import { FormValues, validate, Errors, LoginInput } from './SignInValidation';
 import { SigninMutation, SigninMutationVariables } from './query.generated';
-import { SigninInput } from '../../types.generated';
-import { Alert } from '@mui/material';
+import { Alert, IconButton, InputAdornment } from '@mui/material';
+import { VisibilityTwoTone, VisibilityOffTwoTone } from '@mui/icons-material';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,9 +41,10 @@ const SignIn = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [loginInput, setLoginInput] = useState<SigninInput>({
+  const [loginInput, setLoginInput] = useState<LoginInput>({
     userName: '',
     password: '',
+    showPassword: false,
   });
 
   const [errors, setErrors] = useState<Errors>();
@@ -72,6 +74,13 @@ const SignIn = () => {
     setLoginInput({
       ...loginInput,
       password: value,
+    });
+  };
+
+  const handleClickShowPassword = () => {
+    setLoginInput({
+      ...loginInput,
+      showPassword: !loginInput.showPassword,
     });
   };
 
@@ -134,7 +143,7 @@ const SignIn = () => {
           <TextField
             inputProps={{ 'data-testid': 'Password' }}
             label="Password"
-            type="password"
+            type={loginInput.showPassword ? 'text' : 'password'}
             placeholder="Password"
             id="password"
             variant="outlined"
@@ -146,6 +155,23 @@ const SignIn = () => {
               setErrorInForm(errors?.password || '') || errors?.invalidInput
             }
             helperText={errors?.password}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {loginInput.showPassword ? (
+                      <VisibilityOffTwoTone />
+                    ) : (
+                      <VisibilityTwoTone />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           {errors?.invalidInput ? (
             <Alert severity="error">Invalid username or password</Alert>

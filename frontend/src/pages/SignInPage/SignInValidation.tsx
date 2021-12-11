@@ -1,4 +1,4 @@
-import { Maybe, SigninInput } from '../../types.generated';
+import { Maybe } from '../../types.generated';
 
 export interface FormValues {
   userName?: Maybe<string> | undefined;
@@ -11,12 +11,18 @@ export interface Errors {
   invalidInput?: boolean | undefined;
 }
 
+export interface LoginInput {
+  userName: string;
+  password: string;
+  showPassword: boolean;
+}
+
 // export interface SignInForm {
 //   forms?: FormValues;
 //   jwtIsNull?: Maybe<boolean>;
 // }
 
-export function validate(value: SigninInput, jwtIsNull: boolean) {
+export function validate(value: LoginInput, jwtIsNull: boolean) {
   const errors = {
     userName: '',
     password: '',
