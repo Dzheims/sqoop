@@ -12,7 +12,7 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
   <div>
     {data?.topHeadlines?.map((value, index) => (
       <div key={index}>
-        <NewsCards data={value} isUnderCollections={false} />
+        <NewsCards data={value} />
       </div>
     ))}
   </div>

@@ -33,7 +33,7 @@ const VeraFilesData: React.FC<SearchQueryProps> = ({
   return (
     <div>
       {data?.veraFilesFactCheck.map((value, index) => (
-        <VeraFilesCards data={value} isUnderCollections={false} />
+        <VeraFilesCards data={value} />
       ))}
     </div>
   );
