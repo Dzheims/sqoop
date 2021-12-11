@@ -170,6 +170,7 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
           onClick={() => {
             handleDelete();
           }}
+          data-testid="remove-from-collections"
         >
           <CloseIcon
             sx={{ height: '15px', width: '15px' }}

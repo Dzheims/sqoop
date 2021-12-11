@@ -14,11 +14,11 @@ const getCollectionContentType = (value: any) => {
     case 'CollectionTweet':
       return <CollectionTweets dataProps={value} />;
     case 'CollectionArticle':
-      return <NewsCards data={value} isUnderCollections={true} />;
+      return <NewsCards data={value} />;
     case 'CollectionVeraFile':
-      return <VeraFilesCards data={value} isUnderCollections={true} />;
+      return <VeraFilesCards data={value} />;
     case 'CollectionGoogleFactCheck':
-      return <GoogleFactCheckCards data={value} isUnderCollections={true} />;
+      return <GoogleFactCheckCards data={value} />;
   }
 };
 

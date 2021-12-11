@@ -33,7 +33,7 @@ const GoogleFactCheckData: React.FC<SearchQueryProps> = ({
   return (
     <div>
       {data?.googleFactCheckSearch.map((value) => (
-        <GoogleFactCheckCards data={value} isUnderCollections={false} />
+        <GoogleFactCheckCards data={value} />
       ))}
     </div>
   );

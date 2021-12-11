@@ -11,12 +11,10 @@ import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionConte
 
 interface VeraFactCheckProps {
   data: VeraFiles | CollectionVeraFile;
-  isUnderCollections: boolean | undefined;
 }
 
 const VeraFilesCards: React.FC<VeraFactCheckProps> = ({
   data,
-  isUnderCollections,
 }: VeraFactCheckProps) => {
   const classes = useStyles();
   const { __typename, ...collectionVeraFile } = data as VeraFiles;
@@ -25,8 +23,8 @@ const VeraFilesCards: React.FC<VeraFactCheckProps> = ({
     <div key={data.url}>
       <CardsContainer key={data.id}>
         <div className={classes.deleteButtonDiv}>
-          {isUnderCollections ? (
-            <DeleteCollectionContentButton data={data as CollectionVeraFile} />
+          {data.__typename === 'CollectionVeraFile' ? (
+            <DeleteCollectionContentButton data={data} />
           ) : (
             <div style={{ padding: '15px 0 0 0' }} />
           )}

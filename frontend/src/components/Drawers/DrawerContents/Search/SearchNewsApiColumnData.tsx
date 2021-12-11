@@ -33,8 +33,8 @@ const SearchNewsAPIColumnData: React.FC<SearchNewsApiColumnDataProps> = ({
 
   return (
     <div>
-      {data?.searchArticles?.map((value) => (
-        <NewsCards data={value} isUnderCollections={false} />
+      {data?.searchArticles?.map((value, index) => (
+        <NewsCards data={value} />
       ))}
     </div>
   );

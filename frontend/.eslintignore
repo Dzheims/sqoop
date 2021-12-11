@@ -9,6 +9,8 @@ src/pages/Boards/TwitterAPIColumn.tsx
 src/pages/Boards/CollectionColumn.tsx
 src/components/Cards/TwitterCards.tsx
 src/components/Cards/NewsCards.tsx
+src/components/Cards/DraggableCards/TwitterCards.tsx
+src/components/Cards/DraggableCards/NewsCards.tsx
 src/components/Drawers/DrawerContents/Search/Search.tsx
 src/apolloClient.ts
 src/components/Columns/Column.tsx

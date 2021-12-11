@@ -9,9 +9,10 @@ import {
 import { MockedProvider } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import NewsCards from '../components/Cards/NewsCards';
-import { Article } from '../types.generated';
+import { CollectionArticle } from '../types.generated';
 
-const data: Article = {
+const data: CollectionArticle = {
+  __typename: 'CollectionArticle',
   publishedAt: '2021-11-05T10:38:30Z',
   sourceName: 'Space.com',
   title:
@@ -20,6 +21,10 @@ const data: Article = {
     'https://cdn.mos.cms.futurecdn.net/JN9fjndKScwGXxqBxDF4ef-1200-80.jpg',
   description:
     'Astronomers have detected traces of water in one of the oldest known galaxies proving for the first time that the life-giving substance played a role in the formation of the earliest stars.',
+  id: 0,
+  collectionId: 0,
+  createdAt: '',
+  nodeId: '',
 };
 
 let documentBody: RenderResult;
@@ -27,7 +32,7 @@ let documentBody: RenderResult;
 describe('Collection Articles', () => {
   beforeEach(() => {
     documentBody = render(
-      <MockedProvider mocks={[]} addTypename={false}>
+      <MockedProvider mocks={[]} addTypename={true}>
         <DragDropContext onDragEnd={() => {}}>
           <Droppable droppableId="droppable">
             {(provided) => (
@@ -59,7 +64,7 @@ describe('Collection Articles', () => {
     );
     expect(descriptionText).toBeInTheDocument();
   });
-  test('dialog box', async () => {
+  test('add item dialog box', async () => {
     const saveToCollectionButton = await documentBody.findByTestId(
       'save-to-collections'
     );
@@ -73,5 +78,29 @@ describe('Collection Articles', () => {
         await documentBody.findByTestId('submit-save')
       ).toBeInTheDocument();
     });
+  });
+  test('remove card dialog box', async () => {
+    const removeFromCollectionButton = await documentBody.findByTestId(
+      'remove-from-collections'
+    );
+    const dialogBox = documentBody.queryByText(
+      'Are you sure you want to remove this article from the collection?'
+    );
+    expect(removeFromCollectionButton).toBeInTheDocument();
+    expect(dialogBox).not.toBeInTheDocument();
+
+    fireEvent.click(removeFromCollectionButton);
+    await waitFor(async () => {
+      expect(
+        await documentBody.findByTestId('cancel-delete')
+      ).toBeInTheDocument();
+      expect(
+        await documentBody.findByTestId('agree-delete')
+      ).toBeInTheDocument();
+    });
+    const warningDialogBox = documentBody.queryByText(
+      'Are you sure you want to remove this article from the collection?'
+    );
+    expect(warningDialogBox).toBeInTheDocument();
   });
 });

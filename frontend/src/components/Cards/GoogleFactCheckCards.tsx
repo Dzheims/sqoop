@@ -10,12 +10,10 @@ import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionConte
 
 interface GoogleFactCheckProps {
   data: Claim | CollectionGoogleFactCheck;
-  isUnderCollections: boolean | undefined;
 }
 
 const GoogleFactCheckCards: React.FC<GoogleFactCheckProps> = ({
   data,
-  isUnderCollections,
 }: GoogleFactCheckProps) => {
   const classes = useStyles();
   const { __typename, ...collectionGoogleFactCheck } = data as Claim;
@@ -24,10 +22,8 @@ const GoogleFactCheckCards: React.FC<GoogleFactCheckProps> = ({
     <div key={data.claimDate}>
       <CardsContainer>
         <div className={classes.deleteButtonDiv}>
-          {isUnderCollections ? (
-            <DeleteCollectionContentButton
-              data={data as CollectionGoogleFactCheck}
-            />
+          {data.__typename === 'CollectionGoogleFactCheck' ? (
+            <DeleteCollectionContentButton data={data} />
           ) : (
             <div style={{ padding: '15px 0 0 0' }} />
           )}
