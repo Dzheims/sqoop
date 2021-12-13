@@ -229,7 +229,7 @@ const SignUp = () => {
               onClick={handleSubmit}
             >
               {mutationLoading && <MutationLoader color="inherit" />}
-              {mutationLoading ? 'Signing up...' : 'Sign up'}
+              {mutationLoading ? 'Creating Account...' : 'Create Account'}
             </Button>
             <Modal open={successAlert}>
               <SignUpSuccessAlertBox
