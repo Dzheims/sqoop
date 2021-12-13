@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Toolbar } from '@material-ui/core';
 import Fab from '@mui/material/Fab';
@@ -53,7 +53,8 @@ const Homepage = () => {
   const history = useHistory();
 
   if (!Cookies.get(AUTH_TOKEN)) {
-    history.push('/signin');
+    // history.push('/signin');
+    return <Redirect to="/signin" />;
   }
 
   const buttonScroll = (scrollOffset: number) => {

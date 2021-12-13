@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -41,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = () => {
+  if (Cookies.get(AUTH_TOKEN)) {
+    return <Redirect to="/" />;
+  }
+
   const classes = useStyles();
   const history = useHistory();
 
