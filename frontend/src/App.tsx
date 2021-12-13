@@ -18,10 +18,7 @@ function App() {
           <Switch>
             <Route path="/signup" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />
-            <Route path="/board" exact component={Board} />
-            <Route path="/column" exact component={Columns} />
             <Route path="/" exact component={Homepage} />
-            <Route path="/column" exact component={ColumnsData} />
           </Switch>
         </ThemeProvider>
       </div>
