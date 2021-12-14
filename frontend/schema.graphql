@@ -1530,6 +1530,12 @@ type CollectionTweet implements Node {
   tweetId: String!
   collectionId: Int!
   createdAt: Datetime!
+  authorId: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
 
   """Reads a single `Collection` that is related to this `CollectionTweet`."""
   collection: Collection
@@ -3422,6 +3428,12 @@ input CollectionTweetInput {
   tweetId: String!
   collectionId: Int!
   createdAt: Datetime
+  authorId: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
 }
 
 """The output of our create `CollectionVeraFile` mutation."""
@@ -4209,6 +4221,12 @@ input CollectionTweetPatch {
   tweetId: String
   collectionId: Int
   createdAt: Datetime
+  authorId: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
 }
 
 """All input for the `updateCollectionTweet` mutation."""
