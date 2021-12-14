@@ -13,6 +13,7 @@ import {
   useStyles,
 } from './ColumnsStyle';
 import { makeStyles } from '@material-ui/core/styles';
+import { Chip } from '@material-ui/core';
 import CloseIcon from '@mui/icons-material/Close';
 import FeedIcon from '@mui/icons-material/Feed';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -29,6 +30,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Typography,
 } from '@mui/material';
 import { IconButton } from '@mui/material';
 import { useMutation } from '@apollo/client';
@@ -110,6 +112,8 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const [proceedDelete, setProceedDelete] = useState(false);
   const [userId] = useState(currentUserId());
   const [warningDelete, setWarningDelete] = useState(false);
+  const [filters, setFilters] = useState({});
+
   const [columnTitle, setColumnTitle] = useState('');
   const [onFocusState, setOnFocusState] = useState('0px solid #f04b4c');
   const [deleteColumn, setDeleteColumn] = useState<DeleteColumnProps>({
@@ -208,6 +212,24 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     setOnFocusState('2px solid #f04b4c');
   };
 
+  const getFiltersList = (value: any) => {
+    switch (value.__typename) {
+      case 'NewsFeed':
+        return [
+          value.keyword ? value.keyword : 'No Keyword',
+          value.country ? value.country : 'Philippines',
+          value.category ? value.category : 'General',
+          value.sources ? value.sources : 'All Sources',
+        ];
+      case 'TwitterFeed':
+        return [
+          value.keyword ? value.keyword : 'No Keyword',
+          value.sources ? value.sources : 'All Sources',
+        ];
+    }
+    return [];
+  };
+
   return (
     <CollectionsListStateProvider value={{ collectionId: 0 }}>
       <NavDrawerStateProvider value={{ isOpen: false, current: '' }}>
@@ -252,6 +274,19 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                             className={classes().iconButton}
                           />
                         </IconButton>
+                      </div>
+                      <div className={classes().chipsContainer}>
+                        {getFiltersList(value).map((filter: string, index) => (
+                          <Chip
+                            className={
+                              index === 0
+                                ? classes().keywordChip
+                                : classes().chips
+                            }
+                            variant="outlined"
+                            label={filter}
+                          />
+                        ))}
                       </div>
                       <ItemContainer
                         key={index}

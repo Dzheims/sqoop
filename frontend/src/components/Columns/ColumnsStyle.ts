@@ -53,6 +53,30 @@ export const useStyles = () =>
       alignItems: 'center',
       marginLeft: '5px',
     },
+    chipsContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '2px',
+    },
+    chips: {
+      fontSize: '12px',
+      color: 'gray',
+      maxWidth: '100px',
+      height: '20px',
+      marginLeft: '5px',
+      marginTop: '5px',
+    },
+    keywordChip: {
+      fontSize: '12px',
+      fontWeight: 'bold',
+      color: 'white',
+      backgroundColor: theme.palette.secondary.main,
+      maxWidth: '100px',
+      height: '20px',
+      marginLeft: '5px',
+      marginTop: '5px',
+      borderColor: theme.palette.secondary.main,
+    },
   }));
 export const ItemContainer = styled.div`
   background-color: ${(isDraggingOver: BoardColumnContentStylesProps) =>
