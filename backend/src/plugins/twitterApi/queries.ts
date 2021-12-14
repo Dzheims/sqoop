@@ -49,7 +49,7 @@ export const resolvers = {
         rows: [request],
       } = await pgClient.query(
         `SELECT * FROM twitter_recent_search_requests WHERE keyword = $1 AND sources = $2`,
-        [keyword, sources]
+        [keyword || '', sources || '']
       );
 
       if (request) {
@@ -64,7 +64,7 @@ export const resolvers = {
         rows: [twitter_recent_search_request_id],
       } = await pgClient.query(
         `INSERT INTO twitter_recent_search_requests (keyword, sources) VALUES ($1, $2) RETURNING id`,
-        [keyword, sources]
+        [keyword || '', sources || '']
       );
 
       const { rows } = await pgClient.query(
@@ -137,7 +137,7 @@ export const resolvers = {
         const {
           rows: [cacheId],
         } = await pgClient.query(
-          `INSERT INTO twitter_recent_search_cache (tweet_id, author_id, created_at, text, name, profile_image_url, username, verified, twitter_recent_search_request_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id`,
+          `INSERT INTO twitter_recent_search_cache (tweet_id, author_id, created_at, text, name, profile_image_url, username, verified, twitter_recent_search_request_id, suggested_keywords) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`,
           [
             tweet.tweetId,
             tweet.author_id,
@@ -148,6 +148,7 @@ export const resolvers = {
             tweet.username,
             tweet.verified,
             twitter_recent_search_request_id.id,
+            tweet.suggestedKeywords,
           ]
         );
         tweet?.photos?.map(async (photo: any) => {

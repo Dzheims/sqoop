@@ -2747,6 +2747,7 @@ type TwitterRecentSearchCache implements Node {
   username: String
   verified: Boolean
   twitterRecentSearchRequestId: Int!
+  suggestedKeywords: [String]
 
   """
   Reads a single `TwitterRecentSearchRequest` that is related to this `TwitterRecentSearchCache`.
@@ -4959,6 +4960,7 @@ input TwitterRecentSearchCacheInput {
   username: String
   verified: Boolean
   twitterRecentSearchRequestId: Int!
+  suggestedKeywords: [String]
 }
 
 """
@@ -6219,6 +6221,7 @@ input TwitterRecentSearchCachePatch {
   username: String
   verified: Boolean
   twitterRecentSearchRequestId: Int
+  suggestedKeywords: [String]
 }
 
 """
