@@ -13,14 +13,27 @@ interface CollectionsColumnDataProps {
 const CollectionColumnData: React.FC<CollectionsColumnDataProps> = ({
   collectionId,
 }: CollectionsColumnDataProps) => {
-  const { data, loading, error } = useQuery<CollectionContentsQuery>(
+  const { data, loading, error, refetch } = useQuery<CollectionContentsQuery>(
     COLLECTION_CONTENTS_QUERY,
     { variables: { collectionId } }
   );
-  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (error)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (loading) return <div />;
   if (!data)
-    return <Error header="Oops!" subHeader="No collection contents data" />;
+    return (
+      <Error
+        header="Oops!"
+        subHeader="No collection contents data"
+        refetchQueries={refetch()}
+      />
+    );
   if (data.collectionContents.length === 0)
     return (
       <NoContents

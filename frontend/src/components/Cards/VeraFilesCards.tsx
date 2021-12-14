@@ -26,7 +26,7 @@ const VeraFilesCards: React.FC<VeraFactCheckProps> = ({
           {data.__typename === 'CollectionVeraFile' ? (
             <DeleteCollectionContentButton data={data} />
           ) : (
-            <div style={{ padding: '15px 0 0 0' }} />
+            <div />
           )}
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>

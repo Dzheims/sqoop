@@ -21,13 +21,27 @@ const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
   keyword,
   sources,
 }: NewsApiColumnDataProps) => {
-  const { data, loading, error } = useQuery<GetNewsApiContentsQuery>(
+  const { data, loading, error, refetch } = useQuery<GetNewsApiContentsQuery>(
     GET_NEWS_API_CONTENTS_QUERY,
     { variables: { country, category, keyword, sources }, pollInterval: 60000 }
   );
-  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (error)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (loading) return <CardsLoaderSkeleton />;
-  if (!data) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (!data)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (!data.topHeadlines.length)
     return (
       <NoContents

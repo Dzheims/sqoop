@@ -7,11 +7,26 @@ import Loader from '../../../Common/Loader';
 import ColumnNavigation from './ColumnNavigation';
 
 const ColumnsListData = () => {
-  const { data, loading, error } = useQuery<GetColumnsQuery>(GET_COLUMNS_QUERY);
-  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  const { data, loading, error, refetch } =
+    useQuery<GetColumnsQuery>(GET_COLUMNS_QUERY);
+  if (error)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (loading)
     return <Loader header="Please Wait" subHeader="Loading Columns List" />;
-  if (!data) return <Error header="Oops!" subHeader="No data found" />;
+  if (!data)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="No data found"
+        refetchQueries={refetch()}
+      />
+    );
 
   return <ColumnNavigation data={data} />;
 };

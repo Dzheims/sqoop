@@ -53,7 +53,7 @@ const CollectionsList = () => {
     useCollectionsListState();
   const [selectedButton, setSelectedButton] = useState(false);
 
-  const { data, loading, error } = useGetCollectionsListQuery({
+  const { data, loading, error, refetch } = useGetCollectionsListQuery({
     variables: {
       condition: {
         userId: currentUserId(),
@@ -61,11 +61,24 @@ const CollectionsList = () => {
     },
   });
 
-  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (error)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (loading)
     return <Loader header="Please Wait" subHeader="Loading Collections List" />;
   if (!data)
-    return <Error header="Oops!" subHeader="No collections list data" />;
+    return (
+      <Error
+        header="Oops!"
+        subHeader="No collections list data"
+        refetchQueries={refetch()}
+      />
+    );
 
   const handleSelectButton = () => {
     setSelectedButton(!selectedButton);

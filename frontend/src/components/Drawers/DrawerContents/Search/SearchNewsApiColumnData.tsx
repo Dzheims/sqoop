@@ -20,20 +20,33 @@ const SearchNewsAPIColumnData: React.FC<SearchNewsApiColumnDataProps> = ({
   from,
   to,
 }: SearchNewsApiColumnDataProps) => {
-  const { data, loading, error } = useQuery<SearchNewsApiContentsQuery>(
-    SEARCH_NEWS_API_CONTENTS_QUERY,
-    { variables: { keyword, sources, from, to } }
-  );
-  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  const { data, loading, error, refetch } =
+    useQuery<SearchNewsApiContentsQuery>(SEARCH_NEWS_API_CONTENTS_QUERY, {
+      variables: { keyword, sources, from, to },
+    });
+  if (error)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (loading) return <CardsLoaderSkeleton />;
   if (!data)
-    return <Error header="Oops!" subHeader="No search results found" />;
+    return (
+      <Error
+        header="Oops!"
+        subHeader="No search results found"
+        refetchQueries={refetch()}
+      />
+    );
   if (!data.searchArticles.length)
     return <NoContents header="Sorry," subHeader="No News contents found" />;
 
   return (
     <div>
-      {data?.searchArticles?.map((value, index) => (
+      {data?.searchArticles?.map((value) => (
         <NewsCards data={value} />
       ))}
     </div>

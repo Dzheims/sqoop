@@ -13,11 +13,18 @@ interface SearchQueryProps {
 const VeraFilesData: React.FC<SearchQueryProps> = ({
   keyword,
 }: SearchQueryProps) => {
-  const { data, loading, error } = useQuery<VeraFactCheckSearchResultQuery>(
-    VERA_FACTCHECK_SEARCH_QUERY,
-    { variables: { keyword } }
-  );
-  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  const { data, loading, error, refetch } =
+    useQuery<VeraFactCheckSearchResultQuery>(VERA_FACTCHECK_SEARCH_QUERY, {
+      variables: { keyword },
+    });
+  if (error)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (loading)
     return (
       <Loader header="Please Wait" subHeader="Loading Fact Check Contents" />
@@ -27,12 +34,13 @@ const VeraFilesData: React.FC<SearchQueryProps> = ({
       <Error
         header="Oops!"
         subHeader="No search results found. Try other keywords."
+        refetchQueries={refetch()}
       />
     );
 
   return (
     <div>
-      {data?.veraFilesFactCheck.map((value, index) => (
+      {data?.veraFilesFactCheck.map((value) => (
         <VeraFilesCards data={value} />
       ))}
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
@@ -25,14 +26,22 @@ const useStyles = makeStyles(() => ({
     color: 'gray',
     fontSize: '14px',
   },
+  buttonContainer: {
+    marginTop: '10px',
+  },
 }));
 
 interface ErrorProps {
   header: string;
   subHeader: string;
+  refetchQueries: any;
 }
 
-const Error: React.FC<ErrorProps> = ({ header, subHeader }: ErrorProps) => {
+const Error: React.FC<ErrorProps> = ({
+  header,
+  subHeader,
+  refetchQueries,
+}: ErrorProps) => {
   const classes = useStyles();
 
   return (
@@ -44,6 +53,17 @@ const Error: React.FC<ErrorProps> = ({ header, subHeader }: ErrorProps) => {
       <Typography align="center" className={classes.errorText}>
         {subHeader}
       </Typography>
+      <div className={classes.buttonContainer}>
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => {
+            refetchQueries;
+          }}
+        >
+          Reload
+        </Button>
+      </div>
     </div>
   );
 };

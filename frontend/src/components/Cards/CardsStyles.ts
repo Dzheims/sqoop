@@ -16,10 +16,11 @@ export const useStyles = makeStyles(() => ({
     transition: 'border 0.25s ease-out',
   },
   deleteButtonDiv: {
-    marginLeft: '85.5%',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   empty: {
-    padding: '15px 0 0 0',
+    padding: '0',
   },
   profileAvatars: {
     height: '40px',
@@ -182,9 +183,10 @@ export const AccountNameContainer = styled.div`
 
 export const CardsContainer = styled.div`
   border: thin solid lightgray;
-  padding: 12px;
+  padding: 15px;
   margin-bottom: 10px;
   background-color: white;
+  overflow: hidden;
 `;
 export const ContentContainer = styled.div`
   margin-top: 10px;
