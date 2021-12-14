@@ -78,6 +78,7 @@ export const COLLECTION_CONTENTS_QUERY = gql`
         url
         urlToImage
         collectionId
+        suggestedKeywords
       }
       ... on CollectionVeraFile {
         id

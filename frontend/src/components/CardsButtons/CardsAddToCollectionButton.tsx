@@ -131,6 +131,7 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
                   sourceName: data.sourceName,
                   url: data.url,
                   urlToImage: data.urlToImage,
+                  suggestedKeywords: data.suggestedKeywords,
                 },
               },
             },

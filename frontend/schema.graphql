@@ -1264,6 +1264,7 @@ type CollectionArticle implements Node {
   urlToImage: String
   collectionId: Int!
   createdAt: Datetime!
+  suggestedKeywords: [String]
 
   """
   Reads a single `Collection` that is related to this `CollectionArticle`.
@@ -4312,6 +4313,7 @@ input CollectionArticleInput {
   urlToImage: String
   collectionId: Int!
   createdAt: Datetime
+  suggestedKeywords: [String]
 }
 
 """
@@ -5265,6 +5267,7 @@ input CollectionArticlePatch {
   urlToImage: String
   collectionId: Int
   createdAt: Datetime
+  suggestedKeywords: [String]
 }
 
 """
