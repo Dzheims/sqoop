@@ -34,8 +34,9 @@ export const resolvers = {
         rows: [request],
       } = await pgClient.query(
         `SELECT * FROM top_headlines_requests WHERE category = $1 AND country = $2 AND keyword = $3 AND sources = $4`,
-        [category, country, keyword, sources]
+        [category || 'general', country || '', keyword || '', sources || '']
       );
+      console.log(request);
 
       if (request) {
         const { rows: topHeadlinesCache } = await pgClient.query(
@@ -49,7 +50,7 @@ export const resolvers = {
         rows: [top_headlines_request_id],
       } = await pgClient.query(
         `INSERT INTO top_headlines_requests (category, country, keyword, sources) VALUES ($1, $2, $3, $4) RETURNING id`,
-        [category, country, keyword, sources]
+        [category || 'general', country || '', keyword || '', sources || '']
       );
       const queryParams = new URLSearchParams();
       queryParams.set('country', !country || !country.length ? 'ph' : country);
@@ -101,7 +102,7 @@ export const resolvers = {
 
       articles.map(async (article: any) => {
         await pgClient.query(
-          `INSERT INTO top_headlines_cache (author, content, description, published_at, source_name, source_id, title, url, url_to_image, top_headlines_request_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+          `INSERT INTO top_headlines_cache (author, content, description, published_at, source_name, source_id, title, url, url_to_image, top_headlines_request_id, suggested_keywords) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
           [
             article.author,
             article.content,
@@ -113,6 +114,7 @@ export const resolvers = {
             article.url,
             article.urlToImage,
             top_headlines_request_id.id,
+            article.suggestedKeywords,
           ]
         );
       });
