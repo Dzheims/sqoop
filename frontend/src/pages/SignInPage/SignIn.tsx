@@ -15,7 +15,7 @@ import Cookies from 'js-cookie';
 import { FormValues, validate, Errors, LoginInput } from './SignInValidation';
 import { SigninMutation, SigninMutationVariables } from './query.generated';
 import { Alert, IconButton, InputAdornment } from '@mui/material';
-import { VisibilityTwoTone, VisibilityOffTwoTone } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { SigninInput } from '../../types.generated';
 import MutationLoader from '../../components/Common/MutationLoader';
 
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = () => {
   if (Cookies.get(AUTH_TOKEN)) {
-    return <Redirect to="/" />;
+    return <Redirect to="/home" />;
   }
 
   const classes = useStyles();
@@ -171,9 +171,9 @@ const SignIn = () => {
                     edge="end"
                   >
                     {loginInput.showPassword ? (
-                      <VisibilityOffTwoTone />
+                      <VisibilityOff />
                     ) : (
-                      <VisibilityTwoTone />
+                      <Visibility />
                     )}
                   </IconButton>
                 </InputAdornment>
