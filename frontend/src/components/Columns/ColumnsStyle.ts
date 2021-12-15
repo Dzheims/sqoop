@@ -54,8 +54,9 @@ export const useStyles = () =>
       marginLeft: '5px',
     },
     chipsContainer: {
+      display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       padding: '2px',
     },
     chips: {

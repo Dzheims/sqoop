@@ -53,6 +53,7 @@ import CollectionColumnData from '../../pages/Boards/CollectionColumnData';
 import currentUserId from '../../authentication/currentUserId';
 import { CollectionsListStateProvider } from '../Collections/CollectionsListState';
 import { NavDrawerStateProvider } from '../Navigation/NavDrawerState';
+import ScrollContainer from 'react-indiana-drag-scroll';
 
 const useFocusStyles = makeStyles((theme) => ({
   columnHighlightBorder: {
@@ -275,19 +276,17 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                           />
                         </IconButton>
                       </div>
-                      <div className={classes().chipsContainer}>
-                        {getFiltersList(value).map((filter: string, index) => (
-                          <Chip
-                            className={
-                              index === 0
-                                ? classes().keywordChip
-                                : classes().chips
-                            }
-                            variant="outlined"
-                            label={filter}
-                          />
-                        ))}
-                      </div>
+                      <ScrollContainer className="scroll-container">
+                        <div className={classes().chipsContainer}>
+                          {getFiltersList(value).map((filter: string) => (
+                            <Chip
+                              className={classes().chips}
+                              variant="outlined"
+                              label={filter}
+                            />
+                          ))}
+                        </div>
+                      </ScrollContainer>
                       <ItemContainer
                         key={index}
                         className={classes().itemContainer}
