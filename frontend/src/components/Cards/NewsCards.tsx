@@ -24,14 +24,8 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
-  const {
-    __typename,
-    author,
-    content,
-    sourceId,
-    suggestedKeywords,
-    ...collectionArticle
-  } = data as Article;
+  const { __typename, author, content, sourceId, ...collectionArticle } =
+    data as Article;
 
   useEffect(() => {
     if (data.__typename === 'Article') {
@@ -121,7 +115,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
         <div className={classes.buttonsContainer}>
           <FactCheckButton
             // setHighlightCard={setHighlightCard}
-            suggestedKeywords={suggestedKeywords}
+            suggestedKeywords={data.suggestedKeywords}
           />
           <CardsAddToCollectionButton
             data={

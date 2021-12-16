@@ -116,6 +116,12 @@ const FactCheckDrawerContent = ({
   ];
 
   useEffect(() => {
+    if (suggestedKeyWords[0]) {
+      setSearchKey(suggestedKeyWords[0]);
+      setSearch(true);
+    }
+  }, [suggestedKeyWords]);
+  useEffect(() => {
     searchKey;
   });
 
