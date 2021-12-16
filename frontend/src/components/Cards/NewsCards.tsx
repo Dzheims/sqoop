@@ -56,7 +56,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
           {data.__typename === 'CollectionArticle' ? (
             <DeleteCollectionContentButton data={data} />
           ) : (
-            <div className={classes.empty} />
+            <div />
           )}
         </div>
         <NewsAPITitleContainer>

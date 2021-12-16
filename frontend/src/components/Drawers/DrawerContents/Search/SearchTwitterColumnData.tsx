@@ -20,14 +20,27 @@ const SearchAllTweetsColumnData: React.FC<SearchTwitterColumnDataProps> = ({
   fromDate,
   toDate,
 }: SearchTwitterColumnDataProps) => {
-  const { data, loading, error } = useQuery<SearchAllTweetsQuery>(
+  const { data, loading, error, refetch } = useQuery<SearchAllTweetsQuery>(
     SEARCH_TWITTER_CONTENTS_QUERY,
     { variables: { keyword, sources, fromDate, toDate } }
   );
-  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (error)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (loading) return <CardsLoaderSkeleton />;
   if (!data)
-    return <Error header="Oops!" subHeader="No search results found" />;
+    return (
+      <Error
+        header="Oops!"
+        subHeader="No search results found"
+        refetchQueries={refetch()}
+      />
+    );
   if (!data.searchAllTweets.length)
     return <NoContents header="Sorry," subHeader="No Twitter contents found" />;
 

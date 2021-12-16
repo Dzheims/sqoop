@@ -8,10 +8,25 @@ import { GET_COLUMNS_QUERY } from './query';
 import ColumnLoaderSkeleton from '../Common/Skeletons/ColumnLoaderSkeleton';
 
 export const ColumnsData = () => {
-  const { data, loading, error } = useQuery<GetColumnsQuery>(GET_COLUMNS_QUERY);
-  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  const { data, loading, error, refetch } =
+    useQuery<GetColumnsQuery>(GET_COLUMNS_QUERY);
+  if (error)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (loading) return <ColumnLoaderSkeleton />;
-  if (!data) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (!data)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (data.getColumnResult.length === 0) return <NoColumns />;
 
   return <Columns data={data} />;

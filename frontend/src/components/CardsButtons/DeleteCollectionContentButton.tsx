@@ -35,7 +35,6 @@ import MutationLoader from '../Common/MutationLoader';
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: '10px',
-    marginTop: '2px',
   },
   icon: {
     color: 'gray',

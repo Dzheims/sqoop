@@ -13,9 +13,9 @@ import SignUp from './pages/SignupPage/SignUp';
 import SignIn from './pages/SignInPage/SignIn';
 import { ColumnsData } from './components/Columns/ColumnsData';
 import Board from './pages/Boards/BoardsSample/Board';
-import NavigationBar from './components/Navigation/NavigationBar';
 import Columns from './components/Columns/Column';
 import AUTH_TOKEN from './constants';
+import Landing from './pages/LandingPage/Landing';
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
       <div>
         <ThemeProvider theme={theme}>
           <Switch>
+            <Route path="/" exact component={Landing} />
             <Route path="/signup" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />
             <Route path="/home" exact component={Homepage} />

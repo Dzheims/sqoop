@@ -14,16 +14,29 @@ interface CollectionsTweetsProps {
 const CollectionTweets: React.FC<CollectionsTweetsProps> = ({
   dataProps,
 }: CollectionsTweetsProps) => {
-  const { data, loading, error } = useQuery<CollectionTweetsQuery>(
+  const { data, loading, error, refetch } = useQuery<CollectionTweetsQuery>(
     COLLECTION_TWEETS,
     {
       variables: { id: dataProps.tweetId },
     }
   );
-  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (error)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (loading) return <CardsLoaderSkeleton />;
   if (!data)
-    return <Error header="Oops!" subHeader="No Twitter contents data" />;
+    return (
+      <Error
+        header="Oops!"
+        subHeader="No Twitter contents data"
+        refetchQueries={refetch()}
+      />
+    );
 
   return (
     <TwitterCards

@@ -104,7 +104,7 @@ const SignIn = () => {
     onCompleted: ({ signin }) => {
       if (signin?.jwtToken) {
         Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
-        history.push('/');
+        history.push('/home');
       }
     },
   });

@@ -16,13 +16,28 @@ const TwitterAPIColumnData: React.FC<TwitterApiColumnDataProps> = ({
   keyword,
   sources,
 }: TwitterApiColumnDataProps) => {
-  const { data, loading, error } = useQuery<GetTwitterApiContentsQuery>(
-    GET_TWITTER_API_CONTENTS_QUERY,
-    { variables: { keyword, sources }, pollInterval: 60000 }
-  );
-  if (error) return <Error header="Oops!" subHeader="Something went wrong" />;
+  const { data, loading, error, refetch } =
+    useQuery<GetTwitterApiContentsQuery>(GET_TWITTER_API_CONTENTS_QUERY, {
+      variables: { keyword, sources },
+      pollInterval: 60000,
+    });
+  if (error)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (loading) return <CardsLoaderSkeleton />;
-  if (!data) return <Error header="Oops!" subHeader="Something went wrong" />;
+  if (!data)
+    return (
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
+      />
+    );
   if (!data.searchTweets.length)
     return (
       <NoContents
