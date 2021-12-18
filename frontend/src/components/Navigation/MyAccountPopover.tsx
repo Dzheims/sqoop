@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Avatar, IconButton, Tooltip, Popover, Box } from '@material-ui/core';
-import { Person } from '@material-ui/icons';
+import { IconButton, Tooltip, Popover, Box } from '@material-ui/core';
+import { AccountCircle } from '@material-ui/icons';
 import { AccountAvatarContainer, useStyles } from './NavigationBarStyles';
 import Logout from '../Account/Logout';
 import UserProfile from '../Account/UserProfile';
@@ -23,9 +23,7 @@ const MyAccountPopover = () => {
       <AccountAvatarContainer>
         <Tooltip title="My Account" arrow>
           <IconButton onClick={onAccountClick}>
-            <Avatar className={classes.avatars}>
-              <Person />
-            </Avatar>
+            <AccountCircle className={classes.icons} />
           </IconButton>
         </Tooltip>
       </AccountAvatarContainer>

@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
   },
   welcome: {
-    fontWeight: 'bold',
+    fontWeight: 500,
   },
   successIcon: { margin: theme.spacing(2, 0, 4) },
   box: {

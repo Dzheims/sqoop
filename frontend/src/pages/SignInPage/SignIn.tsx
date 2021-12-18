@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   welcome: {
     marginTop: theme.spacing(10),
-    fontWeight: 'bold',
+    fontWeight: 500,
     alignItems: 'left',
   },
 }));

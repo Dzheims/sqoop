@@ -3,10 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles, AppBar, Toolbar, Button } from '@material-ui/core';
 import Logo from '../../assets/sqoopLogo.png';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   appBar: {
-    backgroundColor: theme.palette.background.paper,
-    background: theme.palette.background.paper,
+    backgroundColor: '#f7fafc',
     boxShadow: 'none',
     position: 'fixed',
     padding: '0 5%',
@@ -51,7 +50,7 @@ const LandingPageAppBar = () => {
               About
             </Button>
             <Button
-              variant="contained"
+              variant="outlined"
               color="secondary"
               className={classes.button}
               onClick={() => {

@@ -5,7 +5,7 @@ import Image from '../../assets/sqoopLogo.png';
 const useStyles = makeStyles(() => ({
   root: {
     padding: '0 5%',
-    backgroundColor: '#fafafa',
+    backgroundColor: '#f7fafc',
     alignItems: 'center',
     justifyContent: 'space-between',
     display: 'flex',
@@ -28,8 +28,9 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     padding: '20px',
     backgroundColor: '#ffffff',
-    border: '1px solid #eeeeee',
+    // border: '1px solid #eeeeee',
     borderRadius: '10px',
+    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)',
   },
   button: {
     marginTop: '10px',

@@ -60,7 +60,7 @@ const Header = () => {
             that aims to provide its users a convenient way ...
           </Typography>
           <Button
-            variant="outlined"
+            variant="contained"
             color="secondary"
             size="large"
             className={classes.button}

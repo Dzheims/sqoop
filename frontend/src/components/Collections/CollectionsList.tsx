@@ -22,14 +22,14 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   button: {
-    borderRadius: '12px',
+    borderRadius: '8px',
     '&:hover': {
       color: 'white',
       backgroundColor: theme.palette.secondary.main,
     },
   },
   selectedButton: {
-    borderRadius: '12px',
+    borderRadius: '8px',
     color: 'white',
     backgroundColor: theme.palette.secondary.main,
   },

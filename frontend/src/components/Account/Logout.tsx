@@ -16,16 +16,9 @@ const useStyles = makeStyles(() => ({
   },
   button: {
     borderRadius: 0,
-    color: 'black',
     height: '30px',
-    backgroundColor: '#FFFFFF',
     textTransform: 'none',
-    textAlign: 'left',
     boxShadow: 'none',
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.main,
-      color: 'white',
-    },
   },
   // div: {
   //   padding: theme.spacing(1, 2, 2),
@@ -62,6 +55,7 @@ const Logout = () => {
         type="submit"
         fullWidth
         variant="contained"
+        color="secondary"
         onClick={handleSubmit}
         className={classes.button}
       >

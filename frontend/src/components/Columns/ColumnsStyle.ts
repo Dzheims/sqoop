@@ -83,15 +83,15 @@ export const ItemContainer = styled.div`
     isDraggingOver ? '#f7fafc' : null};
   transition: background-color 0.2s ease;
   padding: 5px;
-  height: 81.5vh;
+  height: 500px;
   overflow: auto;
 `;
 export const DefaultItemContainer = styled.div<DefaultColumnContentStylesProps>`
   background-color: ${(props) => (props.isDragging ? '#f7fafc' : null)};
   transition: background-color 0.2s ease;
   padding: 5px;
-  height: ${(props) =>
-    props.feedType === 'Twitter Feed' ? '81vh' : '72.75vh'};
+  max-height: ${(props) =>
+    props.feedType === 'Twitter Feed' ? '500px' : '445px'};
   overflow: auto;
 `;
 export const ResultsContainer = styled.div<BoardColumnContentStylesProps>`

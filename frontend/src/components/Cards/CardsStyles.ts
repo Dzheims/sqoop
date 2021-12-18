@@ -184,7 +184,7 @@ export const AccountNameContainer = styled.div`
 export const CardsContainer = styled.div`
   border: thin solid lightgray;
   padding: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   background-color: white;
   overflow: hidden;
 `;

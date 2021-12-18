@@ -4,7 +4,7 @@ import { makeStyles, Grid, Typography } from '@material-ui/core';
 const useStyles = makeStyles(() => ({
   root: {
     padding: '0 10%',
-    backgroundColor: '#eeeeee',
+    backgroundColor: '#f7fafc',
   },
   sectionContentContainer: {
     display: 'flex',
