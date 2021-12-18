@@ -55,16 +55,6 @@ import { CollectionsListStateProvider } from '../Collections/CollectionsListStat
 import { NavDrawerStateProvider } from '../Navigation/NavDrawerState';
 import ScrollContainer from 'react-indiana-drag-scroll';
 
-const useFocusStyles = makeStyles((theme) => ({
-  columnHighlightBorder: {
-    border: '0px solid #f04b4c',
-    '&:focus': {
-      border: '2px solid #f04b4c',
-      transition: 'border 0.10s ease-out',
-    },
-  },
-}));
-
 const getFeedType = (value: any) => {
   switch (value.__typename) {
     case 'NewsFeed':
@@ -109,7 +99,6 @@ interface DeleteColumnProps {
 
 const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const classes = useStyles();
-  const onFocusClass = useFocusStyles();
   const [proceedDelete, setProceedDelete] = useState(false);
   const [userId] = useState(currentUserId());
   const [warningDelete, setWarningDelete] = useState(false);
@@ -239,7 +228,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
             <div
               key={value.createdAt}
               id={value.title}
-              // className={onFocusClass.columnHighlightBorder}
+              className={classes.columnHighlightBorder}
               // onBlur={onBlur}
               // onFocus={onFocus}
               // style={{
@@ -255,8 +244,8 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                       {...provided.droppableProps}
                       ref={provided.innerRef}
                     >
-                      <div className={classes().titleContainer}>
-                        <div className={classes().columnHeader}>
+                      <div className={classes.titleContainer}>
+                        <div className={classes.columnHeader}>
                           <div>{getIcon(value)}</div>
                           <Title>{value.title}</Title>
                         </div>
@@ -272,15 +261,15 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                         >
                           <CloseIcon
                             sx={{ height: '20px', width: '20px' }}
-                            className={classes().iconButton}
+                            className={classes.iconButton}
                           />
                         </IconButton>
                       </div>
                       <ScrollContainer className="scroll-container">
-                        <div className={classes().chipsContainer}>
+                        <div className={classes.chipsContainer}>
                           {getFiltersList(value).map((filter: string) => (
                             <Chip
-                              className={classes().chips}
+                              className={classes.chips}
                               variant="outlined"
                               label={filter}
                             />
@@ -289,7 +278,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
                       </ScrollContainer>
                       <ItemContainer
                         key={index}
-                        className={classes().itemContainer}
+                        className={classes.itemContainer}
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                         isDragging={snapshot.isDraggingOver}
@@ -308,7 +297,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
           open={warningDelete}
           onClose={handleCloseDialog}
         >
-          <DialogTitle className={classes().dialogTitle}>Warning!</DialogTitle>
+          <DialogTitle className={classes.dialogTitle}>Warning!</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Are you sure you want to delete <strong>{columnTitle}</strong>?

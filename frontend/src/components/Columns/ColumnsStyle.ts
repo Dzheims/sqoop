@@ -10,75 +10,74 @@ type DefaultColumnContentStylesProps = {
   feedType: string;
 };
 
-export const useStyles = () =>
-  makeStyles(() => ({
-    itemContainer: {
-      '&::-webkit-scrollbar': {
-        width: '0.4em',
-      },
-      '&::-webkit-scrollbar-thumb': {
-        backgroundColor: 'rgba(0,0,0,.1)',
-        borderRadius: 8,
-      },
+export const useStyles = makeStyles(() => ({
+  itemContainer: {
+    '&::-webkit-scrollbar': {
+      width: '0.4em',
     },
-    buttonsContainer: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,.1)',
+      borderRadius: 8,
     },
-    titleContainer: {
-      marginTop: '5px',
-      display: 'flex',
-      justifyContent: 'space-between',
-      height: '40px',
-      alignItems: 'center',
-    },
-    iconButton: {
-      color: 'gray',
-      '&:hover': {
-        color: theme.palette.secondary.main,
-      },
-    },
-    columnHighlightBorder: {
-      '&:focus': {
-        border: '2px solid #f04b4c',
-        transition: 'border 0.10s ease-out',
-      },
-    },
-    dialogTitle: {
+  },
+  buttonsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  titleContainer: {
+    marginTop: '5px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    height: '40px',
+    alignItems: 'center',
+  },
+  iconButton: {
+    color: 'gray',
+    '&:hover': {
       color: theme.palette.secondary.main,
     },
-    columnHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      marginLeft: '5px',
+  },
+  columnHighlightBorder: {
+    '&:focus': {
+      border: '2px solid #f04b4c',
+      transition: 'border 0.10s ease-out',
     },
-    chipsContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      padding: '2px',
-    },
-    chips: {
-      fontSize: '12px',
-      color: 'gray',
-      maxWidth: '100px',
-      height: '20px',
-      marginLeft: '5px',
-      marginTop: '5px',
-    },
-    keywordChip: {
-      fontSize: '12px',
-      fontWeight: 'bold',
-      color: 'white',
-      backgroundColor: theme.palette.secondary.main,
-      maxWidth: '100px',
-      height: '20px',
-      marginLeft: '5px',
-      marginTop: '5px',
-      borderColor: theme.palette.secondary.main,
-    },
-  }));
+  },
+  dialogTitle: {
+    color: theme.palette.secondary.main,
+  },
+  columnHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: '5px',
+  },
+  chipsContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    padding: '2px',
+  },
+  chips: {
+    fontSize: '12px',
+    color: 'gray',
+    maxWidth: '100px',
+    height: '20px',
+    marginLeft: '5px',
+    marginTop: '5px',
+  },
+  keywordChip: {
+    fontSize: '12px',
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: theme.palette.secondary.main,
+    maxWidth: '100px',
+    height: '20px',
+    marginLeft: '5px',
+    marginTop: '5px',
+    borderColor: theme.palette.secondary.main,
+  },
+}));
 export const ItemContainer = styled.div`
   background-color: ${(isDraggingOver: BoardColumnContentStylesProps) =>
     isDraggingOver ? '#f7fafc' : null};

@@ -2,6 +2,9 @@ import React from 'react';
 import { makeStyles, Toolbar, Grid } from '@material-ui/core';
 import LandingPageAppBar from './AppBar';
 import Header from './Header';
+import Footer from './Footer';
+import Features from './Features';
+import Benefits from './Benefits';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -21,10 +24,13 @@ const Landing = () => {
           <Header />
         </Grid>
         <Grid item xs={12}>
-          <div style={{ backgroundColor: '#fafafa' }}>Section 2</div>
+          <Benefits />
         </Grid>
         <Grid item xs={12}>
-          <div style={{ backgroundColor: '#808080' }}>Section 3</div>
+          <Features />
+        </Grid>
+        <Grid item xs={12}>
+          <Footer />
         </Grid>
       </Grid>
     </div>

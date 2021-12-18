@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, Button, Grid, Typography } from '@material-ui/core';
+import Image from '../../assets/sqoopLogo.png';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -9,7 +10,7 @@ const useStyles = makeStyles(() => ({
   },
   sectionContentContainer: {
     display: 'flex',
-    height: '550px',
+    height: '560px',
     alignItems: 'center',
   },
   headerMainTitle: {
@@ -28,6 +29,10 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
+  },
+  image: {
+    height: '40px',
+    width: '110px',
   },
 }));
 
@@ -67,7 +72,9 @@ const Header = () => {
           </Button>
         </Grid>
         <Grid xs={6}>
-          <div className={classes.headerMainImage}>Picture Here</div>
+          <div className={classes.headerMainImage}>
+            <img className={classes.image} src={Image} alt="" />
+          </div>
         </Grid>
       </div>
     </div>
