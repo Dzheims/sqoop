@@ -25,36 +25,20 @@ import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionConte
 import theme from '../../theme';
 
 interface TwitterDataProps {
-  data: Tweet;
-  isUnderCollections: boolean | undefined;
-  collectionTweet: CollectionTweet | null;
+  data: Tweet | CollectionTweet;
 }
 
 const TwitterCards: React.FC<TwitterDataProps> = ({
   data,
-  isUnderCollections,
-  collectionTweet,
 }: TwitterDataProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
 
-  const {
-    authorId,
-    tweetId,
-    name,
-    profileImageUrl,
-    verified,
-    username,
-    photos,
-    createdAt,
-    suggestedKeywords,
-    text,
-    __typename,
-  } = data as Tweet;
+  const { __typename, photos, ...collectionTweet } = data as Tweet;
 
   useEffect(() => {
-    if (suggestedKeywords === state.suggestedKeyWords) {
+    if (data.suggestedKeywords === state.suggestedKeyWords) {
       setHighlightCard(!highlightCard);
     } else {
       setHighlightCard(false);
@@ -69,27 +53,25 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
     <div>
       <CardsContainer key={data.tweetId}>
         <div className={classes.deleteButtonDiv}>
-          {isUnderCollections ? (
-            <DeleteCollectionContentButton
-              data={collectionTweet as CollectionTweet}
-            />
+          {data.__typename === 'CollectionTweet' ? (
+            <DeleteCollectionContentButton data={data} />
           ) : (
             <div />
           )}
         </div>
         <TwitterContentContainer>
           <Avatar
-            alt={name as string}
-            src={profileImageUrl as string}
+            alt={data.name as string}
+            src={data.profileImageUrl as string}
             className={classes.profileAvatars}
             variant="circular"
           />
           <AccountNameContainer>
             <TwitterTitleContainer>
               <Typography style={{ fontWeight: 600 }}>
-                {truncateName(name as string, 13)}
+                {truncateName(data.name as string, 13)}
               </Typography>
-              {verified ? (
+              {data.verified ? (
                 <Avatar
                   alt="Verified"
                   src="https://www.pngitem.com/pimgs/m/3-38867_twitter-verified-badge-twitter-verified-icon-svg-hd.png"
@@ -100,7 +82,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
               )}
             </TwitterTitleContainer>
             <Typography className={classes.userName}>
-              {'@' + username}
+              {'@' + data.username}
             </Typography>
           </AccountNameContainer>
           <TwitterIcon className={classes.cardsIcon} />
@@ -116,7 +98,9 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
             </SecureLink>
           )}
         >
-          <Typography variant="body2">{decodeHTML(text as string)}</Typography>
+          <Typography variant="body2">
+            {decodeHTML(data.text as string)}
+          </Typography>
         </Linkify>
         {!photos?.length ||
         photos?.some((photo: any) => photo?.url === null) ? (
@@ -135,17 +119,17 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
           </ImageList>
         )}
         <Typography className={classes.date}>
-          {formatTimeAndDate(data.createdAt)}
+          {formatTimeAndDate(data.publishedAt)}
         </Typography>
         <div className={classes.buttonsContainer}>
           <FactCheckButton
             // setHighlightCard={setHighlightCard}
-            suggestedKeywords={suggestedKeywords}
+            suggestedKeywords={data.suggestedKeywords}
           />
           <CardsAddToCollectionButton
             data={
               {
-                tweetId,
+                ...collectionTweet,
                 __typename: 'CollectionTweet',
               } as CollectionTweet
             }

@@ -2112,6 +2112,8 @@ type CollectionTweet implements Node {
   profileImageUrl: String
   username: String
   verified: Boolean
+  suggestedKeywords: [String]
+  publishedAt: String
 
   """
   Reads a single `Collection` that is related to this `CollectionTweet`.
@@ -2747,7 +2749,7 @@ type TwitterRecentSearchCache implements Node {
   id: Int!
   tweetId: String
   authorId: String
-  createdAt: String
+  publishedAt: String
   text: String
   name: String
   profileImageUrl: String
@@ -3277,7 +3279,7 @@ type Source {
 type Tweet {
   tweetId: String
   authorId: String
-  createdAt: String
+  publishedAt: String
   text: String
   name: String
   profileImageUrl: String
@@ -4459,6 +4461,8 @@ input CollectionTweetInput {
   profileImageUrl: String
   username: String
   verified: Boolean
+  suggestedKeywords: [String]
+  publishedAt: String
 }
 
 """
@@ -4967,7 +4971,7 @@ input TwitterRecentSearchCacheInput {
   id: Int
   tweetId: String
   authorId: String
-  createdAt: String
+  publishedAt: String
   text: String
   name: String
   profileImageUrl: String
@@ -5463,6 +5467,8 @@ input CollectionTweetPatch {
   profileImageUrl: String
   username: String
   verified: Boolean
+  suggestedKeywords: [String]
+  publishedAt: String
 }
 
 """
@@ -6235,7 +6241,7 @@ input TwitterRecentSearchCachePatch {
   id: Int
   tweetId: String
   authorId: String
-  createdAt: String
+  publishedAt: String
   text: String
   name: String
   profileImageUrl: String

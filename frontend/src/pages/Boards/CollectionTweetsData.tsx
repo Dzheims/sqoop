@@ -38,13 +38,7 @@ const CollectionTweets: React.FC<CollectionsTweetsProps> = ({
       />
     );
 
-  return (
-    <TwitterCards
-      data={data.tweetLookup}
-      collectionTweet={dataProps}
-      isUnderCollections
-    />
-  );
+  return <TwitterCards data={data.tweetLookup} />;
 };
 
 export default CollectionTweets;

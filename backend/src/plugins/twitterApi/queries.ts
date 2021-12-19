@@ -54,10 +54,10 @@ export const resolvers = {
 
       if (request) {
         const { rows: twitterRecentSearchCache } = await pgClient.query(
-          `SELECT 
+          `SELECT
             twitter_recent_search_cache.tweet_id,
             twitter_recent_search_cache.author_id,
-            twitter_recent_search_cache.created_at,
+            twitter_recent_search_cache.published_at,
             twitter_recent_search_cache.text,
             twitter_recent_search_cache.name,
             twitter_recent_search_cache.profile_image_url,
@@ -65,18 +65,18 @@ export const resolvers = {
             twitter_recent_search_cache.verified,
             twitter_recent_search_cache.suggested_keywords,
             to_jsonb(array_remove(array_agg(twitter_recent_search_cache_photos), NULL)) AS photos
-          FROM 
+          FROM
             twitter_recent_search_cache
           LEFT JOIN
             twitter_recent_search_cache_photos
-          ON 
+          ON
             twitter_recent_search_cache.id = twitter_recent_search_cache_photos.twitter_recent_search_cache_id
           WHERE
             twitter_recent_search_request_id = $1
           GROUP BY
             twitter_recent_search_cache.tweet_id,
             twitter_recent_search_cache.author_id,
-            twitter_recent_search_cache.created_at,
+            twitter_recent_search_cache.published_at,
             twitter_recent_search_cache.text,
             twitter_recent_search_cache.name,
             twitter_recent_search_cache.profile_image_url,
@@ -149,9 +149,14 @@ export const resolvers = {
             for (var user of result.includes.users) {
               if (user.id === tweet.author_id) {
                 const { id, ...userInfo } = user;
-                const { id: tweetId, ...tweetInfo } = tweet;
+                const {
+                  id: tweetId,
+                  created_at: publishedAt,
+                  ...tweetInfo
+                } = tweet;
                 return {
                   tweetId,
+                  publishedAt,
                   ...tweetInfo,
                   ...userInfo,
                   photos,
@@ -165,11 +170,11 @@ export const resolvers = {
         const {
           rows: [cacheId],
         } = await pgClient.query(
-          `INSERT INTO twitter_recent_search_cache (tweet_id, author_id, created_at, text, name, profile_image_url, username, verified, twitter_recent_search_request_id, suggested_keywords) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`,
+          `INSERT INTO twitter_recent_search_cache (tweet_id, author_id, published_at, text, name, profile_image_url, username, verified, twitter_recent_search_request_id, suggested_keywords) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`,
           [
             tweet.tweetId,
             tweet.author_id,
-            tweet.created_at,
+            tweet.publishedAt,
             tweet.text,
             tweet.name,
             tweet.profile_image_url,
@@ -247,10 +252,10 @@ export const resolvers = {
               verified,
               profile_image_url,
             } = tweet.user;
-            const { id_str: tweetId, created_at, text } = tweet;
+            const { id_str: tweetId, created_at: publishedAt, text } = tweet;
             return {
               tweetId,
-              created_at,
+              publishedAt,
               text,
               author_id,
               username,
@@ -285,7 +290,7 @@ export const resolvers = {
 
       if (result.error) throw new Error(result.error.message);
 
-      const tweet = result.data;
+      const { created_at: publishedAt, ...tweetInfo } = result.data;
       const photos = result.includes.media || [];
       const {
         users: [
@@ -295,14 +300,15 @@ export const resolvers = {
           },
         ],
       } = result.includes;
-      const suggestedKeywords = keyword_extractor.extract(tweet.text, {
+      const suggestedKeywords = keyword_extractor.extract(tweetInfo.text, {
         language: 'english',
         remove_digits: true,
         return_changed_case: true,
         remove_duplicates: true,
       });
       return camelcaseKeys({
-        ...tweet,
+        ...tweetInfo,
+        publishedAt,
         photos,
         ...userInfo,
         suggestedKeywords,

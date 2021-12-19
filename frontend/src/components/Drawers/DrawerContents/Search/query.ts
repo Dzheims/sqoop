@@ -36,7 +36,7 @@ export const SEARCH_TWITTER_CONTENTS_QUERY = gql`
       toDate: $toDate
     ) {
       authorId
-      createdAt
+      publishedAt
       tweetId
       name
       photos {
