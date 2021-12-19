@@ -54,10 +54,38 @@ export const resolvers = {
 
       if (request) {
         const { rows: twitterRecentSearchCache } = await pgClient.query(
-          `SELECT * FROM twitter_recent_search_cache where twitter_recent_search_request_id = $1`,
+          `SELECT 
+            twitter_recent_search_cache.tweet_id,
+            twitter_recent_search_cache.author_id,
+            twitter_recent_search_cache.created_at,
+            twitter_recent_search_cache.text,
+            twitter_recent_search_cache.name,
+            twitter_recent_search_cache.profile_image_url,
+            twitter_recent_search_cache.username,
+            twitter_recent_search_cache.verified,
+            twitter_recent_search_cache.suggested_keywords,
+            to_jsonb(array_remove(array_agg(twitter_recent_search_cache_photos), NULL)) AS photos
+          FROM 
+            twitter_recent_search_cache
+          LEFT JOIN
+            twitter_recent_search_cache_photos
+          ON 
+            twitter_recent_search_cache.id = twitter_recent_search_cache_photos.twitter_recent_search_cache_id
+          WHERE
+            twitter_recent_search_request_id = $1
+          GROUP BY
+            twitter_recent_search_cache.tweet_id,
+            twitter_recent_search_cache.author_id,
+            twitter_recent_search_cache.created_at,
+            twitter_recent_search_cache.text,
+            twitter_recent_search_cache.name,
+            twitter_recent_search_cache.profile_image_url,
+            twitter_recent_search_cache.username,
+            twitter_recent_search_cache.verified,
+            twitter_recent_search_cache.suggested_keywords`,
           [request.id]
         );
-        return camelcaseKeys(twitterRecentSearchCache);
+        return camelcaseKeys(twitterRecentSearchCache, { deep: true });
       }
 
       const {
@@ -109,14 +137,14 @@ export const resolvers = {
               remove_duplicates: true,
             });
 
-            const photos = tweet?.attachments?.media_keys?.map(
-              (attachment: any) => {
-                for (var media of result.includes.media) {
-                  if (media.media_key === attachment)
-                    return camelcaseKeys(media);
-                }
-              }
-            );
+            const photos = tweet?.attachments?.media_keys
+              ? tweet.attachments.media_keys.map((attachment: any) => {
+                  for (var media of result.includes.media) {
+                    if (media.media_key === attachment)
+                      return camelcaseKeys(media);
+                  }
+                })
+              : [];
 
             for (var user of result.includes.users) {
               if (user.id === tweet.author_id) {
@@ -205,12 +233,12 @@ export const resolvers = {
               remove_duplicates: true,
             });
 
-            const photos = tweet.extended_tweet?.entities?.media?.map(
-              (media: any) => {
-                const { media_url: url, id_str: mediaKey, type } = media;
-                return { url, mediaKey, type };
-              }
-            );
+            const photos = tweet.extended_tweet?.entities?.media
+              ? tweet.extended_tweet?.entities?.media?.map((media: any) => {
+                  const { media_url: url, id_str: mediaKey, type } = media;
+                  return { url, mediaKey, type };
+                })
+              : [];
 
             const {
               id: author_id,
