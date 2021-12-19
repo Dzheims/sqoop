@@ -217,7 +217,6 @@ const AddNewsAPIFeedForm = ({
         success: true,
       });
       setdisableCreateButton(true);
-      history.push('/');
       drawerStateChanger({ isOpen: false, current: '' });
       scrollToElement(newsFeedForm.newsFeed.title);
     },

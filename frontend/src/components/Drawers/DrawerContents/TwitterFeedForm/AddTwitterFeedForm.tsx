@@ -140,7 +140,6 @@ const AddTwitterFeedForm = ({
         success: true,
       });
       setdisableCreateButton(true);
-      history.push('/');
       drawerStateChanger({ isOpen: false, current: '' });
       scrollToElement(twitterFeedForm.twitterFeed.title);
     },
