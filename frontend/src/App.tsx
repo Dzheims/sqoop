@@ -23,18 +23,19 @@ function App() {
       <div>
         <ThemeProvider theme={theme}>
           <Switch>
-            <Route path="/" exact component={Landing} />
+            <Route path="/" exact>
+              {Cookies.get(AUTH_TOKEN) ? <Redirect to="/home" /> : <Landing />}
+            </Route>
             <Route path="/signup" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />
             <Route path="/home" exact component={Homepage} />
-            <Route
-              render={() => {
-                if (Cookies.get(AUTH_TOKEN)) {
-                  return <Redirect to="/home" />;
-                }
-                return <Redirect to="/" />;
-              }}
-            />
+            <Route>
+              {Cookies.get(AUTH_TOKEN) ? (
+                <Redirect to="/home" />
+              ) : (
+                <Redirect to="/" />
+              )}
+            </Route>
           </Switch>
         </ThemeProvider>
       </div>
