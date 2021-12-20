@@ -13,6 +13,7 @@ const useStyles = makeStyles(() => ({
   },
   text: {
     fontWeight: 500,
+    color: '#575757',
   },
   image: {
     height: '40px',
@@ -23,7 +24,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     height: '300px',
-    width: '300px',
+    width: '280px',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '20px',
@@ -52,12 +53,7 @@ const Benefits = () => {
       <Grid xs={4} className={classes.grid}>
         <div className={classes.sectionContentContainer}>
           <img className={classes.image} src={Image} alt="" />
-          <Typography
-            className={classes.text}
-            color="secondary"
-            variant="h5"
-            align="center"
-          >
+          <Typography className={classes.text} variant="h5" align="center">
             View news contents in one place
           </Typography>
         </div>
@@ -65,12 +61,7 @@ const Benefits = () => {
       <Grid xs={4} className={classes.grid}>
         <div className={classes.sectionContentContainer}>
           <img className={classes.image} src={Image} alt="" />
-          <Typography
-            className={classes.text}
-            color="secondary"
-            variant="h5"
-            align="center"
-          >
+          <Typography className={classes.text} variant="h5" align="center">
             Take control of the contents you see
           </Typography>
         </div>
@@ -78,12 +69,7 @@ const Benefits = () => {
       <Grid xs={4} className={classes.grid}>
         <div className={classes.sectionContentContainer}>
           <img className={classes.image} src={Image} alt="" />
-          <Typography
-            className={classes.text}
-            color="secondary"
-            variant="h5"
-            align="center"
-          >
+          <Typography className={classes.text} variant="h5" align="center">
             Avoid misinformation or fake news
           </Typography>
         </div>

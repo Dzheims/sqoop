@@ -3,6 +3,7 @@ import { makeStyles, Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   root: {
+    marginTop: '20px',
     padding: '0 10%',
     backgroundColor: '#f7fafc',
   },

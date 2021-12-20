@@ -1,6 +1,9 @@
 import React from 'react';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
-import Image from '../../assets/sqoopLogo.png';
+import ViewNewsContents from '../../assets/viewNewsContents.png';
+import CreateCustomFeeds from '../../assets/createCustomFeedsAndCollections.png';
+import SaveContentsToCollections from '../../assets/saveContentsToCollections.png';
+import FactCheckClaims from '../../assets/factCheckClaims.png';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -31,8 +34,8 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
   },
   image: {
-    height: '40px',
-    width: '110px',
+    height: '450px',
+    width: '450px',
   },
 }));
 
@@ -44,7 +47,7 @@ const Features = () => {
       <div className={classes.sectionContentContainer}>
         <Grid xs={6}>
           <Typography className={classes.text} variant="h4">
-            Discover News
+            View News Contents
           </Typography>
           <Typography className={classes.featureSubtitle} variant="subtitle1">
             Sqoop is a Newsroom Content Discovery and Management Tool that aims
@@ -53,19 +56,19 @@ const Features = () => {
         </Grid>
         <Grid xs={6}>
           <div className={classes.imageContentContainer}>
-            <img className={classes.image} src={Image} alt="" />
+            <img className={classes.image} src={ViewNewsContents} alt="" />
           </div>
         </Grid>
       </div>
       <div className={classes.sectionContentContainer}>
         <Grid xs={6}>
           <div className={classes.imageContentContainer}>
-            <img className={classes.image} src={Image} alt="" />
+            <img className={classes.image} src={CreateCustomFeeds} alt="" />
           </div>
         </Grid>
         <Grid xs={6}>
           <Typography className={classes.text} variant="h4">
-            Manage Contents
+            Create Custom Feeds & Collections
           </Typography>
           <Typography className={classes.featureSubtitle} variant="subtitle1">
             Sqoop is a Newsroom Content Discovery and Management Tool that aims
@@ -76,7 +79,7 @@ const Features = () => {
       <div className={classes.sectionContentContainer}>
         <Grid xs={6}>
           <Typography className={classes.text} variant="h4">
-            Examine the Accuracy of the Contents
+            Save Contents to Collections
           </Typography>
           <Typography className={classes.featureSubtitle} variant="subtitle1">
             Sqoop is a Newsroom Content Discovery and Management Tool that aims
@@ -85,8 +88,28 @@ const Features = () => {
         </Grid>
         <Grid xs={6}>
           <div className={classes.imageContentContainer}>
-            <img className={classes.image} src={Image} alt="" />
+            <img
+              className={classes.image}
+              src={SaveContentsToCollections}
+              alt=""
+            />
           </div>
+        </Grid>
+      </div>
+      <div className={classes.sectionContentContainer}>
+        <Grid xs={6}>
+          <div className={classes.imageContentContainer}>
+            <img className={classes.image} src={FactCheckClaims} alt="" />
+          </div>
+        </Grid>
+        <Grid xs={6}>
+          <Typography className={classes.text} variant="h4">
+            View Claims for Fact Check
+          </Typography>
+          <Typography className={classes.featureSubtitle} variant="subtitle1">
+            Sqoop is a Newsroom Content Discovery and Management Tool that aims
+            to provide its users a convenient way ...
+          </Typography>
         </Grid>
       </div>
     </div>

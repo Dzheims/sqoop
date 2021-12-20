@@ -1,11 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, Button, Grid, Typography } from '@material-ui/core';
-import Image from '../../assets/sqoopLogo.png';
+import Image from '../../assets/sqoopHeaderImage.png';
 
 const useStyles = makeStyles(() => ({
   root: {
-    padding: '0 10%',
+    padding: '0 8%',
     backgroundColor: '#ffffff',
   },
   sectionContentContainer: {
@@ -26,13 +26,14 @@ const useStyles = makeStyles(() => ({
     boxShadow: 'none',
   },
   headerMainImage: {
+    marginLeft: '20px',
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
   },
   image: {
-    height: '40px',
-    width: '110px',
+    height: '550px',
+    width: '550px',
   },
 }));
 
@@ -68,7 +69,7 @@ const Header = () => {
               history.push('/signup');
             }}
           >
-            Get Started
+            Get Started - it&apos;s free!
           </Button>
         </Grid>
         <Grid xs={6}>
