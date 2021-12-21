@@ -35,7 +35,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
   const { state, setState } = useDrawerState();
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
 
-  const { __typename, photos, ...collectionTweet } = data as Tweet;
+  const { __typename, ...collectionTweet } = data as Tweet;
   useEffect(() => {
     if (data.suggestedKeywords === state.suggestedKeyWords) {
       setHighlightCard(!highlightCard);
@@ -101,16 +101,16 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
             {decodeHTML(data.text as string)}
           </Typography>
         </Linkify>
-        {!photos?.length ||
-        photos?.some((photo: any) => photo?.url === null) ? (
+        {!data.photos?.length ||
+        data.photos?.some((photo: any) => photo?.url === null) ? (
           <div />
         ) : (
           <ImageList
             className={classes.imageList}
             rowHeight={140}
-            cols={itemListCols(photos?.length)}
+            cols={itemListCols(data.photos?.length)}
           >
-            {photos?.map((photo: any) => (
+            {data.photos?.map((photo: any) => (
               <ImageListItem key={photo?.mediaKey} cols={1}>
                 <img src={photo?.url as string} alt={photo?.type as string} />
               </ImageListItem>
@@ -129,7 +129,6 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
             data={
               {
                 ...collectionTweet,
-                collectionTweetPhotos: photos,
                 __typename: 'CollectionTweet',
               } as CollectionTweet
             }

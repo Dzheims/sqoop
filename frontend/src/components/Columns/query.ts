@@ -77,6 +77,11 @@ export const COLLECTION_CONTENTS_QUERY = gql`
         verified
         collectionId
         createdAt
+        photos {
+          mediaKey
+          type
+          url
+        }
       }
       ... on CollectionArticle {
         id

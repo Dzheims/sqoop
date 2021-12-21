@@ -32,9 +32,8 @@ import {
 import { COLLECTION_CONTENTS_QUERY } from '../Columns/query';
 import {
   CollectionContent,
-  CollectionTweetPhoto,
+  Photo,
   CollectionTweetPhotosCollectionTweetIdFkeyCollectionTweetPhotosCreateInput,
-  TwitterPhoto,
 } from '../../types.generated';
 import { useCollectionsListState } from '../Collections/CollectionsListState';
 import MutationLoader from '../Common/MutationLoader';
@@ -118,9 +117,9 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
                   verified: data.verified,
                   suggestedKeywords: data.suggestedKeywords,
                   publishedAt: data.publishedAt,
-                  collectionTweetPhotos: {
-                    create: data.collectionTweetPhotos.map(
-                      (photo: CollectionTweetPhoto) =>
+                  photos: {
+                    create: data.photos.map(
+                      (photo: Photo) =>
                         ({
                           mediaKey: photo.mediaKey,
                           url: photo.url,
