@@ -7,6 +7,11 @@
           omit: true,
         },
       },
+      collection_tweet_photos: {
+        tags: {
+          name: 'photos',
+        },
+      },
     },
   },
 }

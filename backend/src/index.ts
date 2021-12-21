@@ -55,7 +55,10 @@ app
         '../../frontend',
         'schema.graphql'
       ),
-      enhanceGraphiql: Environment.isDev,
+      enhanceGraphiql: true,
+      allowExplain: (req) => {
+        return true;
+      },
       disableQueryLog: Environment.isDev,
       simpleCollections: 'both',
       graphileBuildOptions: {

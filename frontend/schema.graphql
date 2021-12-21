@@ -156,9 +156,9 @@ type Query implements Node {
   ): [CollectionGoogleFactCheck!]
 
   """
-  Reads and enables pagination through a set of `CollectionTweetPhoto`.
+  Reads and enables pagination through a set of `Photo`.
   """
-  collectionTweetPhotosConnection(
+  photosConnection(
     """
     Only read the first `n` values of the set.
     """
@@ -186,20 +186,20 @@ type Query implements Node {
     after: Cursor
 
     """
-    The method to use when ordering `CollectionTweetPhoto`.
+    The method to use when ordering `Photo`.
     """
-    orderBy: [CollectionTweetPhotosOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [PhotosOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
-    condition: CollectionTweetPhotoCondition
-  ): CollectionTweetPhotosConnection
+    condition: PhotoCondition
+  ): PhotosConnection
 
   """
-  Reads a set of `CollectionTweetPhoto`.
+  Reads a set of `Photo`.
   """
-  collectionTweetPhotos(
+  photos(
     """
     Only read the first `n` values of the set.
     """
@@ -211,15 +211,15 @@ type Query implements Node {
     offset: Int
 
     """
-    The method to use when ordering `CollectionTweetPhoto`.
+    The method to use when ordering `Photo`.
     """
-    orderBy: [CollectionTweetPhotosOrderBy!]
+    orderBy: [PhotosOrderBy!]
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
-    condition: CollectionTweetPhotoCondition
-  ): [CollectionTweetPhoto!]
+    condition: PhotoCondition
+  ): [Photo!]
 
   """
   Reads and enables pagination through a set of `CollectionTweet`.
@@ -1080,7 +1080,7 @@ type Query implements Node {
   ): [User!]
   collectionArticle(id: Int!): CollectionArticle
   collectionGoogleFactCheck(id: Int!): CollectionGoogleFactCheck
-  collectionTweetPhoto(id: Int!): CollectionTweetPhoto
+  photo(id: Int!): Photo
   collectionTweet(id: Int!): CollectionTweet
   collectionVeraFile(id: Int!): CollectionVeraFile
   collection(id: Int!): Collection
@@ -1127,14 +1127,14 @@ type Query implements Node {
   ): CollectionGoogleFactCheck
 
   """
-  Reads a single `CollectionTweetPhoto` using its globally unique `ID`.
+  Reads a single `Photo` using its globally unique `ID`.
   """
-  collectionTweetPhotoByNodeId(
+  photoByNodeId(
     """
-    The globally unique `ID` to be used in selecting a single `CollectionTweetPhoto`.
+    The globally unique `ID` to be used in selecting a single `Photo`.
     """
     nodeId: ID!
-  ): CollectionTweetPhoto
+  ): Photo
 
   """
   Reads a single `CollectionTweet` using its globally unique `ID`.
@@ -2198,9 +2198,9 @@ type CollectionTweet implements Node {
   collection: Collection
 
   """
-  Reads and enables pagination through a set of `CollectionTweetPhoto`.
+  Reads and enables pagination through a set of `Photo`.
   """
-  collectionTweetPhotosConnection(
+  photosConnection(
     """
     Only read the first `n` values of the set.
     """
@@ -2228,20 +2228,20 @@ type CollectionTweet implements Node {
     after: Cursor
 
     """
-    The method to use when ordering `CollectionTweetPhoto`.
+    The method to use when ordering `Photo`.
     """
-    orderBy: [CollectionTweetPhotosOrderBy!] = [PRIMARY_KEY_ASC]
+    orderBy: [PhotosOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
-    condition: CollectionTweetPhotoCondition
-  ): CollectionTweetPhotosConnection!
+    condition: PhotoCondition
+  ): PhotosConnection!
 
   """
-  Reads and enables pagination through a set of `CollectionTweetPhoto`.
+  Reads and enables pagination through a set of `Photo`.
   """
-  collectionTweetPhotos(
+  photos(
     """
     Only read the first `n` values of the set.
     """
@@ -2253,30 +2253,30 @@ type CollectionTweet implements Node {
     offset: Int
 
     """
-    The method to use when ordering `CollectionTweetPhoto`.
+    The method to use when ordering `Photo`.
     """
-    orderBy: [CollectionTweetPhotosOrderBy!]
+    orderBy: [PhotosOrderBy!]
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
-    condition: CollectionTweetPhotoCondition
-  ): [CollectionTweetPhoto!]!
+    condition: PhotoCondition
+  ): [Photo!]!
 }
 
 """
-A connection to a list of `CollectionTweetPhoto` values.
+A connection to a list of `Photo` values.
 """
-type CollectionTweetPhotosConnection {
+type PhotosConnection {
   """
-  A list of `CollectionTweetPhoto` objects.
+  A list of `Photo` objects.
   """
-  nodes: [CollectionTweetPhoto]!
+  nodes: [Photo]!
 
   """
-  A list of edges which contains the `CollectionTweetPhoto` and cursor to aid in pagination.
+  A list of edges which contains the `Photo` and cursor to aid in pagination.
   """
-  edges: [CollectionTweetPhotosEdge!]!
+  edges: [PhotosEdge!]!
 
   """
   Information to aid in pagination.
@@ -2284,12 +2284,12 @@ type CollectionTweetPhotosConnection {
   pageInfo: PageInfo!
 
   """
-  The count of *all* `CollectionTweetPhoto` you could get from the connection.
+  The count of *all* `Photo` you could get from the connection.
   """
   totalCount: Int!
 }
 
-type CollectionTweetPhoto implements Node {
+type Photo implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
@@ -2301,30 +2301,30 @@ type CollectionTweetPhoto implements Node {
   collectionTweetId: Int!
 
   """
-  Reads a single `CollectionTweet` that is related to this `CollectionTweetPhoto`.
+  Reads a single `CollectionTweet` that is related to this `Photo`.
   """
   collectionTweet: CollectionTweet
 }
 
 """
-A `CollectionTweetPhoto` edge in the connection.
+A `Photo` edge in the connection.
 """
-type CollectionTweetPhotosEdge {
+type PhotosEdge {
   """
   A cursor for use in pagination.
   """
   cursor: Cursor
 
   """
-  The `CollectionTweetPhoto` at the end of the edge.
+  The `Photo` at the end of the edge.
   """
-  node: CollectionTweetPhoto
+  node: Photo
 }
 
 """
-Methods to use when ordering `CollectionTweetPhoto`.
+Methods to use when ordering `Photo`.
 """
-enum CollectionTweetPhotosOrderBy {
+enum PhotosOrderBy {
   NATURAL
   ID_ASC
   ID_DESC
@@ -2335,10 +2335,9 @@ enum CollectionTweetPhotosOrderBy {
 }
 
 """
-A condition to be used against `CollectionTweetPhoto` object types. All fields
-are tested for equality and combined with a logical ‘and.’
+A condition to be used against `Photo` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
-input CollectionTweetPhotoCondition {
+input PhotoCondition {
   """
   Checks for equality with the object’s `id` field.
   """
@@ -3583,14 +3582,14 @@ type Mutation {
   ): CreateCollectionGoogleFactCheckPayload
 
   """
-  Creates a single `CollectionTweetPhoto`.
+  Creates a single `Photo`.
   """
-  createCollectionTweetPhoto(
+  createPhoto(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: CreateCollectionTweetPhotoInput!
-  ): CreateCollectionTweetPhotoPayload
+    input: CreatePhotoInput!
+  ): CreatePhotoPayload
 
   """
   Creates a single `CollectionTweet`.
@@ -3763,24 +3762,24 @@ type Mutation {
   ): UpdateCollectionGoogleFactCheckPayload
 
   """
-  Updates a single `CollectionTweetPhoto` using its globally unique id and a patch.
+  Updates a single `Photo` using its globally unique id and a patch.
   """
-  updateCollectionTweetPhotoByNodeId(
+  updatePhotoByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateCollectionTweetPhotoByNodeIdInput!
-  ): UpdateCollectionTweetPhotoPayload
+    input: UpdatePhotoByNodeIdInput!
+  ): UpdatePhotoPayload
 
   """
-  Updates a single `CollectionTweetPhoto` using a unique key and a patch.
+  Updates a single `Photo` using a unique key and a patch.
   """
-  updateCollectionTweetPhoto(
+  updatePhoto(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateCollectionTweetPhotoInput!
-  ): UpdateCollectionTweetPhotoPayload
+    input: UpdatePhotoInput!
+  ): UpdatePhotoPayload
 
   """
   Updates a single `CollectionTweet` using its globally unique id and a patch.
@@ -4163,24 +4162,24 @@ type Mutation {
   ): DeleteCollectionGoogleFactCheckPayload
 
   """
-  Deletes a single `CollectionTweetPhoto` using its globally unique id.
+  Deletes a single `Photo` using its globally unique id.
   """
-  deleteCollectionTweetPhotoByNodeId(
+  deletePhotoByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteCollectionTweetPhotoByNodeIdInput!
-  ): DeleteCollectionTweetPhotoPayload
+    input: DeletePhotoByNodeIdInput!
+  ): DeletePhotoPayload
 
   """
-  Deletes a single `CollectionTweetPhoto` using a unique key.
+  Deletes a single `Photo` using a unique key.
   """
-  deleteCollectionTweetPhoto(
+  deletePhoto(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteCollectionTweetPhotoInput!
-  ): DeleteCollectionTweetPhotoPayload
+    input: DeletePhotoInput!
+  ): DeletePhotoPayload
 
   """
   Deletes a single `CollectionTweet` using its globally unique id.
@@ -5476,7 +5475,7 @@ input updateCollectionTweetOnCollectionTweetForCollectionTweetsCollectionIdFkeyP
   suggestedKeywords: [String]
   publishedAt: String
   collection: CollectionTweetsCollectionIdFkeyInput
-  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
+  photos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
 }
 
 """
@@ -6341,99 +6340,99 @@ input CollectionTweetsCollectionIdFkeyCollectionsCreateInput {
 }
 
 """
-Input for the nested mutation of `collectionTweetPhoto` in the `CollectionTweetInput` mutation.
+Input for the nested mutation of `photo` in the `CollectionTweetInput` mutation.
 """
 input CollectionTweetPhotosCollectionTweetIdFkeyInverseInput {
   """
-  Flag indicating whether all other `collectionTweetPhoto` records that match this relationship should be removed.
+  Flag indicating whether all other `photo` records that match this relationship should be removed.
   """
   deleteOthers: Boolean
 
   """
-  The primary key(s) for `collectionTweetPhoto` for the far side of the relationship.
+  The primary key(s) for `photo` for the far side of the relationship.
   """
-  connectById: [CollectionTweetPhotoCollectionTweetPhotosPkeyConnect!]
+  connectById: [PhotoCollectionTweetPhotosPkeyConnect!]
 
   """
-  The primary key(s) for `collectionTweetPhoto` for the far side of the relationship.
+  The primary key(s) for `photo` for the far side of the relationship.
   """
-  connectByNodeId: [CollectionTweetPhotoNodeIdConnect!]
+  connectByNodeId: [PhotoNodeIdConnect!]
 
   """
-  The primary key(s) for `collectionTweetPhoto` for the far side of the relationship.
+  The primary key(s) for `photo` for the far side of the relationship.
   """
-  deleteById: [CollectionTweetPhotoCollectionTweetPhotosPkeyDelete!]
+  deleteById: [PhotoCollectionTweetPhotosPkeyDelete!]
 
   """
-  The primary key(s) for `collectionTweetPhoto` for the far side of the relationship.
+  The primary key(s) for `photo` for the far side of the relationship.
   """
-  deleteByNodeId: [CollectionTweetPhotoNodeIdDelete!]
+  deleteByNodeId: [PhotoNodeIdDelete!]
 
   """
-  The primary key(s) and patch data for `collectionTweetPhoto` for the far side of the relationship.
+  The primary key(s) and patch data for `photo` for the far side of the relationship.
   """
-  updateById: [CollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetPhotosPkeyUpdate!]
+  updateById: [PhotoOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetPhotosPkeyUpdate!]
 
   """
-  The primary key(s) and patch data for `collectionTweetPhoto` for the far side of the relationship.
+  The primary key(s) and patch data for `photo` for the far side of the relationship.
   """
-  updateByNodeId: [CollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate!]
+  updateByNodeId: [CollectionTweetOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate!]
 
   """
-  A `CollectionTweetPhotoInput` object that will be created and connected to this object.
+  A `PhotoInput` object that will be created and connected to this object.
   """
   create: [CollectionTweetPhotosCollectionTweetIdFkeyCollectionTweetPhotosCreateInput!]
 }
 
 """
-The fields on `collectionTweetPhoto` to look up the row to connect.
+The fields on `photo` to look up the row to connect.
 """
-input CollectionTweetPhotoCollectionTweetPhotosPkeyConnect {
+input PhotoCollectionTweetPhotosPkeyConnect {
   id: Int!
 }
 
 """
 The globally unique `ID` look up for the row to connect.
 """
-input CollectionTweetPhotoNodeIdConnect {
+input PhotoNodeIdConnect {
   """
-  The globally unique `ID` which identifies a single `collectionTweetPhoto` to be connected.
+  The globally unique `ID` which identifies a single `photo` to be connected.
   """
   nodeId: ID!
 }
 
 """
-The fields on `collectionTweetPhoto` to look up the row to delete.
+The fields on `photo` to look up the row to delete.
 """
-input CollectionTweetPhotoCollectionTweetPhotosPkeyDelete {
+input PhotoCollectionTweetPhotosPkeyDelete {
   id: Int!
 }
 
 """
 The globally unique `ID` look up for the row to delete.
 """
-input CollectionTweetPhotoNodeIdDelete {
+input PhotoNodeIdDelete {
   """
-  The globally unique `ID` which identifies a single `collectionTweetPhoto` to be deleted.
+  The globally unique `ID` which identifies a single `photo` to be deleted.
   """
   nodeId: ID!
 }
 
 """
-The fields on `collectionTweetPhoto` to look up the row to update.
+The fields on `photo` to look up the row to update.
 """
-input CollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetPhotosPkeyUpdate {
+input PhotoOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetPhotosPkeyUpdate {
   """
-  An object where the defined keys will be set on the `collectionTweetPhoto` being updated.
+  An object where the defined keys will be set on the `photo` being updated.
   """
-  patch: updateCollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch!
+  patch: updatePhotoOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch!
   id: Int!
 }
 
 """
-An object where the defined keys will be set on the `collectionTweetPhoto` being updated.
+An object where the defined keys will be set on the `photo` being updated.
 """
-input updateCollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch {
+input updatePhotoOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch {
   id: Int
   mediaKey: String
   type: String
@@ -6442,7 +6441,7 @@ input updateCollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCo
 }
 
 """
-Input for the nested mutation of `collectionTweet` in the `CollectionTweetPhotoInput` mutation.
+Input for the nested mutation of `collectionTweet` in the `PhotoInput` mutation.
 """
 input CollectionTweetPhotosCollectionTweetIdFkeyInput {
   """
@@ -6468,12 +6467,12 @@ input CollectionTweetPhotosCollectionTweetIdFkeyInput {
   """
   The primary key(s) and patch data for `collectionTweet` for the far side of the relationship.
   """
-  updateById: CollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetsPkeyUpdate
+  updateById: CollectionTweetOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetsPkeyUpdate
 
   """
   The primary key(s) and patch data for `collectionTweet` for the far side of the relationship.
   """
-  updateByNodeId: CollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate
+  updateByNodeId: PhotoOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate
 
   """
   A `CollectionTweetInput` object that will be created and connected to this object.
@@ -6484,18 +6483,18 @@ input CollectionTweetPhotosCollectionTweetIdFkeyInput {
 """
 The fields on `collectionTweet` to look up the row to update.
 """
-input CollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetsPkeyUpdate {
+input CollectionTweetOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetsPkeyUpdate {
   """
   An object where the defined keys will be set on the `collectionTweet` being updated.
   """
-  patch: updateCollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch!
+  patch: updateCollectionTweetOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch!
   id: Int!
 }
 
 """
 An object where the defined keys will be set on the `collectionTweet` being updated.
 """
-input updateCollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch {
+input updateCollectionTweetOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch {
   id: Int
   tweetId: String
   collectionId: Int
@@ -6509,13 +6508,13 @@ input updateCollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollect
   suggestedKeywords: [String]
   publishedAt: String
   collection: CollectionTweetsCollectionIdFkeyInput
-  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
+  photos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
 }
 
 """
 The globally unique `ID` look up for the row to update.
 """
-input CollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate {
+input PhotoOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate {
   """
   The globally unique `ID` which identifies a single `collectionTweet` to be connected.
   """
@@ -6544,7 +6543,7 @@ input CollectionTweetPatch {
   suggestedKeywords: [String]
   publishedAt: String
   collection: CollectionTweetsCollectionIdFkeyInput
-  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
+  photos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
 }
 
 """
@@ -6564,28 +6563,28 @@ input CollectionTweetPhotosCollectionTweetIdFkeyCollectionTweetsCreateInput {
   suggestedKeywords: [String]
   publishedAt: String
   collection: CollectionTweetsCollectionIdFkeyInput
-  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
+  photos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
 }
 
 """
 The globally unique `ID` look up for the row to update.
 """
-input CollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate {
+input CollectionTweetOnPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate {
   """
-  The globally unique `ID` which identifies a single `collectionTweetPhoto` to be connected.
+  The globally unique `ID` which identifies a single `photo` to be connected.
   """
   nodeId: ID!
 
   """
-  An object where the defined keys will be set on the `collectionTweetPhoto` being updated.
+  An object where the defined keys will be set on the `photo` being updated.
   """
-  patch: CollectionTweetPhotoPatch!
+  patch: PhotoPatch!
 }
 
 """
-Represents an update to a `CollectionTweetPhoto`. Fields that are set will be updated.
+Represents an update to a `Photo`. Fields that are set will be updated.
 """
-input CollectionTweetPhotoPatch {
+input PhotoPatch {
   id: Int
   mediaKey: String
   type: String
@@ -6595,7 +6594,7 @@ input CollectionTweetPhotoPatch {
 }
 
 """
-The `collectionTweetPhoto` to be created by this mutation.
+The `photo` to be created by this mutation.
 """
 input CollectionTweetPhotosCollectionTweetIdFkeyCollectionTweetPhotosCreateInput {
   id: Int
@@ -6636,7 +6635,7 @@ input CollectionTweetsCollectionIdFkeyCollectionTweetsCreateInput {
   suggestedKeywords: [String]
   publishedAt: String
   collection: CollectionTweetsCollectionIdFkeyInput
-  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
+  photos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
 }
 
 """
@@ -7029,9 +7028,9 @@ input CollectionGoogleFactCheckInput {
 }
 
 """
-The output of our create `CollectionTweetPhoto` mutation.
+The output of our create `Photo` mutation.
 """
-type CreateCollectionTweetPhotoPayload {
+type CreatePhotoPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
@@ -7039,9 +7038,9 @@ type CreateCollectionTweetPhotoPayload {
   clientMutationId: String
 
   """
-  The `CollectionTweetPhoto` that was created by this mutation.
+  The `Photo` that was created by this mutation.
   """
-  collectionTweetPhoto: CollectionTweetPhoto
+  photo: Photo
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -7049,25 +7048,25 @@ type CreateCollectionTweetPhotoPayload {
   query: Query
 
   """
-  Reads a single `CollectionTweet` that is related to this `CollectionTweetPhoto`.
+  Reads a single `CollectionTweet` that is related to this `Photo`.
   """
   collectionTweet: CollectionTweet
 
   """
-  An edge for our `CollectionTweetPhoto`. May be used by Relay 1.
+  An edge for our `Photo`. May be used by Relay 1.
   """
-  collectionTweetPhotoEdge(
+  photoEdge(
     """
-    The method to use when ordering `CollectionTweetPhoto`.
+    The method to use when ordering `Photo`.
     """
-    orderBy: [CollectionTweetPhotosOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CollectionTweetPhotosEdge
+    orderBy: [PhotosOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PhotosEdge
 }
 
 """
-All input for the create `CollectionTweetPhoto` mutation.
+All input for the create `Photo` mutation.
 """
-input CreateCollectionTweetPhotoInput {
+input CreatePhotoInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -7075,15 +7074,15 @@ input CreateCollectionTweetPhotoInput {
   clientMutationId: String
 
   """
-  The `CollectionTweetPhoto` to be created by this mutation.
+  The `Photo` to be created by this mutation.
   """
-  collectionTweetPhoto: CollectionTweetPhotoInput!
+  photo: PhotoInput!
 }
 
 """
-An input for mutations affecting `CollectionTweetPhoto`
+An input for mutations affecting `Photo`
 """
-input CollectionTweetPhotoInput {
+input PhotoInput {
   id: Int
   mediaKey: String
   type: String
@@ -7161,7 +7160,7 @@ input CollectionTweetInput {
   suggestedKeywords: [String]
   publishedAt: String
   collection: CollectionTweetsCollectionIdFkeyInput
-  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
+  photos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
 }
 
 """
@@ -8913,9 +8912,9 @@ input UpdateCollectionGoogleFactCheckInput {
 }
 
 """
-The output of our update `CollectionTweetPhoto` mutation.
+The output of our update `Photo` mutation.
 """
-type UpdateCollectionTweetPhotoPayload {
+type UpdatePhotoPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
@@ -8923,9 +8922,9 @@ type UpdateCollectionTweetPhotoPayload {
   clientMutationId: String
 
   """
-  The `CollectionTweetPhoto` that was updated by this mutation.
+  The `Photo` that was updated by this mutation.
   """
-  collectionTweetPhoto: CollectionTweetPhoto
+  photo: Photo
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -8933,25 +8932,25 @@ type UpdateCollectionTweetPhotoPayload {
   query: Query
 
   """
-  Reads a single `CollectionTweet` that is related to this `CollectionTweetPhoto`.
+  Reads a single `CollectionTweet` that is related to this `Photo`.
   """
   collectionTweet: CollectionTweet
 
   """
-  An edge for our `CollectionTweetPhoto`. May be used by Relay 1.
+  An edge for our `Photo`. May be used by Relay 1.
   """
-  collectionTweetPhotoEdge(
+  photoEdge(
     """
-    The method to use when ordering `CollectionTweetPhoto`.
+    The method to use when ordering `Photo`.
     """
-    orderBy: [CollectionTweetPhotosOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CollectionTweetPhotosEdge
+    orderBy: [PhotosOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PhotosEdge
 }
 
 """
-All input for the `updateCollectionTweetPhotoByNodeId` mutation.
+All input for the `updatePhotoByNodeId` mutation.
 """
-input UpdateCollectionTweetPhotoByNodeIdInput {
+input UpdatePhotoByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -8959,20 +8958,20 @@ input UpdateCollectionTweetPhotoByNodeIdInput {
   clientMutationId: String
 
   """
-  The globally unique `ID` which will identify a single `CollectionTweetPhoto` to be updated.
+  The globally unique `ID` which will identify a single `Photo` to be updated.
   """
   nodeId: ID!
 
   """
-  An object where the defined keys will be set on the `CollectionTweetPhoto` being updated.
+  An object where the defined keys will be set on the `Photo` being updated.
   """
-  patch: CollectionTweetPhotoPatch!
+  patch: PhotoPatch!
 }
 
 """
-All input for the `updateCollectionTweetPhoto` mutation.
+All input for the `updatePhoto` mutation.
 """
-input UpdateCollectionTweetPhotoInput {
+input UpdatePhotoInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -8980,9 +8979,9 @@ input UpdateCollectionTweetPhotoInput {
   clientMutationId: String
 
   """
-  An object where the defined keys will be set on the `CollectionTweetPhoto` being updated.
+  An object where the defined keys will be set on the `Photo` being updated.
   """
-  patch: CollectionTweetPhotoPatch!
+  patch: PhotoPatch!
   id: Int!
 }
 
@@ -10211,9 +10210,9 @@ input DeleteCollectionGoogleFactCheckInput {
 }
 
 """
-The output of our delete `CollectionTweetPhoto` mutation.
+The output of our delete `Photo` mutation.
 """
-type DeleteCollectionTweetPhotoPayload {
+type DeletePhotoPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
@@ -10221,9 +10220,9 @@ type DeleteCollectionTweetPhotoPayload {
   clientMutationId: String
 
   """
-  The `CollectionTweetPhoto` that was deleted by this mutation.
+  The `Photo` that was deleted by this mutation.
   """
-  collectionTweetPhoto: CollectionTweetPhoto
+  photo: Photo
   deletedCollectionTweetPhotoNodeId: ID
 
   """
@@ -10232,25 +10231,25 @@ type DeleteCollectionTweetPhotoPayload {
   query: Query
 
   """
-  Reads a single `CollectionTweet` that is related to this `CollectionTweetPhoto`.
+  Reads a single `CollectionTweet` that is related to this `Photo`.
   """
   collectionTweet: CollectionTweet
 
   """
-  An edge for our `CollectionTweetPhoto`. May be used by Relay 1.
+  An edge for our `Photo`. May be used by Relay 1.
   """
-  collectionTweetPhotoEdge(
+  photoEdge(
     """
-    The method to use when ordering `CollectionTweetPhoto`.
+    The method to use when ordering `Photo`.
     """
-    orderBy: [CollectionTweetPhotosOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CollectionTweetPhotosEdge
+    orderBy: [PhotosOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PhotosEdge
 }
 
 """
-All input for the `deleteCollectionTweetPhotoByNodeId` mutation.
+All input for the `deletePhotoByNodeId` mutation.
 """
-input DeleteCollectionTweetPhotoByNodeIdInput {
+input DeletePhotoByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -10258,15 +10257,15 @@ input DeleteCollectionTweetPhotoByNodeIdInput {
   clientMutationId: String
 
   """
-  The globally unique `ID` which will identify a single `CollectionTweetPhoto` to be deleted.
+  The globally unique `ID` which will identify a single `Photo` to be deleted.
   """
   nodeId: ID!
 }
 
 """
-All input for the `deleteCollectionTweetPhoto` mutation.
+All input for the `deletePhoto` mutation.
 """
-input DeleteCollectionTweetPhotoInput {
+input DeletePhotoInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
