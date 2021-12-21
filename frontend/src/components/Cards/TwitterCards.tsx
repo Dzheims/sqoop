@@ -20,7 +20,7 @@ import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import FactCheckButton from '../FactCheck/FactCheckButton';
 import CardsAddToCollectionButton from '../CardsButtons/CardsAddToCollectionButton';
 import { useDrawerState } from '../FactCheck/FactCheckDrawerState';
-import { CollectionTweet, Tweet } from '../../types.generated';
+import { CollectionTweet, Tweet, TwitterPhoto } from '../../types.generated';
 import DeleteCollectionContentButton from '../CardsButtons/DeleteCollectionContentButton';
 import theme from '../../theme';
 
@@ -36,7 +36,6 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
 
   const { __typename, photos, ...collectionTweet } = data as Tweet;
-
   useEffect(() => {
     if (data.suggestedKeywords === state.suggestedKeyWords) {
       setHighlightCard(!highlightCard);
@@ -130,6 +129,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
             data={
               {
                 ...collectionTweet,
+                collectionTweetPhotos: photos,
                 __typename: 'CollectionTweet',
               } as CollectionTweet
             }

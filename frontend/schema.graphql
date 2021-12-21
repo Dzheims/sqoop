@@ -156,6 +156,72 @@ type Query implements Node {
   ): [CollectionGoogleFactCheck!]
 
   """
+  Reads and enables pagination through a set of `CollectionTweetPhoto`.
+  """
+  collectionTweetPhotosConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `CollectionTweetPhoto`.
+    """
+    orderBy: [CollectionTweetPhotosOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionTweetPhotoCondition
+  ): CollectionTweetPhotosConnection
+
+  """
+  Reads a set of `CollectionTweetPhoto`.
+  """
+  collectionTweetPhotos(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `CollectionTweetPhoto`.
+    """
+    orderBy: [CollectionTweetPhotosOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionTweetPhotoCondition
+  ): [CollectionTweetPhoto!]
+
+  """
   Reads and enables pagination through a set of `CollectionTweet`.
   """
   collectionTweetsConnection(
@@ -1014,6 +1080,7 @@ type Query implements Node {
   ): [User!]
   collectionArticle(id: Int!): CollectionArticle
   collectionGoogleFactCheck(id: Int!): CollectionGoogleFactCheck
+  collectionTweetPhoto(id: Int!): CollectionTweetPhoto
   collectionTweet(id: Int!): CollectionTweet
   collectionVeraFile(id: Int!): CollectionVeraFile
   collection(id: Int!): Collection
@@ -1058,6 +1125,16 @@ type Query implements Node {
     """
     nodeId: ID!
   ): CollectionGoogleFactCheck
+
+  """
+  Reads a single `CollectionTweetPhoto` using its globally unique `ID`.
+  """
+  collectionTweetPhotoByNodeId(
+    """
+    The globally unique `ID` to be used in selecting a single `CollectionTweetPhoto`.
+    """
+    nodeId: ID!
+  ): CollectionTweetPhoto
 
   """
   Reads a single `CollectionTweet` using its globally unique `ID`.
@@ -2119,6 +2196,158 @@ type CollectionTweet implements Node {
   Reads a single `Collection` that is related to this `CollectionTweet`.
   """
   collection: Collection
+
+  """
+  Reads and enables pagination through a set of `CollectionTweetPhoto`.
+  """
+  collectionTweetPhotosConnection(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Only read the last `n` values of the set.
+    """
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """
+    Read all values in the set before (above) this cursor.
+    """
+    before: Cursor
+
+    """
+    Read all values in the set after (below) this cursor.
+    """
+    after: Cursor
+
+    """
+    The method to use when ordering `CollectionTweetPhoto`.
+    """
+    orderBy: [CollectionTweetPhotosOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionTweetPhotoCondition
+  ): CollectionTweetPhotosConnection!
+
+  """
+  Reads and enables pagination through a set of `CollectionTweetPhoto`.
+  """
+  collectionTweetPhotos(
+    """
+    Only read the first `n` values of the set.
+    """
+    first: Int
+
+    """
+    Skip the first `n` values.
+    """
+    offset: Int
+
+    """
+    The method to use when ordering `CollectionTweetPhoto`.
+    """
+    orderBy: [CollectionTweetPhotosOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CollectionTweetPhotoCondition
+  ): [CollectionTweetPhoto!]!
+}
+
+"""
+A connection to a list of `CollectionTweetPhoto` values.
+"""
+type CollectionTweetPhotosConnection {
+  """
+  A list of `CollectionTweetPhoto` objects.
+  """
+  nodes: [CollectionTweetPhoto]!
+
+  """
+  A list of edges which contains the `CollectionTweetPhoto` and cursor to aid in pagination.
+  """
+  edges: [CollectionTweetPhotosEdge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `CollectionTweetPhoto` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+type CollectionTweetPhoto implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  mediaKey: String
+  type: String
+  url: String
+  collectionTweetId: Int!
+
+  """
+  Reads a single `CollectionTweet` that is related to this `CollectionTweetPhoto`.
+  """
+  collectionTweet: CollectionTweet
+}
+
+"""
+A `CollectionTweetPhoto` edge in the connection.
+"""
+type CollectionTweetPhotosEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor
+
+  """
+  The `CollectionTweetPhoto` at the end of the edge.
+  """
+  node: CollectionTweetPhoto
+}
+
+"""
+Methods to use when ordering `CollectionTweetPhoto`.
+"""
+enum CollectionTweetPhotosOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  COLLECTION_TWEET_ID_ASC
+  COLLECTION_TWEET_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `CollectionTweetPhoto` object types. All fields
+are tested for equality and combined with a logical ‘and.’
+"""
+input CollectionTweetPhotoCondition {
+  """
+  Checks for equality with the object’s `id` field.
+  """
+  id: Int
+
+  """
+  Checks for equality with the object’s `collectionTweetId` field.
+  """
+  collectionTweetId: Int
 }
 
 """
@@ -3354,6 +3583,16 @@ type Mutation {
   ): CreateCollectionGoogleFactCheckPayload
 
   """
+  Creates a single `CollectionTweetPhoto`.
+  """
+  createCollectionTweetPhoto(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCollectionTweetPhotoInput!
+  ): CreateCollectionTweetPhotoPayload
+
+  """
   Creates a single `CollectionTweet`.
   """
   createCollectionTweet(
@@ -3522,6 +3761,26 @@ type Mutation {
     """
     input: UpdateCollectionGoogleFactCheckInput!
   ): UpdateCollectionGoogleFactCheckPayload
+
+  """
+  Updates a single `CollectionTweetPhoto` using its globally unique id and a patch.
+  """
+  updateCollectionTweetPhotoByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCollectionTweetPhotoByNodeIdInput!
+  ): UpdateCollectionTweetPhotoPayload
+
+  """
+  Updates a single `CollectionTweetPhoto` using a unique key and a patch.
+  """
+  updateCollectionTweetPhoto(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCollectionTweetPhotoInput!
+  ): UpdateCollectionTweetPhotoPayload
 
   """
   Updates a single `CollectionTweet` using its globally unique id and a patch.
@@ -3902,6 +4161,26 @@ type Mutation {
     """
     input: DeleteCollectionGoogleFactCheckInput!
   ): DeleteCollectionGoogleFactCheckPayload
+
+  """
+  Deletes a single `CollectionTweetPhoto` using its globally unique id.
+  """
+  deleteCollectionTweetPhotoByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCollectionTweetPhotoByNodeIdInput!
+  ): DeleteCollectionTweetPhotoPayload
+
+  """
+  Deletes a single `CollectionTweetPhoto` using a unique key.
+  """
+  deleteCollectionTweetPhoto(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCollectionTweetPhotoInput!
+  ): DeleteCollectionTweetPhotoPayload
 
   """
   Deletes a single `CollectionTweet` using its globally unique id.
@@ -4319,9 +4598,2362 @@ input CollectionArticleInput {
   title: String
   url: String
   urlToImage: String
-  collectionId: Int!
+  collectionId: Int
   createdAt: Datetime
   suggestedKeywords: [String]
+  collection: CollectionArticlesCollectionIdFkeyInput
+}
+
+"""
+Input for the nested mutation of `collection` in the `CollectionArticleInput` mutation.
+"""
+input CollectionArticlesCollectionIdFkeyInput {
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectById: CollectionCollectionsPkeyConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectByTitleAndUserId: CollectionCollectionUniqueTitleConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectByNodeId: CollectionNodeIdConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteById: CollectionCollectionsPkeyDelete
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteByTitleAndUserId: CollectionCollectionUniqueTitleDelete
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteByNodeId: CollectionNodeIdDelete
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateById: CollectionOnCollectionArticleForCollectionArticlesCollectionIdFkeyUsingCollectionsPkeyUpdate
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateByTitleAndUserId: CollectionOnCollectionArticleForCollectionArticlesCollectionIdFkeyUsingCollectionUniqueTitleUpdate
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateByNodeId: CollectionArticleOnCollectionArticleForCollectionArticlesCollectionIdFkeyNodeIdUpdate
+
+  """
+  A `CollectionInput` object that will be created and connected to this object.
+  """
+  create: CollectionArticlesCollectionIdFkeyCollectionsCreateInput
+}
+
+"""
+The fields on `collection` to look up the row to connect.
+"""
+input CollectionCollectionsPkeyConnect {
+  id: Int!
+}
+
+"""
+The fields on `collection` to look up the row to connect.
+"""
+input CollectionCollectionUniqueTitleConnect {
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input CollectionNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `collection` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collection` to look up the row to delete.
+"""
+input CollectionCollectionsPkeyDelete {
+  id: Int!
+}
+
+"""
+The fields on `collection` to look up the row to delete.
+"""
+input CollectionCollectionUniqueTitleDelete {
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input CollectionNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `collection` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collection` to look up the row to update.
+"""
+input CollectionOnCollectionArticleForCollectionArticlesCollectionIdFkeyUsingCollectionsPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: updateCollectionOnCollectionArticleForCollectionArticlesCollectionIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `collection` being updated.
+"""
+input updateCollectionOnCollectionArticleForCollectionArticlesCollectionIdFkeyPatch {
+  id: Int
+  title: String
+  userId: Int
+  createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `user` in the `CollectionInput` mutation.
+"""
+input CollectionsUserIdFkeyInput {
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  connectById: UserUsersPkeyConnect
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  connectByUsername: UserUsersUsernameKeyConnect
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  connectByNodeId: UserNodeIdConnect
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  deleteById: UserUsersPkeyDelete
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  deleteByUsername: UserUsersUsernameKeyDelete
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  deleteByNodeId: UserNodeIdDelete
+
+  """
+  The primary key(s) and patch data for `user` for the far side of the relationship.
+  """
+  updateById: UserOnCollectionForCollectionsUserIdFkeyUsingUsersPkeyUpdate
+
+  """
+  The primary key(s) and patch data for `user` for the far side of the relationship.
+  """
+  updateByUsername: UserOnCollectionForCollectionsUserIdFkeyUsingUsersUsernameKeyUpdate
+
+  """
+  The primary key(s) and patch data for `user` for the far side of the relationship.
+  """
+  updateByNodeId: CollectionOnCollectionForCollectionsUserIdFkeyNodeIdUpdate
+
+  """
+  A `UserInput` object that will be created and connected to this object.
+  """
+  create: CollectionsUserIdFkeyUsersCreateInput
+}
+
+"""
+The fields on `user` to look up the row to connect.
+"""
+input UserUsersPkeyConnect {
+  id: Int!
+}
+
+"""
+The fields on `user` to look up the row to connect.
+"""
+input UserUsersUsernameKeyConnect {
+  username: String!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input UserNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `user` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `user` to look up the row to delete.
+"""
+input UserUsersPkeyDelete {
+  id: Int!
+}
+
+"""
+The fields on `user` to look up the row to delete.
+"""
+input UserUsersUsernameKeyDelete {
+  username: String!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input UserNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `user` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `user` to look up the row to update.
+"""
+input UserOnCollectionForCollectionsUserIdFkeyUsingUsersPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `user` being updated.
+  """
+  patch: updateUserOnCollectionForCollectionsUserIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `user` being updated.
+"""
+input updateUserOnCollectionForCollectionsUserIdFkeyPatch {
+  id: Int
+  username: String
+  hashedPassword: String
+  newsFeeds: NewsFeedsUserIdFkeyInverseInput
+  twitterFeeds: TwitterFeedsUserIdFkeyInverseInput
+  collections: CollectionsUserIdFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `newsFeed` in the `UserInput` mutation.
+"""
+input NewsFeedsUserIdFkeyInverseInput {
+  """
+  Flag indicating whether all other `newsFeed` records that match this relationship should be removed.
+  """
+  deleteOthers: Boolean
+
+  """
+  The primary key(s) for `newsFeed` for the far side of the relationship.
+  """
+  connectById: [NewsFeedNewsFeedsPkeyConnect!]
+
+  """
+  The primary key(s) for `newsFeed` for the far side of the relationship.
+  """
+  connectByTitleAndUserId: [NewsFeedNewsFeedUniqueTitleConnect!]
+
+  """
+  The primary key(s) for `newsFeed` for the far side of the relationship.
+  """
+  connectByNodeId: [NewsFeedNodeIdConnect!]
+
+  """
+  The primary key(s) for `newsFeed` for the far side of the relationship.
+  """
+  deleteById: [NewsFeedNewsFeedsPkeyDelete!]
+
+  """
+  The primary key(s) for `newsFeed` for the far side of the relationship.
+  """
+  deleteByTitleAndUserId: [NewsFeedNewsFeedUniqueTitleDelete!]
+
+  """
+  The primary key(s) for `newsFeed` for the far side of the relationship.
+  """
+  deleteByNodeId: [NewsFeedNodeIdDelete!]
+
+  """
+  The primary key(s) and patch data for `newsFeed` for the far side of the relationship.
+  """
+  updateById: [NewsFeedOnNewsFeedForNewsFeedsUserIdFkeyUsingNewsFeedsPkeyUpdate!]
+
+  """
+  The primary key(s) and patch data for `newsFeed` for the far side of the relationship.
+  """
+  updateByTitleAndUserId: [NewsFeedOnNewsFeedForNewsFeedsUserIdFkeyUsingNewsFeedUniqueTitleUpdate!]
+
+  """
+  The primary key(s) and patch data for `newsFeed` for the far side of the relationship.
+  """
+  updateByNodeId: [UserOnNewsFeedForNewsFeedsUserIdFkeyNodeIdUpdate!]
+
+  """
+  A `NewsFeedInput` object that will be created and connected to this object.
+  """
+  create: [NewsFeedsUserIdFkeyNewsFeedsCreateInput!]
+}
+
+"""
+The fields on `newsFeed` to look up the row to connect.
+"""
+input NewsFeedNewsFeedsPkeyConnect {
+  id: Int!
+}
+
+"""
+The fields on `newsFeed` to look up the row to connect.
+"""
+input NewsFeedNewsFeedUniqueTitleConnect {
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input NewsFeedNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `newsFeed` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `newsFeed` to look up the row to delete.
+"""
+input NewsFeedNewsFeedsPkeyDelete {
+  id: Int!
+}
+
+"""
+The fields on `newsFeed` to look up the row to delete.
+"""
+input NewsFeedNewsFeedUniqueTitleDelete {
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input NewsFeedNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `newsFeed` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `newsFeed` to look up the row to update.
+"""
+input NewsFeedOnNewsFeedForNewsFeedsUserIdFkeyUsingNewsFeedsPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `newsFeed` being updated.
+  """
+  patch: updateNewsFeedOnNewsFeedForNewsFeedsUserIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `newsFeed` being updated.
+"""
+input updateNewsFeedOnNewsFeedForNewsFeedsUserIdFkeyPatch {
+  id: Int
+  title: String
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+  createdAt: Datetime
+  user: NewsFeedsUserIdFkeyInput
+}
+
+"""
+Input for the nested mutation of `user` in the `NewsFeedInput` mutation.
+"""
+input NewsFeedsUserIdFkeyInput {
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  connectById: UserUsersPkeyConnect
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  connectByUsername: UserUsersUsernameKeyConnect
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  connectByNodeId: UserNodeIdConnect
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  deleteById: UserUsersPkeyDelete
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  deleteByUsername: UserUsersUsernameKeyDelete
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  deleteByNodeId: UserNodeIdDelete
+
+  """
+  The primary key(s) and patch data for `user` for the far side of the relationship.
+  """
+  updateById: UserOnNewsFeedForNewsFeedsUserIdFkeyUsingUsersPkeyUpdate
+
+  """
+  The primary key(s) and patch data for `user` for the far side of the relationship.
+  """
+  updateByUsername: UserOnNewsFeedForNewsFeedsUserIdFkeyUsingUsersUsernameKeyUpdate
+
+  """
+  The primary key(s) and patch data for `user` for the far side of the relationship.
+  """
+  updateByNodeId: NewsFeedOnNewsFeedForNewsFeedsUserIdFkeyNodeIdUpdate
+
+  """
+  A `UserInput` object that will be created and connected to this object.
+  """
+  create: NewsFeedsUserIdFkeyUsersCreateInput
+}
+
+"""
+The fields on `user` to look up the row to update.
+"""
+input UserOnNewsFeedForNewsFeedsUserIdFkeyUsingUsersPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `user` being updated.
+  """
+  patch: updateUserOnNewsFeedForNewsFeedsUserIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `user` being updated.
+"""
+input updateUserOnNewsFeedForNewsFeedsUserIdFkeyPatch {
+  id: Int
+  username: String
+  hashedPassword: String
+  newsFeeds: NewsFeedsUserIdFkeyInverseInput
+  twitterFeeds: TwitterFeedsUserIdFkeyInverseInput
+  collections: CollectionsUserIdFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `twitterFeed` in the `UserInput` mutation.
+"""
+input TwitterFeedsUserIdFkeyInverseInput {
+  """
+  Flag indicating whether all other `twitterFeed` records that match this relationship should be removed.
+  """
+  deleteOthers: Boolean
+
+  """
+  The primary key(s) for `twitterFeed` for the far side of the relationship.
+  """
+  connectById: [TwitterFeedTwitterFeedsPkeyConnect!]
+
+  """
+  The primary key(s) for `twitterFeed` for the far side of the relationship.
+  """
+  connectByTitleAndUserId: [TwitterFeedTwitterFeedUniqueTitleConnect!]
+
+  """
+  The primary key(s) for `twitterFeed` for the far side of the relationship.
+  """
+  connectByNodeId: [TwitterFeedNodeIdConnect!]
+
+  """
+  The primary key(s) for `twitterFeed` for the far side of the relationship.
+  """
+  deleteById: [TwitterFeedTwitterFeedsPkeyDelete!]
+
+  """
+  The primary key(s) for `twitterFeed` for the far side of the relationship.
+  """
+  deleteByTitleAndUserId: [TwitterFeedTwitterFeedUniqueTitleDelete!]
+
+  """
+  The primary key(s) for `twitterFeed` for the far side of the relationship.
+  """
+  deleteByNodeId: [TwitterFeedNodeIdDelete!]
+
+  """
+  The primary key(s) and patch data for `twitterFeed` for the far side of the relationship.
+  """
+  updateById: [TwitterFeedOnTwitterFeedForTwitterFeedsUserIdFkeyUsingTwitterFeedsPkeyUpdate!]
+
+  """
+  The primary key(s) and patch data for `twitterFeed` for the far side of the relationship.
+  """
+  updateByTitleAndUserId: [TwitterFeedOnTwitterFeedForTwitterFeedsUserIdFkeyUsingTwitterFeedUniqueTitleUpdate!]
+
+  """
+  The primary key(s) and patch data for `twitterFeed` for the far side of the relationship.
+  """
+  updateByNodeId: [UserOnTwitterFeedForTwitterFeedsUserIdFkeyNodeIdUpdate!]
+
+  """
+  A `TwitterFeedInput` object that will be created and connected to this object.
+  """
+  create: [TwitterFeedsUserIdFkeyTwitterFeedsCreateInput!]
+}
+
+"""
+The fields on `twitterFeed` to look up the row to connect.
+"""
+input TwitterFeedTwitterFeedsPkeyConnect {
+  id: Int!
+}
+
+"""
+The fields on `twitterFeed` to look up the row to connect.
+"""
+input TwitterFeedTwitterFeedUniqueTitleConnect {
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input TwitterFeedNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `twitterFeed` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `twitterFeed` to look up the row to delete.
+"""
+input TwitterFeedTwitterFeedsPkeyDelete {
+  id: Int!
+}
+
+"""
+The fields on `twitterFeed` to look up the row to delete.
+"""
+input TwitterFeedTwitterFeedUniqueTitleDelete {
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input TwitterFeedNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `twitterFeed` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `twitterFeed` to look up the row to update.
+"""
+input TwitterFeedOnTwitterFeedForTwitterFeedsUserIdFkeyUsingTwitterFeedsPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `twitterFeed` being updated.
+  """
+  patch: updateTwitterFeedOnTwitterFeedForTwitterFeedsUserIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `twitterFeed` being updated.
+"""
+input updateTwitterFeedOnTwitterFeedForTwitterFeedsUserIdFkeyPatch {
+  id: Int
+  title: String
+  keyword: String
+  sources: String
+  createdAt: Datetime
+  user: TwitterFeedsUserIdFkeyInput
+}
+
+"""
+Input for the nested mutation of `user` in the `TwitterFeedInput` mutation.
+"""
+input TwitterFeedsUserIdFkeyInput {
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  connectById: UserUsersPkeyConnect
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  connectByUsername: UserUsersUsernameKeyConnect
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  connectByNodeId: UserNodeIdConnect
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  deleteById: UserUsersPkeyDelete
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  deleteByUsername: UserUsersUsernameKeyDelete
+
+  """
+  The primary key(s) for `user` for the far side of the relationship.
+  """
+  deleteByNodeId: UserNodeIdDelete
+
+  """
+  The primary key(s) and patch data for `user` for the far side of the relationship.
+  """
+  updateById: UserOnTwitterFeedForTwitterFeedsUserIdFkeyUsingUsersPkeyUpdate
+
+  """
+  The primary key(s) and patch data for `user` for the far side of the relationship.
+  """
+  updateByUsername: UserOnTwitterFeedForTwitterFeedsUserIdFkeyUsingUsersUsernameKeyUpdate
+
+  """
+  The primary key(s) and patch data for `user` for the far side of the relationship.
+  """
+  updateByNodeId: TwitterFeedOnTwitterFeedForTwitterFeedsUserIdFkeyNodeIdUpdate
+
+  """
+  A `UserInput` object that will be created and connected to this object.
+  """
+  create: TwitterFeedsUserIdFkeyUsersCreateInput
+}
+
+"""
+The fields on `user` to look up the row to update.
+"""
+input UserOnTwitterFeedForTwitterFeedsUserIdFkeyUsingUsersPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `user` being updated.
+  """
+  patch: updateUserOnTwitterFeedForTwitterFeedsUserIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `user` being updated.
+"""
+input updateUserOnTwitterFeedForTwitterFeedsUserIdFkeyPatch {
+  id: Int
+  username: String
+  hashedPassword: String
+  newsFeeds: NewsFeedsUserIdFkeyInverseInput
+  twitterFeeds: TwitterFeedsUserIdFkeyInverseInput
+  collections: CollectionsUserIdFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `collection` in the `UserInput` mutation.
+"""
+input CollectionsUserIdFkeyInverseInput {
+  """
+  Flag indicating whether all other `collection` records that match this relationship should be removed.
+  """
+  deleteOthers: Boolean
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectById: [CollectionCollectionsPkeyConnect!]
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectByTitleAndUserId: [CollectionCollectionUniqueTitleConnect!]
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectByNodeId: [CollectionNodeIdConnect!]
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteById: [CollectionCollectionsPkeyDelete!]
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteByTitleAndUserId: [CollectionCollectionUniqueTitleDelete!]
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteByNodeId: [CollectionNodeIdDelete!]
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateById: [CollectionOnCollectionForCollectionsUserIdFkeyUsingCollectionsPkeyUpdate!]
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateByTitleAndUserId: [CollectionOnCollectionForCollectionsUserIdFkeyUsingCollectionUniqueTitleUpdate!]
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateByNodeId: [UserOnCollectionForCollectionsUserIdFkeyNodeIdUpdate!]
+
+  """
+  A `CollectionInput` object that will be created and connected to this object.
+  """
+  create: [CollectionsUserIdFkeyCollectionsCreateInput!]
+}
+
+"""
+The fields on `collection` to look up the row to update.
+"""
+input CollectionOnCollectionForCollectionsUserIdFkeyUsingCollectionsPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: updateCollectionOnCollectionForCollectionsUserIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `collection` being updated.
+"""
+input updateCollectionOnCollectionForCollectionsUserIdFkeyPatch {
+  id: Int
+  title: String
+  createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `collectionTweet` in the `CollectionInput` mutation.
+"""
+input CollectionTweetsCollectionIdFkeyInverseInput {
+  """
+  Flag indicating whether all other `collectionTweet` records that match this relationship should be removed.
+  """
+  deleteOthers: Boolean
+
+  """
+  The primary key(s) for `collectionTweet` for the far side of the relationship.
+  """
+  connectById: [CollectionTweetCollectionTweetsPkeyConnect!]
+
+  """
+  The primary key(s) for `collectionTweet` for the far side of the relationship.
+  """
+  connectByNodeId: [CollectionTweetNodeIdConnect!]
+
+  """
+  The primary key(s) for `collectionTweet` for the far side of the relationship.
+  """
+  deleteById: [CollectionTweetCollectionTweetsPkeyDelete!]
+
+  """
+  The primary key(s) for `collectionTweet` for the far side of the relationship.
+  """
+  deleteByNodeId: [CollectionTweetNodeIdDelete!]
+
+  """
+  The primary key(s) and patch data for `collectionTweet` for the far side of the relationship.
+  """
+  updateById: [CollectionTweetOnCollectionTweetForCollectionTweetsCollectionIdFkeyUsingCollectionTweetsPkeyUpdate!]
+
+  """
+  The primary key(s) and patch data for `collectionTweet` for the far side of the relationship.
+  """
+  updateByNodeId: [CollectionOnCollectionTweetForCollectionTweetsCollectionIdFkeyNodeIdUpdate!]
+
+  """
+  A `CollectionTweetInput` object that will be created and connected to this object.
+  """
+  create: [CollectionTweetsCollectionIdFkeyCollectionTweetsCreateInput!]
+}
+
+"""
+The fields on `collectionTweet` to look up the row to connect.
+"""
+input CollectionTweetCollectionTweetsPkeyConnect {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input CollectionTweetNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `collectionTweet` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collectionTweet` to look up the row to delete.
+"""
+input CollectionTweetCollectionTweetsPkeyDelete {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input CollectionTweetNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `collectionTweet` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collectionTweet` to look up the row to update.
+"""
+input CollectionTweetOnCollectionTweetForCollectionTweetsCollectionIdFkeyUsingCollectionTweetsPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `collectionTweet` being updated.
+  """
+  patch: updateCollectionTweetOnCollectionTweetForCollectionTweetsCollectionIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `collectionTweet` being updated.
+"""
+input updateCollectionTweetOnCollectionTweetForCollectionTweetsCollectionIdFkeyPatch {
+  id: Int
+  tweetId: String
+  createdAt: Datetime
+  authorId: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  suggestedKeywords: [String]
+  publishedAt: String
+  collection: CollectionTweetsCollectionIdFkeyInput
+  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `collection` in the `CollectionTweetInput` mutation.
+"""
+input CollectionTweetsCollectionIdFkeyInput {
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectById: CollectionCollectionsPkeyConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectByTitleAndUserId: CollectionCollectionUniqueTitleConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectByNodeId: CollectionNodeIdConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteById: CollectionCollectionsPkeyDelete
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteByTitleAndUserId: CollectionCollectionUniqueTitleDelete
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteByNodeId: CollectionNodeIdDelete
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateById: CollectionOnCollectionTweetForCollectionTweetsCollectionIdFkeyUsingCollectionsPkeyUpdate
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateByTitleAndUserId: CollectionOnCollectionTweetForCollectionTweetsCollectionIdFkeyUsingCollectionUniqueTitleUpdate
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateByNodeId: CollectionTweetOnCollectionTweetForCollectionTweetsCollectionIdFkeyNodeIdUpdate
+
+  """
+  A `CollectionInput` object that will be created and connected to this object.
+  """
+  create: CollectionTweetsCollectionIdFkeyCollectionsCreateInput
+}
+
+"""
+The fields on `collection` to look up the row to update.
+"""
+input CollectionOnCollectionTweetForCollectionTweetsCollectionIdFkeyUsingCollectionsPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: updateCollectionOnCollectionTweetForCollectionTweetsCollectionIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `collection` being updated.
+"""
+input updateCollectionOnCollectionTweetForCollectionTweetsCollectionIdFkeyPatch {
+  id: Int
+  title: String
+  userId: Int
+  createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `collectionArticle` in the `CollectionInput` mutation.
+"""
+input CollectionArticlesCollectionIdFkeyInverseInput {
+  """
+  Flag indicating whether all other `collectionArticle` records that match this relationship should be removed.
+  """
+  deleteOthers: Boolean
+
+  """
+  The primary key(s) for `collectionArticle` for the far side of the relationship.
+  """
+  connectById: [CollectionArticleCollectionArticlesPkeyConnect!]
+
+  """
+  The primary key(s) for `collectionArticle` for the far side of the relationship.
+  """
+  connectByNodeId: [CollectionArticleNodeIdConnect!]
+
+  """
+  The primary key(s) for `collectionArticle` for the far side of the relationship.
+  """
+  deleteById: [CollectionArticleCollectionArticlesPkeyDelete!]
+
+  """
+  The primary key(s) for `collectionArticle` for the far side of the relationship.
+  """
+  deleteByNodeId: [CollectionArticleNodeIdDelete!]
+
+  """
+  The primary key(s) and patch data for `collectionArticle` for the far side of the relationship.
+  """
+  updateById: [CollectionArticleOnCollectionArticleForCollectionArticlesCollectionIdFkeyUsingCollectionArticlesPkeyUpdate!]
+
+  """
+  The primary key(s) and patch data for `collectionArticle` for the far side of the relationship.
+  """
+  updateByNodeId: [CollectionOnCollectionArticleForCollectionArticlesCollectionIdFkeyNodeIdUpdate!]
+
+  """
+  A `CollectionArticleInput` object that will be created and connected to this object.
+  """
+  create: [CollectionArticlesCollectionIdFkeyCollectionArticlesCreateInput!]
+}
+
+"""
+The fields on `collectionArticle` to look up the row to connect.
+"""
+input CollectionArticleCollectionArticlesPkeyConnect {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input CollectionArticleNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `collectionArticle` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collectionArticle` to look up the row to delete.
+"""
+input CollectionArticleCollectionArticlesPkeyDelete {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input CollectionArticleNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `collectionArticle` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collectionArticle` to look up the row to update.
+"""
+input CollectionArticleOnCollectionArticleForCollectionArticlesCollectionIdFkeyUsingCollectionArticlesPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `collectionArticle` being updated.
+  """
+  patch: updateCollectionArticleOnCollectionArticleForCollectionArticlesCollectionIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `collectionArticle` being updated.
+"""
+input updateCollectionArticleOnCollectionArticleForCollectionArticlesCollectionIdFkeyPatch {
+  id: Int
+  description: String
+  publishedAt: String
+  sourceName: String
+  title: String
+  url: String
+  urlToImage: String
+  createdAt: Datetime
+  suggestedKeywords: [String]
+  collection: CollectionArticlesCollectionIdFkeyInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input CollectionOnCollectionArticleForCollectionArticlesCollectionIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `collectionArticle` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `collectionArticle` being updated.
+  """
+  patch: CollectionArticlePatch!
+}
+
+"""
+Represents an update to a `CollectionArticle`. Fields that are set will be updated.
+"""
+input CollectionArticlePatch {
+  id: Int
+  description: String
+  publishedAt: String
+  sourceName: String
+  title: String
+  url: String
+  urlToImage: String
+  collectionId: Int
+  createdAt: Datetime
+  suggestedKeywords: [String]
+  collection: CollectionArticlesCollectionIdFkeyInput
+}
+
+"""
+The `collectionArticle` to be created by this mutation.
+"""
+input CollectionArticlesCollectionIdFkeyCollectionArticlesCreateInput {
+  id: Int
+  description: String
+  publishedAt: String
+  sourceName: String
+  title: String
+  url: String
+  urlToImage: String
+  createdAt: Datetime
+  suggestedKeywords: [String]
+  collection: CollectionArticlesCollectionIdFkeyInput
+}
+
+"""
+Input for the nested mutation of `collectionVeraFile` in the `CollectionInput` mutation.
+"""
+input CollectionVeraFilesCollectionIdFkeyInverseInput {
+  """
+  Flag indicating whether all other `collectionVeraFile` records that match this relationship should be removed.
+  """
+  deleteOthers: Boolean
+
+  """
+  The primary key(s) for `collectionVeraFile` for the far side of the relationship.
+  """
+  connectById: [CollectionVeraFileCollectionVeraFilesPkeyConnect!]
+
+  """
+  The primary key(s) for `collectionVeraFile` for the far side of the relationship.
+  """
+  connectByNodeId: [CollectionVeraFileNodeIdConnect!]
+
+  """
+  The primary key(s) for `collectionVeraFile` for the far side of the relationship.
+  """
+  deleteById: [CollectionVeraFileCollectionVeraFilesPkeyDelete!]
+
+  """
+  The primary key(s) for `collectionVeraFile` for the far side of the relationship.
+  """
+  deleteByNodeId: [CollectionVeraFileNodeIdDelete!]
+
+  """
+  The primary key(s) and patch data for `collectionVeraFile` for the far side of the relationship.
+  """
+  updateById: [CollectionVeraFileOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyUsingCollectionVeraFilesPkeyUpdate!]
+
+  """
+  The primary key(s) and patch data for `collectionVeraFile` for the far side of the relationship.
+  """
+  updateByNodeId: [CollectionOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyNodeIdUpdate!]
+
+  """
+  A `CollectionVeraFileInput` object that will be created and connected to this object.
+  """
+  create: [CollectionVeraFilesCollectionIdFkeyCollectionVeraFilesCreateInput!]
+}
+
+"""
+The fields on `collectionVeraFile` to look up the row to connect.
+"""
+input CollectionVeraFileCollectionVeraFilesPkeyConnect {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input CollectionVeraFileNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `collectionVeraFile` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collectionVeraFile` to look up the row to delete.
+"""
+input CollectionVeraFileCollectionVeraFilesPkeyDelete {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input CollectionVeraFileNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `collectionVeraFile` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collectionVeraFile` to look up the row to update.
+"""
+input CollectionVeraFileOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyUsingCollectionVeraFilesPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `collectionVeraFile` being updated.
+  """
+  patch: updateCollectionVeraFileOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `collectionVeraFile` being updated.
+"""
+input updateCollectionVeraFileOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyPatch {
+  id: Int
+  author: String
+  category: String
+  date: String
+  dateText: String
+  description: String
+  imageStyle: String
+  imageUrl: String
+  url: String
+  title: String
+  createdAt: Datetime
+  collection: CollectionVeraFilesCollectionIdFkeyInput
+}
+
+"""
+Input for the nested mutation of `collection` in the `CollectionVeraFileInput` mutation.
+"""
+input CollectionVeraFilesCollectionIdFkeyInput {
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectById: CollectionCollectionsPkeyConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectByTitleAndUserId: CollectionCollectionUniqueTitleConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectByNodeId: CollectionNodeIdConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteById: CollectionCollectionsPkeyDelete
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteByTitleAndUserId: CollectionCollectionUniqueTitleDelete
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteByNodeId: CollectionNodeIdDelete
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateById: CollectionOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyUsingCollectionsPkeyUpdate
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateByTitleAndUserId: CollectionOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyUsingCollectionUniqueTitleUpdate
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateByNodeId: CollectionVeraFileOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyNodeIdUpdate
+
+  """
+  A `CollectionInput` object that will be created and connected to this object.
+  """
+  create: CollectionVeraFilesCollectionIdFkeyCollectionsCreateInput
+}
+
+"""
+The fields on `collection` to look up the row to update.
+"""
+input CollectionOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyUsingCollectionsPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: updateCollectionOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `collection` being updated.
+"""
+input updateCollectionOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyPatch {
+  id: Int
+  title: String
+  userId: Int
+  createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `collectionGoogleFactCheck` in the `CollectionInput` mutation.
+"""
+input CollectionGoogleFactCheckCollectionIdFkeyInverseInput {
+  """
+  Flag indicating whether all other `collectionGoogleFactCheck` records that match this relationship should be removed.
+  """
+  deleteOthers: Boolean
+
+  """
+  The primary key(s) for `collectionGoogleFactCheck` for the far side of the relationship.
+  """
+  connectById: [CollectionGoogleFactCheckCollectionGoogleFactCheckPkeyConnect!]
+
+  """
+  The primary key(s) for `collectionGoogleFactCheck` for the far side of the relationship.
+  """
+  connectByNodeId: [CollectionGoogleFactCheckNodeIdConnect!]
+
+  """
+  The primary key(s) for `collectionGoogleFactCheck` for the far side of the relationship.
+  """
+  deleteById: [CollectionGoogleFactCheckCollectionGoogleFactCheckPkeyDelete!]
+
+  """
+  The primary key(s) for `collectionGoogleFactCheck` for the far side of the relationship.
+  """
+  deleteByNodeId: [CollectionGoogleFactCheckNodeIdDelete!]
+
+  """
+  The primary key(s) and patch data for `collectionGoogleFactCheck` for the far side of the relationship.
+  """
+  updateById: [CollectionGoogleFactCheckOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyUsingCollectionGoogleFactCheckPkeyUpdate!]
+
+  """
+  The primary key(s) and patch data for `collectionGoogleFactCheck` for the far side of the relationship.
+  """
+  updateByNodeId: [CollectionOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyNodeIdUpdate!]
+
+  """
+  A `CollectionGoogleFactCheckInput` object that will be created and connected to this object.
+  """
+  create: [CollectionGoogleFactCheckCollectionIdFkeyCollectionGoogleFactCheckCreateInput!]
+}
+
+"""
+The fields on `collectionGoogleFactCheck` to look up the row to connect.
+"""
+input CollectionGoogleFactCheckCollectionGoogleFactCheckPkeyConnect {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input CollectionGoogleFactCheckNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `collectionGoogleFactCheck` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collectionGoogleFactCheck` to look up the row to delete.
+"""
+input CollectionGoogleFactCheckCollectionGoogleFactCheckPkeyDelete {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input CollectionGoogleFactCheckNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `collectionGoogleFactCheck` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collectionGoogleFactCheck` to look up the row to update.
+"""
+input CollectionGoogleFactCheckOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyUsingCollectionGoogleFactCheckPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `collectionGoogleFactCheck` being updated.
+  """
+  patch: updateCollectionGoogleFactCheckOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `collectionGoogleFactCheck` being updated.
+"""
+input updateCollectionGoogleFactCheckOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyPatch {
+  id: Int
+  text: String
+  claimant: String
+  claimDate: String
+  publisherName: String
+  publisherSite: String
+  url: String
+  title: String
+  reviewDate: String
+  textualRating: String
+  languageCode: String
+  createdAt: Datetime
+  collection: CollectionGoogleFactCheckCollectionIdFkeyInput
+}
+
+"""
+Input for the nested mutation of `collection` in the `CollectionGoogleFactCheckInput` mutation.
+"""
+input CollectionGoogleFactCheckCollectionIdFkeyInput {
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectById: CollectionCollectionsPkeyConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectByTitleAndUserId: CollectionCollectionUniqueTitleConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  connectByNodeId: CollectionNodeIdConnect
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteById: CollectionCollectionsPkeyDelete
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteByTitleAndUserId: CollectionCollectionUniqueTitleDelete
+
+  """
+  The primary key(s) for `collection` for the far side of the relationship.
+  """
+  deleteByNodeId: CollectionNodeIdDelete
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateById: CollectionOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyUsingCollectionsPkeyUpdate
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateByTitleAndUserId: CollectionOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyUsingCollectionUniqueTitleUpdate
+
+  """
+  The primary key(s) and patch data for `collection` for the far side of the relationship.
+  """
+  updateByNodeId: CollectionGoogleFactCheckOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyNodeIdUpdate
+
+  """
+  A `CollectionInput` object that will be created and connected to this object.
+  """
+  create: CollectionGoogleFactCheckCollectionIdFkeyCollectionsCreateInput
+}
+
+"""
+The fields on `collection` to look up the row to update.
+"""
+input CollectionOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyUsingCollectionsPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: updateCollectionOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `collection` being updated.
+"""
+input updateCollectionOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyPatch {
+  id: Int
+  title: String
+  userId: Int
+  createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
+}
+
+"""
+The fields on `collection` to look up the row to update.
+"""
+input CollectionOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyUsingCollectionUniqueTitleUpdate {
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: updateCollectionOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyPatch!
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input CollectionGoogleFactCheckOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `collection` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: CollectionPatch!
+}
+
+"""
+Represents an update to a `Collection`. Fields that are set will be updated.
+"""
+input CollectionPatch {
+  id: Int
+  title: String
+  userId: Int
+  createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
+}
+
+"""
+The `collection` to be created by this mutation.
+"""
+input CollectionGoogleFactCheckCollectionIdFkeyCollectionsCreateInput {
+  id: Int
+  title: String!
+  userId: Int
+  createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input CollectionOnCollectionGoogleFactCheckForCollectionGoogleFactCheckCollectionIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `collectionGoogleFactCheck` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `collectionGoogleFactCheck` being updated.
+  """
+  patch: CollectionGoogleFactCheckPatch!
+}
+
+"""
+Represents an update to a `CollectionGoogleFactCheck`. Fields that are set will be updated.
+"""
+input CollectionGoogleFactCheckPatch {
+  id: Int
+  text: String
+  claimant: String
+  claimDate: String
+  publisherName: String
+  publisherSite: String
+  url: String
+  title: String
+  reviewDate: String
+  textualRating: String
+  languageCode: String
+  collectionId: Int
+  createdAt: Datetime
+  collection: CollectionGoogleFactCheckCollectionIdFkeyInput
+}
+
+"""
+The `collectionGoogleFactCheck` to be created by this mutation.
+"""
+input CollectionGoogleFactCheckCollectionIdFkeyCollectionGoogleFactCheckCreateInput {
+  id: Int
+  text: String
+  claimant: String
+  claimDate: String
+  publisherName: String
+  publisherSite: String
+  url: String
+  title: String
+  reviewDate: String
+  textualRating: String
+  languageCode: String
+  createdAt: Datetime
+  collection: CollectionGoogleFactCheckCollectionIdFkeyInput
+}
+
+"""
+The fields on `collection` to look up the row to update.
+"""
+input CollectionOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyUsingCollectionUniqueTitleUpdate {
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: updateCollectionOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyPatch!
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input CollectionVeraFileOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `collection` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: CollectionPatch!
+}
+
+"""
+The `collection` to be created by this mutation.
+"""
+input CollectionVeraFilesCollectionIdFkeyCollectionsCreateInput {
+  id: Int
+  title: String!
+  userId: Int
+  createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input CollectionOnCollectionVeraFileForCollectionVeraFilesCollectionIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `collectionVeraFile` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `collectionVeraFile` being updated.
+  """
+  patch: CollectionVeraFilePatch!
+}
+
+"""
+Represents an update to a `CollectionVeraFile`. Fields that are set will be updated.
+"""
+input CollectionVeraFilePatch {
+  id: Int
+  author: String
+  category: String
+  date: String
+  dateText: String
+  description: String
+  imageStyle: String
+  imageUrl: String
+  url: String
+  title: String
+  collectionId: Int
+  createdAt: Datetime
+  collection: CollectionVeraFilesCollectionIdFkeyInput
+}
+
+"""
+The `collectionVeraFile` to be created by this mutation.
+"""
+input CollectionVeraFilesCollectionIdFkeyCollectionVeraFilesCreateInput {
+  id: Int
+  author: String
+  category: String
+  date: String
+  dateText: String
+  description: String
+  imageStyle: String
+  imageUrl: String
+  url: String
+  title: String
+  createdAt: Datetime
+  collection: CollectionVeraFilesCollectionIdFkeyInput
+}
+
+"""
+The fields on `collection` to look up the row to update.
+"""
+input CollectionOnCollectionTweetForCollectionTweetsCollectionIdFkeyUsingCollectionUniqueTitleUpdate {
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: updateCollectionOnCollectionTweetForCollectionTweetsCollectionIdFkeyPatch!
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input CollectionTweetOnCollectionTweetForCollectionTweetsCollectionIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `collection` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: CollectionPatch!
+}
+
+"""
+The `collection` to be created by this mutation.
+"""
+input CollectionTweetsCollectionIdFkeyCollectionsCreateInput {
+  id: Int
+  title: String!
+  userId: Int
+  createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `collectionTweetPhoto` in the `CollectionTweetInput` mutation.
+"""
+input CollectionTweetPhotosCollectionTweetIdFkeyInverseInput {
+  """
+  Flag indicating whether all other `collectionTweetPhoto` records that match this relationship should be removed.
+  """
+  deleteOthers: Boolean
+
+  """
+  The primary key(s) for `collectionTweetPhoto` for the far side of the relationship.
+  """
+  connectById: [CollectionTweetPhotoCollectionTweetPhotosPkeyConnect!]
+
+  """
+  The primary key(s) for `collectionTweetPhoto` for the far side of the relationship.
+  """
+  connectByNodeId: [CollectionTweetPhotoNodeIdConnect!]
+
+  """
+  The primary key(s) for `collectionTweetPhoto` for the far side of the relationship.
+  """
+  deleteById: [CollectionTweetPhotoCollectionTweetPhotosPkeyDelete!]
+
+  """
+  The primary key(s) for `collectionTweetPhoto` for the far side of the relationship.
+  """
+  deleteByNodeId: [CollectionTweetPhotoNodeIdDelete!]
+
+  """
+  The primary key(s) and patch data for `collectionTweetPhoto` for the far side of the relationship.
+  """
+  updateById: [CollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetPhotosPkeyUpdate!]
+
+  """
+  The primary key(s) and patch data for `collectionTweetPhoto` for the far side of the relationship.
+  """
+  updateByNodeId: [CollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate!]
+
+  """
+  A `CollectionTweetPhotoInput` object that will be created and connected to this object.
+  """
+  create: [CollectionTweetPhotosCollectionTweetIdFkeyCollectionTweetPhotosCreateInput!]
+}
+
+"""
+The fields on `collectionTweetPhoto` to look up the row to connect.
+"""
+input CollectionTweetPhotoCollectionTweetPhotosPkeyConnect {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input CollectionTweetPhotoNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `collectionTweetPhoto` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collectionTweetPhoto` to look up the row to delete.
+"""
+input CollectionTweetPhotoCollectionTweetPhotosPkeyDelete {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input CollectionTweetPhotoNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `collectionTweetPhoto` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `collectionTweetPhoto` to look up the row to update.
+"""
+input CollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetPhotosPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `collectionTweetPhoto` being updated.
+  """
+  patch: updateCollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `collectionTweetPhoto` being updated.
+"""
+input updateCollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch {
+  id: Int
+  mediaKey: String
+  type: String
+  url: String
+  collectionTweet: CollectionTweetPhotosCollectionTweetIdFkeyInput
+}
+
+"""
+Input for the nested mutation of `collectionTweet` in the `CollectionTweetPhotoInput` mutation.
+"""
+input CollectionTweetPhotosCollectionTweetIdFkeyInput {
+  """
+  The primary key(s) for `collectionTweet` for the far side of the relationship.
+  """
+  connectById: CollectionTweetCollectionTweetsPkeyConnect
+
+  """
+  The primary key(s) for `collectionTweet` for the far side of the relationship.
+  """
+  connectByNodeId: CollectionTweetNodeIdConnect
+
+  """
+  The primary key(s) for `collectionTweet` for the far side of the relationship.
+  """
+  deleteById: CollectionTweetCollectionTweetsPkeyDelete
+
+  """
+  The primary key(s) for `collectionTweet` for the far side of the relationship.
+  """
+  deleteByNodeId: CollectionTweetNodeIdDelete
+
+  """
+  The primary key(s) and patch data for `collectionTweet` for the far side of the relationship.
+  """
+  updateById: CollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetsPkeyUpdate
+
+  """
+  The primary key(s) and patch data for `collectionTweet` for the far side of the relationship.
+  """
+  updateByNodeId: CollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate
+
+  """
+  A `CollectionTweetInput` object that will be created and connected to this object.
+  """
+  create: CollectionTweetPhotosCollectionTweetIdFkeyCollectionTweetsCreateInput
+}
+
+"""
+The fields on `collectionTweet` to look up the row to update.
+"""
+input CollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyUsingCollectionTweetsPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `collectionTweet` being updated.
+  """
+  patch: updateCollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `collectionTweet` being updated.
+"""
+input updateCollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyPatch {
+  id: Int
+  tweetId: String
+  collectionId: Int
+  createdAt: Datetime
+  authorId: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  suggestedKeywords: [String]
+  publishedAt: String
+  collection: CollectionTweetsCollectionIdFkeyInput
+  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input CollectionTweetPhotoOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `collectionTweet` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `collectionTweet` being updated.
+  """
+  patch: CollectionTweetPatch!
+}
+
+"""
+Represents an update to a `CollectionTweet`. Fields that are set will be updated.
+"""
+input CollectionTweetPatch {
+  id: Int
+  tweetId: String
+  collectionId: Int
+  createdAt: Datetime
+  authorId: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  suggestedKeywords: [String]
+  publishedAt: String
+  collection: CollectionTweetsCollectionIdFkeyInput
+  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
+}
+
+"""
+The `collectionTweet` to be created by this mutation.
+"""
+input CollectionTweetPhotosCollectionTweetIdFkeyCollectionTweetsCreateInput {
+  id: Int
+  tweetId: String!
+  collectionId: Int
+  createdAt: Datetime
+  authorId: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  suggestedKeywords: [String]
+  publishedAt: String
+  collection: CollectionTweetsCollectionIdFkeyInput
+  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input CollectionTweetOnCollectionTweetPhotoForCollectionTweetPhotosCollectionTweetIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `collectionTweetPhoto` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `collectionTweetPhoto` being updated.
+  """
+  patch: CollectionTweetPhotoPatch!
+}
+
+"""
+Represents an update to a `CollectionTweetPhoto`. Fields that are set will be updated.
+"""
+input CollectionTweetPhotoPatch {
+  id: Int
+  mediaKey: String
+  type: String
+  url: String
+  collectionTweetId: Int
+  collectionTweet: CollectionTweetPhotosCollectionTweetIdFkeyInput
+}
+
+"""
+The `collectionTweetPhoto` to be created by this mutation.
+"""
+input CollectionTweetPhotosCollectionTweetIdFkeyCollectionTweetPhotosCreateInput {
+  id: Int
+  mediaKey: String
+  type: String
+  url: String
+  collectionTweet: CollectionTweetPhotosCollectionTweetIdFkeyInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input CollectionOnCollectionTweetForCollectionTweetsCollectionIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `collectionTweet` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `collectionTweet` being updated.
+  """
+  patch: CollectionTweetPatch!
+}
+
+"""
+The `collectionTweet` to be created by this mutation.
+"""
+input CollectionTweetsCollectionIdFkeyCollectionTweetsCreateInput {
+  id: Int
+  tweetId: String!
+  createdAt: Datetime
+  authorId: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  suggestedKeywords: [String]
+  publishedAt: String
+  collection: CollectionTweetsCollectionIdFkeyInput
+  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
+}
+
+"""
+The fields on `collection` to look up the row to update.
+"""
+input CollectionOnCollectionForCollectionsUserIdFkeyUsingCollectionUniqueTitleUpdate {
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: updateCollectionOnCollectionForCollectionsUserIdFkeyPatch!
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input UserOnCollectionForCollectionsUserIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `collection` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: CollectionPatch!
+}
+
+"""
+The `collection` to be created by this mutation.
+"""
+input CollectionsUserIdFkeyCollectionsCreateInput {
+  id: Int
+  title: String!
+  createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
+}
+
+"""
+The fields on `user` to look up the row to update.
+"""
+input UserOnTwitterFeedForTwitterFeedsUserIdFkeyUsingUsersUsernameKeyUpdate {
+  """
+  An object where the defined keys will be set on the `user` being updated.
+  """
+  patch: updateUserOnTwitterFeedForTwitterFeedsUserIdFkeyPatch!
+  username: String!
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input TwitterFeedOnTwitterFeedForTwitterFeedsUserIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `user` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `user` being updated.
+  """
+  patch: UserPatch!
+}
+
+"""
+Represents an update to a `User`. Fields that are set will be updated.
+"""
+input UserPatch {
+  id: Int
+  username: String
+  hashedPassword: String
+  newsFeeds: NewsFeedsUserIdFkeyInverseInput
+  twitterFeeds: TwitterFeedsUserIdFkeyInverseInput
+  collections: CollectionsUserIdFkeyInverseInput
+}
+
+"""
+The `user` to be created by this mutation.
+"""
+input TwitterFeedsUserIdFkeyUsersCreateInput {
+  id: Int
+  username: String!
+  hashedPassword: String!
+  newsFeeds: NewsFeedsUserIdFkeyInverseInput
+  twitterFeeds: TwitterFeedsUserIdFkeyInverseInput
+  collections: CollectionsUserIdFkeyInverseInput
+}
+
+"""
+The fields on `twitterFeed` to look up the row to update.
+"""
+input TwitterFeedOnTwitterFeedForTwitterFeedsUserIdFkeyUsingTwitterFeedUniqueTitleUpdate {
+  """
+  An object where the defined keys will be set on the `twitterFeed` being updated.
+  """
+  patch: updateTwitterFeedOnTwitterFeedForTwitterFeedsUserIdFkeyPatch!
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input UserOnTwitterFeedForTwitterFeedsUserIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `twitterFeed` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `twitterFeed` being updated.
+  """
+  patch: TwitterFeedPatch!
+}
+
+"""
+Represents an update to a `TwitterFeed`. Fields that are set will be updated.
+"""
+input TwitterFeedPatch {
+  id: Int
+  title: String
+  keyword: String
+  sources: String
+  userId: Int
+  createdAt: Datetime
+  user: TwitterFeedsUserIdFkeyInput
+}
+
+"""
+The `twitterFeed` to be created by this mutation.
+"""
+input TwitterFeedsUserIdFkeyTwitterFeedsCreateInput {
+  id: Int
+  title: String!
+  keyword: String
+  sources: String
+  createdAt: Datetime
+  user: TwitterFeedsUserIdFkeyInput
+}
+
+"""
+The fields on `user` to look up the row to update.
+"""
+input UserOnNewsFeedForNewsFeedsUserIdFkeyUsingUsersUsernameKeyUpdate {
+  """
+  An object where the defined keys will be set on the `user` being updated.
+  """
+  patch: updateUserOnNewsFeedForNewsFeedsUserIdFkeyPatch!
+  username: String!
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input NewsFeedOnNewsFeedForNewsFeedsUserIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `user` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `user` being updated.
+  """
+  patch: UserPatch!
+}
+
+"""
+The `user` to be created by this mutation.
+"""
+input NewsFeedsUserIdFkeyUsersCreateInput {
+  id: Int
+  username: String!
+  hashedPassword: String!
+  newsFeeds: NewsFeedsUserIdFkeyInverseInput
+  twitterFeeds: TwitterFeedsUserIdFkeyInverseInput
+  collections: CollectionsUserIdFkeyInverseInput
+}
+
+"""
+The fields on `newsFeed` to look up the row to update.
+"""
+input NewsFeedOnNewsFeedForNewsFeedsUserIdFkeyUsingNewsFeedUniqueTitleUpdate {
+  """
+  An object where the defined keys will be set on the `newsFeed` being updated.
+  """
+  patch: updateNewsFeedOnNewsFeedForNewsFeedsUserIdFkeyPatch!
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input UserOnNewsFeedForNewsFeedsUserIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `newsFeed` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `newsFeed` being updated.
+  """
+  patch: NewsFeedPatch!
+}
+
+"""
+Represents an update to a `NewsFeed`. Fields that are set will be updated.
+"""
+input NewsFeedPatch {
+  id: Int
+  title: String
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+  userId: Int
+  createdAt: Datetime
+  user: NewsFeedsUserIdFkeyInput
+}
+
+"""
+The `newsFeed` to be created by this mutation.
+"""
+input NewsFeedsUserIdFkeyNewsFeedsCreateInput {
+  id: Int
+  title: String!
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+  createdAt: Datetime
+  user: NewsFeedsUserIdFkeyInput
+}
+
+"""
+The fields on `user` to look up the row to update.
+"""
+input UserOnCollectionForCollectionsUserIdFkeyUsingUsersUsernameKeyUpdate {
+  """
+  An object where the defined keys will be set on the `user` being updated.
+  """
+  patch: updateUserOnCollectionForCollectionsUserIdFkeyPatch!
+  username: String!
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input CollectionOnCollectionForCollectionsUserIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `user` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `user` being updated.
+  """
+  patch: UserPatch!
+}
+
+"""
+The `user` to be created by this mutation.
+"""
+input CollectionsUserIdFkeyUsersCreateInput {
+  id: Int
+  username: String!
+  hashedPassword: String!
+  newsFeeds: NewsFeedsUserIdFkeyInverseInput
+  twitterFeeds: TwitterFeedsUserIdFkeyInverseInput
+  collections: CollectionsUserIdFkeyInverseInput
+}
+
+"""
+The fields on `collection` to look up the row to update.
+"""
+input CollectionOnCollectionArticleForCollectionArticlesCollectionIdFkeyUsingCollectionUniqueTitleUpdate {
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: updateCollectionOnCollectionArticleForCollectionArticlesCollectionIdFkeyPatch!
+  title: String!
+  userId: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input CollectionArticleOnCollectionArticleForCollectionArticlesCollectionIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `collection` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `collection` being updated.
+  """
+  patch: CollectionPatch!
+}
+
+"""
+The `collection` to be created by this mutation.
+"""
+input CollectionArticlesCollectionIdFkeyCollectionsCreateInput {
+  id: Int
+  title: String!
+  userId: Int
+  createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
 }
 
 """
@@ -4391,8 +7023,73 @@ input CollectionGoogleFactCheckInput {
   reviewDate: String
   textualRating: String
   languageCode: String
-  collectionId: Int!
+  collectionId: Int
   createdAt: Datetime
+  collection: CollectionGoogleFactCheckCollectionIdFkeyInput
+}
+
+"""
+The output of our create `CollectionTweetPhoto` mutation.
+"""
+type CreateCollectionTweetPhotoPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionTweetPhoto` that was created by this mutation.
+  """
+  collectionTweetPhoto: CollectionTweetPhoto
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CollectionTweet` that is related to this `CollectionTweetPhoto`.
+  """
+  collectionTweet: CollectionTweet
+
+  """
+  An edge for our `CollectionTweetPhoto`. May be used by Relay 1.
+  """
+  collectionTweetPhotoEdge(
+    """
+    The method to use when ordering `CollectionTweetPhoto`.
+    """
+    orderBy: [CollectionTweetPhotosOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CollectionTweetPhotosEdge
+}
+
+"""
+All input for the create `CollectionTweetPhoto` mutation.
+"""
+input CreateCollectionTweetPhotoInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionTweetPhoto` to be created by this mutation.
+  """
+  collectionTweetPhoto: CollectionTweetPhotoInput!
+}
+
+"""
+An input for mutations affecting `CollectionTweetPhoto`
+"""
+input CollectionTweetPhotoInput {
+  id: Int
+  mediaKey: String
+  type: String
+  url: String
+  collectionTweetId: Int
+  collectionTweet: CollectionTweetPhotosCollectionTweetIdFkeyInput
 }
 
 """
@@ -4453,7 +7150,7 @@ An input for mutations affecting `CollectionTweet`
 input CollectionTweetInput {
   id: Int
   tweetId: String!
-  collectionId: Int!
+  collectionId: Int
   createdAt: Datetime
   authorId: String
   text: String
@@ -4463,6 +7160,8 @@ input CollectionTweetInput {
   verified: Boolean
   suggestedKeywords: [String]
   publishedAt: String
+  collection: CollectionTweetsCollectionIdFkeyInput
+  collectionTweetPhotos: CollectionTweetPhotosCollectionTweetIdFkeyInverseInput
 }
 
 """
@@ -4531,8 +7230,9 @@ input CollectionVeraFileInput {
   imageUrl: String
   url: String
   title: String
-  collectionId: Int!
+  collectionId: Int
   createdAt: Datetime
+  collection: CollectionVeraFilesCollectionIdFkeyInput
 }
 
 """
@@ -4595,6 +7295,11 @@ input CollectionInput {
   title: String!
   userId: Int
   createdAt: Datetime
+  user: CollectionsUserIdFkeyInput
+  collectionTweets: CollectionTweetsCollectionIdFkeyInverseInput
+  collectionArticles: CollectionArticlesCollectionIdFkeyInverseInput
+  collectionVeraFiles: CollectionVeraFilesCollectionIdFkeyInverseInput
+  collectionGoogleFactChecks: CollectionGoogleFactCheckCollectionIdFkeyInverseInput
 }
 
 """
@@ -4661,6 +7366,7 @@ input NewsFeedInput {
   sources: String
   userId: Int
   createdAt: Datetime
+  user: NewsFeedsUserIdFkeyInput
 }
 
 """
@@ -4729,8 +7435,308 @@ input TopHeadlinesCacheInput {
   title: String
   url: String
   urlToImage: String
-  topHeadlinesRequestId: Int!
+  topHeadlinesRequestId: Int
   suggestedKeywords: [String]
+  topHeadlinesRequest: TopHeadlinesCacheTopHeadlinesRequestIdFkeyInput
+}
+
+"""
+Input for the nested mutation of `topHeadlinesRequest` in the `TopHeadlinesCacheInput` mutation.
+"""
+input TopHeadlinesCacheTopHeadlinesRequestIdFkeyInput {
+  """
+  The primary key(s) for `topHeadlinesRequest` for the far side of the relationship.
+  """
+  connectById: TopHeadlinesRequestTopHeadlinesRequestsPkeyConnect
+
+  """
+  The primary key(s) for `topHeadlinesRequest` for the far side of the relationship.
+  """
+  connectByNodeId: TopHeadlinesRequestNodeIdConnect
+
+  """
+  The primary key(s) for `topHeadlinesRequest` for the far side of the relationship.
+  """
+  deleteById: TopHeadlinesRequestTopHeadlinesRequestsPkeyDelete
+
+  """
+  The primary key(s) for `topHeadlinesRequest` for the far side of the relationship.
+  """
+  deleteByNodeId: TopHeadlinesRequestNodeIdDelete
+
+  """
+  The primary key(s) and patch data for `topHeadlinesRequest` for the far side of the relationship.
+  """
+  updateById: TopHeadlinesRequestOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyUsingTopHeadlinesRequestsPkeyUpdate
+
+  """
+  The primary key(s) and patch data for `topHeadlinesRequest` for the far side of the relationship.
+  """
+  updateByNodeId: TopHeadlinesCacheOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyNodeIdUpdate
+
+  """
+  A `TopHeadlinesRequestInput` object that will be created and connected to this object.
+  """
+  create: TopHeadlinesCacheTopHeadlinesRequestIdFkeyTopHeadlinesRequestsCreateInput
+}
+
+"""
+The fields on `topHeadlinesRequest` to look up the row to connect.
+"""
+input TopHeadlinesRequestTopHeadlinesRequestsPkeyConnect {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input TopHeadlinesRequestNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `topHeadlinesRequest` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `topHeadlinesRequest` to look up the row to delete.
+"""
+input TopHeadlinesRequestTopHeadlinesRequestsPkeyDelete {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input TopHeadlinesRequestNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `topHeadlinesRequest` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `topHeadlinesRequest` to look up the row to update.
+"""
+input TopHeadlinesRequestOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyUsingTopHeadlinesRequestsPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `topHeadlinesRequest` being updated.
+  """
+  patch: updateTopHeadlinesRequestOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `topHeadlinesRequest` being updated.
+"""
+input updateTopHeadlinesRequestOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyPatch {
+  id: Int
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+  createdAt: Datetime
+  topHeadlinesCaches: TopHeadlinesCacheTopHeadlinesRequestIdFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `topHeadlinesCache` in the `TopHeadlinesRequestInput` mutation.
+"""
+input TopHeadlinesCacheTopHeadlinesRequestIdFkeyInverseInput {
+  """
+  Flag indicating whether all other `topHeadlinesCache` records that match this relationship should be removed.
+  """
+  deleteOthers: Boolean
+
+  """
+  The primary key(s) for `topHeadlinesCache` for the far side of the relationship.
+  """
+  connectById: [TopHeadlinesCacheTopHeadlinesPkeyConnect!]
+
+  """
+  The primary key(s) for `topHeadlinesCache` for the far side of the relationship.
+  """
+  connectByNodeId: [TopHeadlinesCacheNodeIdConnect!]
+
+  """
+  The primary key(s) for `topHeadlinesCache` for the far side of the relationship.
+  """
+  deleteById: [TopHeadlinesCacheTopHeadlinesPkeyDelete!]
+
+  """
+  The primary key(s) for `topHeadlinesCache` for the far side of the relationship.
+  """
+  deleteByNodeId: [TopHeadlinesCacheNodeIdDelete!]
+
+  """
+  The primary key(s) and patch data for `topHeadlinesCache` for the far side of the relationship.
+  """
+  updateById: [TopHeadlinesCacheOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyUsingTopHeadlinesPkeyUpdate!]
+
+  """
+  The primary key(s) and patch data for `topHeadlinesCache` for the far side of the relationship.
+  """
+  updateByNodeId: [TopHeadlinesRequestOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyNodeIdUpdate!]
+
+  """
+  A `TopHeadlinesCacheInput` object that will be created and connected to this object.
+  """
+  create: [TopHeadlinesCacheTopHeadlinesRequestIdFkeyTopHeadlinesCacheCreateInput!]
+}
+
+"""
+The fields on `topHeadlinesCache` to look up the row to connect.
+"""
+input TopHeadlinesCacheTopHeadlinesPkeyConnect {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input TopHeadlinesCacheNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `topHeadlinesCache` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `topHeadlinesCache` to look up the row to delete.
+"""
+input TopHeadlinesCacheTopHeadlinesPkeyDelete {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input TopHeadlinesCacheNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `topHeadlinesCache` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `topHeadlinesCache` to look up the row to update.
+"""
+input TopHeadlinesCacheOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyUsingTopHeadlinesPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `topHeadlinesCache` being updated.
+  """
+  patch: updateTopHeadlinesCacheOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `topHeadlinesCache` being updated.
+"""
+input updateTopHeadlinesCacheOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyPatch {
+  id: Int
+  author: String
+  content: String
+  description: String
+  publishedAt: String
+  sourceName: String
+  sourceId: String
+  title: String
+  url: String
+  urlToImage: String
+  suggestedKeywords: [String]
+  topHeadlinesRequest: TopHeadlinesCacheTopHeadlinesRequestIdFkeyInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input TopHeadlinesRequestOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `topHeadlinesCache` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `topHeadlinesCache` being updated.
+  """
+  patch: TopHeadlinesCachePatch!
+}
+
+"""
+Represents an update to a `TopHeadlinesCache`. Fields that are set will be updated.
+"""
+input TopHeadlinesCachePatch {
+  id: Int
+  author: String
+  content: String
+  description: String
+  publishedAt: String
+  sourceName: String
+  sourceId: String
+  title: String
+  url: String
+  urlToImage: String
+  topHeadlinesRequestId: Int
+  suggestedKeywords: [String]
+  topHeadlinesRequest: TopHeadlinesCacheTopHeadlinesRequestIdFkeyInput
+}
+
+"""
+The `topHeadlinesCache` to be created by this mutation.
+"""
+input TopHeadlinesCacheTopHeadlinesRequestIdFkeyTopHeadlinesCacheCreateInput {
+  id: Int
+  author: String
+  content: String
+  description: String
+  publishedAt: String
+  sourceName: String
+  sourceId: String
+  title: String
+  url: String
+  urlToImage: String
+  suggestedKeywords: [String]
+  topHeadlinesRequest: TopHeadlinesCacheTopHeadlinesRequestIdFkeyInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input TopHeadlinesCacheOnTopHeadlinesCacheForTopHeadlinesCacheTopHeadlinesRequestIdFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `topHeadlinesRequest` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `topHeadlinesRequest` being updated.
+  """
+  patch: TopHeadlinesRequestPatch!
+}
+
+"""
+Represents an update to a `TopHeadlinesRequest`. Fields that are set will be updated.
+"""
+input TopHeadlinesRequestPatch {
+  id: Int
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+  createdAt: Datetime
+  topHeadlinesCaches: TopHeadlinesCacheTopHeadlinesRequestIdFkeyInverseInput
+}
+
+"""
+The `topHeadlinesRequest` to be created by this mutation.
+"""
+input TopHeadlinesCacheTopHeadlinesRequestIdFkeyTopHeadlinesRequestsCreateInput {
+  id: Int
+  category: Category
+  country: String
+  keyword: String
+  sources: String
+  createdAt: Datetime
+  topHeadlinesCaches: TopHeadlinesCacheTopHeadlinesRequestIdFkeyInverseInput
 }
 
 """
@@ -4790,6 +7796,7 @@ input TopHeadlinesRequestInput {
   keyword: String
   sources: String
   createdAt: Datetime
+  topHeadlinesCaches: TopHeadlinesCacheTopHeadlinesRequestIdFkeyInverseInput
 }
 
 """
@@ -4854,6 +7861,7 @@ input TwitterFeedInput {
   sources: String
   userId: Int
   createdAt: Datetime
+  user: TwitterFeedsUserIdFkeyInput
 }
 
 """
@@ -4977,8 +7985,546 @@ input TwitterRecentSearchCacheInput {
   profileImageUrl: String
   username: String
   verified: Boolean
-  twitterRecentSearchRequestId: Int!
+  twitterRecentSearchRequestId: Int
   suggestedKeywords: [String]
+  twitterRecentSearchRequest: TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInput
+  twitterRecentSearchCachePhotos: TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `twitterRecentSearchRequest` in the `TwitterRecentSearchCacheInput` mutation.
+"""
+input TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInput {
+  """
+  The primary key(s) for `twitterRecentSearchRequest` for the far side of the relationship.
+  """
+  connectById: TwitterRecentSearchRequestTwitterRecentSearchRequestsPkeyConnect
+
+  """
+  The primary key(s) for `twitterRecentSearchRequest` for the far side of the relationship.
+  """
+  connectByNodeId: TwitterRecentSearchRequestNodeIdConnect
+
+  """
+  The primary key(s) for `twitterRecentSearchRequest` for the far side of the relationship.
+  """
+  deleteById: TwitterRecentSearchRequestTwitterRecentSearchRequestsPkeyDelete
+
+  """
+  The primary key(s) for `twitterRecentSearchRequest` for the far side of the relationship.
+  """
+  deleteByNodeId: TwitterRecentSearchRequestNodeIdDelete
+
+  """
+  The primary key(s) and patch data for `twitterRecentSearchRequest` for the far side of the relationship.
+  """
+  updateById: TwitterRecentSearchRequestOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyUsingTwitterRecentSearchRequestsPkeyUpdate
+
+  """
+  The primary key(s) and patch data for `twitterRecentSearchRequest` for the far side of the relationship.
+  """
+  updateByNodeId: TwitterRecentSearchCacheOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyNodeIdUpdate
+
+  """
+  A `TwitterRecentSearchRequestInput` object that will be created and connected to this object.
+  """
+  create: TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyTwitterRecentSearchRequestsCreateInput
+}
+
+"""
+The fields on `twitterRecentSearchRequest` to look up the row to connect.
+"""
+input TwitterRecentSearchRequestTwitterRecentSearchRequestsPkeyConnect {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input TwitterRecentSearchRequestNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `twitterRecentSearchRequest` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `twitterRecentSearchRequest` to look up the row to delete.
+"""
+input TwitterRecentSearchRequestTwitterRecentSearchRequestsPkeyDelete {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input TwitterRecentSearchRequestNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `twitterRecentSearchRequest` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `twitterRecentSearchRequest` to look up the row to update.
+"""
+input TwitterRecentSearchRequestOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyUsingTwitterRecentSearchRequestsPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `twitterRecentSearchRequest` being updated.
+  """
+  patch: updateTwitterRecentSearchRequestOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `twitterRecentSearchRequest` being updated.
+"""
+input updateTwitterRecentSearchRequestOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyPatch {
+  id: Int
+  keyword: String
+  sources: String
+  createdAt: Datetime
+  twitterRecentSearchCaches: TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `twitterRecentSearchCache` in the `TwitterRecentSearchRequestInput` mutation.
+"""
+input TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInverseInput {
+  """
+  Flag indicating whether all other `twitterRecentSearchCache` records that match this relationship should be removed.
+  """
+  deleteOthers: Boolean
+
+  """
+  The primary key(s) for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  connectById: [TwitterRecentSearchCacheTwitterRecentSearchCachePkeyConnect!]
+
+  """
+  The primary key(s) for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  connectByNodeId: [TwitterRecentSearchCacheNodeIdConnect!]
+
+  """
+  The primary key(s) for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  deleteById: [TwitterRecentSearchCacheTwitterRecentSearchCachePkeyDelete!]
+
+  """
+  The primary key(s) for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  deleteByNodeId: [TwitterRecentSearchCacheNodeIdDelete!]
+
+  """
+  The primary key(s) and patch data for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  updateById: [TwitterRecentSearchCacheOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyUsingTwitterRecentSearchCachePkeyUpdate!]
+
+  """
+  The primary key(s) and patch data for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  updateByNodeId: [TwitterRecentSearchRequestOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyNodeIdUpdate!]
+
+  """
+  A `TwitterRecentSearchCacheInput` object that will be created and connected to this object.
+  """
+  create: [TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyTwitterRecentSearchCacheCreateInput!]
+}
+
+"""
+The fields on `twitterRecentSearchCache` to look up the row to connect.
+"""
+input TwitterRecentSearchCacheTwitterRecentSearchCachePkeyConnect {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input TwitterRecentSearchCacheNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `twitterRecentSearchCache` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `twitterRecentSearchCache` to look up the row to delete.
+"""
+input TwitterRecentSearchCacheTwitterRecentSearchCachePkeyDelete {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input TwitterRecentSearchCacheNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `twitterRecentSearchCache` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `twitterRecentSearchCache` to look up the row to update.
+"""
+input TwitterRecentSearchCacheOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyUsingTwitterRecentSearchCachePkeyUpdate {
+  """
+  An object where the defined keys will be set on the `twitterRecentSearchCache` being updated.
+  """
+  patch: updateTwitterRecentSearchCacheOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `twitterRecentSearchCache` being updated.
+"""
+input updateTwitterRecentSearchCacheOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyPatch {
+  id: Int
+  tweetId: String
+  authorId: String
+  publishedAt: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  suggestedKeywords: [String]
+  twitterRecentSearchRequest: TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInput
+  twitterRecentSearchCachePhotos: TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInverseInput
+}
+
+"""
+Input for the nested mutation of `twitterRecentSearchCachePhoto` in the `TwitterRecentSearchCacheInput` mutation.
+"""
+input TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInverseInput {
+  """
+  Flag indicating whether all other `twitterRecentSearchCachePhoto` records that match this relationship should be removed.
+  """
+  deleteOthers: Boolean
+
+  """
+  The primary key(s) for `twitterRecentSearchCachePhoto` for the far side of the relationship.
+  """
+  connectById: [TwitterRecentSearchCachePhotoTwitterRecentSearchCachePhotosPkeyConnect!]
+
+  """
+  The primary key(s) for `twitterRecentSearchCachePhoto` for the far side of the relationship.
+  """
+  connectByNodeId: [TwitterRecentSearchCachePhotoNodeIdConnect!]
+
+  """
+  The primary key(s) for `twitterRecentSearchCachePhoto` for the far side of the relationship.
+  """
+  deleteById: [TwitterRecentSearchCachePhotoTwitterRecentSearchCachePhotosPkeyDelete!]
+
+  """
+  The primary key(s) for `twitterRecentSearchCachePhoto` for the far side of the relationship.
+  """
+  deleteByNodeId: [TwitterRecentSearchCachePhotoNodeIdDelete!]
+
+  """
+  The primary key(s) and patch data for `twitterRecentSearchCachePhoto` for the far side of the relationship.
+  """
+  updateById: [TwitterRecentSearchCachePhotoOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyUsingTwitterRecentSearchCachePhotosPkeyUpdate!]
+
+  """
+  The primary key(s) and patch data for `twitterRecentSearchCachePhoto` for the far side of the relationship.
+  """
+  updateByNodeId: [TwitterRecentSearchCacheOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyNodeIdUpdate!]
+
+  """
+  A `TwitterRecentSearchCachePhotoInput` object that will be created and connected to this object.
+  """
+  create: [TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyTwitterRecentSearchCachePhotosCreateInput!]
+}
+
+"""
+The fields on `twitterRecentSearchCachePhoto` to look up the row to connect.
+"""
+input TwitterRecentSearchCachePhotoTwitterRecentSearchCachePhotosPkeyConnect {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to connect.
+"""
+input TwitterRecentSearchCachePhotoNodeIdConnect {
+  """
+  The globally unique `ID` which identifies a single `twitterRecentSearchCachePhoto` to be connected.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `twitterRecentSearchCachePhoto` to look up the row to delete.
+"""
+input TwitterRecentSearchCachePhotoTwitterRecentSearchCachePhotosPkeyDelete {
+  id: Int!
+}
+
+"""
+The globally unique `ID` look up for the row to delete.
+"""
+input TwitterRecentSearchCachePhotoNodeIdDelete {
+  """
+  The globally unique `ID` which identifies a single `twitterRecentSearchCachePhoto` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+The fields on `twitterRecentSearchCachePhoto` to look up the row to update.
+"""
+input TwitterRecentSearchCachePhotoOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyUsingTwitterRecentSearchCachePhotosPkeyUpdate {
+  """
+  An object where the defined keys will be set on the `twitterRecentSearchCachePhoto` being updated.
+  """
+  patch: updateTwitterRecentSearchCachePhotoOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `twitterRecentSearchCachePhoto` being updated.
+"""
+input updateTwitterRecentSearchCachePhotoOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyPatch {
+  id: Int
+  mediaKey: String
+  type: String
+  url: String
+  twitterRecentSearchCache: TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInput
+}
+
+"""
+Input for the nested mutation of `twitterRecentSearchCache` in the `TwitterRecentSearchCachePhotoInput` mutation.
+"""
+input TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInput {
+  """
+  The primary key(s) for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  connectById: TwitterRecentSearchCacheTwitterRecentSearchCachePkeyConnect
+
+  """
+  The primary key(s) for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  connectByNodeId: TwitterRecentSearchCacheNodeIdConnect
+
+  """
+  The primary key(s) for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  deleteById: TwitterRecentSearchCacheTwitterRecentSearchCachePkeyDelete
+
+  """
+  The primary key(s) for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  deleteByNodeId: TwitterRecentSearchCacheNodeIdDelete
+
+  """
+  The primary key(s) and patch data for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  updateById: TwitterRecentSearchCacheOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyUsingTwitterRecentSearchCachePkeyUpdate
+
+  """
+  The primary key(s) and patch data for `twitterRecentSearchCache` for the far side of the relationship.
+  """
+  updateByNodeId: TwitterRecentSearchCachePhotoOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyNodeIdUpdate
+
+  """
+  A `TwitterRecentSearchCacheInput` object that will be created and connected to this object.
+  """
+  create: TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyTwitterRecentSearchCacheCreateInput
+}
+
+"""
+The fields on `twitterRecentSearchCache` to look up the row to update.
+"""
+input TwitterRecentSearchCacheOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyUsingTwitterRecentSearchCachePkeyUpdate {
+  """
+  An object where the defined keys will be set on the `twitterRecentSearchCache` being updated.
+  """
+  patch: updateTwitterRecentSearchCacheOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyPatch!
+  id: Int!
+}
+
+"""
+An object where the defined keys will be set on the `twitterRecentSearchCache` being updated.
+"""
+input updateTwitterRecentSearchCacheOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyPatch {
+  id: Int
+  tweetId: String
+  authorId: String
+  publishedAt: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  twitterRecentSearchRequestId: Int
+  suggestedKeywords: [String]
+  twitterRecentSearchRequest: TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInput
+  twitterRecentSearchCachePhotos: TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInverseInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input TwitterRecentSearchCachePhotoOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `twitterRecentSearchCache` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `twitterRecentSearchCache` being updated.
+  """
+  patch: TwitterRecentSearchCachePatch!
+}
+
+"""
+Represents an update to a `TwitterRecentSearchCache`. Fields that are set will be updated.
+"""
+input TwitterRecentSearchCachePatch {
+  id: Int
+  tweetId: String
+  authorId: String
+  publishedAt: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  twitterRecentSearchRequestId: Int
+  suggestedKeywords: [String]
+  twitterRecentSearchRequest: TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInput
+  twitterRecentSearchCachePhotos: TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInverseInput
+}
+
+"""
+The `twitterRecentSearchCache` to be created by this mutation.
+"""
+input TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyTwitterRecentSearchCacheCreateInput {
+  id: Int
+  tweetId: String
+  authorId: String
+  publishedAt: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  twitterRecentSearchRequestId: Int
+  suggestedKeywords: [String]
+  twitterRecentSearchRequest: TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInput
+  twitterRecentSearchCachePhotos: TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInverseInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input TwitterRecentSearchCacheOnTwitterRecentSearchCachePhotoForTwitterRecentSearchCachePTwitterRecentSearchCacheFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `twitterRecentSearchCachePhoto` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `twitterRecentSearchCachePhoto` being updated.
+  """
+  patch: TwitterRecentSearchCachePhotoPatch!
+}
+
+"""
+Represents an update to a `TwitterRecentSearchCachePhoto`. Fields that are set will be updated.
+"""
+input TwitterRecentSearchCachePhotoPatch {
+  id: Int
+  mediaKey: String
+  type: String
+  url: String
+  twitterRecentSearchCacheId: Int
+  twitterRecentSearchCache: TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInput
+}
+
+"""
+The `twitterRecentSearchCachePhoto` to be created by this mutation.
+"""
+input TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyTwitterRecentSearchCachePhotosCreateInput {
+  id: Int
+  mediaKey: String
+  type: String
+  url: String
+  twitterRecentSearchCache: TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input TwitterRecentSearchRequestOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `twitterRecentSearchCache` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `twitterRecentSearchCache` being updated.
+  """
+  patch: TwitterRecentSearchCachePatch!
+}
+
+"""
+The `twitterRecentSearchCache` to be created by this mutation.
+"""
+input TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyTwitterRecentSearchCacheCreateInput {
+  id: Int
+  tweetId: String
+  authorId: String
+  publishedAt: String
+  text: String
+  name: String
+  profileImageUrl: String
+  username: String
+  verified: Boolean
+  suggestedKeywords: [String]
+  twitterRecentSearchRequest: TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInput
+  twitterRecentSearchCachePhotos: TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInverseInput
+}
+
+"""
+The globally unique `ID` look up for the row to update.
+"""
+input TwitterRecentSearchCacheOnTwitterRecentSearchCacheForTwitterRecentSearchCacheTwitterRecentSearchRequestFkeyNodeIdUpdate {
+  """
+  The globally unique `ID` which identifies a single `twitterRecentSearchRequest` to be connected.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `twitterRecentSearchRequest` being updated.
+  """
+  patch: TwitterRecentSearchRequestPatch!
+}
+
+"""
+Represents an update to a `TwitterRecentSearchRequest`. Fields that are set will be updated.
+"""
+input TwitterRecentSearchRequestPatch {
+  id: Int
+  keyword: String
+  sources: String
+  createdAt: Datetime
+  twitterRecentSearchCaches: TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInverseInput
+}
+
+"""
+The `twitterRecentSearchRequest` to be created by this mutation.
+"""
+input TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyTwitterRecentSearchRequestsCreateInput {
+  id: Int
+  keyword: String
+  sources: String
+  createdAt: Datetime
+  twitterRecentSearchCaches: TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInverseInput
 }
 
 """
@@ -5041,7 +8587,8 @@ input TwitterRecentSearchCachePhotoInput {
   mediaKey: String
   type: String
   url: String
-  twitterRecentSearchCacheId: Int!
+  twitterRecentSearchCacheId: Int
+  twitterRecentSearchCache: TwitterRecentSearchCachePTwitterRecentSearchCacheFkeyInput
 }
 
 """
@@ -5099,6 +8646,7 @@ input TwitterRecentSearchRequestInput {
   keyword: String
   sources: String
   createdAt: Datetime
+  twitterRecentSearchCaches: TwitterRecentSearchCacheTwitterRecentSearchRequestFkeyInverseInput
 }
 
 """
@@ -5211,6 +8759,9 @@ input UserInput {
   id: Int
   username: String!
   hashedPassword: String!
+  newsFeeds: NewsFeedsUserIdFkeyInverseInput
+  twitterFeeds: TwitterFeedsUserIdFkeyInverseInput
+  collections: CollectionsUserIdFkeyInverseInput
 }
 
 """
@@ -5268,22 +8819,6 @@ input UpdateCollectionArticleByNodeIdInput {
   An object where the defined keys will be set on the `CollectionArticle` being updated.
   """
   patch: CollectionArticlePatch!
-}
-
-"""
-Represents an update to a `CollectionArticle`. Fields that are set will be updated.
-"""
-input CollectionArticlePatch {
-  id: Int
-  description: String
-  publishedAt: String
-  sourceName: String
-  title: String
-  url: String
-  urlToImage: String
-  collectionId: Int
-  createdAt: Datetime
-  suggestedKeywords: [String]
 }
 
 """
@@ -5361,25 +8896,6 @@ input UpdateCollectionGoogleFactCheckByNodeIdInput {
 }
 
 """
-Represents an update to a `CollectionGoogleFactCheck`. Fields that are set will be updated.
-"""
-input CollectionGoogleFactCheckPatch {
-  id: Int
-  text: String
-  claimant: String
-  claimDate: String
-  publisherName: String
-  publisherSite: String
-  url: String
-  title: String
-  reviewDate: String
-  textualRating: String
-  languageCode: String
-  collectionId: Int
-  createdAt: Datetime
-}
-
-"""
 All input for the `updateCollectionGoogleFactCheck` mutation.
 """
 input UpdateCollectionGoogleFactCheckInput {
@@ -5393,6 +8909,80 @@ input UpdateCollectionGoogleFactCheckInput {
   An object where the defined keys will be set on the `CollectionGoogleFactCheck` being updated.
   """
   patch: CollectionGoogleFactCheckPatch!
+  id: Int!
+}
+
+"""
+The output of our update `CollectionTweetPhoto` mutation.
+"""
+type UpdateCollectionTweetPhotoPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionTweetPhoto` that was updated by this mutation.
+  """
+  collectionTweetPhoto: CollectionTweetPhoto
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CollectionTweet` that is related to this `CollectionTweetPhoto`.
+  """
+  collectionTweet: CollectionTweet
+
+  """
+  An edge for our `CollectionTweetPhoto`. May be used by Relay 1.
+  """
+  collectionTweetPhotoEdge(
+    """
+    The method to use when ordering `CollectionTweetPhoto`.
+    """
+    orderBy: [CollectionTweetPhotosOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CollectionTweetPhotosEdge
+}
+
+"""
+All input for the `updateCollectionTweetPhotoByNodeId` mutation.
+"""
+input UpdateCollectionTweetPhotoByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `CollectionTweetPhoto` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `CollectionTweetPhoto` being updated.
+  """
+  patch: CollectionTweetPhotoPatch!
+}
+
+"""
+All input for the `updateCollectionTweetPhoto` mutation.
+"""
+input UpdateCollectionTweetPhotoInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `CollectionTweetPhoto` being updated.
+  """
+  patch: CollectionTweetPhotoPatch!
   id: Int!
 }
 
@@ -5451,24 +9041,6 @@ input UpdateCollectionTweetByNodeIdInput {
   An object where the defined keys will be set on the `CollectionTweet` being updated.
   """
   patch: CollectionTweetPatch!
-}
-
-"""
-Represents an update to a `CollectionTweet`. Fields that are set will be updated.
-"""
-input CollectionTweetPatch {
-  id: Int
-  tweetId: String
-  collectionId: Int
-  createdAt: Datetime
-  authorId: String
-  text: String
-  name: String
-  profileImageUrl: String
-  username: String
-  verified: Boolean
-  suggestedKeywords: [String]
-  publishedAt: String
 }
 
 """
@@ -5546,24 +9118,6 @@ input UpdateCollectionVeraFileByNodeIdInput {
 }
 
 """
-Represents an update to a `CollectionVeraFile`. Fields that are set will be updated.
-"""
-input CollectionVeraFilePatch {
-  id: Int
-  author: String
-  category: String
-  date: String
-  dateText: String
-  description: String
-  imageStyle: String
-  imageUrl: String
-  url: String
-  title: String
-  collectionId: Int
-  createdAt: Datetime
-}
-
-"""
 All input for the `updateCollectionVeraFile` mutation.
 """
 input UpdateCollectionVeraFileInput {
@@ -5635,16 +9189,6 @@ input UpdateCollectionByNodeIdInput {
   An object where the defined keys will be set on the `Collection` being updated.
   """
   patch: CollectionPatch!
-}
-
-"""
-Represents an update to a `Collection`. Fields that are set will be updated.
-"""
-input CollectionPatch {
-  id: Int
-  title: String
-  userId: Int
-  createdAt: Datetime
 }
 
 """
@@ -5740,20 +9284,6 @@ input UpdateNewsFeedByNodeIdInput {
 }
 
 """
-Represents an update to a `NewsFeed`. Fields that are set will be updated.
-"""
-input NewsFeedPatch {
-  id: Int
-  title: String
-  category: Category
-  country: String
-  keyword: String
-  sources: String
-  userId: Int
-  createdAt: Datetime
-}
-
-"""
 All input for the `updateNewsFeed` mutation.
 """
 input UpdateNewsFeedInput {
@@ -5846,24 +9376,6 @@ input UpdateTopHeadlinesCacheByNodeIdInput {
 }
 
 """
-Represents an update to a `TopHeadlinesCache`. Fields that are set will be updated.
-"""
-input TopHeadlinesCachePatch {
-  id: Int
-  author: String
-  content: String
-  description: String
-  publishedAt: String
-  sourceName: String
-  sourceId: String
-  title: String
-  url: String
-  urlToImage: String
-  topHeadlinesRequestId: Int
-  suggestedKeywords: [String]
-}
-
-"""
 All input for the `updateTopHeadlinesCache` mutation.
 """
 input UpdateTopHeadlinesCacheInput {
@@ -5930,18 +9442,6 @@ input UpdateTopHeadlinesRequestByNodeIdInput {
   An object where the defined keys will be set on the `TopHeadlinesRequest` being updated.
   """
   patch: TopHeadlinesRequestPatch!
-}
-
-"""
-Represents an update to a `TopHeadlinesRequest`. Fields that are set will be updated.
-"""
-input TopHeadlinesRequestPatch {
-  id: Int
-  category: Category
-  country: String
-  keyword: String
-  sources: String
-  createdAt: Datetime
 }
 
 """
@@ -6016,18 +9516,6 @@ input UpdateTwitterFeedByNodeIdInput {
   An object where the defined keys will be set on the `TwitterFeed` being updated.
   """
   patch: TwitterFeedPatch!
-}
-
-"""
-Represents an update to a `TwitterFeed`. Fields that are set will be updated.
-"""
-input TwitterFeedPatch {
-  id: Int
-  title: String
-  keyword: String
-  sources: String
-  userId: Int
-  createdAt: Datetime
 }
 
 """
@@ -6235,23 +9723,6 @@ input UpdateTwitterRecentSearchCacheByNodeIdInput {
 }
 
 """
-Represents an update to a `TwitterRecentSearchCache`. Fields that are set will be updated.
-"""
-input TwitterRecentSearchCachePatch {
-  id: Int
-  tweetId: String
-  authorId: String
-  publishedAt: String
-  text: String
-  name: String
-  profileImageUrl: String
-  username: String
-  verified: Boolean
-  twitterRecentSearchRequestId: Int
-  suggestedKeywords: [String]
-}
-
-"""
 All input for the `updateTwitterRecentSearchCache` mutation.
 """
 input UpdateTwitterRecentSearchCacheInput {
@@ -6326,17 +9797,6 @@ input UpdateTwitterRecentSearchCachePhotoByNodeIdInput {
 }
 
 """
-Represents an update to a `TwitterRecentSearchCachePhoto`. Fields that are set will be updated.
-"""
-input TwitterRecentSearchCachePhotoPatch {
-  id: Int
-  mediaKey: String
-  type: String
-  url: String
-  twitterRecentSearchCacheId: Int
-}
-
-"""
 All input for the `updateTwitterRecentSearchCachePhoto` mutation.
 """
 input UpdateTwitterRecentSearchCachePhotoInput {
@@ -6403,16 +9863,6 @@ input UpdateTwitterRecentSearchRequestByNodeIdInput {
   An object where the defined keys will be set on the `TwitterRecentSearchRequest` being updated.
   """
   patch: TwitterRecentSearchRequestPatch!
-}
-
-"""
-Represents an update to a `TwitterRecentSearchRequest`. Fields that are set will be updated.
-"""
-input TwitterRecentSearchRequestPatch {
-  id: Int
-  keyword: String
-  sources: String
-  createdAt: Datetime
 }
 
 """
@@ -6597,15 +10047,6 @@ input UpdateUserByNodeIdInput {
 }
 
 """
-Represents an update to a `User`. Fields that are set will be updated.
-"""
-input UserPatch {
-  id: Int
-  username: String
-  hashedPassword: String
-}
-
-"""
 All input for the `updateUser` mutation.
 """
 input UpdateUserInput {
@@ -6761,6 +10202,71 @@ input DeleteCollectionGoogleFactCheckByNodeIdInput {
 All input for the `deleteCollectionGoogleFactCheck` mutation.
 """
 input DeleteCollectionGoogleFactCheckInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: Int!
+}
+
+"""
+The output of our delete `CollectionTweetPhoto` mutation.
+"""
+type DeleteCollectionTweetPhotoPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """
+  The `CollectionTweetPhoto` that was deleted by this mutation.
+  """
+  collectionTweetPhoto: CollectionTweetPhoto
+  deletedCollectionTweetPhotoNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CollectionTweet` that is related to this `CollectionTweetPhoto`.
+  """
+  collectionTweet: CollectionTweet
+
+  """
+  An edge for our `CollectionTweetPhoto`. May be used by Relay 1.
+  """
+  collectionTweetPhotoEdge(
+    """
+    The method to use when ordering `CollectionTweetPhoto`.
+    """
+    orderBy: [CollectionTweetPhotosOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CollectionTweetPhotosEdge
+}
+
+"""
+All input for the `deleteCollectionTweetPhotoByNodeId` mutation.
+"""
+input DeleteCollectionTweetPhotoByNodeIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `CollectionTweetPhoto` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""
+All input for the `deleteCollectionTweetPhoto` mutation.
+"""
+input DeleteCollectionTweetPhotoInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.

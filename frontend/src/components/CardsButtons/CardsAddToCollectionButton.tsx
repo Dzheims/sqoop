@@ -30,7 +30,12 @@ import {
   SAVE_GOOGLE_FACT_CHECK_TO_COLLECTION,
 } from '../Collections/query';
 import { COLLECTION_CONTENTS_QUERY } from '../Columns/query';
-import { CollectionContent } from '../../types.generated';
+import {
+  CollectionContent,
+  CollectionTweetPhoto,
+  CollectionTweetPhotosCollectionTweetIdFkeyCollectionTweetPhotosCreateInput,
+  TwitterPhoto,
+} from '../../types.generated';
 import { useCollectionsListState } from '../Collections/CollectionsListState';
 import MutationLoader from '../Common/MutationLoader';
 
@@ -113,6 +118,16 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
                   verified: data.verified,
                   suggestedKeywords: data.suggestedKeywords,
                   publishedAt: data.publishedAt,
+                  collectionTweetPhotos: {
+                    create: data.collectionTweetPhotos.map(
+                      (photo: CollectionTweetPhoto) =>
+                        ({
+                          mediaKey: photo.mediaKey,
+                          url: photo.url,
+                          type: photo.type,
+                        } as CollectionTweetPhotosCollectionTweetIdFkeyCollectionTweetPhotosCreateInput)
+                    ),
+                  },
                 },
               },
             },
