@@ -76,7 +76,7 @@ const getFeedType = (value: any) => {
 };
 
 const getIcon = (value: any) => {
-  const iconStyle = { color: '#0036e7' };
+  const iconStyle = { color: '#0036e7', height: '18px', width: '18px' };
   switch (value.__typename) {
     case 'NewsFeed':
       return <FeedIcon style={iconStyle} />;

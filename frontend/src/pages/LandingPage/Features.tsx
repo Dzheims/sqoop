@@ -9,6 +9,7 @@ const useStyles = makeStyles(() => ({
   root: {
     padding: '0 10%',
     backgroundColor: '#ffffff',
+    marginBottom: '20px',
   },
   text: {
     fontWeight: 500,

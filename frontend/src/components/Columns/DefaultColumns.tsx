@@ -81,10 +81,12 @@ const DefaultColumns: React.FC<DefaultColumnProps> = ({
 }: DefaultColumnProps) => {
   const classes = useStyles();
 
+  const iconStyle = { color: '#0036e7', height: '18px', width: '18px' };
+
   const defaultColumns = [
     {
       title: 'News Feed',
-      icon: <FeedIcon style={{ color: '#0036e7' }} />,
+      icon: <FeedIcon style={iconStyle} />,
       cards: (
         <NewsAPIColumnData
           country=""
@@ -96,7 +98,7 @@ const DefaultColumns: React.FC<DefaultColumnProps> = ({
     },
     {
       title: 'Twitter Feed',
-      icon: <TwitterIcon style={{ color: '#0036e7' }} />,
+      icon: <TwitterIcon style={iconStyle} />,
       cards: <TwitterAPIColumnData keyword="" sources="" />,
     },
   ];

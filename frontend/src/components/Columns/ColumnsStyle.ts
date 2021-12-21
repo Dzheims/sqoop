@@ -78,20 +78,20 @@ export const useStyles = makeStyles(() => ({
     borderColor: theme.palette.secondary.main,
   },
 }));
+
 export const ItemContainer = styled.div`
   background-color: ${(isDraggingOver: BoardColumnContentStylesProps) =>
     isDraggingOver ? '#f7fafc' : null};
   transition: background-color 0.2s ease;
   padding: 5px;
-  height: 500px;
+  height: 84%;
   overflow: auto;
 `;
 export const DefaultItemContainer = styled.div<DefaultColumnContentStylesProps>`
   background-color: ${(props) => (props.isDragging ? '#f7fafc' : null)};
   transition: background-color 0.2s ease;
   padding: 5px;
-  max-height: ${(props) =>
-    props.feedType === 'Twitter Feed' ? '500px' : '445px'};
+  height: ${(props) => (props.feedType === 'Twitter Feed' ? '88%' : '79%')};
   overflow: auto;
 `;
 export const ResultsContainer = styled.div<BoardColumnContentStylesProps>`

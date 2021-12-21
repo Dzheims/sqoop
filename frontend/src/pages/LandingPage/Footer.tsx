@@ -3,7 +3,6 @@ import { makeStyles, Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   root: {
-    marginTop: '20px',
     padding: '0 10%',
     backgroundColor: '#f7fafc',
   },
@@ -11,11 +10,6 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     height: '125px',
     alignItems: 'center',
-  },
-  button: {
-    marginTop: '10px',
-    textTransform: 'none',
-    boxShadow: 'none',
   },
 }));
 

@@ -1,5 +1,12 @@
 import React from 'react';
-import { makeStyles, Toolbar, Grid, Typography } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+import {
+  makeStyles,
+  Toolbar,
+  Grid,
+  Typography,
+  Button,
+} from '@material-ui/core';
 import LandingPageAppBar from './AppBar';
 import Header from './Header';
 import Footer from './Footer';
@@ -28,8 +35,27 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#f7fafc',
     flexDirection: 'column',
   },
+  adContainer: {
+    display: 'flex',
+    padding: '60px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100px',
+    backgroundColor: '#0036e7',
+    flexDirection: 'column',
+  },
   sectionTitle: {
     fontWeight: 500,
+  },
+  adTitle: {
+    fontWeight: 500,
+    color: '#ffffff',
+    marginBottom: '20px',
+  },
+  button: {
+    marginTop: '10px',
+    textTransform: 'none',
+    boxShadow: 'none',
   },
   featureSubtitle: {
     marginTop: '10px',
@@ -39,6 +65,7 @@ const useStyles = makeStyles(() => ({
 
 const Landing = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <div className={classes.root}>
@@ -77,6 +104,24 @@ const Landing = () => {
             </Typography>
           </div>
           <Features />
+        </Grid>
+        <Grid item xs={12}>
+          <div className={classes.adContainer}>
+            <Typography className={classes.adTitle} variant="h4">
+              Conquer Information Overload and Misinformation with Sqoop
+            </Typography>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="large"
+              className={classes.button}
+              onClick={() => {
+                history.push('/signup');
+              }}
+            >
+              Get Started - it&apos;s free!
+            </Button>
+          </div>
         </Grid>
         <Grid item xs={12}>
           <Footer />
