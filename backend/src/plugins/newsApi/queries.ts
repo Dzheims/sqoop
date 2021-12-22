@@ -27,14 +27,19 @@ export const resolvers = {
 
       await pgClient.query(
         `DELETE FROM top_headlines_requests WHERE category = $1 AND country = $2 AND keyword = $3 AND sources = $4 AND created_at < Now() - INTERVAL '15 MINUTES'`,
-        [category, country, keyword, sources]
+        [category || 'general', country || 'ph', keyword || '', sources || '']
       );
 
       const {
         rows: [request],
       } = await pgClient.query(
         `SELECT * FROM top_headlines_requests WHERE category = $1 AND country = $2 AND keyword = $3 AND sources = $4`,
-        [category || 'general', country || '', keyword || '', sources || '']
+        [
+          !category || !category.length ? 'general' : category,
+          !country || !country.length ? 'ph' : country,
+          keyword || '',
+          sources || '',
+        ]
       );
 
       if (request) {
@@ -45,19 +50,13 @@ export const resolvers = {
         return camelcaseKeys(topHeadlinesCache);
       }
 
-      const {
-        rows: [top_headlines_request_id],
-      } = await pgClient.query(
-        `INSERT INTO top_headlines_requests (category, country, keyword, sources) VALUES ($1, $2, $3, $4) RETURNING id`,
-        [category || 'general', country || '', keyword || '', sources || '']
-      );
       const queryParams = new URLSearchParams();
       queryParams.set('country', !country || !country.length ? 'ph' : country);
       if (sources) {
         queryParams.set('country', '');
         category = '';
       }
-      queryParams.set('category', category || '');
+      queryParams.set('category', category || 'general');
       queryParams.set('sources', sources || '');
       queryParams.set('q', keyword || '');
       const response = await fetch(
@@ -98,6 +97,18 @@ export const resolvers = {
           sourceName,
         };
       });
+
+      const {
+        rows: [top_headlines_request_id],
+      } = await pgClient.query(
+        `INSERT INTO top_headlines_requests (category, country, keyword, sources) VALUES ($1, $2, $3, $4) RETURNING id`,
+        [
+          !category || !category.length ? 'general' : category,
+          !country || !country.length ? 'ph' : country,
+          keyword || '',
+          sources || '',
+        ]
+      );
 
       articles.map(async (article: any) => {
         await pgClient.query(
