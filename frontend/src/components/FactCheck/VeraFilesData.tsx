@@ -29,7 +29,7 @@ const VeraFilesData: React.FC<SearchQueryProps> = ({
     return (
       <Loader header="Please Wait" subHeader="Loading Fact Check Contents" />
     );
-  if (!data)
+  if (!data || data.veraFilesFactCheck.length === 0)
     return (
       <Error
         header="Oops!"

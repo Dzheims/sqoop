@@ -58,81 +58,89 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
             <div />
           )}
         </div>
-        <TwitterContentContainer>
-          <Avatar
-            alt={data.name as string}
-            src={data.profileImageUrl as string}
-            className={classes.profileAvatars}
-            variant="circular"
-          />
-          <AccountNameContainer>
-            <TwitterTitleContainer>
-              <Typography style={{ fontWeight: 600 }}>
-                {truncateName(data.name as string, 13)}
-              </Typography>
-              {data.verified ? (
-                <Avatar
-                  alt="Verified"
-                  src="https://www.pngitem.com/pimgs/m/3-38867_twitter-verified-badge-twitter-verified-icon-svg-hd.png"
-                  className={classes.verifiedIcon}
-                />
-              ) : (
-                <div />
-              )}
-            </TwitterTitleContainer>
-            <Typography className={classes.userName}>
-              {'@' + data.username}
-            </Typography>
-          </AccountNameContainer>
-          <TwitterIcon className={classes.cardsIcon} />
-        </TwitterContentContainer>
-        <Linkify
-          componentDecorator={(
-            decoratedHref: string,
-            decoratedText: string,
-            key: Key
-          ) => (
-            <SecureLink target="_blank" href={decoratedHref} key={key}>
-              {decoratedText}
-            </SecureLink>
-          )}
+        <div
+          className={
+            data.__typename === 'CollectionTweet'
+              ? classes.collectionCardsContentContainer
+              : classes.cardsContentContainer
+          }
         >
-          <Typography variant="body2">
-            {decodeHTML(data.text as string)}
-          </Typography>
-        </Linkify>
-        {!data.photos?.length ||
-        data.photos?.some((photo: any) => photo?.url === null) ? (
-          <div />
-        ) : (
-          <ImageList
-            className={classes.imageList}
-            rowHeight={140}
-            cols={itemListCols(data.photos?.length)}
+          <TwitterContentContainer>
+            <Avatar
+              alt={data.name as string}
+              src={data.profileImageUrl as string}
+              className={classes.profileAvatars}
+              variant="circular"
+            />
+            <AccountNameContainer>
+              <TwitterTitleContainer>
+                <Typography style={{ fontWeight: 600 }}>
+                  {truncateName(data.name as string, 13)}
+                </Typography>
+                {data.verified ? (
+                  <Avatar
+                    alt="Verified"
+                    src="https://www.pngitem.com/pimgs/m/3-38867_twitter-verified-badge-twitter-verified-icon-svg-hd.png"
+                    className={classes.verifiedIcon}
+                  />
+                ) : (
+                  <div />
+                )}
+              </TwitterTitleContainer>
+              <Typography className={classes.userName}>
+                {'@' + data.username}
+              </Typography>
+            </AccountNameContainer>
+            <TwitterIcon className={classes.cardsIcon} />
+          </TwitterContentContainer>
+          <Linkify
+            componentDecorator={(
+              decoratedHref: string,
+              decoratedText: string,
+              key: Key
+            ) => (
+              <SecureLink target="_blank" href={decoratedHref} key={key}>
+                {decoratedText}
+              </SecureLink>
+            )}
           >
-            {data.photos?.map((photo: any) => (
-              <ImageListItem key={photo?.mediaKey} cols={1}>
-                <img src={photo?.url as string} alt={photo?.type as string} />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        )}
-        <Typography className={classes.date}>
-          {formatTimeAndDate(data.publishedAt)}
-        </Typography>
-        <div className={classes.buttonsContainer}>
-          <FactCheckButton
-            // setHighlightCard={setHighlightCard}
-            suggestedKeywords={data.suggestedKeywords}
-          />
-          <CardsAddToCollectionButton
-            data={
-              {
-                ...collectionTweet,
-                __typename: 'CollectionTweet',
-              } as CollectionTweet
-            }
-          />
+            <Typography variant="body2">
+              {decodeHTML(data.text as string)}
+            </Typography>
+          </Linkify>
+          {!data.photos?.length ||
+          data.photos?.some((photo: any) => photo?.url === null) ? (
+            <div />
+          ) : (
+            <ImageList
+              className={classes.imageList}
+              rowHeight={140}
+              cols={itemListCols(data.photos?.length)}
+            >
+              {data.photos?.map((photo: any) => (
+                <ImageListItem key={photo?.mediaKey} cols={1}>
+                  <img src={photo?.url as string} alt={photo?.type as string} />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          )}
+          <Typography className={classes.date}>
+            {formatTimeAndDate(data.publishedAt)}
+          </Typography>
+          <div className={classes.buttonsContainer}>
+            <FactCheckButton
+              // setHighlightCard={setHighlightCard}
+              suggestedKeywords={data.suggestedKeywords}
+            />
+            <CardsAddToCollectionButton
+              data={
+                {
+                  ...collectionTweet,
+                  __typename: 'CollectionTweet',
+                } as CollectionTweet
+              }
+            />
+          </div>
         </div>
       </CardsContainer>
     </div>

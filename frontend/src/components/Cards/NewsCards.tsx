@@ -51,78 +51,86 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
             <div />
           )}
         </div>
-        <NewsAPITitleContainer>
-          <Avatar
-            style={{
-              backgroundColor: randomColor(data.sourceName as string),
-              color: 'white',
-            }}
-            className={classes.profileAvatars}
-          >
-            {data.sourceName?.charAt(0)}
-          </Avatar>
-          <AccountNameContainer>
-            <Typography style={{ fontWeight: 600 }}>
-              {truncateName(data.sourceName as string, 18)}
-            </Typography>
-          </AccountNameContainer>
-          <NewsIcon className={classes.cardsIcon} />
-        </NewsAPITitleContainer>
-        <Typography variant="body2">{data.description}</Typography>
-        {!data.urlToImage ? (
-          <a
-            target="_blank"
-            className={classes.link}
-            href={data?.url as string}
-          >
-            <Typography variant="body2">{data.title}</Typography>
-          </a>
-        ) : (
-          <NewsAPIContentContainer>
-            <div
+        <div
+          className={
+            data.__typename === 'CollectionArticle'
+              ? classes.collectionCardsContentContainer
+              : classes.cardsContentContainer
+          }
+        >
+          <NewsAPITitleContainer>
+            <Avatar
               style={{
-                backgroundImage: `url(${data.urlToImage})`,
+                backgroundColor: randomColor(data.sourceName as string),
+                color: 'white',
               }}
-              className={classes.imageContainer}
+              className={classes.profileAvatars}
             >
-              <div className={classes.linkIconDiv}>
-                <a
-                  target="_blank"
-                  className={classes.link}
-                  href={data?.url as string}
-                >
-                  <OpenInNewIcon className={classes.linkIcon} />
-                </a>
-              </div>
-            </div>
-
+              {data.sourceName?.charAt(0)}
+            </Avatar>
+            <AccountNameContainer>
+              <Typography style={{ fontWeight: 600 }}>
+                {truncateName(data.sourceName as string, 18)}
+              </Typography>
+            </AccountNameContainer>
+            <NewsIcon className={classes.cardsIcon} />
+          </NewsAPITitleContainer>
+          <Typography variant="body2">{data.description}</Typography>
+          {!data.urlToImage ? (
             <a
               target="_blank"
               className={classes.link}
               href={data?.url as string}
             >
-              <Typography className={classes.description}>
-                {data.title}
-              </Typography>
+              <Typography variant="body2">{data.title}</Typography>
             </a>
-          </NewsAPIContentContainer>
-        )}
-        <Typography className={classes.date}>
-          {formatTimeAndDate(data.publishedAt)}
-        </Typography>
-        <div className={classes.buttonsContainer}>
-          <FactCheckButton
-            // setHighlightCard={setHighlightCard}
-            suggestedKeywords={data.suggestedKeywords}
-          />
-          <CardsAddToCollectionButton
-            data={
-              {
-                ...collectionArticle,
-                __typename: 'CollectionArticle',
-              } as CollectionArticle
-            }
-          />
+          ) : (
+            <NewsAPIContentContainer>
+              <div
+                style={{
+                  backgroundImage: `url(${data.urlToImage})`,
+                }}
+                className={classes.imageContainer}
+              >
+                <div className={classes.linkIconDiv}>
+                  <a
+                    target="_blank"
+                    className={classes.link}
+                    href={data?.url as string}
+                  >
+                    <OpenInNewIcon className={classes.linkIcon} />
+                  </a>
+                </div>
+              </div>
+
+              <a
+                target="_blank"
+                className={classes.link}
+                href={data?.url as string}
+              >
+                <Typography className={classes.description}>
+                  {data.title}
+                </Typography>
+              </a>
+            </NewsAPIContentContainer>
+          )}
+          <Typography className={classes.date}>
+            {formatTimeAndDate(data.publishedAt)}
+          </Typography>
+          <div className={classes.buttonsContainer}>
+            <FactCheckButton
+              // setHighlightCard={setHighlightCard}
+              suggestedKeywords={data.suggestedKeywords}
+            />
+            <CardsAddToCollectionButton
+              data={
+                {
+                  ...collectionArticle,
+                  __typename: 'CollectionArticle',
+                } as CollectionArticle
+              }
+            />
+          </div>
         </div>
       </CardsContainer>
     </div>

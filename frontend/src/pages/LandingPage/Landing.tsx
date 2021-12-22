@@ -41,7 +41,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100px',
-    backgroundColor: '#0036e7',
+    backgroundColor: '#ffffff',
     flexDirection: 'column',
   },
   sectionTitle: {
@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
   },
   adTitle: {
     fontWeight: 500,
-    color: '#ffffff',
+    color: '#0036e7',
     marginBottom: '20px',
   },
   button: {

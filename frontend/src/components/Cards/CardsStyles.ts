@@ -18,6 +18,7 @@ export const useStyles = makeStyles(() => ({
   deleteButtonDiv: {
     display: 'flex',
     justifyContent: 'flex-end',
+    marginRight: '10px',
   },
   empty: {
     padding: '0',
@@ -130,6 +131,12 @@ export const useStyles = makeStyles(() => ({
   claimant: {
     padding: '10px',
   },
+  cardsContentContainer: {
+    padding: '15px',
+  },
+  collectionCardsContentContainer: {
+    padding: '0 15px 15px 15px',
+  },
 }));
 
 export const Item = styled.div`
@@ -183,7 +190,7 @@ export const AccountNameContainer = styled.div`
 
 export const CardsContainer = styled.div`
   border: thin solid lightgray;
-  padding: 15px;
+  // padding: 15px;
   margin-bottom: 5px;
   background-color: white;
   overflow: hidden;
