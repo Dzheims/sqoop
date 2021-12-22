@@ -63,7 +63,7 @@ const SignUpSuccessAlertBox = ({ userName, password }: FormValues) => {
       },
       onCompleted: ({ signin }) => {
         Cookies.set(AUTH_TOKEN, signin?.jwtToken as string);
-        history.push('/');
+        history.push('/home');
       },
     }
   );

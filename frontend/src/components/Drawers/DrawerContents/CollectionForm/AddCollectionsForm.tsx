@@ -101,7 +101,6 @@ const AddCollectionForm = ({
             success: true,
           });
           setdisableCreateButton(true);
-          history.push('/');
           drawerStateChanger({ isOpen: false, current: '' });
           scrollToElement(collectionForm.title);
         },
