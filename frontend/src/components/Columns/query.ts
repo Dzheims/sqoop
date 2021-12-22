@@ -66,8 +66,22 @@ export const COLLECTION_CONTENTS_QUERY = gql`
     collectionContents(collectionId: $collectionId) {
       ... on CollectionTweet {
         id
+        name
         tweetId
+        authorId
+        profileImageUrl
+        publishedAt
+        suggestedKeywords
+        text
+        username
+        verified
         collectionId
+        createdAt
+        photos {
+          mediaKey
+          type
+          url
+        }
       }
       ... on CollectionArticle {
         id
@@ -117,7 +131,7 @@ export const COLLECTION_TWEETS = gql`
   query CollectionTweets($id: String!) {
     tweetLookup(id: $id) {
       authorId
-      createdAt
+      publishedAt
       tweetId
       name
       photos {

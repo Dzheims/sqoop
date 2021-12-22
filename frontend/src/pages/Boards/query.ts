@@ -31,7 +31,7 @@ export const GET_TWITTER_API_CONTENTS_QUERY = gql`
   query getTwitterAPIContents($keyword: [String], $sources: [String]) {
     searchTweets(keyword: $keyword, sources: $sources) {
       authorId
-      createdAt
+      publishedAt
       tweetId
       name
       photos {

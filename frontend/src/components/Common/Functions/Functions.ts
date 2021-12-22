@@ -6,7 +6,7 @@ export const formatTimeAndDate = (date: any) => {
 };
 
 export const truncateName = (name: string, length: number) => {
-  if (name === undefined) return '';
+  if (!name || name === undefined) return '';
   return name.length < length ? name : name.substring(0, length - 1) + '...';
 };
 

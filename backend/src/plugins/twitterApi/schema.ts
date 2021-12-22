@@ -3,7 +3,7 @@ export const tweet = gql`
   type Tweet {
     tweetId: String
     authorId: String
-    createdAt: String
+    publishedAt: String
     text: String
     name: String
     profileImageUrl: String

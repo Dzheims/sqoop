@@ -53,6 +53,7 @@
     "node-flywaydb": "^3.0.7",
     "pg-connection-string": "^2.5.0",
     "postgraphile": "^4.12.3",
+    "postgraphile-plugin-nested-mutations": "^1.1.0",
     "scripty": "^2.0.0"
   }
 }

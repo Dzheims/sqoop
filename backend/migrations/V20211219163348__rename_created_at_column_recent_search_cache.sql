@@ -1,0 +1,1 @@
+ALTER TABLE twitter_recent_search_cache RENAME created_at TO published_at

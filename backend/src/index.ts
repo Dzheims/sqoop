@@ -13,6 +13,8 @@ import compression from 'compression';
 import path from 'path';
 import * as Environment from './Environment';
 
+const PostGraphileNestedMutations = require('postgraphile-plugin-nested-mutations');
+
 require('dotenv').config();
 
 const port = process.env.PORT || 5050;
@@ -38,6 +40,7 @@ app
       appendPlugins: [
         PgSimplifyInflector,
         TagsFilePlugin,
+        PostGraphileNestedMutations,
         NewsApiPlugin,
         TwitterApiPlugin,
         VeraFilesPlugin,
@@ -52,11 +55,15 @@ app
         '../../frontend',
         'schema.graphql'
       ),
-      enhanceGraphiql: Environment.isDev,
+      enhanceGraphiql: true,
+      allowExplain: (req) => {
+        return true;
+      },
       disableQueryLog: Environment.isDev,
       simpleCollections: 'both',
       graphileBuildOptions: {
         pgOmitListSuffix: true,
+        nestedMutationsSimpleFieldNames: true,
       },
       jwtSecret: process.env.JWT_SECRET,
       jwtPgTypeIdentifier: 'public.jwt_token',

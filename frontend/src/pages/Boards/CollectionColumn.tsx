@@ -4,6 +4,7 @@ import CollectionTweets from './CollectionTweetsData';
 import NewsCards from '../../components/Cards/NewsCards';
 import VeraFilesCards from '../../components/Cards/VeraFilesCards';
 import GoogleFactCheckCards from '../../components/Cards/GoogleFactCheckCards';
+import TwitterCards from '../../components/Cards/TwitterCards';
 
 interface CollectionContentsDataProps {
   data: CollectionContentsQuery;
@@ -12,7 +13,7 @@ interface CollectionContentsDataProps {
 const getCollectionContentType = (value: any) => {
   switch (value.__typename) {
     case 'CollectionTweet':
-      return <CollectionTweets dataProps={value} />;
+      return <TwitterCards data={value} />;
     case 'CollectionArticle':
       return <NewsCards data={value} />;
     case 'CollectionVeraFile':

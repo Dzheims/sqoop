@@ -28,12 +28,10 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
     data as Article;
 
   useEffect(() => {
-    if (data.__typename === 'Article') {
-      if (data.suggestedKeywords === state.suggestedKeyWords) {
-        setHighlightCard(!highlightCard);
-      } else {
-        setHighlightCard(false);
-      }
+    if (data.suggestedKeywords === state.suggestedKeyWords) {
+      setHighlightCard(!highlightCard);
+    } else {
+      setHighlightCard(false);
     }
   }, [state.suggestedKeyWords]);
 

@@ -177,7 +177,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
     verified,
     username,
     photos,
-    createdAt,
+    publishedAt,
     suggestedKeywords,
     text,
     __typename,
@@ -278,7 +278,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
               </ImageList>
             )}
             <Typography className={classes.date}>
-              {formatTimeAndDate(data.createdAt)}
+              {formatTimeAndDate(data.publishedAt)}
             </Typography>
             <div className={classes.buttonsContainer}>
               <FactCheckButton

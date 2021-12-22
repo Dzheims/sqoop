@@ -21,7 +21,7 @@ const CollectionColumnData: React.FC<CollectionsColumnDataProps> = ({
     return (
       <Error
         header="Oops!"
-        subHeader="Something went wrong"
+        subHeader={error.message}
         refetchQueries={refetch()}
       />
     );
