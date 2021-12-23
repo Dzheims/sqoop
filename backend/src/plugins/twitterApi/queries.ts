@@ -6,7 +6,7 @@ require('dotenv').config();
 
 interface searchParams {
   keyword: string;
-  sources: string[];
+  sources: string[] | string;
 }
 
 interface tweetLookupParams {
@@ -19,9 +19,10 @@ interface twitter_account_username {
 
 export const queryFormatter = ({ keyword, sources }: searchParams) => {
   if (!sources.length) return keyword;
-  const formattedSources = sources
-    .map((value) => `from:${value.replace(/^@*/, '')}`)
-    .join(' OR ');
+  const formattedSources =
+    typeof sources === 'string'
+      ? `from:${sources}`
+      : sources.map((value) => `from:${value.replace(/^@*/, '')}`).join(' OR ');
   if (!keyword) return `(${formattedSources})`;
   return `${keyword} (${formattedSources})`;
 };
@@ -42,7 +43,7 @@ export const resolvers = {
 
       await pgClient.query(
         `DELETE FROM twitter_recent_search_requests WHERE keyword = $1 AND sources = $2 AND created_at < Now() - INTERVAL '15 MINUTES'`,
-        [keyword, sources]
+        [keyword || '', sources || '']
       );
 
       const {
@@ -88,13 +89,6 @@ export const resolvers = {
         return camelcaseKeys(twitterRecentSearchCache, { deep: true });
       }
 
-      const {
-        rows: [twitter_recent_search_request_id],
-      } = await pgClient.query(
-        `INSERT INTO twitter_recent_search_requests (keyword, sources) VALUES ($1, $2) RETURNING id`,
-        [keyword || '', sources || '']
-      );
-
       const { rows } = await pgClient.query(
         `SELECT account_username FROM twitter_sources`
       );
@@ -127,6 +121,13 @@ export const resolvers = {
       const result = await response.json();
 
       if (result.error) throw new Error(result.error.message);
+
+      const {
+        rows: [twitter_recent_search_request_id],
+      } = await pgClient.query(
+        `INSERT INTO twitter_recent_search_requests (keyword, sources) VALUES ($1, $2) RETURNING id`,
+        [keyword || '', sources || '']
+      );
 
       const searchTweets = result.data
         ? result.data.map((tweet: any) => {
