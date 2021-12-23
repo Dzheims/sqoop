@@ -50,7 +50,10 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
 
   return (
     <div>
-      <CardsContainer key={data.tweetId}>
+      <CardsContainer
+        key={data.tweetId}
+        className={highlightCard ? classes.highlightBorder : classes.border}
+      >
         <div className={classes.deleteButtonDiv}>
           {data.__typename === 'CollectionTweet' ? (
             <DeleteCollectionContentButton data={data} />

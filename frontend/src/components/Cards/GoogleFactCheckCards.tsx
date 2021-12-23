@@ -20,7 +20,7 @@ const GoogleFactCheckCards: React.FC<GoogleFactCheckProps> = ({
 
   return (
     <div key={data.claimDate}>
-      <CardsContainer>
+      <CardsContainer className={classes.border}>
         <div className={classes.deleteButtonDiv}>
           {data.__typename === 'CollectionGoogleFactCheck' ? (
             <DeleteCollectionContentButton data={data} />

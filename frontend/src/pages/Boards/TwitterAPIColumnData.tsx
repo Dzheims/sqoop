@@ -19,7 +19,7 @@ const TwitterAPIColumnData: React.FC<TwitterApiColumnDataProps> = ({
   const { data, loading, error, refetch } =
     useQuery<GetTwitterApiContentsQuery>(GET_TWITTER_API_CONTENTS_QUERY, {
       variables: { keyword, sources },
-      pollInterval: 60000,
+      pollInterval: 3000,
     });
   if (error)
     return (

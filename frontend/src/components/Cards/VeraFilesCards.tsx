@@ -21,7 +21,7 @@ const VeraFilesCards: React.FC<VeraFactCheckProps> = ({
 
   return (
     <div key={data.url}>
-      <CardsContainer key={data.id}>
+      <CardsContainer key={data.id} className={classes.border}>
         <div className={classes.deleteButtonDiv}>
           {data.__typename === 'CollectionVeraFile' ? (
             <DeleteCollectionContentButton data={data} />

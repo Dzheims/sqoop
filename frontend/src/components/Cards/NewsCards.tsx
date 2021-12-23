@@ -43,7 +43,10 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
 
   return (
     <div key={data.title}>
-      <CardsContainer key={data.title}>
+      <CardsContainer
+        key={data.title}
+        className={highlightCard ? classes.highlightBorder : classes.border}
+      >
         <div className={classes.deleteButtonDiv}>
           {data.__typename === 'CollectionArticle' ? (
             <DeleteCollectionContentButton data={data} />
