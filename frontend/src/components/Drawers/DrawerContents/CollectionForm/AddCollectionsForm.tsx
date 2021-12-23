@@ -102,7 +102,9 @@ const AddCollectionForm = ({
           });
           setdisableCreateButton(true);
           drawerStateChanger({ isOpen: false, current: '' });
-          scrollToElement(collectionForm.title);
+          scrollToElement(
+            new Date(createCollection?.collection?.createdAt).toUTCString()
+          );
         },
         onError: () => {},
         awaitRefetchQueries: true,

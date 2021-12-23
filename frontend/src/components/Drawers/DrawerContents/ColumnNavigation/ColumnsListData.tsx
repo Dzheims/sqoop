@@ -27,7 +27,6 @@ const ColumnsListData = () => {
         refetchQueries={refetch()}
       />
     );
-
   return <ColumnNavigation data={data} />;
 };
 

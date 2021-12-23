@@ -6,6 +6,7 @@ export const CREATE_TWITTER_FEED = gql`
       twitterFeed {
         id
         title
+        createdAt
       }
     }
   }
