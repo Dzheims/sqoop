@@ -218,7 +218,9 @@ const AddNewsAPIFeedForm = ({
       });
       setdisableCreateButton(true);
       drawerStateChanger({ isOpen: false, current: '' });
-      scrollToElement(newsFeedForm.newsFeed.title);
+      scrollToElement(
+        new Date(createNewsFeed?.newsFeed?.createdAt).toUTCString()
+      );
     },
     onError: () => {},
     awaitRefetchQueries: true,

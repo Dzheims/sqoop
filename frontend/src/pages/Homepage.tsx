@@ -46,7 +46,7 @@ export interface DrawerState {
 const Homepage = () => {
   const classes = useStyles();
   const ref = useRef<HTMLDivElement>(null);
-  const [category, setCategory] = useState('GENERAL');
+
   const [isFirstElement, setIsFirstElement] = useState(false);
   const [isLastElement, setIsLastElement] = useState(false);
   const [scrollLeft, setScrollLeft] = useState(0);
@@ -127,7 +127,7 @@ const Homepage = () => {
                 className={classes.columnContainers}
                 onScroll={onScroll}
               >
-                <DefaultColumns category={category} setCategory={setCategory} />
+                <DefaultColumns />
                 <ColumnsData />
                 {!isFirstElement && (
                   <Fab

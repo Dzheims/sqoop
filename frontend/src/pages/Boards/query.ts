@@ -28,7 +28,7 @@ export const GET_NEWS_API_CONTENTS_QUERY = gql`
 `;
 
 export const GET_TWITTER_API_CONTENTS_QUERY = gql`
-  query getTwitterAPIContents($keyword: [String], $sources: [String]) {
+  query getTwitterAPIContents($keyword: String, $sources: String) {
     searchTweets(keyword: $keyword, sources: $sources) {
       authorId
       publishedAt

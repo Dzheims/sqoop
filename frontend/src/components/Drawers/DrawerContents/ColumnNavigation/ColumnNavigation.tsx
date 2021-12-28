@@ -96,7 +96,11 @@ const ColumnNavigation: React.FC<ColumnsListProps> = ({
         ))}
         {data.getColumnResult.map((value) => (
           <ListItem disablePadding className={classes.listItem}>
-            <ListItemButton onClick={() => scrollToElement(value.title)}>
+            <ListItemButton
+              onClick={() =>
+                scrollToElement(new Date(value.createdAt).toUTCString())
+              }
+            >
               {getTypeIcons(value.__typename)}
               <ListItemText primary={value.title} />
             </ListItemButton>

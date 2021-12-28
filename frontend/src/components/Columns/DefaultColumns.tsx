@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import ScrollContainer from 'react-indiana-drag-scroll';
@@ -70,16 +70,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface DefaultColumnProps {
-  category: string;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const DefaultColumns: React.FC<DefaultColumnProps> = ({
-  category,
-  setCategory,
-}: DefaultColumnProps) => {
+const DefaultColumns: React.FC = () => {
   const classes = useStyles();
+  const [category, setCategory] = useState('GENERAL');
 
   const iconStyle = { color: '#0036e7', height: '18px', width: '18px' };
 

@@ -227,7 +227,7 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
           {data.getColumnResult?.flatMap((value, index) => (
             <div
               key={value.createdAt}
-              id={value.title}
+              id={new Date(value.createdAt).toUTCString()}
               className={classes.columnHighlightBorder}
               // onBlur={onBlur}
               // onFocus={onFocus}

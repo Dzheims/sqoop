@@ -5,6 +5,7 @@ const CREATE_COLLECTION = gql`
     createCollection(input: $input) {
       collection {
         title
+        createdAt
       }
     }
   }

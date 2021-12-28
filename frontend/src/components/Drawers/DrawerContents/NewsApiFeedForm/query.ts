@@ -6,6 +6,7 @@ export const CREATE_NEWS_FEED = gql`
       newsFeed {
         id
         title
+        createdAt
       }
     }
   }

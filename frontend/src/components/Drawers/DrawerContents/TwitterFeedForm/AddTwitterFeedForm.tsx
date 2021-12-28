@@ -141,7 +141,9 @@ const AddTwitterFeedForm = ({
       });
       setdisableCreateButton(true);
       drawerStateChanger({ isOpen: false, current: '' });
-      scrollToElement(twitterFeedForm.twitterFeed.title);
+      scrollToElement(
+        new Date(createTwitterFeed?.twitterFeed?.createdAt).toUTCString()
+      );
     },
     onError: () => {},
     awaitRefetchQueries: true,

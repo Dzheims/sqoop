@@ -1278,7 +1278,7 @@ type Query implements Node {
     from: String
     to: String
   ): [Article!]!
-  searchTweets(keyword: [String], sources: [String]): [Tweet!]!
+  searchTweets(keyword: String, sources: String): [Tweet!]!
   searchAllTweets(
     keyword: [String!]!
     sources: [String]

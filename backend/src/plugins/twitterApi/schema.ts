@@ -24,7 +24,7 @@ export const typeDefs = gql`
   ${tweet}
   ${twitterPhoto}
   extend type Query {
-    searchTweets(keyword: [String], sources: [String]): [Tweet!]!
+    searchTweets(keyword: String, sources: String): [Tweet!]!
     searchAllTweets(
       keyword: [String!]!
       sources: [String]
