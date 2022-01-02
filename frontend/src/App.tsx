@@ -8,12 +8,9 @@ import {
 } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import theme from './theme';
-import Homepage from './pages/Homepage';
+import Homepage from './pages/Homepage/Homepage';
 import SignUp from './pages/SignupPage/SignUp';
 import SignIn from './pages/SignInPage/SignIn';
-import { ColumnsData } from './components/Columns/ColumnsData';
-import Board from './pages/Boards/BoardsSample/Board';
-import Columns from './components/Columns/Column';
 import AUTH_TOKEN from './constants';
 import Landing from './pages/LandingPage/Landing';
 

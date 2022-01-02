@@ -7,7 +7,7 @@ import {
   cleanup,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import AddCollectionForm from '../components/Drawers/DrawerContents/CollectionForm/AddCollectionsForm';
+import AddCollectionForm from '../components/SideNavigationDrawer/AddColumn/CollectionForm/AddCollectionsForm';
 
 let documentBody: RenderResult;
 

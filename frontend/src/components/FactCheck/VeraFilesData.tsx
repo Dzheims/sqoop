@@ -4,7 +4,7 @@ import { VeraFactCheckSearchResultQuery } from './query.generated';
 import { VERA_FACTCHECK_SEARCH_QUERY } from './query';
 import Loader from '../Common/Loader';
 import Error from '../Common/Error';
-import VeraFilesCards from '../Cards/VeraFilesCards';
+import VeraFilesCards from '../Cards/VeraFilesCard';
 
 interface SearchQueryProps {
   keyword: string;

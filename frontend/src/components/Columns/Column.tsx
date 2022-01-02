@@ -18,9 +18,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import FeedIcon from '@mui/icons-material/Feed';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
-import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
-import TwitterAPIColumnData from '../../pages/Boards/TwitterAPIColumnData';
-import CategoriesButtons from '../Categories/CategoriesButtons';
+import NewsAPIColumnData from '../ColumnContents/NewsContentsData';
+import TwitterAPIColumnData from '../ColumnContents/TwitterContentsData';
 import { GetColumnsQuery } from './query.generated';
 import { Category } from '../../types.generated';
 import {
@@ -48,11 +47,11 @@ import {
   DELETE_NEWS_MUTATION,
   DELETE_COLLECTION_MUTATION,
 } from './query';
-import { GET_COLLECTIONS_LIST_QUERY } from '../Collections/query';
-import CollectionColumnData from '../../pages/Boards/CollectionColumnData';
+import { GET_COLLECTIONS_LIST_QUERY } from '../Cards/CardsButtons/AddToCollection/CollectionsList/query';
+import CollectionColumnData from '../ColumnContents/CollectionContentsData';
 import currentUserId from '../../authentication/currentUserId';
-import { CollectionsListStateProvider } from '../Collections/CollectionsListState';
-import { NavDrawerStateProvider } from '../Navigation/NavDrawerState';
+import { CollectionsListStateProvider } from '../Cards/CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
+import { NavDrawerStateProvider } from '../SideNavigation/SideNavigationDrawerState';
 import ScrollContainer from 'react-indiana-drag-scroll';
 
 const getFeedType = (value: any) => {

@@ -7,7 +7,7 @@ import {
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import TwitterCards from '../components/Cards/TwitterCards';
+import TwitterCards from '../components/Cards/TwitterCard';
 import { Tweet } from '../types.generated';
 
 const data: Tweet = {

@@ -7,7 +7,7 @@ import {
   cleanup,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import FactCheckDrawerContent from '../components/Drawers/DrawerContents/FactCheck/FactCheckDrawerContent';
+import FactCheckDrawerContent from '../components/FactCheck/FactCheckDrawerContent';
 
 describe('Fact Check Drawer', () => {
   beforeEach(() => {

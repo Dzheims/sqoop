@@ -6,7 +6,7 @@ import {
   COLLECTION_CONTENTS_QUERY,
   COLLECTION_TWEETS,
 } from '../components/Columns/query';
-import CollectionColumnData from '../pages/Boards/CollectionColumnData';
+import CollectionColumnData from '../components/ColumnContents/CollectionContentsData';
 
 const mocks: ReadonlyArray<MockedResponse> = [
   {

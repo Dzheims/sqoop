@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { GET_TWITTER_API_CONTENTS_QUERY } from '../pages/Boards/query';
-import TwitterAPIColumnData from '../pages/Boards/TwitterAPIColumnData';
+import { GET_TWITTER_API_CONTENTS_QUERY } from '../components/ColumnContents/query';
+import TwitterAPIColumnData from '../components/ColumnContents/TwitterContentsData';
 import {
   SEARCH_NEWS_API_CONTENTS_QUERY,
   SEARCH_TWITTER_CONTENTS_QUERY,
-} from '../components/Drawers/DrawerContents/Search/query';
-import SearchAllTweetsColumnData from '../components/Drawers/DrawerContents/Search/SearchTwitterColumnData';
+} from '../components/SideNavigationDrawer/DrawerContents/Search/query';
+import SearchAllTweetsColumnData from '../components/SideNavigationDrawer/DrawerContents/Search/SearchTwitterColumnData';
 
 interface SearchQueryProps {
   keyword: string;

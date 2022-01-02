@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { MockedProvider } from '@apollo/client/testing';
-import NewsCards from '../components/Cards/NewsCards';
+import NewsCards from '../components/Cards/NewsCard';
 import { Article } from '../types.generated';
 
 const data: Article = {

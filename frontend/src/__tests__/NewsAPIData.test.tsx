@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { GET_NEWS_API_CONTENTS_QUERY } from '../pages/Boards/query';
-import NewsAPIColumnData from '../pages/Boards/NewsAPIColumnData';
+import { GET_NEWS_API_CONTENTS_QUERY } from '../components/ColumnContents/query';
+import NewsAPIColumnData from '../components/ColumnContents/NewsContentsData';
 import { Category } from '../types.generated';
 
 const mocks: ReadonlyArray<MockedResponse> = [

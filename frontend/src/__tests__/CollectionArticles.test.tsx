@@ -8,7 +8,7 @@ import {
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import NewsCards from '../components/Cards/NewsCards';
+import NewsCards from '../components/Cards/NewsCard';
 import { CollectionArticle } from '../types.generated';
 
 const data: CollectionArticle = {

@@ -12,8 +12,8 @@ import {
   DefaultItemContainer,
   Title,
 } from './ColumnsStyle';
-import NewsAPIColumnData from '../../pages/Boards/NewsAPIColumnData';
-import TwitterAPIColumnData from '../../pages/Boards/TwitterAPIColumnData';
+import NewsAPIColumnData from '../ColumnContents/NewsContentsData';
+import TwitterAPIColumnData from '../ColumnContents/TwitterContentsData';
 import { Category } from '../../types.generated';
 
 const useStyles = makeStyles((theme) => ({
