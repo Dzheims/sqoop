@@ -4,11 +4,8 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { GET_TWITTER_API_CONTENTS_QUERY } from '../components/ColumnContents/query';
 import TwitterAPIColumnData from '../components/ColumnContents/TwitterContentsData';
-import {
-  SEARCH_NEWS_API_CONTENTS_QUERY,
-  SEARCH_TWITTER_CONTENTS_QUERY,
-} from '../components/SideNavigationDrawer/DrawerContents/Search/query';
-import SearchAllTweetsColumnData from '../components/SideNavigationDrawer/DrawerContents/Search/SearchTwitterColumnData';
+import { SEARCH_TWITTER_CONTENTS_QUERY } from '../components/SideNavigationDrawer/Search/query';
+import SearchAllTweetsColumnData from '../components/SideNavigationDrawer/Search/SearchTwitterColumnData';
 
 interface SearchQueryProps {
   keyword: string;
@@ -31,7 +28,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
           {
             authorId: 'abcdefg',
             tweetId: '123409781935',
-            createdAt: '2021-09-02T15:13:49.000Z',
+            publishedAt: '2021-09-02T15:13:49.000Z',
             name: 'Sqoop News',
             photos: [
               {
@@ -49,7 +46,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
           {
             authorId: 'x9y8z7',
             tweetId: '123409781935',
-            createdAt: '2021-09-02T16:13:49.000Z',
+            publishedAt: '2021-09-02T16:13:49.000Z',
             name: 'Google News',
             photos: [
               {
@@ -72,7 +69,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
           {
             authorId: 'x9y8z7',
             tweetId: '123409781935',
-            createdAt: '2021-09-02T17:13:49.000Z',
+            publishedAt: '2021-09-02T17:13:49.000Z',
             name: 'ABS-CBN News',
             photos: [
               {

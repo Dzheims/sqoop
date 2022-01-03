@@ -23,7 +23,7 @@ describe('Fact Check Drawer', () => {
   });
   test('input search keyword', () => {
     const searchTextfield = screen.getByRole('textbox', { name: 'Search' });
-    expect(searchTextfield).toHaveValue('');
+    expect(searchTextfield).toHaveValue('jumps');
     fireEvent.change(searchTextfield, {
       target: { value: 'Marcos' },
     });

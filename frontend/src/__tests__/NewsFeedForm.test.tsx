@@ -8,9 +8,8 @@ import {
   wait,
 } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import AddNewsAPIFeedForm from '../components/SideNavigationDrawer/DrawerContents/NewsApiFeedForm/AddNewsAPIFeedForm';
-import { NEWS_SOURCES } from '../components/SideNavigationDrawer/DrawerContents/NewsApiFeedForm/query';
-import NewsSourcesData from '../components/SideNavigationDrawer/DrawerContents/NewsApiFeedForm/NewsSourcesData';
+import AddNewsAPIFeedForm from '../components/SideNavigationDrawer/AddColumn/NewsFeedForm/AddNewsAPIFeedForm';
+import { NEWS_SOURCES } from '../components/SideNavigationDrawer/AddColumn/NewsFeedForm/query';
 
 let documentBody: RenderResult;
 const mocks: ReadonlyArray<MockedResponse> = [

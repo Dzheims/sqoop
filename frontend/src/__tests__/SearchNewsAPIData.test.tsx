@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { GET_NEWS_API_CONTENTS_QUERY } from '../components/ColumnContents/query';
-import NewsAPIColumnData from '../components/ColumnContents/NewsContentsData';
-import { Category } from '../types.generated';
-import { SEARCH_NEWS_API_CONTENTS_QUERY } from '../components/SideNavigationDrawer/DrawerContents/Search/query';
-import SearchNewsAPIColumnData from '../components/SideNavigationDrawer/DrawerContents/Search/SearchNewsApiColumnData';
+import SearchNewsAPIColumnData from '../components/SideNavigationDrawer/Search/SearchNewsColumnData';
+import { SEARCH_NEWS_API_CONTENTS_QUERY } from '../components/SideNavigationDrawer/Search/query';
 
 const mocks: ReadonlyArray<MockedResponse> = [
   {
