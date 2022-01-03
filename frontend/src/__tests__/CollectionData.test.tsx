@@ -2,11 +2,8 @@ import React from 'react';
 import { render, RenderResult, cleanup } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import {
-  COLLECTION_CONTENTS_QUERY,
-  COLLECTION_TWEETS,
-} from '../components/Columns/query';
 import CollectionColumnData from '../components/ColumnContents/CollectionContentsData';
+import { COLLECTION_CONTENTS_QUERY } from '../components/ColumnContents/query';
 
 const mocks: ReadonlyArray<MockedResponse> = [
   {
@@ -19,34 +16,22 @@ const mocks: ReadonlyArray<MockedResponse> = [
         collectionContents: [
           {
             __typename: 'CollectionTweet',
-            tweetId: '123456789',
             collectionId: 1,
+            createdAt: '2021-11-12T10:30:47.000Z',
             id: 1,
+            authorId: '15448383',
+            publishedAt: '2021-10-12T10:30:47.000Z',
+            tweetId: '1447872367074611210',
+            name: 'Inquirer',
+            photos: [],
+            profileImageUrl:
+              'https://pbs.twimg.com/profile_images/1427192891126915082/NNybyA9y_normal.jpg',
+            suggestedKeywords: ['man', 'tagged', 'wanted', 'persons'],
+            text: 'A man tagged as one of the most wanted persons in Sta. Cruz, Zambales.',
+            username: 'inquirerdotnet',
+            verified: true,
           },
         ],
-      },
-    },
-  },
-  {
-    request: {
-      query: COLLECTION_TWEETS,
-      variables: { id: '123456789' },
-    },
-    result: {
-      data: {
-        tweetLookup: {
-          authorId: '15448383',
-          createdAt: '2021-10-12T10:30:47.000Z',
-          tweetId: '123456789',
-          name: 'Inquirer',
-          photos: null,
-          profileImageUrl:
-            'https://pbs.twimg.com/profile_images/1427192891126915082/NNybyA9y_normal.jpg',
-          suggestedKeywords: ['man', 'tagged', 'wanted', 'persons'],
-          text: 'A man tagged as one of the most wanted persons in Sta. Cruz, Zambales.',
-          username: 'inquirerdotnet',
-          verified: true,
-        },
       },
     },
   },

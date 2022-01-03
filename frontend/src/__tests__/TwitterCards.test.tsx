@@ -12,7 +12,7 @@ import { Tweet } from '../types.generated';
 
 const data: Tweet = {
   authorId: '15448383',
-  createdAt: '2021-10-12T10:30:47.000Z',
+  publishedAt: '2021-10-12T10:30:47.000Z',
   tweetId: '1447872367074611210',
   name: 'Department of Foreign Affairs',
   photos: [],
@@ -34,18 +34,7 @@ describe('Twitter API contents', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <TwitterCards
-                  data={data}
-                  isUnderCollections={false}
-                  collectionTweet={{
-                    tweetId: '1447872367074611210',
-                    collectionId: 1,
-                    createdAt: '2021-10-12T10:30:47.000Z',
-                    collection: null,
-                    id: 1,
-                    nodeId: '123',
-                  }}
-                />
+                <TwitterCards data={data} />
               </div>
             )}
           </Droppable>

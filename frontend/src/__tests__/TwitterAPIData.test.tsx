@@ -21,7 +21,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
           {
             authorId: 'abcdefg',
             tweetId: '123409781935',
-            createdAt: '2021-09-02T15:13:49.000Z',
+            publishedAt: '2021-09-02T15:13:49.000Z',
             name: 'Sqoop News',
             photos: [
               {
@@ -39,7 +39,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
           {
             authorId: 'x9y8z7',
             tweetId: '123409781935',
-            createdAt: '2021-09-02T16:13:49.000Z',
+            publishedAt: '2021-09-02T16:13:49.000Z',
             name: 'Google News',
             photos: [
               {
@@ -62,7 +62,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
           {
             authorId: 'x9y8z7',
             tweetId: '123409781935',
-            createdAt: '2021-09-02T17:13:49.000Z',
+            publishedAt: '2021-09-02T17:13:49.000Z',
             name: 'ABS-CBN News',
             photos: [
               {

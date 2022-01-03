@@ -10,7 +10,7 @@ import {
 } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SignIn from '../pages/SignInPage/SignIn';
-import Search from '../components/SideNavigationDrawer/DrawerContents/Search/Search';
+import Search from '../components/SideNavigationDrawer/Search/Search';
 
 let documentBody: RenderResult;
 

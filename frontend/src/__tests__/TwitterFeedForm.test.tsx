@@ -8,7 +8,7 @@ import {
   wait,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import AddTwitterFeedForm from '../components/SideNavigationDrawer/DrawerContents/TwitterFeedForm/AddTwitterFeedForm';
+import AddTwitterFeedForm from '../components/SideNavigationDrawer/AddColumn/TwitterFeedForm/AddTwitterFeedForm';
 
 let documentBody: RenderResult;
 
