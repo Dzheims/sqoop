@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Divider,
   List,
@@ -7,13 +7,16 @@ import {
   ListItemButton,
   ListItemText,
   ListSubheader,
+  Typography,
 } from '@mui/material';
+import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useGetCollectionsListQuery } from './query.generated';
 import currentUserId from '../../../../../authentication/currentUserId';
 import Error from '../../../../Common/Error';
 import Loader from '../../../../Common/Loader';
 import { useCollectionsListState } from './CollectionsListState';
+import { useNavDrawerState } from '../../../../SideNavigation/SideNavigationDrawerState';
 
 const useStyles = makeStyles((theme) => ({
   div: {
@@ -45,6 +48,22 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: 8,
     },
   },
+  noCollectionsText: {
+    color: '#585858',
+    fontSize: '14px',
+  },
+  addButton: {
+    textTransform: 'none',
+    marginTop: '10px',
+    width: '100px',
+  },
+  noCollections: {
+    display: 'flex',
+    alignItem: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    marginTop: '15px',
+  },
 }));
 
 const CollectionsList = () => {
@@ -52,6 +71,15 @@ const CollectionsList = () => {
   const { collectionListState, collectionListSetState } =
     useCollectionsListState();
   const [selectedButton, setSelectedButton] = useState(false);
+  const { drawerState, setDrawerState } = useNavDrawerState();
+
+  const handleClick = (currentDrawer: string) => {
+    setDrawerState({
+      ...drawerState,
+      isOpen: true,
+      current: currentDrawer,
+    });
+  };
 
   const { data, loading, error, refetch } = useGetCollectionsListQuery({
     variables: {
@@ -78,6 +106,24 @@ const CollectionsList = () => {
         subHeader="No collections list data"
         refetchQueries={refetch()}
       />
+    );
+  if (data.collections?.length === 0)
+    return (
+      <div className={classes.noCollections}>
+        <Typography className={classes.noCollectionsText}>
+          No collections yet.
+        </Typography>
+        <Button
+          className={classes.addButton}
+          variant="outlined"
+          color="secondary"
+          onClick={() => {
+            handleClick('Collection');
+          }}
+        >
+          Add Now
+        </Button>
+      </div>
     );
 
   const handleSelectButton = () => {

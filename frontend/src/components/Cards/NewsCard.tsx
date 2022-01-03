@@ -78,7 +78,9 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
             </AccountNameContainer>
             <NewsIcon className={classes.cardsIcon} />
           </NewsAPITitleContainer>
-          <Typography variant="body2">{data.description}</Typography>
+          <div className={classes.descriptionContainer}>
+            <Typography variant="body2">{data.description}</Typography>
+          </div>
           {!data.urlToImage ? (
             <a
               target="_blank"
@@ -105,7 +107,6 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                   </a>
                 </div>
               </div>
-
               <a
                 target="_blank"
                 className={classes.link}

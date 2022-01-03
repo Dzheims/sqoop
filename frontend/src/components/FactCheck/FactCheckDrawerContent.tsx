@@ -69,6 +69,15 @@ const useStyles = makeStyles((theme) => ({
   chips: {
     fontSize: '12px',
     color: 'gray',
+    border: '1px solid gray',
+    maxWidth: '100px',
+    marginLeft: '5px',
+    marginTop: '5px',
+  },
+  selectedChips: {
+    fontSize: '12px',
+    color: '#f04b4c',
+    border: '1px solid #f04b4c',
     maxWidth: '100px',
     marginLeft: '5px',
     marginTop: '5px',
@@ -153,7 +162,9 @@ const FactCheckDrawerContent = ({
         {suggestedKeyWords ? (
           suggestedKeyWords.slice(0, 6).map((keyword: string) => (
             <Chip
-              className={classes.chips}
+              className={
+                keyword === searchKey ? classes.selectedChips : classes.chips
+              }
               onClick={() => {
                 setSearch(true);
                 setSearchKey(keyword);

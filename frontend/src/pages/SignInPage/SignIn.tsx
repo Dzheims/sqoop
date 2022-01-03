@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
     textTransform: 'none',
+    alignItems: 'center',
+    display: 'flex',
   },
   welcome: {
     marginTop: theme.spacing(10),

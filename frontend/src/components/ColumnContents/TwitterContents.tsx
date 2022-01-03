@@ -17,15 +17,15 @@ const useStyles = makeStyles(() => ({
 }));
 
 const fabButtonStyle = {
-  position: 'fixed',
+  position: 'absolute',
+  zIndex: 50,
   textTransform: 'none',
-  zIndex: 500,
   boxShadow: 'none',
   width: '125px',
-  marginTop: '20px',
-  color: '#f04b4c',
-  border: '1px solid #f04b4c',
-  backgroundColor: '#ffffff',
+  marginTop: '50px',
+  color: '#ffffff',
+  // border: '1px solid #f04b4c',
+  backgroundColor: '#0036e7',
 } as React.CSSProperties;
 
 const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
@@ -68,7 +68,19 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
           </Fab>
         </div>
       ) : (
-        <div />
+        <div className={classes.fabButtonContainer}>
+          <Fab
+            style={fabButtonStyle}
+            variant="extended"
+            onClick={() => {
+              setHasNewUnreads(false);
+              // scrollToTop();
+            }}
+            size="small"
+          >
+            New Unreads
+          </Fab>
+        </div>
       )}
       {data?.searchTweets?.map((value, index) => (
         <div key={index} ref={ref}>

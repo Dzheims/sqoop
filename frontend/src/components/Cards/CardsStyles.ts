@@ -137,6 +137,10 @@ export const useStyles = makeStyles(() => ({
   collectionCardsContentContainer: {
     padding: '0 15px 15px 15px',
   },
+  descriptionContainer: {
+    width: '250px',
+    overflow: 'hidden',
+  },
 }));
 
 export const Item = styled.div`
@@ -193,7 +197,7 @@ export const CardsContainer = styled.div`
   // padding: 15px;
   margin-bottom: 5px;
   background-color: white;
-  overflow: hidden;
+  // overflow: hidden;
 `;
 export const ContentContainer = styled.div`
   margin-top: 10px;
