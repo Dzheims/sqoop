@@ -2,24 +2,18 @@ import React, { useState } from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { GET_NEWS_API_CONTENTS_QUERY } from '../components/ColumnContents/query';
-import NewsAPIColumnData from '../components/ColumnContents/NewsContentsData';
-import { Category } from '../types.generated';
+import SearchNewsColumnData from '../components/SideNavigationDrawer/Search/SearchNewsColumnData';
+import { SEARCH_NEWS_API_CONTENTS_QUERY } from '../components/SideNavigationDrawer/Search/query';
 
 const mocks: ReadonlyArray<MockedResponse> = [
   {
     request: {
-      query: GET_NEWS_API_CONTENTS_QUERY,
-      variables: {
-        keyword: null,
-        country: '',
-        category: 'GENERAL',
-        sources: null,
-      },
+      query: SEARCH_NEWS_API_CONTENTS_QUERY,
+      variables: { keyword: 'BBM', sources: null, from: null, to: null },
     },
     result: {
       data: {
-        topHeadlines: [
+        searchArticles: [
           {
             author: 'John Doe',
             title: 'Daily News Updates',
@@ -96,11 +90,11 @@ describe('News API contents', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <NewsAPIColumnData
-                  keyword={null}
-                  country=""
-                  category={'GENERAL' as Category}
+                <SearchNewsColumnData
+                  keyword={'BBM'}
                   sources={null}
+                  from={null}
+                  to={null}
                 />
               </div>
             )}

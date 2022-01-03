@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, RenderResult, cleanup } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import SuccessBox from '../pages/SignupPage/SignUpSuccessAlert';
+import SuccessBox from '../pages/SignUpPage/SignUpSuccessAlert';
 
 let documentBody: RenderResult;
 const mockHistoryPush = jest.fn();

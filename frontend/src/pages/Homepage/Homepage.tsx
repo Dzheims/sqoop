@@ -6,10 +6,10 @@ import Fab from '@mui/material/Fab';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import Cookies from 'js-cookie';
-import { ColumnsData } from '../../components/Columns/ColumnsData';
+import { ColumnData } from '../../components/Columns/ColumnData';
 import NavigationBar from '../../components/SideNavigation/SideNavigationBar';
 import AUTH_TOKEN from '../../constants';
-import FactCheck from '../../components/FactCheck/FactCheck';
+import FactCheckDrawer from '../../components/FactCheck/FactCheckDrawer';
 import { DrawerStateProvider } from '../../components/FactCheck/FactCheckDrawerState';
 import { CollectionsListStateProvider } from '../../components/Cards/CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
 import { NavDrawerStateProvider } from '../../components/SideNavigation/SideNavigationDrawerState';
@@ -120,7 +120,7 @@ const Homepage = () => {
           <NavDrawerStateProvider value={{ isOpen: false, current: '' }}>
             <NavigationBar />
             <Toolbar />
-            <FactCheck />
+            <FactCheckDrawer />
             <div style={{ overflow: 'hidden' }}>
               <div
                 ref={ref}
@@ -128,7 +128,7 @@ const Homepage = () => {
                 onScroll={onScroll}
               >
                 <DefaultColumns />
-                <ColumnsData />
+                <ColumnData />
                 {!isFirstElement && (
                   <Fab
                     onClick={() => buttonScroll(-320)}

@@ -18,9 +18,9 @@ import {
   useStyles,
   IconContainer,
 } from './SideNavigationBarStyles';
-import AddNewsAPIFeedForm from '../SideNavigationDrawer/AddColumn/NewsFeedForm/AddNewsAPIFeedForm';
+import AddNewsFeedForm from '../SideNavigationDrawer/AddColumn/NewsFeedForm/AddNewsFeedForm';
 import AddTwitterFeedForm from '../SideNavigationDrawer/AddColumn/TwitterFeedForm/AddTwitterFeedForm';
-import AddCollectionForm from '../SideNavigationDrawer/AddColumn/CollectionForm/AddCollectionsForm';
+import AddCollectionForm from '../SideNavigationDrawer/AddColumn/CollectionForm/AddCollectionForm';
 import Search from '../SideNavigationDrawer/Search/Search';
 import NavDrawer from './SideNavigationDrawer';
 import ColumnsListData from '../SideNavigationDrawer/ColumnNavigation/ColumnsListData';
@@ -39,7 +39,7 @@ interface SuccessAlert {
   success: boolean;
 }
 
-const NavigationBar = () => {
+const SideNavigationBar = () => {
   const classes = useStyles();
   const { drawerState, setDrawerState } = useNavDrawerState();
   const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
@@ -147,7 +147,7 @@ const NavigationBar = () => {
         return <ColumnsListData />;
       case 'News Feed':
         return (
-          <AddNewsAPIFeedForm
+          <AddNewsFeedForm
             drawerStateChanger={setDrawerState}
             snackbarStateChanger={setSuccessAlert}
           />
@@ -162,7 +162,7 @@ const NavigationBar = () => {
       case 'Collection':
         return (
           <AddCollectionForm
-            drawerStateChanger={setDrawerState}
+            // drawerStateChanger={setDrawerState}
             snackbarStateChanger={setSuccessAlert}
           />
         );
@@ -276,4 +276,4 @@ const NavigationBar = () => {
   );
 };
 
-export default NavigationBar;
+export default SideNavigationBar;

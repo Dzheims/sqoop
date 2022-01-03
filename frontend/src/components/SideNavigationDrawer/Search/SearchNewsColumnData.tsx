@@ -4,22 +4,22 @@ import { SEARCH_NEWS_API_CONTENTS_QUERY } from './query';
 import { SearchNewsApiContentsQuery } from './query.generated';
 import Error from '../../Common/Error';
 import NoContents from '../../Common/NoContents';
-import CardsLoaderSkeleton from '../../Common/Skeletons/CardsLoaderSkeleton';
+import CardLoaderSkeleton from '../../Common/Skeletons/CardLoaderSkeleton';
 import NewsCards from '../../Cards/NewsCard';
 
-interface SearchNewsApiColumnDataProps {
+interface SearchNewsColumnDataProps {
   keyword: string;
   sources: string | null;
   from: string | null;
   to: string | null;
 }
 
-const SearchNewsAPIColumnData: React.FC<SearchNewsApiColumnDataProps> = ({
+const SearchNewsColumnData: React.FC<SearchNewsColumnDataProps> = ({
   keyword,
   sources,
   from,
   to,
-}: SearchNewsApiColumnDataProps) => {
+}: SearchNewsColumnDataProps) => {
   const { data, loading, error, refetch } =
     useQuery<SearchNewsApiContentsQuery>(SEARCH_NEWS_API_CONTENTS_QUERY, {
       variables: { keyword, sources, from, to },
@@ -32,7 +32,7 @@ const SearchNewsAPIColumnData: React.FC<SearchNewsApiColumnDataProps> = ({
         refetchQueries={refetch()}
       />
     );
-  if (loading) return <CardsLoaderSkeleton />;
+  if (loading) return <CardLoaderSkeleton />;
   if (!data)
     return (
       <Error
@@ -53,4 +53,4 @@ const SearchNewsAPIColumnData: React.FC<SearchNewsApiColumnDataProps> = ({
   );
 };
 
-export default SearchNewsAPIColumnData;
+export default SearchNewsColumnData;

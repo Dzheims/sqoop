@@ -5,15 +5,15 @@ import { decodeHTML } from 'entities';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import { CardsContainer, useStyles, ContentContainer } from './CardsStyles';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
-import CardsAddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
+import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
 import { CollectionVeraFile, VeraFiles } from '../../types.generated';
-import DeleteCollectionContentButton from './CardsButtons/RemoveFromCollection/RemoveFromCollection';
+import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
 
 interface VeraFactCheckProps {
   data: VeraFiles | CollectionVeraFile;
 }
 
-const VeraFilesCards: React.FC<VeraFactCheckProps> = ({
+const VeraFilesCard: React.FC<VeraFactCheckProps> = ({
   data,
 }: VeraFactCheckProps) => {
   const classes = useStyles();
@@ -24,7 +24,7 @@ const VeraFilesCards: React.FC<VeraFactCheckProps> = ({
       <CardsContainer key={data.id} className={classes.border}>
         <div className={classes.deleteButtonDiv}>
           {data.__typename === 'CollectionVeraFile' ? (
-            <DeleteCollectionContentButton data={data} />
+            <RemoveFromCollectionButton data={data} />
           ) : (
             <div />
           )}
@@ -71,7 +71,7 @@ const VeraFilesCards: React.FC<VeraFactCheckProps> = ({
             {formatTimeAndDate(data.date)}
           </Typography>
           <div style={{ marginLeft: '80%' }}>
-            <CardsAddToCollectionButton
+            <AddToCollectionButton
               data={
                 {
                   ...collectionVeraFile,
@@ -86,4 +86,4 @@ const VeraFilesCards: React.FC<VeraFactCheckProps> = ({
   );
 };
 
-export default VeraFilesCards;
+export default VeraFilesCard;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useGetUserNameQuery } from './query.generated';
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 const UserProfile = () => {
   const classes = useStyles();
 
+  // add error, loading handler
   const { data, loading, error } = useGetUserNameQuery({
     variables: {
       input: currentUserId(),

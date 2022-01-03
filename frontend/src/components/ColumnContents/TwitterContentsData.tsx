@@ -2,17 +2,17 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_TWITTER_API_CONTENTS_QUERY } from './query';
 import { GetTwitterApiContentsQuery } from './query.generated';
-import TwitterAPIColumn from './TwitterContents';
+import TwitterContents from './TwitterContents';
 import Error from '../Common/Error';
 import NoContents from '../Common/NoContents';
-import CardsLoaderSkeleton from '../Common/Skeletons/CardsLoaderSkeleton';
+import CardLoaderSkeleton from '../Common/Skeletons/CardLoaderSkeleton';
 
 interface TwitterApiColumnDataProps {
   keyword: string | null;
   sources: string | null;
 }
 
-const TwitterAPIColumnData: React.FC<TwitterApiColumnDataProps> = ({
+const TwitterContentsData: React.FC<TwitterApiColumnDataProps> = ({
   keyword,
   sources,
 }: TwitterApiColumnDataProps) => {
@@ -29,7 +29,7 @@ const TwitterAPIColumnData: React.FC<TwitterApiColumnDataProps> = ({
         refetchQueries={refetch()}
       />
     );
-  if (loading) return <CardsLoaderSkeleton />;
+  if (loading) return <CardLoaderSkeleton />;
   if (!data)
     return (
       <Error
@@ -46,7 +46,7 @@ const TwitterAPIColumnData: React.FC<TwitterApiColumnDataProps> = ({
       />
     );
 
-  return <TwitterAPIColumn data={data} />;
+  return <TwitterContents data={data} />;
 };
 
-export default TwitterAPIColumnData;
+export default TwitterContentsData;

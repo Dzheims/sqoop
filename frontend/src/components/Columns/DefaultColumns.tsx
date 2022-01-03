@@ -12,8 +12,8 @@ import {
   DefaultItemContainer,
   Title,
 } from './ColumnsStyle';
-import NewsAPIColumnData from '../ColumnContents/NewsContentsData';
-import TwitterAPIColumnData from '../ColumnContents/TwitterContentsData';
+import NewsContentsData from '../ColumnContents/NewsContentsData';
+import TwitterContentsData from '../ColumnContents/TwitterContentsData';
 import { Category } from '../../types.generated';
 
 const useStyles = makeStyles((theme) => ({
@@ -81,7 +81,7 @@ const DefaultColumns: React.FC = () => {
       title: 'News Feed',
       icon: <FeedIcon style={iconStyle} />,
       cards: (
-        <NewsAPIColumnData
+        <NewsContentsData
           country=""
           category={category as Category}
           keyword=""
@@ -92,7 +92,7 @@ const DefaultColumns: React.FC = () => {
     {
       title: 'Twitter Feed',
       icon: <TwitterIcon style={iconStyle} />,
-      cards: <TwitterAPIColumnData keyword="" sources="" />,
+      cards: <TwitterContentsData keyword="" sources="" />,
     },
   ];
 

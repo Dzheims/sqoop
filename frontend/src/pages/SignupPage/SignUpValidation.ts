@@ -27,12 +27,7 @@ export function validate(value: FormValues, error: ApolloError | undefined) {
     errors.password = 'Please enter your password';
   } else if (value.password.length < 8) {
     errors.password = 'Password must be a minimum of 8 characters';
-  }
-  // else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/.test(value.password)) {
-  //   errors.password =
-  //     'Password must include numbers, uppercased and lowercased letters';
-  // }
-  else if (!/^[^_\s]*$/.test(value.password)) {
+  } else if (!/^[^_\s]*$/.test(value.password)) {
     errors.password = 'Password must not have whitespaces or underscores';
   }
   if (!value.confirmedPassword) {

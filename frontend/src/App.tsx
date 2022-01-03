@@ -9,10 +9,10 @@ import {
 import Cookies from 'js-cookie';
 import theme from './theme';
 import Homepage from './pages/Homepage/Homepage';
-import SignUp from './pages/SignupPage/SignUp';
+import SignUp from './pages/SignUpPage/SignUp';
 import SignIn from './pages/SignInPage/SignIn';
 import AUTH_TOKEN from './constants';
-import Landing from './pages/LandingPage/Landing';
+import LandingPage from './pages/LandingPage/LandingPage';
 
 function App() {
   return (
@@ -21,7 +21,11 @@ function App() {
         <ThemeProvider theme={theme}>
           <Switch>
             <Route path="/" exact>
-              {Cookies.get(AUTH_TOKEN) ? <Redirect to="/home" /> : <Landing />}
+              {Cookies.get(AUTH_TOKEN) ? (
+                <Redirect to="/home" />
+              ) : (
+                <LandingPage />
+              )}
             </Route>
             <Route path="/signup" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />

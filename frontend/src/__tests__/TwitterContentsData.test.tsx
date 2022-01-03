@@ -3,7 +3,7 @@ import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { GET_TWITTER_API_CONTENTS_QUERY } from '../components/ColumnContents/query';
-import TwitterAPIColumnData from '../components/ColumnContents/TwitterContentsData';
+import TwitterContentsData from '../components/ColumnContents/TwitterContentsData';
 
 interface SearchQueryProps {
   keyword: string;
@@ -93,7 +93,7 @@ describe('Twitter API contents', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <TwitterAPIColumnData keyword={null} sources={null} />
+                <TwitterContentsData keyword={null} sources={null} />
               </div>
             )}
           </Droppable>

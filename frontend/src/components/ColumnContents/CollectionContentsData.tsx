@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { CollectionContentsQuery } from './query.generated';
 import { COLLECTION_CONTENTS_QUERY } from './query';
-import CollectionColumn from './CollectionContents';
+import CollectionContents from './CollectionContents';
 import NoContents from '../Common/NoContents';
 import Error from '../Common/Error';
 
@@ -10,7 +10,7 @@ interface CollectionsColumnDataProps {
   collectionId: number;
 }
 
-const CollectionColumnData: React.FC<CollectionsColumnDataProps> = ({
+const CollectionContentsData: React.FC<CollectionsColumnDataProps> = ({
   collectionId,
 }: CollectionsColumnDataProps) => {
   const { data, loading, error, refetch } = useQuery<CollectionContentsQuery>(
@@ -42,7 +42,7 @@ const CollectionColumnData: React.FC<CollectionsColumnDataProps> = ({
       />
     );
 
-  return <CollectionColumn data={data} />;
+  return <CollectionContents data={data} />;
 };
 
-export default CollectionColumnData;
+export default CollectionContentsData;

@@ -12,7 +12,10 @@ import CREATE_COLLECTION from './query';
 import currentUserId from '../../../../authentication/currentUserId';
 import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import { GET_COLLECTIONS_LIST_QUERY } from '../../../Cards/CardsButtons/AddToCollection/CollectionsList/query';
-import { NavDrawerState } from '../../../SideNavigation/SideNavigationDrawerState';
+import {
+  NavDrawerState,
+  useNavDrawerState,
+} from '../../../SideNavigation/SideNavigationDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
 import { scrollToElement } from '../../../Common/Functions/Functions';
 import MutationLoader from '../../../Common/MutationLoader';
@@ -48,16 +51,25 @@ interface SuccessAlert {
 }
 
 interface ParentState {
-  drawerStateChanger: Dispatch<SetStateAction<NavDrawerState>>;
+  // drawerStateChanger: Dispatch<SetStateAction<NavDrawerState>>;
   snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
 }
 
 const AddCollectionForm = ({
-  drawerStateChanger,
+  // drawerStateChanger,
   snackbarStateChanger,
 }: ParentState) => {
   const history = useHistory();
   const classes = useStyles();
+  const { drawerState, setDrawerState } = useNavDrawerState();
+
+  // const setDrawer = (currentTitle: string, isDrawerOpen: boolean) => {
+  //   setDrawerState({
+  //     ...drawerState,
+  //     isOpen: isDrawerOpen,
+  //     // current: currentTitle,
+  //   });
+  // };
 
   const [collectionForm, setCollectionForm] = useState<CollectionInput>({
     title: '',
@@ -101,7 +113,12 @@ const AddCollectionForm = ({
             success: true,
           });
           setdisableCreateButton(true);
-          drawerStateChanger({ isOpen: false, current: '' });
+
+          setDrawerState({
+            ...drawerState,
+            isOpen: false,
+            current: '',
+          });
           scrollToElement(
             new Date(createCollection?.collection?.createdAt).toUTCString()
           );

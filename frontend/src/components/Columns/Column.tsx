@@ -18,8 +18,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import FeedIcon from '@mui/icons-material/Feed';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
-import NewsAPIColumnData from '../ColumnContents/NewsContentsData';
-import TwitterAPIColumnData from '../ColumnContents/TwitterContentsData';
+import NewsContentsData from '../ColumnContents/NewsContentsData';
+import TwitterContentsData from '../ColumnContents/TwitterContentsData';
 import { GetColumnsQuery } from './query.generated';
 import { Category } from '../../types.generated';
 import {
@@ -48,7 +48,7 @@ import {
   DELETE_COLLECTION_MUTATION,
 } from './query';
 import { GET_COLLECTIONS_LIST_QUERY } from '../Cards/CardsButtons/AddToCollection/CollectionsList/query';
-import CollectionColumnData from '../ColumnContents/CollectionContentsData';
+import CollectionContentsData from '../ColumnContents/CollectionContentsData';
 import currentUserId from '../../authentication/currentUserId';
 import { CollectionsListStateProvider } from '../Cards/CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
 import { NavDrawerStateProvider } from '../SideNavigation/SideNavigationDrawerState';
@@ -58,7 +58,7 @@ const getFeedType = (value: any) => {
   switch (value.__typename) {
     case 'NewsFeed':
       return (
-        <NewsAPIColumnData
+        <NewsContentsData
           keyword={value.keyword}
           country={value.country}
           category={value.category as Category}
@@ -67,10 +67,10 @@ const getFeedType = (value: any) => {
       );
     case 'TwitterFeed':
       return (
-        <TwitterAPIColumnData keyword={value.keyword} sources={value.sources} />
+        <TwitterContentsData keyword={value.keyword} sources={value.sources} />
       );
     case 'Collection':
-      return <CollectionColumnData collectionId={value.id} />;
+      return <CollectionContentsData collectionId={value.id} />;
   }
 };
 
@@ -96,7 +96,7 @@ interface DeleteColumnProps {
   type?: string;
 }
 
-const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
+const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const classes = useStyles();
   const [proceedDelete, setProceedDelete] = useState(false);
   const [userId] = useState(currentUserId());
@@ -323,4 +323,4 @@ const Columns: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   );
 };
 
-export default Columns;
+export default Column;

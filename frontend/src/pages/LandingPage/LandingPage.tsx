@@ -7,7 +7,7 @@ import {
   Typography,
   Button,
 } from '@material-ui/core';
-import LandingPageAppBar from './AppBar';
+import AppBar from './AppBar';
 import Header from './Header';
 import Footer from './Footer';
 import Features from './Features';
@@ -63,13 +63,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Landing = () => {
+const LandingPage = () => {
   const classes = useStyles();
   const history = useHistory();
 
   return (
     <div className={classes.root}>
-      <LandingPageAppBar />
+      <AppBar />
       <Toolbar />
       <Grid container>
         <Grid item xs={12}>
@@ -131,4 +131,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default LandingPage;

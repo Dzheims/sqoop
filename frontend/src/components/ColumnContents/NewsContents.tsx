@@ -6,7 +6,7 @@ interface NewsAPIDataProps {
   data: GetNewsApiContentsQuery;
 }
 
-const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
+const NewsContents: React.FC<NewsAPIDataProps> = ({
   data,
 }: NewsAPIDataProps) => (
   <div>
@@ -18,4 +18,4 @@ const NewsAPIColumn: React.FC<NewsAPIDataProps> = ({
   </div>
 );
 
-export default NewsAPIColumn;
+export default NewsContents;

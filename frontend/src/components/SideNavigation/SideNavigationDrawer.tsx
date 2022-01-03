@@ -7,7 +7,10 @@ interface DrawerProps {
   childComponent: React.ReactNode;
 }
 
-const NavDrawer = ({ drawerStateProps, childComponent }: DrawerProps) => {
+const SideNavigationDrawer = ({
+  drawerStateProps,
+  childComponent,
+}: DrawerProps) => {
   const classes = useStyles();
 
   return (
@@ -16,10 +19,6 @@ const NavDrawer = ({ drawerStateProps, childComponent }: DrawerProps) => {
         variant="persistent"
         anchor="left"
         open={drawerStateProps}
-        // style={{
-        //   marginLeft: drawerStateProps ? '292px' : 0,
-        //   transition: 'all 0.25s ease-out',
-        // }}
         classes={{
           paper: classes.drawerPaper,
         }}
@@ -30,4 +29,4 @@ const NavDrawer = ({ drawerStateProps, childComponent }: DrawerProps) => {
   );
 };
 
-export default NavDrawer;
+export default SideNavigationDrawer;

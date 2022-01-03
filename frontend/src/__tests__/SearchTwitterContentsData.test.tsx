@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { GET_TWITTER_API_CONTENTS_QUERY } from '../components/ColumnContents/query';
-import TwitterAPIColumnData from '../components/ColumnContents/TwitterContentsData';
 import { SEARCH_TWITTER_CONTENTS_QUERY } from '../components/SideNavigationDrawer/Search/query';
 import SearchAllTweetsColumnData from '../components/SideNavigationDrawer/Search/SearchTwitterColumnData';
 

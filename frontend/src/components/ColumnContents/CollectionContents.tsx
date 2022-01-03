@@ -22,7 +22,7 @@ const getCollectionContentType = (value: any) => {
   }
 };
 
-const CollectionColumn: React.FC<CollectionContentsDataProps> = ({
+const CollectionContents: React.FC<CollectionContentsDataProps> = ({
   data,
 }: CollectionContentsDataProps) => (
   <div>
@@ -32,4 +32,4 @@ const CollectionColumn: React.FC<CollectionContentsDataProps> = ({
   </div>
 );
 
-export default CollectionColumn;
+export default CollectionContents;

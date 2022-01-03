@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult, cleanup } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import CollectionColumnData from '../components/ColumnContents/CollectionContentsData';
+import CollectionContentsData from '../components/ColumnContents/CollectionContentsData';
 import { COLLECTION_CONTENTS_QUERY } from '../components/ColumnContents/query';
 
 const mocks: ReadonlyArray<MockedResponse> = [
@@ -47,7 +47,7 @@ describe('Columns', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <CollectionColumnData collectionId={1} />
+                <CollectionContentsData collectionId={1} />
               </div>
             )}
           </Droppable>

@@ -10,17 +10,17 @@ import {
   CardsContainer,
 } from './CardsStyles';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
-import CardsAddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
+import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
 import { Article, CollectionArticle } from '../../types.generated';
 import FactCheckButton from '../FactCheck/FactCheckButton';
-import { useDrawerState, DrawerState } from '../FactCheck/FactCheckDrawerState';
-import DeleteCollectionContentButton from './CardsButtons/RemoveFromCollection/RemoveFromCollection';
+import { useDrawerState } from '../FactCheck/FactCheckDrawerState';
+import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
 
 interface NewsDataProps {
   data: Article | CollectionArticle;
 }
 
-const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
+const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
@@ -49,7 +49,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
       >
         <div className={classes.deleteButtonDiv}>
           {data.__typename === 'CollectionArticle' ? (
-            <DeleteCollectionContentButton data={data} />
+            <RemoveFromCollectionButton data={data} />
           ) : (
             <div />
           )}
@@ -126,7 +126,7 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
               // setHighlightCard={setHighlightCard}
               suggestedKeywords={data.suggestedKeywords}
             />
-            <CardsAddToCollectionButton
+            <AddToCollectionButton
               data={
                 {
                   ...collectionArticle,
@@ -141,4 +141,4 @@ const NewsCards: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
   );
 };
 
-export default NewsCards;
+export default NewsCard;

@@ -54,7 +54,7 @@ interface CollectionContentProps {
   data: CollectionContent;
 }
 
-const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
+const RemoveFromCollectionButton = ({ data }: CollectionContentProps) => {
   const classes = useStyles();
   const [warningDelete, setWarningDelete] = useState(false);
   const [proceedDelete, setProceedDelete] = useState(false);
@@ -216,4 +216,4 @@ const DeleteCollectionContentButton = ({ data }: CollectionContentProps) => {
   );
 };
 
-export default DeleteCollectionContentButton;
+export default RemoveFromCollectionButton;

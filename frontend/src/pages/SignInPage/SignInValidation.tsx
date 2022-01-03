@@ -17,11 +17,6 @@ export interface LoginInput {
   showPassword: boolean;
 }
 
-// export interface SignInForm {
-//   forms?: FormValues;
-//   jwtIsNull?: Maybe<boolean>;
-// }
-
 export function validate(value: LoginInput, jwtIsNull: boolean) {
   const errors = {
     userName: '',

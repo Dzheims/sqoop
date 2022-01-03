@@ -14,7 +14,7 @@ import {
   DELETE_TWITTER_MUTATION,
   GET_COLUMNS_QUERY,
 } from '../components/Columns/query';
-import { ColumnsData } from '../components/Columns/ColumnsData';
+import { ColumnData } from '../components/Columns/ColumnData';
 
 let deleteNewsFeedQueryCalled = false;
 let deleteCollectionQueryCalled = false;
@@ -189,7 +189,7 @@ describe('Columns', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={mocks}>
-        <ColumnsData />
+        <ColumnData />
       </MockedProvider>
     );
   });

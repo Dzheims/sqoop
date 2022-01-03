@@ -18,17 +18,17 @@ import {
 } from './CardsStyles';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import FactCheckButton from '../FactCheck/FactCheckButton';
-import CardsAddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
+import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
 import { useDrawerState } from '../FactCheck/FactCheckDrawerState';
 import { CollectionTweet, Tweet, TwitterPhoto } from '../../types.generated';
-import DeleteCollectionContentButton from './CardsButtons/RemoveFromCollection/RemoveFromCollection';
+import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
 import theme from '../../theme';
 
 interface TwitterDataProps {
   data: Tweet | CollectionTweet;
 }
 
-const TwitterCards: React.FC<TwitterDataProps> = ({
+const TwitterCard: React.FC<TwitterDataProps> = ({
   data,
 }: TwitterDataProps) => {
   const classes = useStyles();
@@ -56,7 +56,7 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
       >
         <div className={classes.deleteButtonDiv}>
           {data.__typename === 'CollectionTweet' ? (
-            <DeleteCollectionContentButton data={data} />
+            <RemoveFromCollectionButton data={data} />
           ) : (
             <div />
           )}
@@ -131,11 +131,8 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
             {formatTimeAndDate(data.publishedAt)}
           </Typography>
           <div className={classes.buttonsContainer}>
-            <FactCheckButton
-              // setHighlightCard={setHighlightCard}
-              suggestedKeywords={data.suggestedKeywords}
-            />
-            <CardsAddToCollectionButton
+            <FactCheckButton suggestedKeywords={data.suggestedKeywords} />
+            <AddToCollectionButton
               data={
                 {
                   ...collectionTweet,
@@ -150,4 +147,4 @@ const TwitterCards: React.FC<TwitterDataProps> = ({
   );
 };
 
-export default TwitterCards;
+export default TwitterCard;

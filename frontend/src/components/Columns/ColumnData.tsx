@@ -1,13 +1,13 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GetColumnsQuery } from './query.generated';
-import Columns from './Column';
+import Column from './Column';
 import Error from '../Common/Error';
 import NoColumns from '../Common/NoColumns';
 import { GET_COLUMNS_QUERY } from './query';
 import ColumnLoaderSkeleton from '../Common/Skeletons/ColumnLoaderSkeleton';
 
-export const ColumnsData = () => {
+export const ColumnData = () => {
   const { data, loading, error, refetch } =
     useQuery<GetColumnsQuery>(GET_COLUMNS_QUERY);
   if (error)
@@ -29,7 +29,7 @@ export const ColumnsData = () => {
     );
   if (data.getColumnResult.length === 0) return <NoColumns />;
 
-  return <Columns data={data} />;
+  return <Column data={data} />;
 };
 
-export default ColumnsData;
+export default ColumnData;

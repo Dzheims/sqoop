@@ -1,6 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles, AppBar, Toolbar, Button } from '@material-ui/core';
+import {
+  makeStyles,
+  AppBar as SqoopBar,
+  Toolbar,
+  Button,
+} from '@material-ui/core';
 import Logo from '../../assets/sqoopLogo.png';
 
 const useStyles = makeStyles(() => ({
@@ -27,12 +32,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const LandingPageAppBar = () => {
+const AppBar = () => {
   const classes = useStyles();
   const history = useHistory();
 
   return (
-    <AppBar position="static" className={classes.appBar}>
+    <SqoopBar position="static" className={classes.appBar}>
       <Toolbar>
         <div className={classes.appbarContentsContainer}>
           <a href="/">
@@ -62,8 +67,8 @@ const LandingPageAppBar = () => {
           </div>
         </div>
       </Toolbar>
-    </AppBar>
+    </SqoopBar>
   );
 };
 
-export default LandingPageAppBar;
+export default AppBar;

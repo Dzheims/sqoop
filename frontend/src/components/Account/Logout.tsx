@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Cookies from 'js-cookie';
 import AUTH_TOKEN from '../../constants';
 import client from '../../apolloClient';
-import theme from '../../theme';
 
 const useStyles = makeStyles(() => ({
   buttonContainer: {
@@ -20,9 +19,6 @@ const useStyles = makeStyles(() => ({
     textTransform: 'none',
     boxShadow: 'none',
   },
-  // div: {
-  //   padding: theme.spacing(1, 2, 2),
-  // },
 }));
 
 const Logout = () => {
@@ -35,21 +31,8 @@ const Logout = () => {
     await client.clearStore();
   };
 
-  const handleManageAccount = async () => {};
-
   return (
     <div className={classes.buttonContainer}>
-      {/* <Button
-        data-testid="btn-logout"
-        type="submit"
-        fullWidth
-        color="inherit"
-        variant="contained"
-        onClick={handleManageAccount}
-        className={classes.button}
-      >
-        Manage Account
-      </Button> */}
       <Button
         data-testid="btn-logout"
         type="submit"

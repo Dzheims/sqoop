@@ -72,7 +72,7 @@ interface ParentState {
   snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
 }
 
-const AddNewsAPIFeedForm = ({
+const AddNewsFeedForm = ({
   drawerStateChanger,
   snackbarStateChanger,
 }: ParentState) => {
@@ -369,4 +369,4 @@ const AddNewsAPIFeedForm = ({
   );
 };
 
-export default AddNewsAPIFeedForm;
+export default AddNewsFeedForm;

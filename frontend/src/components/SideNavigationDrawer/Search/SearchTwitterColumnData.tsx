@@ -4,7 +4,7 @@ import { SEARCH_TWITTER_CONTENTS_QUERY } from './query';
 import { SearchAllTweetsQuery } from './query.generated';
 import Error from '../../Common/Error';
 import NoContents from '../../Common/NoContents';
-import CardsLoaderSkeleton from '../../Common/Skeletons/CardsLoaderSkeleton';
+import CardLoaderSkeleton from '../../Common/Skeletons/CardLoaderSkeleton';
 import TwitterCards from '../../Cards/TwitterCard';
 
 interface SearchTwitterColumnDataProps {
@@ -32,7 +32,7 @@ const SearchAllTweetsColumnData: React.FC<SearchTwitterColumnDataProps> = ({
         refetchQueries={refetch()}
       />
     );
-  if (loading) return <CardsLoaderSkeleton />;
+  if (loading) return <CardLoaderSkeleton />;
   if (!data)
     return (
       <Error

@@ -60,7 +60,7 @@ interface CollectionContentProps {
   data: CollectionContent;
 }
 
-const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
+const AddToCollectionButton = ({ data }: CollectionContentProps) => {
   const classes = useStyles();
   const { collectionListState } = useCollectionsListState();
   const [isOpen, setIsOpen] = useState(false);
@@ -280,4 +280,4 @@ const CardsAddToCollectionButton = ({ data }: CollectionContentProps) => {
   );
 };
 
-export default CardsAddToCollectionButton;
+export default AddToCollectionButton;

@@ -8,7 +8,7 @@ import {
   wait,
 } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import AddNewsAPIFeedForm from '../components/SideNavigationDrawer/AddColumn/NewsFeedForm/AddNewsAPIFeedForm';
+import AddNewsFeedForm from '../components/SideNavigationDrawer/AddColumn/NewsFeedForm/AddNewsFeedForm';
 import { NEWS_SOURCES } from '../components/SideNavigationDrawer/AddColumn/NewsFeedForm/query';
 
 let documentBody: RenderResult;
@@ -45,7 +45,7 @@ describe('News Feed Form', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <AddNewsAPIFeedForm />
+        <AddNewsFeedForm />
       </MockedProvider>
     );
   });

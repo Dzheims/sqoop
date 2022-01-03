@@ -13,7 +13,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import useStyles from './SearchStyles';
-import SearchNewsAPIColumnData from './SearchNewsColumnData';
+import SearchNewsColumnData from './SearchNewsColumnData';
 import { ResultsContainer } from '../../Columns/ColumnsStyle';
 import NewsSourcesData from '../AddColumn/NewsFeedForm/NewsSourcesData';
 import TwitterSourcesData from '../AddColumn/TwitterFeedForm/TwitterSourcesData';
@@ -65,7 +65,7 @@ const Search = () => {
         );
       case 'News':
         return (
-          <SearchNewsAPIColumnData
+          <SearchNewsColumnData
             from={date.from}
             to={date.to}
             keyword={keyword}

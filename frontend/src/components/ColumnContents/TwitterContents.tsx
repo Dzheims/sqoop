@@ -28,7 +28,7 @@ const fabButtonStyle = {
   backgroundColor: '#0036e7',
 } as React.CSSProperties;
 
-const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
+const TwitterContents: React.FC<TwitterAPIDataProps> = ({
   data,
 }: TwitterAPIDataProps) => {
   const classes = useStyles();
@@ -90,4 +90,4 @@ const TwitterAPIColumn: React.FC<TwitterAPIDataProps> = ({
     </div>
   );
 };
-export default TwitterAPIColumn;
+export default TwitterContents;

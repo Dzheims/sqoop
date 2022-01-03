@@ -7,7 +7,7 @@ import {
   cleanup,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import SignUp from '../pages/SignupPage/SignUp';
+import SignUp from '../pages/SignUpPage/SignUp';
 
 let documentBody: RenderResult;
 

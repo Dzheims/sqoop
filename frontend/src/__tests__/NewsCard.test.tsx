@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { MockedProvider } from '@apollo/client/testing';
-import NewsCards from '../components/Cards/NewsCard';
+import NewsCard from '../components/Cards/NewsCard';
 import { Article } from '../types.generated';
 
 const data: Article = {
@@ -31,7 +31,7 @@ describe('News Cards', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <NewsCards data={data} />
+                <NewsCard data={data} />
               </div>
             )}
           </Droppable>

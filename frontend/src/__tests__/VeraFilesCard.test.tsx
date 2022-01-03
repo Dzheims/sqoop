@@ -7,7 +7,7 @@ import {
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import VeraFactCheckResultsCards from '../components/Cards/VeraFilesCard';
+import VeraFilesCard from '../components/Cards/VeraFilesCard';
 import { VeraFiles } from '../types.generated';
 
 const data: VeraFiles = {
@@ -36,7 +36,7 @@ describe('Google Fact Check Cards', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <VeraFactCheckResultsCards data={data} />
+                <VeraFilesCard data={data} />
               </div>
             )}
           </Droppable>

@@ -1,5 +1,5 @@
 import { ApolloError } from '@apollo/client';
-import { validate, FormValues } from '../pages/SignupPage/SignUpValidation';
+import { validate, FormValues } from '../pages/SignUpPage/SignUpValidation';
 
 describe('with and without user input', () => {
   test('empty username and password', () => {

@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FactCheck = () => {
+const FactCheckDrawer = () => {
   const classes = useStyles();
 
   useEffect(() => {});
@@ -109,4 +109,4 @@ const FactCheck = () => {
   );
 };
 
-export default FactCheck;
+export default FactCheckDrawer;

@@ -3,10 +3,10 @@ import { useQuery } from '@apollo/client';
 import { GET_NEWS_API_CONTENTS_QUERY } from './query';
 import { GetNewsApiContentsQuery } from './query.generated';
 import { Category } from '../../types.generated';
-import NewsAPIColumn from './NewsContents';
+import NewsContents from './NewsContents';
 import Error from '../Common/Error';
 import NoContents from '../Common/NoContents';
-import CardsLoaderSkeleton from '../Common/Skeletons/CardsLoaderSkeleton';
+import CardLoaderSkeleton from '../Common/Skeletons/CardLoaderSkeleton';
 
 interface NewsApiColumnDataProps {
   country: string;
@@ -15,7 +15,7 @@ interface NewsApiColumnDataProps {
   sources: string | null;
 }
 
-const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
+const NewsContentsData: React.FC<NewsApiColumnDataProps> = ({
   country,
   category,
   keyword,
@@ -33,7 +33,7 @@ const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
         refetchQueries={refetch()}
       />
     );
-  if (loading) return <CardsLoaderSkeleton />;
+  if (loading) return <CardLoaderSkeleton />;
   if (!data)
     return (
       <Error
@@ -50,7 +50,7 @@ const NewsAPIColumnData: React.FC<NewsApiColumnDataProps> = ({
       />
     );
 
-  return <NewsAPIColumn data={data} />;
+  return <NewsContents data={data} />;
 };
 
-export default NewsAPIColumnData;
+export default NewsContentsData;

@@ -7,7 +7,7 @@ import {
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import TwitterCards from '../components/Cards/TwitterCard';
+import TwitterCard from '../components/Cards/TwitterCard';
 import { Tweet } from '../types.generated';
 
 const data: Tweet = {
@@ -34,7 +34,7 @@ describe('Twitter API contents', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <TwitterCards data={data} />
+                <TwitterCard data={data} />
               </div>
             )}
           </Droppable>

@@ -5,14 +5,14 @@ import FactCheckIcon from '@mui/icons-material/FactCheck';
 import { CardsContainer, useStyles, ContentContainer } from './CardsStyles';
 import { CollectionGoogleFactCheck, Claim } from '../../types.generated';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
-import CardsAddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
-import DeleteCollectionContentButton from './CardsButtons/RemoveFromCollection/RemoveFromCollection';
+import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
+import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
 
 interface GoogleFactCheckProps {
   data: Claim | CollectionGoogleFactCheck;
 }
 
-const GoogleFactCheckCards: React.FC<GoogleFactCheckProps> = ({
+const GoogleFactCheckCard: React.FC<GoogleFactCheckProps> = ({
   data,
 }: GoogleFactCheckProps) => {
   const classes = useStyles();
@@ -23,7 +23,7 @@ const GoogleFactCheckCards: React.FC<GoogleFactCheckProps> = ({
       <CardsContainer className={classes.border}>
         <div className={classes.deleteButtonDiv}>
           {data.__typename === 'CollectionGoogleFactCheck' ? (
-            <DeleteCollectionContentButton data={data} />
+            <RemoveFromCollectionButton data={data} />
           ) : (
             <div />
           )}
@@ -85,7 +85,7 @@ const GoogleFactCheckCards: React.FC<GoogleFactCheckProps> = ({
             Review Date {formatTimeAndDate(data.reviewDate)}
           </Typography>
           <div style={{ marginLeft: '80%' }}>
-            <CardsAddToCollectionButton
+            <AddToCollectionButton
               data={
                 {
                   ...collectionGoogleFactCheck,
@@ -100,4 +100,4 @@ const GoogleFactCheckCards: React.FC<GoogleFactCheckProps> = ({
   );
 };
 
-export default GoogleFactCheckCards;
+export default GoogleFactCheckCard;
