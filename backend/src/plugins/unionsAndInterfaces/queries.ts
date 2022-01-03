@@ -31,7 +31,9 @@ export const resolvers = (getNamedType: any) => {
     },
     Query: {
       getColumnResult: async (_: any, args: any, context: any) => {
-        const { pgClient } = context;
+        const { pgClient, jwtClaims } = context;
+        if (!jwtClaims) throw new Error('Unauthorized user');
+
         const { rows: newsFeeds } = await pgClient.query(
           `SELECT * FROM news_feeds WHERE user_id = current_user_id()`
         );
@@ -49,7 +51,9 @@ export const resolvers = (getNamedType: any) => {
         return result;
       },
       collectionContents: async (_: any, args: any, context: any) => {
-        const { pgClient } = context;
+        const { pgClient, jwtClaims } = context;
+        if (!jwtClaims) throw new Error('Unauthorized user');
+
         const { collectionId } = args;
 
         const { rows: collectionTweets } = await pgClient.query(
@@ -93,7 +97,7 @@ export const resolvers = (getNamedType: any) => {
             ...collectionArticles,
             ...collectionVeraFile,
             ...collectionGoogleFactCheck,
-          ].sort((a: any, b: any) => a.created_at - b.created_at),
+          ].sort((a: any, b: any) => b.created_at - a.created_at),
           { deep: true }
         );
         return result;
