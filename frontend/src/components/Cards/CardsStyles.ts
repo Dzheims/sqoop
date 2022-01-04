@@ -138,7 +138,7 @@ export const useStyles = makeStyles(() => ({
     padding: '0 15px 15px 15px',
   },
   descriptionContainer: {
-    width: '250px',
+    width: 'auto',
     overflow: 'hidden',
   },
 }));

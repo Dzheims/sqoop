@@ -13,18 +13,18 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'sticky',
+    top: 30,
+    zIndex: 50,
   },
 }));
 
 const fabButtonStyle = {
   position: 'absolute',
-  zIndex: 50,
   textTransform: 'none',
   boxShadow: 'none',
   width: '125px',
-  marginTop: '50px',
   color: '#ffffff',
-  // border: '1px solid #f04b4c',
   backgroundColor: '#0036e7',
 } as React.CSSProperties;
 
@@ -47,7 +47,7 @@ const TwitterContents: React.FC<TwitterAPIDataProps> = ({
 
   // const scrollToTop = () => {
   //   if (ref.current) {
-  //     window.scrollTo(0, ref.current.offsetTop);
+  //     ref.current.scrollTo({ top: 0, behavior: 'smooth' });
   //   }
   // };
 
@@ -60,7 +60,6 @@ const TwitterContents: React.FC<TwitterAPIDataProps> = ({
             variant="extended"
             onClick={() => {
               setHasNewUnreads(false);
-              // scrollToTop();
             }}
             size="small"
           >
@@ -68,19 +67,7 @@ const TwitterContents: React.FC<TwitterAPIDataProps> = ({
           </Fab>
         </div>
       ) : (
-        <div className={classes.fabButtonContainer}>
-          <Fab
-            style={fabButtonStyle}
-            variant="extended"
-            onClick={() => {
-              setHasNewUnreads(false);
-              // scrollToTop();
-            }}
-            size="small"
-          >
-            New Unreads
-          </Fab>
-        </div>
+        <div />
       )}
       {data?.searchTweets?.map((value, index) => (
         <div key={index} ref={ref}>

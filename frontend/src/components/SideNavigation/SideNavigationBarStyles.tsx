@@ -83,7 +83,7 @@ export const useStyles = makeStyles(() => ({
     marginBottom: '5px',
     '&:hover': {
       border: '1px solid #f04b4c',
-      backgroundColor: 'white',
+      backgroundColor: '#f7fafc',
       color: theme.palette.secondary.main,
     },
   },
@@ -102,11 +102,11 @@ export const useStyles = makeStyles(() => ({
   },
   iconContainer: {
     '&:hover': {
-      backgroundColor: 'white',
+      backgroundColor: '#f7fafc',
     },
   },
   selectedIconContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#f7fafc',
   },
 }));
 
@@ -129,8 +129,8 @@ export const IconContainer = styled.div`
   align-items: center;
   display: flex;
   justify: center;
-  border-bottom-left-radius: 15px;
-  border-top-left-radius: 15px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
   transition: all 0.5s ease;
 `;
 export const AccountAvatarContainer = styled.div`

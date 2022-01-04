@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
   },
   sectionContentContainer: {
     display: 'flex',
-    height: '560px',
+    height: '600px',
     alignItems: 'center',
   },
   headerMainTitle: {
