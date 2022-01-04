@@ -3,7 +3,7 @@ import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { VERA_FACTCHECK_SEARCH_QUERY } from '../components/FactCheck/query';
-import VeraFactCheckData from '../components/FactCheck/VeraFilesData';
+import VeraFilesData from '../components/FactCheck/VeraFilesData';
 
 const keyword = 'Duterte';
 
@@ -92,7 +92,7 @@ describe('Vera contents', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <VeraFactCheckData keyword={keyword} />
+        <VeraFilesData keyword={keyword} />
       </MockedProvider>
     );
   });

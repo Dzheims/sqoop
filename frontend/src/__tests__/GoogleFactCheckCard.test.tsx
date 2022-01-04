@@ -7,7 +7,7 @@ import {
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import GoogleFactCheckResultsCard from '../components/Cards/GoogleFactCheckCard';
+import GoogleFactCheckCard from '../components/Cards/GoogleFactCheckCard';
 import { Claim } from '../types.generated';
 
 const data: Claim = {
@@ -33,7 +33,7 @@ describe('Google Fact Check Cards', () => {
           <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef}>
-                <GoogleFactCheckResultsCard data={data} />
+                <GoogleFactCheckCard data={data} />
               </div>
             )}
           </Droppable>
