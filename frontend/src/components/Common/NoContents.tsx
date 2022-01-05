@@ -6,7 +6,6 @@ import theme from '../../theme';
 
 const useStyles = makeStyles(() => ({
   noContents: {
-    marginTop: '50%',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',

@@ -4,6 +4,7 @@ import { VeraFactCheckSearchResultQuery } from './query.generated';
 import { VERA_FACTCHECK_SEARCH_QUERY } from './query';
 import Loader from '../Common/Loader';
 import Error from '../Common/Error';
+import NoContents from '../Common/NoContents';
 import VeraFilesCards from '../Cards/VeraFilesCard';
 
 interface SearchQueryProps {
@@ -19,10 +20,9 @@ const VeraFilesData: React.FC<SearchQueryProps> = ({
     });
   if (error)
     return (
-      <Error
-        header="Oops!"
-        subHeader="Something went wrong"
-        refetchQueries={refetch()}
+      <NoContents
+        header="Sorry,"
+        subHeader={`No search results found on ${keyword}. Try other keywords.`}
       />
     );
   if (loading)
@@ -31,10 +31,9 @@ const VeraFilesData: React.FC<SearchQueryProps> = ({
     );
   if (!data || data.veraFilesFactCheck.length === 0)
     return (
-      <Error
-        header="Oops!"
-        subHeader="No search results found. Try other keywords."
-        refetchQueries={refetch()}
+      <NoContents
+        header="Sorry,"
+        subHeader={`No search results found on ${keyword}. Try other keywords.`}
       />
     );
 

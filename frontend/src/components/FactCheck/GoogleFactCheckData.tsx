@@ -4,6 +4,7 @@ import { GoogleFactCheckSearchResultQuery } from './query.generated';
 import { GOOGLE_FACTCHECK_SEARCH_QUERY } from './query';
 import Loader from '../Common/Loader';
 import Error from '../Common/Error';
+import NoContents from '../Common/NoContents';
 import GoogleFactCheckCards from '../Cards/GoogleFactCheckCard';
 
 interface SearchQueryProps {
@@ -31,10 +32,9 @@ const GoogleFactCheckData: React.FC<SearchQueryProps> = ({
     );
   if (!data || data.googleFactCheckSearch.length === 0)
     return (
-      <Error
-        header="Oops!"
-        subHeader="No search results found. Try other keywords."
-        refetchQueries={refetch()}
+      <NoContents
+        header="Sorry,"
+        subHeader={`No search results found on ${keyword}. Try other keywords.`}
       />
     );
 

@@ -42,7 +42,12 @@ const SearchNewsColumnData: React.FC<SearchNewsColumnDataProps> = ({
       />
     );
   if (!data.searchArticles.length)
-    return <NoContents header="Sorry," subHeader="No News contents found" />;
+    return (
+      <NoContents
+        header="Sorry,"
+        subHeader={`No search results found on ${keyword}. Try other keywords.`}
+      />
+    );
 
   return (
     <div>

@@ -48,7 +48,7 @@ const NewUnreadsButton: React.FC<NewContentsProps> = ({
         style={fabButtonStyle}
         variant="extended"
         onClick={() => {
-          setHasNewUnreads(true);
+          setHasNewUnreads(false);
           scrollToTop();
         }}
         size="small"

@@ -42,7 +42,12 @@ const SearchAllTweetsColumnData: React.FC<SearchTwitterColumnDataProps> = ({
       />
     );
   if (!data.searchAllTweets.length)
-    return <NoContents header="Sorry," subHeader="No Twitter contents found" />;
+    return (
+      <NoContents
+        header="Sorry,"
+        subHeader={`No search results found on ${keyword}. Try other keywords.`}
+      />
+    );
 
   return (
     <div>
