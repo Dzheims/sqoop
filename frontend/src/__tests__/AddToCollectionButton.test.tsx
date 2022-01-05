@@ -41,11 +41,26 @@ const article: CollectionArticle = {
   nodeId: '',
 };
 
+const articleNoType: CollectionArticle = {
+  publishedAt: '2021-11-05T10:38:30Z',
+  sourceName: 'Space.com',
+  title:
+    'Astronomers detect water in one of the oldest known galaxies - Space.com',
+  urlToImage:
+    'https://cdn.mos.cms.futurecdn.net/JN9fjndKScwGXxqBxDF4ef-1200-80.jpg',
+  description:
+    'Astronomers have detected traces of water in one of the oldest known galaxies proving for the first time that the life-giving substance played a role in the formation of the earliest stars.',
+  id: 1,
+  collectionId: 1,
+  createdAt: '',
+  nodeId: '',
+};
+
 const photosConnection: PhotosConnection = {
   nodes: [],
   edges: [],
   pageInfo: { hasNextPage: false, hasPreviousPage: false },
-  totalCount: 0,
+  totalCount: 1,
 };
 
 const tweet: CollectionTweet = {
@@ -54,7 +69,16 @@ const tweet: CollectionTweet = {
   publishedAt: '2021-10-12T10:30:47.000Z',
   tweetId: '1447872367074611210',
   name: 'Department of Foreign Affairs',
-  photos: [],
+  photos: [
+    {
+      mediaKey: '1234',
+      url: 'http://image.jpg',
+      type: 'photo',
+      nodeId: '',
+      id: 1,
+      collectionTweetId: 1,
+    },
+  ],
   profileImageUrl:
     'https://pbs.twimg.com/profile_images/1427192891126915082/NNybyA9y_normal.jpg',
   suggestedKeywords: ['man', 'tagged', 'wanted', 'persons'],
@@ -152,7 +176,13 @@ const mocks: ReadonlyArray<MockedResponse> = [
             suggestedKeywords: tweet.suggestedKeywords,
             publishedAt: tweet.publishedAt,
             photos: {
-              create: [],
+              create: [
+                {
+                  mediaKey: '1234',
+                  url: 'http://image.jpg',
+                  type: 'photo',
+                },
+              ],
             },
           },
         },
@@ -235,6 +265,44 @@ const mocks: ReadonlyArray<MockedResponse> = [
 let documentBody: RenderResult;
 
 describe('add to collection button', () => {
+  test('add not in collection content type', async () => {
+    documentBody = render(
+      <MockedProvider mocks={mocks}>
+        <AddToCollectionButton data={articleNoType} />
+      </MockedProvider>
+    );
+    const saveToCollectionButton = await documentBody.findByTestId(
+      'save-to-collections'
+    );
+    const dialogBox = documentBody.queryByText('Save Contents to Collection');
+    expect(saveToCollectionButton).toBeInTheDocument();
+    expect(dialogBox).not.toBeInTheDocument();
+
+    fireEvent.click(saveToCollectionButton);
+
+    await waitFor(async () => {
+      const submitSaveButton = await documentBody.findByTestId('submit-save');
+      expect(submitSaveButton).toBeInTheDocument();
+    });
+    const submitSaveButton = await documentBody.findByTestId('submit-save');
+    expect(
+      documentBody.getByRole('button', { name: 'Save' })
+    ).toBeInTheDocument();
+    expect(submitSaveButton).toBeInTheDocument();
+    fireEvent.click(documentBody.getByRole('button', { name: 'Save' }));
+
+    const createCollectionArticleMock = mocks[0].newData;
+    const createCollectionTweetMock = mocks[1].newData;
+    const createCollectionGoogleFactCheckMock = mocks[2].newData;
+    const createCollectionVeraFileMock = mocks[3].newData;
+
+    await waitFor(async () => {
+      expect(createCollectionArticleMock).not.toHaveBeenCalled();
+      expect(createCollectionTweetMock).not.toHaveBeenCalled();
+      expect(createCollectionGoogleFactCheckMock).not.toHaveBeenCalled();
+      expect(createCollectionVeraFileMock).not.toHaveBeenCalled();
+    });
+  });
   test('add article', async () => {
     documentBody = render(
       <MockedProvider mocks={mocks}>
@@ -263,7 +331,7 @@ describe('add to collection button', () => {
 
     const createCollectionArticleMock = mocks[0].newData;
     await waitFor(async () => {
-      expect(createCollectionArticleMock).toHaveBeenCalled();
+      expect(createCollectionArticleMock).toHaveBeenCalledTimes(1);
     });
   });
   test('add tweet', async () => {
@@ -294,7 +362,7 @@ describe('add to collection button', () => {
 
     const createCollectionTweetMock = mocks[1].newData;
     await waitFor(async () => {
-      expect(createCollectionTweetMock).toHaveBeenCalled();
+      expect(createCollectionTweetMock).toHaveBeenCalledTimes(1);
     });
   });
   test('add google fact check', async () => {
@@ -325,7 +393,7 @@ describe('add to collection button', () => {
 
     const createCollectionGoogleFactCheckMock = mocks[2].newData;
     await waitFor(async () => {
-      expect(createCollectionGoogleFactCheckMock).toHaveBeenCalled();
+      expect(createCollectionGoogleFactCheckMock).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -357,7 +425,7 @@ describe('add to collection button', () => {
 
     const createCollectionVeraFileMock = mocks[3].newData;
     await waitFor(async () => {
-      expect(createCollectionVeraFileMock).toHaveBeenCalled();
+      expect(createCollectionVeraFileMock).toHaveBeenCalledTimes(1);
     });
   });
 });
