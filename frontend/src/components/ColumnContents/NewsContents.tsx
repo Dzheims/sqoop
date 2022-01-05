@@ -1,40 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { GetNewsApiContentsQuery } from './query.generated';
-import { makeStyles } from '@material-ui/core/styles';
 import NewsCards from '../Cards/NewsCard';
-import Fab from '@mui/material/Fab';
+import NewUnreadsButton from '../Common/Button/NewUnreadsButton';
 
 interface NewsAPIDataProps {
   data: GetNewsApiContentsQuery;
 }
-const useStyles = makeStyles(() => ({
-  fabButtonContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'sticky',
-    top: 30,
-    zIndex: 50,
-  },
-}));
-
-const fabButtonStyle = {
-  position: 'absolute',
-  textTransform: 'none',
-  boxShadow: 'none',
-  width: '125px',
-  color: '#ffffff',
-  backgroundColor: '#0036e7',
-} as React.CSSProperties;
 
 const NewsContents: React.FC<NewsAPIDataProps> = ({
   data,
 }: NewsAPIDataProps) => {
-  const classes = useStyles();
+  const ref = useRef<HTMLDivElement>(null);
+  const [hasNewUnreads, setHasNewUnreads] = useState(false);
   const [lastSeen, setLastSeen] = useState(
     data.topHeadlines[0].publishedAt as string
   );
-  const [hasNewUnreads, setHasNewUnreads] = useState(false);
 
   useEffect(() => {
     if (lastSeen !== (data.topHeadlines[0].publishedAt as string)) {
@@ -46,23 +26,12 @@ const NewsContents: React.FC<NewsAPIDataProps> = ({
   return (
     <div>
       {hasNewUnreads ? (
-        <div className={classes.fabButtonContainer}>
-          <Fab
-            style={fabButtonStyle}
-            variant="extended"
-            onClick={() => {
-              setHasNewUnreads(false);
-            }}
-            size="small"
-          >
-            New Contents
-          </Fab>
-        </div>
+        <NewUnreadsButton setHasNewUnreads={setHasNewUnreads} refObject={ref} />
       ) : (
         <div />
       )}
       {data?.topHeadlines?.map((value, index) => (
-        <div key={index}>
+        <div key={index} ref={ref}>
           <NewsCards data={value} />
         </div>
       ))}

@@ -45,14 +45,14 @@ const AppBar = () => {
           </a>
           <div>
             <Button
-              variant="text"
-              color="primary"
+              variant="contained"
+              color="secondary"
               className={classes.button}
               onClick={() => {
-                history.push('/');
+                history.push('/signup');
               }}
             >
-              About
+              Create Account
             </Button>
             <Button
               variant="outlined"

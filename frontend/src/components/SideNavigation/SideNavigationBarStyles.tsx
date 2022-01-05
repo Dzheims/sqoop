@@ -108,6 +108,20 @@ export const useStyles = makeStyles(() => ({
   selectedIconContainer: {
     backgroundColor: '#f7fafc',
   },
+  sqoopIcon: {
+    height: '30px',
+    width: '30px',
+  },
+  sqoopIconContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    height: '55px',
+    width: '55px',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    marginTop: '20px',
+  },
 }));
 
 export const NavigationBarContainer = styled.div`
@@ -136,12 +150,12 @@ export const IconContainer = styled.div`
 export const AccountAvatarContainer = styled.div`
   align-items: center;
   display: flex;
-  // background-color: ${() => theme.palette.background.paper};
   height: 55px;
-  width: 50px;
+  width: 55px;
   position: absolute;
   bottom: 0;
   margin-bottom: 20px;
+  justify-content: center;
 `;
 export const MenuContainer = styled.div`
   align-items: center;
