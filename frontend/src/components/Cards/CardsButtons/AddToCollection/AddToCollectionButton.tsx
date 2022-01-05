@@ -107,7 +107,7 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
             variables: {
               input: {
                 collectionTweet: {
-                  collectionId: collectionListState.collectionId,
+                  collectionId: data.collectionId,
                   tweetId: data.tweetId,
                   authorId: data.authorId,
                   text: data.text,
@@ -146,7 +146,7 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
             variables: {
               input: {
                 collectionArticle: {
-                  collectionId: collectionListState.collectionId,
+                  collectionId: data.collectionId,
                   title: data.title,
                   description: data.description,
                   publishedAt: data.publishedAt,
@@ -173,7 +173,7 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
             variables: {
               input: {
                 collectionVeraFile: {
-                  collectionId: collectionListState.collectionId,
+                  collectionId: data.collectionId,
                   author: data.author,
                   category: data.category,
                   date: data.date,
@@ -202,7 +202,7 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
             variables: {
               input: {
                 collectionGoogleFactCheck: {
-                  collectionId: collectionListState.collectionId,
+                  collectionId: data.collectionId,
                   claimDate: data.claimDate,
                   claimant: data.claimant,
                   createdAt: data.createdAt,

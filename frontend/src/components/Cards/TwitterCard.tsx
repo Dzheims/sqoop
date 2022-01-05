@@ -23,6 +23,7 @@ import { useDrawerState } from '../FactCheck/FactCheckDrawerState';
 import { CollectionTweet, Tweet, TwitterPhoto } from '../../types.generated';
 import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
 import theme from '../../theme';
+import { useCollectionsListState } from './CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
 
 interface TwitterDataProps {
   data: Tweet | CollectionTweet;
@@ -33,6 +34,7 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
 }: TwitterDataProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
+  const { collectionListState } = useCollectionsListState();
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
 
   const { __typename, ...collectionTweet } = data as Tweet;
@@ -137,6 +139,7 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
                 {
                   ...collectionTweet,
                   __typename: 'CollectionTweet',
+                  collectionId: collectionListState.collectionId,
                 } as CollectionTweet
               }
             />
