@@ -67,6 +67,7 @@ app
       },
       jwtSecret: process.env.JWT_SECRET,
       jwtPgTypeIdentifier: 'public.jwt_token',
+      pgDefaultRole: 'anon',
     })
   )
   .get('/*', function (req, res) {
