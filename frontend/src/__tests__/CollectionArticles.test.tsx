@@ -7,7 +7,6 @@ import {
   waitFor,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import NewsCards from '../components/Cards/NewsCard';
 import { CollectionArticle } from '../types.generated';
 
@@ -32,16 +31,8 @@ let documentBody: RenderResult;
 describe('Collection Articles', () => {
   beforeEach(() => {
     documentBody = render(
-      <MockedProvider mocks={[]} addTypename={true}>
-        <DragDropContext onDragEnd={() => {}}>
-          <Droppable droppableId="droppable">
-            {(provided) => (
-              <div ref={provided.innerRef}>
-                <NewsCards data={data} />
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+      <MockedProvider mocks={[]}>
+        <NewsCards data={data} />
       </MockedProvider>
     );
   });
@@ -102,5 +93,13 @@ describe('Collection Articles', () => {
       'Are you sure you want to remove this article from the collection?'
     );
     expect(warningDialogBox).toBeInTheDocument();
+    fireEvent.click(await documentBody.findByTestId('cancel-delete'));
+    await waitFor(() => {
+      expect(
+        documentBody.queryByText(
+          'Are you sure you want to remove this article from the collection?'
+        )
+      ).not.toBeInTheDocument();
+    });
   });
 });

@@ -156,8 +156,6 @@ const RemoveFromCollectionButton = ({ data }: CollectionContentProps) => {
     }
   }, [proceedDelete]);
 
-  const handleMutationLoading = () => {};
-
   const handleDelete = () => {
     setWarningDelete(true);
   };
