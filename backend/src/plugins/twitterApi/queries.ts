@@ -75,6 +75,7 @@ export const resolvers = {
           WHERE
             twitter_recent_search_request_id = $1
           GROUP BY
+            twitter_recent_search_cache.id,
             twitter_recent_search_cache.tweet_id,
             twitter_recent_search_cache.author_id,
             twitter_recent_search_cache.published_at,
@@ -83,7 +84,9 @@ export const resolvers = {
             twitter_recent_search_cache.profile_image_url,
             twitter_recent_search_cache.username,
             twitter_recent_search_cache.verified,
-            twitter_recent_search_cache.suggested_keywords`,
+            twitter_recent_search_cache.suggested_keywords
+          ORDER BY
+            twitter_recent_search_cache.id`,
           [request.id]
         );
         return camelcaseKeys(twitterRecentSearchCache, { deep: true });

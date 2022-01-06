@@ -43,7 +43,7 @@ export const resolvers = {
 
       if (request) {
         const { rows: topHeadlinesCache } = await pgClient.query(
-          `SELECT * FROM top_headlines_cache where top_headlines_request_id = $1`,
+          `SELECT * FROM top_headlines_cache WHERE top_headlines_request_id = $1 ORDER BY id`,
           [request.id]
         );
         return camelcaseKeys(topHeadlinesCache);
