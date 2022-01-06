@@ -2,13 +2,10 @@ import React from 'react';
 import {
   render,
   RenderResult,
-  cleanup,
   fireEvent,
   waitFor,
 } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import CollectionContentsData from '../components/ColumnContents/CollectionContentsData';
 import {
   SAVE_TWEET_TO_COLLECTION,
   SAVE_ARTICLE_TO_COLLECTION,
@@ -18,7 +15,6 @@ import {
 import AddToCollectionButton from '../components/Cards/CardsButtons/AddToCollection/AddToCollectionButton';
 import {
   CollectionArticle,
-  CollectionContent,
   CollectionGoogleFactCheck,
   CollectionTweet,
   CollectionVeraFile,
@@ -89,7 +85,7 @@ const tweet: CollectionTweet = {
   id: 0,
   collectionId: 0,
   createdAt: '',
-  photosConnection: photosConnection,
+  photosConnection,
 };
 
 const googleFactCheck: CollectionGoogleFactCheck = {
@@ -296,7 +292,7 @@ describe('add to collection button', () => {
     const createCollectionGoogleFactCheckMock = mocks[2].newData;
     const createCollectionVeraFileMock = mocks[3].newData;
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(createCollectionArticleMock).not.toHaveBeenCalled();
       expect(createCollectionTweetMock).not.toHaveBeenCalled();
       expect(createCollectionGoogleFactCheckMock).not.toHaveBeenCalled();
@@ -330,7 +326,7 @@ describe('add to collection button', () => {
     fireEvent.click(documentBody.getByRole('button', { name: 'Save' }));
 
     const createCollectionArticleMock = mocks[0].newData;
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(createCollectionArticleMock).toHaveBeenCalledTimes(1);
     });
   });
@@ -361,7 +357,7 @@ describe('add to collection button', () => {
     fireEvent.click(documentBody.getByRole('button', { name: 'Save' }));
 
     const createCollectionTweetMock = mocks[1].newData;
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(createCollectionTweetMock).toHaveBeenCalledTimes(1);
     });
   });
@@ -392,7 +388,7 @@ describe('add to collection button', () => {
     fireEvent.click(documentBody.getByRole('button', { name: 'Save' }));
 
     const createCollectionGoogleFactCheckMock = mocks[2].newData;
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(createCollectionGoogleFactCheckMock).toHaveBeenCalledTimes(1);
     });
   });
@@ -424,7 +420,7 @@ describe('add to collection button', () => {
     fireEvent.click(documentBody.getByRole('button', { name: 'Save' }));
 
     const createCollectionVeraFileMock = mocks[3].newData;
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(createCollectionVeraFileMock).toHaveBeenCalledTimes(1);
     });
   });
