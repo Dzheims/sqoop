@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable react/jsx-props-no-spreading */
-
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { useHistory } from 'react-router-dom';
 import {
   ColumnContainer,
   Title,
@@ -12,7 +9,6 @@ import {
   ColumnWrapper,
   useStyles,
 } from './ColumnsStyle';
-import { makeStyles } from '@material-ui/core/styles';
 import { Chip } from '@material-ui/core';
 import CloseIcon from '@mui/icons-material/Close';
 import FeedIcon from '@mui/icons-material/Feed';
@@ -29,7 +25,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Typography,
 } from '@mui/material';
 import { IconButton } from '@mui/material';
 import { useMutation } from '@apollo/client';
@@ -101,17 +96,12 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const [proceedDelete, setProceedDelete] = useState(false);
   const [userId] = useState(currentUserId());
   const [warningDelete, setWarningDelete] = useState(false);
-  const [filters, setFilters] = useState({});
-
   const [columnTitle, setColumnTitle] = useState('');
-  const [onFocusState, setOnFocusState] = useState('0px solid #f04b4c');
   const [deleteColumn, setDeleteColumn] = useState<DeleteColumnProps>({
     title: '',
     id: 0,
     type: '',
   });
-
-  const onDragEnd = () => {};
 
   const [deleteTwitterFeed] = useMutation<
     DeleteTwitterMutation,
@@ -193,14 +183,6 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     setWarningDelete(false);
   };
 
-  const onBlur = () => {
-    setOnFocusState('0px solid #f04b4c');
-  };
-
-  const onFocus = () => {
-    setOnFocusState('2px solid #f04b4c');
-  };
-
   const getFiltersList = (value: any) => {
     switch (value.__typename) {
       case 'NewsFeed':
@@ -228,66 +210,45 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
               key={value.createdAt}
               id={new Date(value.createdAt).toUTCString()}
               className={classes.columnHighlightBorder}
-              // onBlur={onBlur}
-              // onFocus={onFocus}
-              // style={{
-              //   border: onFocusState,
-              //   transition: 'border 0.10s ease-out',
-              // }}
               tabIndex={-1}
             >
-              <DragDropContext onDragEnd={onDragEnd} key={index}>
-                <Droppable droppableId="droppable">
-                  {(provided, snapshot) => (
-                    <ColumnContainer
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                    >
-                      <div className={classes.titleContainer}>
-                        <div className={classes.columnHeader}>
-                          <div>{getIcon(value)}</div>
-                          <Title>{value.title}</Title>
-                        </div>
-                        <IconButton
-                          data-testid={value.title}
-                          onClick={() => {
-                            handleDelete({
-                              title: value.title,
-                              id: value.id,
-                              type: value.__typename,
-                            });
-                          }}
-                        >
-                          <CloseIcon
-                            sx={{ height: '20px', width: '20px' }}
-                            className={classes.iconButton}
-                          />
-                        </IconButton>
-                      </div>
-                      <ScrollContainer className="scroll-container">
-                        <div className={classes.chipsContainer}>
-                          {getFiltersList(value).map((filter: string) => (
-                            <Chip
-                              className={classes.chips}
-                              variant="outlined"
-                              label={filter}
-                            />
-                          ))}
-                        </div>
-                      </ScrollContainer>
-                      <ItemContainer
-                        key={index}
-                        className={classes.itemContainer}
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        isDragging={snapshot.isDraggingOver}
-                      >
-                        {getFeedType(value)}
-                      </ItemContainer>
-                    </ColumnContainer>
-                  )}
-                </Droppable>
-              </DragDropContext>
+              <ColumnContainer>
+                <div className={classes.titleContainer}>
+                  <div className={classes.columnHeader}>
+                    <div>{getIcon(value)}</div>
+                    <Title>{value.title}</Title>
+                  </div>
+                  <IconButton
+                    data-testid={value.title}
+                    onClick={() => {
+                      handleDelete({
+                        title: value.title,
+                        id: value.id,
+                        type: value.__typename,
+                      });
+                    }}
+                  >
+                    <CloseIcon
+                      sx={{ height: '20px', width: '20px' }}
+                      className={classes.iconButton}
+                    />
+                  </IconButton>
+                </div>
+                <ScrollContainer className="scroll-container">
+                  <div className={classes.chipsContainer}>
+                    {getFiltersList(value).map((filter: string) => (
+                      <Chip
+                        className={classes.chips}
+                        variant="outlined"
+                        label={filter}
+                      />
+                    ))}
+                  </div>
+                </ScrollContainer>
+                <ItemContainer key={index} className={classes.itemContainer}>
+                  {getFeedType(value)}
+                </ItemContainer>
+              </ColumnContainer>
             </div>
           ))}
         </ColumnWrapper>

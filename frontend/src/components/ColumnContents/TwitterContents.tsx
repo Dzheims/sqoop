@@ -24,14 +24,14 @@ const TwitterContents: React.FC<TwitterAPIDataProps> = ({
   }, [data]);
 
   return (
-    <div>
+    <div ref={ref}>
       {hasNewUnreads ? (
         <NewUnreadsButton setHasNewUnreads={setHasNewUnreads} refObject={ref} />
       ) : (
         <div />
       )}
       {data?.searchTweets?.map((value, index) => (
-        <div key={index} ref={ref}>
+        <div key={index}>
           <TwitterCards data={value} />
         </div>
       ))}

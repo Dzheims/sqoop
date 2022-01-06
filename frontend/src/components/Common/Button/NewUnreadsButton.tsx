@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@mui/material/Fab';
 
@@ -35,9 +35,10 @@ const NewUnreadsButton: React.FC<NewContentsProps> = ({
 
   const scrollToTop = () => {
     if (refObject.current) {
-      refObject.current.scrollTo({
-        top: refObject.current.offsetTop,
+      refObject.current.scrollIntoView({
         behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
       });
     }
   };

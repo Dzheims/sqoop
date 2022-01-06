@@ -24,14 +24,14 @@ const NewsContents: React.FC<NewsAPIDataProps> = ({
   }, [data]);
 
   return (
-    <div>
+    <div ref={ref}>
       {hasNewUnreads ? (
         <NewUnreadsButton setHasNewUnreads={setHasNewUnreads} refObject={ref} />
       ) : (
         <div />
       )}
       {data?.topHeadlines?.map((value, index) => (
-        <div key={index} ref={ref}>
+        <div key={index}>
           <NewsCards data={value} />
         </div>
       ))}
