@@ -15,6 +15,7 @@ import { Article, CollectionArticle } from '../../types.generated';
 import FactCheckButton from '../FactCheck/FactCheckButton';
 import { useDrawerState } from '../FactCheck/FactCheckDrawerState';
 import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
+import { useCollectionsListState } from './CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
 
 interface NewsDataProps {
   data: Article | CollectionArticle;
@@ -23,6 +24,7 @@ interface NewsDataProps {
 const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
   const classes = useStyles();
   const { state, setState } = useDrawerState();
+  const { collectionListState } = useCollectionsListState();
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
   const { __typename, author, content, sourceId, ...collectionArticle } =
     data as Article;
@@ -131,6 +133,7 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                 {
                   ...collectionArticle,
                   __typename: 'CollectionArticle',
+                  collectionId: collectionListState.collectionId,
                 } as CollectionArticle
               }
             />

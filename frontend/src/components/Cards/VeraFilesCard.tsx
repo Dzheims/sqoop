@@ -8,6 +8,7 @@ import { formatTimeAndDate } from '../Common/Functions/Functions';
 import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
 import { CollectionVeraFile, VeraFiles } from '../../types.generated';
 import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
+import { useCollectionsListState } from './CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
 
 interface VeraFactCheckProps {
   data: VeraFiles | CollectionVeraFile;
@@ -17,6 +18,7 @@ const VeraFilesCard: React.FC<VeraFactCheckProps> = ({
   data,
 }: VeraFactCheckProps) => {
   const classes = useStyles();
+  const { collectionListState } = useCollectionsListState();
   const { __typename, ...collectionVeraFile } = data as VeraFiles;
 
   return (
@@ -76,6 +78,7 @@ const VeraFilesCard: React.FC<VeraFactCheckProps> = ({
                 {
                   ...collectionVeraFile,
                   __typename: 'CollectionVeraFile',
+                  collectionId: collectionListState.collectionId,
                 } as CollectionVeraFile
               }
             />

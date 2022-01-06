@@ -7,6 +7,7 @@ import { CollectionGoogleFactCheck, Claim } from '../../types.generated';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
 import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
 import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
+import { useCollectionsListState } from './CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
 
 interface GoogleFactCheckProps {
   data: Claim | CollectionGoogleFactCheck;
@@ -16,6 +17,7 @@ const GoogleFactCheckCard: React.FC<GoogleFactCheckProps> = ({
   data,
 }: GoogleFactCheckProps) => {
   const classes = useStyles();
+  const { collectionListState } = useCollectionsListState();
   const { __typename, ...collectionGoogleFactCheck } = data as Claim;
 
   return (
@@ -90,6 +92,7 @@ const GoogleFactCheckCard: React.FC<GoogleFactCheckProps> = ({
                 {
                   ...collectionGoogleFactCheck,
                   __typename: 'CollectionGoogleFactCheck',
+                  collectionId: collectionListState.collectionId,
                 } as CollectionGoogleFactCheck
               }
             />

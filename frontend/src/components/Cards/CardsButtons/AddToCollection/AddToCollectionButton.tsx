@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@mui/icons-material/Add';
@@ -64,6 +64,7 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
   const classes = useStyles();
   const { collectionListState } = useCollectionsListState();
   const [isOpen, setIsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleClickOpen = () => {
     setIsOpen(true);
@@ -77,37 +78,14 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
     useMutation<
       SaveTweetToCollectionMutation,
       SaveTweetToCollectionMutationVariables
-    >(SAVE_TWEET_TO_COLLECTION);
-
-  const [saveArticleToCollection, { loading: mutationArticleLoading }] =
-    useMutation<
-      SaveArticleToCollectionMutation,
-      SaveArticleToCollectionMutationVariables
-    >(SAVE_ARTICLE_TO_COLLECTION);
-
-  const [saveVeraFileToCollection, { loading: mutationVeraFileLoading }] =
-    useMutation<
-      SaveVeraFileToCollectionMutation,
-      SaveVeraFileToCollectionMutationVariables
-    >(SAVE_VERA_FILE_TO_COLLECTION);
-
-  const [
-    saveGoogleFactCheckToCollection,
-    { loading: mutationGoogleFactCheckLoading },
-  ] = useMutation<
-    SaveGoogleFactCheckToCollectionMutation,
-    SaveGoogleFactCheckToCollectionMutationVariables
-  >(SAVE_GOOGLE_FACT_CHECK_TO_COLLECTION);
-
-  const handleSave = () => {
-    if (data.__typename) {
-      switch (data.__typename) {
-        case 'CollectionTweet':
-          saveTweetToCollection({
+    >(
+      SAVE_TWEET_TO_COLLECTION,
+      data.__typename === 'CollectionTweet'
+        ? {
             variables: {
               input: {
                 collectionTweet: {
-                  collectionId: collectionListState.collectionId,
+                  collectionId: data.collectionId,
                   tweetId: data.tweetId,
                   authorId: data.authorId,
                   text: data.text,
@@ -131,7 +109,7 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
               },
             },
             onCompleted: () => {
-              handleClickClose();
+              setIsSubmitting(false);
             },
             refetchQueries: [
               {
@@ -139,14 +117,22 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
                 variables: { collectionId: collectionListState.collectionId },
               },
             ],
-          });
-          break;
-        case 'CollectionArticle':
-          saveArticleToCollection({
+          }
+        : {}
+    );
+
+  const [saveArticleToCollection, { loading: mutationArticleLoading }] =
+    useMutation<
+      SaveArticleToCollectionMutation,
+      SaveArticleToCollectionMutationVariables
+    >(
+      SAVE_ARTICLE_TO_COLLECTION,
+      data.__typename === 'CollectionArticle'
+        ? {
             variables: {
               input: {
                 collectionArticle: {
-                  collectionId: collectionListState.collectionId,
+                  collectionId: data.collectionId,
                   title: data.title,
                   description: data.description,
                   publishedAt: data.publishedAt,
@@ -158,7 +144,7 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
               },
             },
             onCompleted: () => {
-              handleClickClose();
+              setIsSubmitting(false);
             },
             refetchQueries: [
               {
@@ -166,14 +152,22 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
                 variables: { collectionId: collectionListState.collectionId },
               },
             ],
-          });
-          break;
-        case 'CollectionVeraFile':
-          saveVeraFileToCollection({
+          }
+        : {}
+    );
+
+  const [saveVeraFileToCollection, { loading: mutationVeraFileLoading }] =
+    useMutation<
+      SaveVeraFileToCollectionMutation,
+      SaveVeraFileToCollectionMutationVariables
+    >(
+      SAVE_VERA_FILE_TO_COLLECTION,
+      data.__typename === 'CollectionVeraFile'
+        ? {
             variables: {
               input: {
                 collectionVeraFile: {
-                  collectionId: collectionListState.collectionId,
+                  collectionId: data.collectionId,
                   author: data.author,
                   category: data.category,
                   date: data.date,
@@ -187,7 +181,7 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
               },
             },
             onCompleted: () => {
-              handleClickClose();
+              setIsSubmitting(false);
             },
             refetchQueries: [
               {
@@ -195,46 +189,63 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
                 variables: { collectionId: collectionListState.collectionId },
               },
             ],
-          });
-          break;
-        case 'CollectionGoogleFactCheck':
-          saveGoogleFactCheckToCollection({
-            variables: {
-              input: {
-                collectionGoogleFactCheck: {
-                  collectionId: collectionListState.collectionId,
-                  claimDate: data.claimDate,
-                  claimant: data.claimant,
-                  createdAt: data.createdAt,
-                  languageCode: data.languageCode,
-                  publisherName: data.publisherName,
-                  publisherSite: data.publisherSite,
-                  reviewDate: data.reviewDate,
-                  text: data.text,
-                  title: data.title,
-                  textualRating: data.textualRating,
-                  url: data.url,
-                },
+          }
+        : {}
+    );
+
+  const [
+    saveGoogleFactCheckToCollection,
+    { loading: mutationGoogleFactCheckLoading },
+  ] = useMutation<
+    SaveGoogleFactCheckToCollectionMutation,
+    SaveGoogleFactCheckToCollectionMutationVariables
+  >(
+    SAVE_GOOGLE_FACT_CHECK_TO_COLLECTION,
+    data.__typename === 'CollectionGoogleFactCheck'
+      ? {
+          variables: {
+            input: {
+              collectionGoogleFactCheck: {
+                collectionId: data.collectionId,
+                claimDate: data.claimDate,
+                claimant: data.claimant,
+                createdAt: data.createdAt,
+                languageCode: data.languageCode,
+                publisherName: data.publisherName,
+                publisherSite: data.publisherSite,
+                reviewDate: data.reviewDate,
+                text: data.text,
+                title: data.title,
+                textualRating: data.textualRating,
+                url: data.url,
               },
             },
-            onCompleted: () => {
-              handleClickClose();
+          },
+          onCompleted: () => {
+            setIsSubmitting(false);
+          },
+          refetchQueries: [
+            {
+              query: COLLECTION_CONTENTS_QUERY,
+              variables: { collectionId: collectionListState.collectionId },
             },
-            refetchQueries: [
-              {
-                query: COLLECTION_CONTENTS_QUERY,
-                variables: { collectionId: collectionListState.collectionId },
-              },
-            ],
-          });
-          break;
-        default:
-          handleClickClose();
-          break;
-      }
+          ],
+        }
+      : {}
+  );
+
+  useEffect(() => {
+    if (isSubmitting) {
+      if (data.__typename === 'CollectionTweet') saveTweetToCollection();
+
+      if (data.__typename === 'CollectionArticle') saveArticleToCollection();
+
+      if (data.__typename === 'CollectionVeraFile') saveVeraFileToCollection();
+
+      if (data.__typename === 'CollectionGoogleFactCheck')
+        saveGoogleFactCheckToCollection();
     }
-    handleClickClose();
-  };
+  }, [isSubmitting]);
 
   return (
     <div>
@@ -257,7 +268,14 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
           <CollectionsList />
           <DialogActions>
             <Button onClick={handleClickClose}>Cancel</Button>
-            <Button onClick={handleSave} autoFocus data-testid="submit-save">
+            <Button
+              onClick={() => {
+                handleClickClose();
+                setIsSubmitting(true);
+              }}
+              autoFocus
+              data-testid="submit-save"
+            >
               {mutationTweetLoading ||
               mutationArticleLoading ||
               mutationVeraFileLoading ||
