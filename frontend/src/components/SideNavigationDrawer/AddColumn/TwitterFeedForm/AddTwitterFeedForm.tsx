@@ -14,7 +14,10 @@ import { CREATE_TWITTER_FEED } from './query';
 import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import accountSources from './SourcesList';
 import currentUserId from '../../../../authentication/currentUserId';
-import { NavDrawerState } from '../../../SideNavigation/SideNavigationDrawerState';
+import {
+  NavDrawerState,
+  useNavDrawerState,
+} from '../../../SideNavigation/SideNavigationDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
 import { scrollToElement } from '../../../Common/Functions/Functions';
 import MutationLoader from '../../../Common/MutationLoader';
@@ -51,17 +54,14 @@ interface SuccessAlert {
 }
 
 interface ParentState {
-  drawerStateChanger: Dispatch<SetStateAction<NavDrawerState>>;
   snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
 }
 
-const AddTwitterFeedForm = ({
-  drawerStateChanger,
-  snackbarStateChanger,
-}: ParentState) => {
+const AddTwitterFeedForm = ({ snackbarStateChanger }: ParentState) => {
   const history = useHistory();
   const classes = useStyles();
   const [source, setSource] = useState({ label: '', username: '' });
+  const { drawerState, setDrawerState } = useNavDrawerState();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [titleError, setTitleError] = useState<string>('');
@@ -140,7 +140,12 @@ const AddTwitterFeedForm = ({
         success: true,
       });
       setdisableCreateButton(true);
-      drawerStateChanger({ isOpen: false, current: '' });
+      setDrawerState({
+        ...drawerState,
+        isOpen: false,
+        current: '',
+      });
+
       scrollToElement(
         new Date(createTwitterFeed?.twitterFeed?.createdAt).toUTCString()
       );
