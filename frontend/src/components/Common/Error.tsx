@@ -7,7 +7,6 @@ import theme from '../../theme';
 
 const useStyles = makeStyles(() => ({
   error: {
-    marginTop: '50%',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',

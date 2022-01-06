@@ -83,7 +83,7 @@ export const useStyles = makeStyles(() => ({
     marginBottom: '5px',
     '&:hover': {
       border: '1px solid #f04b4c',
-      backgroundColor: 'white',
+      backgroundColor: '#f7fafc',
       color: theme.palette.secondary.main,
     },
   },
@@ -102,11 +102,25 @@ export const useStyles = makeStyles(() => ({
   },
   iconContainer: {
     '&:hover': {
-      backgroundColor: 'white',
+      backgroundColor: '#f7fafc',
     },
   },
   selectedIconContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#f7fafc',
+  },
+  sqoopIcon: {
+    height: '30px',
+    width: '30px',
+  },
+  sqoopIconContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    height: '55px',
+    width: '55px',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    marginTop: '20px',
   },
 }));
 
@@ -129,19 +143,19 @@ export const IconContainer = styled.div`
   align-items: center;
   display: flex;
   justify: center;
-  border-bottom-left-radius: 15px;
-  border-top-left-radius: 15px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
   transition: all 0.5s ease;
 `;
 export const AccountAvatarContainer = styled.div`
   align-items: center;
   display: flex;
-  // background-color: ${() => theme.palette.background.paper};
   height: 55px;
-  width: 50px;
+  width: 55px;
   position: absolute;
   bottom: 0;
   margin-bottom: 20px;
+  justify-content: center;
 `;
 export const MenuContainer = styled.div`
   align-items: center;
