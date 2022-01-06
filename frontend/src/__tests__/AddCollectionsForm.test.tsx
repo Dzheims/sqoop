@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   render,
-  screen,
   fireEvent,
   RenderResult,
   cleanup,
@@ -22,7 +21,7 @@ describe('Collections Form', () => {
   afterEach(cleanup);
 
   test('input form collection title textfield', () => {
-    const titleTextfield = screen.getByRole('textbox', {
+    const titleTextfield = documentBody.getByRole('textbox', {
       name: 'Collection Title',
     });
     expect(titleTextfield).toHaveValue('');
@@ -33,7 +32,7 @@ describe('Collections Form', () => {
   });
   test('create button', async () => {
     expect(
-      await screen.findByRole('button', { name: 'Create' })
+      await documentBody.findByRole('button', { name: 'Create' })
     ).toBeInTheDocument();
   });
 });

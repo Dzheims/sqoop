@@ -1,11 +1,9 @@
 import React from 'react';
 import {
   render,
-  screen,
   fireEvent,
   RenderResult,
   cleanup,
-  wait,
 } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import AddTwitterFeedForm from '../components/SideNavigationDrawer/AddColumn/TwitterFeedForm/AddTwitterFeedForm';
@@ -23,7 +21,7 @@ describe('News Feed Form', () => {
   afterEach(cleanup);
 
   test('input form feed title textfield', () => {
-    const titleTextfield = screen.getByRole('textbox', {
+    const titleTextfield = documentBody.getByRole('textbox', {
       name: 'Feed Title',
     });
     expect(titleTextfield).toHaveValue('');
@@ -33,7 +31,7 @@ describe('News Feed Form', () => {
     expect(titleTextfield).toHaveValue('General News Feed');
   });
   test('input form feed keywords textfield', () => {
-    const keywordsTextfield = screen.getByRole('textbox', {
+    const keywordsTextfield = documentBody.getByRole('textbox', {
       name: 'Keywords',
     });
     expect(keywordsTextfield).toHaveValue('');
@@ -43,7 +41,7 @@ describe('News Feed Form', () => {
     expect(keywordsTextfield).toHaveValue('Online Class');
   });
   test('input form feed sources textfield', () => {
-    const sourcesTextfield = screen.getByRole('textbox', {
+    const sourcesTextfield = documentBody.getByRole('textbox', {
       name: 'Sources',
     });
     expect(sourcesTextfield).toHaveValue('');
@@ -59,7 +57,7 @@ describe('News Feed Form', () => {
   });
   test('create button', async () => {
     expect(
-      await screen.findByRole('button', { name: 'Create' })
+      await documentBody.findByRole('button', { name: 'Create' })
     ).toBeInTheDocument();
   });
 });

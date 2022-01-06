@@ -5,11 +5,8 @@ import {
   fireEvent,
   RenderResult,
   cleanup,
-  screen,
-  wait,
 } from '@testing-library/react';
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import SignIn from '../pages/SignInPage/SignIn';
+import { MockedProvider } from '@apollo/client/testing';
 import Search from '../components/SideNavigationDrawer/Search/Search';
 
 let documentBody: RenderResult;
@@ -65,7 +62,7 @@ describe('Search Drawer', () => {
     expect(startDate).toBeInTheDocument();
     expect(endDate).toBeInTheDocument();
   });
-  test('searchArticles', async () => {
+  test('searchArticles', () => {
     const searchBar = documentBody.getByPlaceholderText('Search');
 
     expect(searchBar).toHaveValue('');

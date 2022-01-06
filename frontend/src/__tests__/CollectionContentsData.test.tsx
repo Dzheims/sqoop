@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, RenderResult, cleanup } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import CollectionContentsData from '../components/ColumnContents/CollectionContentsData';
 import { COLLECTION_CONTENTS_QUERY } from '../components/ColumnContents/query';
 
@@ -43,15 +42,7 @@ describe('Columns', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={mocks}>
-        <DragDropContext onDragEnd={() => {}}>
-          <Droppable droppableId="droppable">
-            {(provided) => (
-              <div ref={provided.innerRef}>
-                <CollectionContentsData collectionId={1} />
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <CollectionContentsData collectionId={1} />
       </MockedProvider>
     );
   });

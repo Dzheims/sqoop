@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { GET_TWITTER_API_CONTENTS_QUERY } from '../components/ColumnContents/query';
 import TwitterContentsData from '../components/ColumnContents/TwitterContentsData';
-
-interface SearchQueryProps {
-  keyword: string;
-}
 
 const mocks: ReadonlyArray<MockedResponse> = [
   {

@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { SEARCH_TWITTER_CONTENTS_QUERY } from '../components/SideNavigationDrawer/Search/query';
 import SearchAllTweetsColumnData from '../components/SideNavigationDrawer/Search/SearchTwitterColumnData';
-
-interface SearchQueryProps {
-  keyword: string;
-}
 
 const mocks: ReadonlyArray<MockedResponse> = [
   {
@@ -99,7 +95,7 @@ describe('Twitter API contents', () => {
             {(provided) => (
               <div ref={provided.innerRef}>
                 <SearchAllTweetsColumnData
-                  keyword={'BBM'}
+                  keyword="BBM"
                   sources={null}
                   fromDate={null}
                   toDate={null}

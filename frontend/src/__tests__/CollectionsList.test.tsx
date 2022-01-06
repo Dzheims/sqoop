@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  render,
-  RenderResult,
-  cleanup,
-  fireEvent,
-} from '@testing-library/react';
+import { render, RenderResult, cleanup } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { GET_COLLECTIONS_LIST_QUERY } from '../components/Cards/CardsButtons/AddToCollection/CollectionsList/query';
 import CollectionsList from '../components/Cards/CardsButtons/AddToCollection/CollectionsList/CollectionsList';

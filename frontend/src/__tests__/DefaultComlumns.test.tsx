@@ -3,17 +3,9 @@ import {
   render,
   RenderResult,
   cleanup,
-  waitFor,
   fireEvent,
 } from '@testing-library/react';
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import App from '../App';
-import {
-  DELETE_COLLECTION_MUTATION,
-  DELETE_NEWS_MUTATION,
-  DELETE_TWITTER_MUTATION,
-  GET_COLUMNS_QUERY,
-} from '../components/Columns/query';
+import { MockedProvider } from '@apollo/client/testing';
 import DefaultColumns from '../components/Columns/DefaultColumns';
 
 let documentBody: RenderResult;

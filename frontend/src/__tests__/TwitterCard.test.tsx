@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  render,
-  RenderResult,
-  fireEvent,
-  waitFor,
-} from '@testing-library/react';
+import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import TwitterCard from '../components/Cards/TwitterCard';
 import { Tweet } from '../types.generated';
 
@@ -30,15 +24,7 @@ describe('Twitter API contents', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={[]} addTypename={false}>
-        <DragDropContext onDragEnd={() => {}}>
-          <Droppable droppableId="droppable">
-            {(provided) => (
-              <div ref={provided.innerRef}>
-                <TwitterCard data={data} />
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <TwitterCard data={data} />
       </MockedProvider>
     );
   });

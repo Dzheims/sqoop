@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { MockedProvider } from '@apollo/client/testing';
 import NewsCard from '../components/Cards/NewsCard';
 import { Article } from '../types.generated';
@@ -27,15 +26,7 @@ describe('News Cards', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={[]} addTypename={false}>
-        <DragDropContext onDragEnd={() => {}}>
-          <Droppable droppableId="droppable">
-            {(provided) => (
-              <div ref={provided.innerRef}>
-                <NewsCard data={data} />
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <NewsCard data={data} />
       </MockedProvider>
     );
   });
@@ -49,7 +40,7 @@ describe('News Cards', () => {
     );
     expect(text).toBeInTheDocument();
   });
-  it('check link', async () => {
+  it('check link', () => {
     const link = documentBody.getByRole('link');
     expect(link).toHaveAttribute(
       'href',

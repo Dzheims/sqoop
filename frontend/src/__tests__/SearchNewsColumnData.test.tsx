@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -91,7 +91,7 @@ describe('News API contents', () => {
             {(provided) => (
               <div ref={provided.innerRef}>
                 <SearchNewsColumnData
-                  keyword={'BBM'}
+                  keyword="BBM"
                   sources={null}
                   from={null}
                   to={null}

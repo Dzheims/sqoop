@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  render,
-  RenderResult,
-  waitFor,
-  fireEvent,
-} from '@testing-library/react';
+import { render, RenderResult } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import GoogleFactCheckCard from '../components/Cards/GoogleFactCheckCard';
 import { Claim } from '../types.generated';
 
@@ -29,15 +23,7 @@ describe('Google Fact Check Cards', () => {
   beforeEach(() => {
     documentBody = render(
       <MockedProvider mocks={[]} addTypename={false}>
-        <DragDropContext onDragEnd={() => {}}>
-          <Droppable droppableId="droppable">
-            {(provided) => (
-              <div ref={provided.innerRef}>
-                <GoogleFactCheckCard data={data} />
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <GoogleFactCheckCard data={data} />
       </MockedProvider>
     );
   });

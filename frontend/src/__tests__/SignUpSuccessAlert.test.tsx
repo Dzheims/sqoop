@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, RenderResult, cleanup } from '@testing-library/react';
+import { render, RenderResult, cleanup } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import SuccessBox from '../pages/SignUpPage/SignUpSuccessAlert';
 
@@ -16,8 +16,8 @@ describe('Success Box', () => {
   });
   afterEach(cleanup);
   it('renders button', () => {
-    const button = screen.getByTestId('btn-get-started');
-    expect(button).toBeInTheDocument;
+    const button = documentBody.getByTestId('btn-get-started');
+    expect(button).toBeInTheDocument();
   });
   it('it renders greetings', async () => {
     const greetings = await documentBody.findByText('Awesome!');

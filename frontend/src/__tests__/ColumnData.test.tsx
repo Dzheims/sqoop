@@ -7,7 +7,6 @@ import {
   fireEvent,
 } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import App from '../App';
 import {
   DELETE_COLLECTION_MUTATION,
   DELETE_NEWS_MUTATION,
@@ -62,7 +61,7 @@ const customTwitterFeed = {
   createdAt: '2021-11-25 21:42:43.828621+08',
 };
 
-const collection = {
+const collectionColumn = {
   __typename: 'Collection',
   id: 6,
   title: 'Collection Bookmarks',
@@ -82,7 +81,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
               customNewsFeed1,
               customNewsFeed2,
               customTwitterFeed,
-              collection,
+              collectionColumn,
             ],
           },
         };
@@ -93,7 +92,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
               customNewsFeed1,
               customNewsFeed2,
               customNewsFeed3,
-              collection,
+              collectionColumn,
             ],
           },
         };
@@ -115,7 +114,7 @@ const mocks: ReadonlyArray<MockedResponse> = [
             customNewsFeed2,
             customNewsFeed3,
             customTwitterFeed,
-            collection,
+            collectionColumn,
           ],
         },
       };
@@ -205,7 +204,7 @@ describe('Columns', () => {
   });
 
   test('news feed delete button', async () => {
-    //existing newsfeed
+    // existing newsfeed
     const newsFeed = await documentBody.findByText('Custom News Feed 4');
     expect(newsFeed).toBeInTheDocument();
 
@@ -213,7 +212,7 @@ describe('Columns', () => {
       'Custom News Feed 4'
     );
     const dialog = documentBody.queryByText('Warning!');
-    //dialog box not present until clicked
+    // dialog box not present until clicked
     expect(dialog).not.toBeInTheDocument();
     expect(deleteNewsFeed).toBeInTheDocument();
 
@@ -224,7 +223,7 @@ describe('Columns', () => {
       ).toBeInTheDocument();
     });
 
-    //dialog box present
+    // dialog box present
     expect(documentBody.queryByText('Warning!')).toBeInTheDocument();
 
     const agreeDelete = await documentBody.findByTestId('agree-delete');
@@ -232,12 +231,12 @@ describe('Columns', () => {
     fireEvent.click(agreeDelete);
     deleteNewsFeedQueryCalled = true;
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(documentBody.queryByText('Warning!')).not.toBeInTheDocument();
     });
     expect(documentBody.queryByTestId('agree-delete')).not.toBeInTheDocument();
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(
         documentBody.queryByText('Custom News Feed 4')
       ).not.toBeInTheDocument();
@@ -274,7 +273,7 @@ describe('Columns', () => {
 
     deleteTwitterFeedQueryCalled = true;
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(documentBody.queryByText('Warning!')).not.toBeInTheDocument();
     });
 
@@ -314,12 +313,12 @@ describe('Columns', () => {
 
     deleteCollectionQueryCalled = true;
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(documentBody.queryByText('Warning!')).not.toBeInTheDocument();
     });
 
     expect(documentBody.queryByTestId('agree-delete')).not.toBeInTheDocument();
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(
         documentBody.queryByText('Collection Bookmarks')
       ).not.toBeInTheDocument();
@@ -353,7 +352,7 @@ describe('Columns', () => {
 
     fireEvent.click(cancelDelete);
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(documentBody.queryByText('Warning!')).not.toBeInTheDocument();
     });
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, RenderResult, cleanup } from '@testing-library/react';
 import NoColumns from '../components/Common/NoColumns';
+
 let documentBody: RenderResult;
 
 describe('No Columns', () => {
