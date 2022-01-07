@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@mui/material/Fab';
 
@@ -23,35 +23,20 @@ const fabButtonStyle = {
 } as React.CSSProperties;
 
 interface NewContentsProps {
-  setHasNewUnreads: React.Dispatch<React.SetStateAction<boolean>>;
-  refObject: React.RefObject<HTMLDivElement>;
+  onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const NewUnreadsButton: React.FC<NewContentsProps> = ({
-  setHasNewUnreads,
-  refObject,
+  onClick,
 }: NewContentsProps) => {
   const classes = useStyles();
-
-  const scrollToTop = () => {
-    if (refObject.current) {
-      refObject.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest',
-      });
-    }
-  };
 
   return (
     <div className={classes.fabButtonContainer}>
       <Fab
         style={fabButtonStyle}
         variant="extended"
-        onClick={() => {
-          setHasNewUnreads(false);
-          scrollToTop();
-        }}
+        onClick={onClick}
         size="small"
       >
         New Unreads

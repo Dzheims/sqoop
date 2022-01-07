@@ -10,9 +10,9 @@ import {
   ImageListItem,
 } from '@material-ui/core';
 import {
-  AccountNameContainer,
-  TwitterContentContainer,
-  TwitterTitleContainer,
+  SourceNameContainer,
+  TitleContainer,
+  TwitterSourceNameContainer,
   useStyles,
   CardsContainer,
 } from './CardsStyles';
@@ -70,15 +70,15 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
               : classes.cardsContentContainer
           }
         >
-          <TwitterContentContainer>
+          <TitleContainer>
             <Avatar
               alt={data.name as string}
               src={data.profileImageUrl as string}
               className={classes.profileAvatars}
               variant="circular"
             />
-            <AccountNameContainer>
-              <TwitterTitleContainer>
+            <SourceNameContainer>
+              <TwitterSourceNameContainer>
                 <Typography style={{ fontWeight: 600 }}>
                   {truncateName(data.name as string, 13)}
                 </Typography>
@@ -91,13 +91,13 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
                 ) : (
                   <div />
                 )}
-              </TwitterTitleContainer>
+              </TwitterSourceNameContainer>
               <Typography className={classes.userName}>
                 {'@' + data.username}
               </Typography>
-            </AccountNameContainer>
+            </SourceNameContainer>
             <TwitterIcon className={classes.cardsIcon} />
-          </TwitterContentContainer>
+          </TitleContainer>
           <Linkify
             componentDecorator={(
               decoratedHref: string,

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Divider,
   List,

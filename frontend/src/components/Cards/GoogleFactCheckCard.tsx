@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Typography, Avatar } from '@material-ui/core';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
-import { CardsContainer, useStyles, ContentContainer } from './CardsStyles';
+import {
+  CardsContainer,
+  useStyles,
+  ContentContainer,
+  TitleContainer,
+  SourceNameContainer,
+} from './CardsStyles';
 import { CollectionGoogleFactCheck, Claim } from '../../types.generated';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
 import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
@@ -37,38 +43,31 @@ const GoogleFactCheckCard: React.FC<GoogleFactCheckProps> = ({
               : classes.cardsContentContainer
           }
         >
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <FactCheckIcon
-              style={{
-                color: '#00acee',
-              }}
-            />
-          </div>
+          <TitleContainer>
+            <Avatar
+              className={classes.profileAvatars}
+              src="https://www.dtl.coventry.domains/wp-content/uploads/2020/07/Google-Logo.png"
+            >
+              G
+            </Avatar>
+            <SourceNameContainer>
+              <Typography style={{ fontWeight: 600 }}>
+                Google Fact Check
+              </Typography>
+            </SourceNameContainer>
+            <FactCheckIcon className={classes.cardsIcon} />
+          </TitleContainer>
           <ContentContainer>
+            <Typography className={classes.description}>{data.text}</Typography>
             {data.claimant !== null ? (
-              <Typography
-                className={classes.claimant}
-                style={{ fontWeight: 600 }}
-                variant="body2"
-              >
+              <Typography className={classes.date} variant="body2">
                 Claim by {data.claimant}
               </Typography>
             ) : (
               <div />
             )}
-            <Typography className={classes.description}>{data.text}</Typography>
-            {data.claimDate !== null ? (
-              <Typography className={classes.date}>
-                Claim Date {formatTimeAndDate(data.claimDate)}
-              </Typography>
-            ) : (
-              <div />
-            )}
           </ContentContainer>
-          <Typography
-            style={{ fontWeight: 600 }}
-            className={classes.description}
-          >
+          <Typography className={classes.description}>
             {`${data.publisherName || ''} Info Rating: ${
               data.textualRating || ''
             }`}
@@ -84,7 +83,7 @@ const GoogleFactCheckCard: React.FC<GoogleFactCheckProps> = ({
             </Typography>
           </a>
           <Typography className={classes.date}>
-            Review Date {formatTimeAndDate(data.reviewDate)}
+            {formatTimeAndDate(data.reviewDate)}
           </Typography>
           <div style={{ marginLeft: '80%' }}>
             <AddToCollectionButton

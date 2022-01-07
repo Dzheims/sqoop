@@ -81,32 +81,34 @@ const ColumnNavigation: React.FC<ColumnsListProps> = ({
   ];
 
   return (
-    <div className={classes.root}>
+    <div>
       <Typography className={classes.formMessage}>
         Navigate to a column by just a click.
       </Typography>
-      <List>
-        {defaultColumns.map((value) => (
-          <ListItem disablePadding className={classes.listItem}>
-            <ListItemButton onClick={() => scrollToElement(value.title)}>
-              {value.icon}
-              <ListItemText primary={value.title} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-        {data.getColumnResult.map((value) => (
-          <ListItem disablePadding className={classes.listItem}>
-            <ListItemButton
-              onClick={() =>
-                scrollToElement(new Date(value.createdAt).toUTCString())
-              }
-            >
-              {getTypeIcons(value.__typename)}
-              <ListItemText primary={value.title} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      <div className={classes.root}>
+        <List>
+          {defaultColumns.map((value) => (
+            <ListItem disablePadding className={classes.listItem}>
+              <ListItemButton onClick={() => scrollToElement(value.title)}>
+                {value.icon}
+                <ListItemText primary={value.title} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+          {data.getColumnResult.map((value) => (
+            <ListItem disablePadding className={classes.listItem}>
+              <ListItemButton
+                onClick={() =>
+                  scrollToElement(new Date(value.createdAt).toUTCString())
+                }
+              >
+                {getTypeIcons(value.__typename)}
+                <ListItemText primary={value.title} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </div>
     </div>
   );
 };

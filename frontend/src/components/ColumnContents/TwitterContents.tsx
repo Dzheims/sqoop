@@ -23,10 +23,25 @@ const TwitterContents: React.FC<TwitterAPIDataProps> = ({
     }
   }, [data]);
 
+  const scrollToTop = () => {
+    if (ref.current) {
+      ref.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+    }
+  };
+
   return (
     <div ref={ref}>
       {hasNewUnreads ? (
-        <NewUnreadsButton setHasNewUnreads={setHasNewUnreads} refObject={ref} />
+        <NewUnreadsButton
+          onClick={() => {
+            setHasNewUnreads(false);
+            scrollToTop();
+          }}
+        />
       ) : (
         <div />
       )}
