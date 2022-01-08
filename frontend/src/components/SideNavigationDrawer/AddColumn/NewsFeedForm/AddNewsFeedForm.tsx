@@ -23,7 +23,10 @@ import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import countries from './CountriesList';
 import currentUserId from '../../../../authentication/currentUserId';
 import NewsSourcesData from './NewsSourcesData';
-import { NavDrawerState } from '../../../SideNavigation/SideNavigationDrawerState';
+import {
+  NavDrawerState,
+  useNavDrawerState,
+} from '../../../SideNavigation/SideNavigationDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
 import { scrollToElement } from '../../../Common/Functions/Functions';
 import MutationLoader from '../../../Common/MutationLoader';
@@ -68,14 +71,10 @@ interface SuccessAlert {
 }
 
 interface ParentState {
-  drawerStateChanger: Dispatch<SetStateAction<NavDrawerState>>;
   snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
 }
 
-const AddNewsFeedForm = ({
-  drawerStateChanger,
-  snackbarStateChanger,
-}: ParentState) => {
+const AddNewsFeedForm = ({ snackbarStateChanger }: ParentState) => {
   const classes = useStyles();
   const history = useHistory();
   const [country, setCountry] = useState({ code: '', label: '' });
@@ -83,6 +82,7 @@ const AddNewsFeedForm = ({
     name: '',
     id: '',
   });
+  const { drawerState, setDrawerState } = useNavDrawerState();
 
   const newsSourcesData = [
     {
@@ -217,7 +217,13 @@ const AddNewsFeedForm = ({
         success: true,
       });
       setdisableCreateButton(true);
-      drawerStateChanger({ isOpen: false, current: '' });
+
+      setDrawerState({
+        ...drawerState,
+        isOpen: false,
+        current: '',
+      });
+
       scrollToElement(
         new Date(createNewsFeed?.newsFeed?.createdAt).toUTCString()
       );

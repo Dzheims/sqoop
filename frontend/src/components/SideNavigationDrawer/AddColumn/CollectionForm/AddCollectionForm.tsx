@@ -51,25 +51,13 @@ interface SuccessAlert {
 }
 
 interface ParentState {
-  // drawerStateChanger: Dispatch<SetStateAction<NavDrawerState>>;
   snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
 }
 
-const AddCollectionForm = ({
-  // drawerStateChanger,
-  snackbarStateChanger,
-}: ParentState) => {
+const AddCollectionForm = ({ snackbarStateChanger }: ParentState) => {
   const history = useHistory();
   const classes = useStyles();
   const { drawerState, setDrawerState } = useNavDrawerState();
-
-  // const setDrawer = (currentTitle: string, isDrawerOpen: boolean) => {
-  //   setDrawerState({
-  //     ...drawerState,
-  //     isOpen: isDrawerOpen,
-  //     // current: currentTitle,
-  //   });
-  // };
 
   const [collectionForm, setCollectionForm] = useState<CollectionInput>({
     title: '',

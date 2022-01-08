@@ -147,26 +147,11 @@ const SideNavigationBar = () => {
       case 'Navigation':
         return <ColumnsListData />;
       case 'News Feed':
-        return (
-          <AddNewsFeedForm
-            drawerStateChanger={setDrawerState}
-            snackbarStateChanger={setSuccessAlert}
-          />
-        );
+        return <AddNewsFeedForm snackbarStateChanger={setSuccessAlert} />;
       case 'Twitter Feed':
-        return (
-          <AddTwitterFeedForm
-            drawerStateChanger={setDrawerState}
-            snackbarStateChanger={setSuccessAlert}
-          />
-        );
+        return <AddTwitterFeedForm snackbarStateChanger={setSuccessAlert} />;
       case 'Collection':
-        return (
-          <AddCollectionForm
-            // drawerStateChanger={setDrawerState}
-            snackbarStateChanger={setSuccessAlert}
-          />
-        );
+        return <AddCollectionForm snackbarStateChanger={setSuccessAlert} />;
       default:
         return <div />;
     }
