@@ -45,7 +45,10 @@ const VeraFilesCard: React.FC<VeraFactCheckProps> = ({
           }
         >
           <TitleContainer>
-            <Avatar className={classes.profileAvatars}>V</Avatar>
+            <Avatar
+              className={classes.profileAvatars}
+              src="https://verafiles.org/application/files/5016/0125/5608/verafiles-win8.png"
+            />
             <SourceNameContainer>
               <Typography style={{ fontWeight: 600 }}>Vera Files</Typography>
             </SourceNameContainer>

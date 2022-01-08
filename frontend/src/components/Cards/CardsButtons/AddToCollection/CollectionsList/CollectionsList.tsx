@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import React, { useState } from 'react';
 import {
-  Divider,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   ListSubheader,
+  ListItemIcon,
   Typography,
 } from '@mui/material';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import FeedIcon from '@mui/icons-material/Feed';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import CollectionsIcon from '@mui/icons-material/CollectionsBookmark';
 import { useGetCollectionsListQuery } from './query.generated';
 import currentUserId from '../../../../../authentication/currentUserId';
 import Error from '../../../../Common/Error';
@@ -18,23 +21,26 @@ import Loader from '../../../../Common/Loader';
 import { useCollectionsListState } from './CollectionsListState';
 import { useNavDrawerState } from '../../../../SideNavigation/SideNavigationDrawerState';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   div: {
-    width: '300px',
+    width: '250px',
     display: 'flex',
     flexDirection: 'column',
   },
   button: {
     borderRadius: '8px',
+    marginBottom: '5px',
     '&:hover': {
-      color: 'white',
-      backgroundColor: theme.palette.secondary.main,
+      border: '1px solid #f04b4c',
+      backgroundColor: '#f7fafc',
+      color: '#f04b4c',
     },
   },
   selectedButton: {
+    marginBottom: '5px',
     borderRadius: '8px',
     color: 'white',
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#f04b4c',
   },
   listContainer: {
     padding: '10px',
@@ -63,6 +69,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexDirection: 'column',
     marginTop: '15px',
+  },
+  icons: {
+    color: 'gray',
+  },
+  selectedIcon: {
+    color: 'white',
   },
 }));
 
@@ -126,6 +138,47 @@ const CollectionsList = () => {
       </div>
     );
 
+  const iconSize = { height: '18px', width: '18px' };
+  const getTypeIcons = (typeName: string | undefined, collectionId: number) => {
+    switch (typeName) {
+      case 'NewsFeed':
+        return (
+          <FeedIcon
+            sx={iconSize}
+            className={
+              collectionListState.collectionId === collectionId
+                ? classes.selectedIcon
+                : classes.icons
+            }
+          />
+        );
+      case 'TwitterFeed':
+        return (
+          <TwitterIcon
+            sx={iconSize}
+            className={
+              collectionListState.collectionId === collectionId
+                ? classes.selectedIcon
+                : classes.icons
+            }
+          />
+        );
+      case 'Collection':
+        return (
+          <CollectionsIcon
+            sx={iconSize}
+            className={
+              collectionListState.collectionId === collectionId
+                ? classes.selectedIcon
+                : classes.icons
+            }
+          />
+        );
+      default:
+        return <div />;
+    }
+  };
+
   const handleSelectButton = () => {
     setSelectedButton(!selectedButton);
   };
@@ -140,6 +193,7 @@ const CollectionsList = () => {
           {data?.collections?.map((value) => (
             <div>
               <ListItem
+                disablePadding
                 className={
                   collectionListState.collectionId === value.id
                     ? classes.selectedButton
@@ -155,10 +209,12 @@ const CollectionsList = () => {
                     handleSelectButton();
                   }}
                 >
+                  <ListItemIcon>
+                    {getTypeIcons(value.__typename, value.id)}
+                  </ListItemIcon>
                   <ListItemText primary={value.title} />
                 </ListItemButton>
               </ListItem>
-              <Divider />
             </div>
           ))}
         </div>

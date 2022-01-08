@@ -47,9 +47,7 @@ const GoogleFactCheckCard: React.FC<GoogleFactCheckProps> = ({
             <Avatar
               className={classes.profileAvatars}
               src="https://www.dtl.coventry.domains/wp-content/uploads/2020/07/Google-Logo.png"
-            >
-              G
-            </Avatar>
+            />
             <SourceNameContainer>
               <Typography style={{ fontWeight: 600 }}>
                 Google Fact Check
