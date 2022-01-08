@@ -3,6 +3,7 @@ import Linkify from 'react-linkify';
 import { SecureLink } from 'react-secure-link';
 import { decodeHTML } from 'entities';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {
   Typography,
   Avatar,
@@ -17,6 +18,7 @@ import {
   CardsContainer,
 } from './CardsStyles';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
+import LinkParser from '../Common/LinkParser';
 import FactCheckButton from '../FactCheck/FactCheckButton';
 import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
 import { useDrawerState } from '../FactCheck/FactCheckDrawerState';
@@ -38,6 +40,7 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
 
   const { __typename, ...collectionTweet } = data as Tweet;
+  const url = `https://twitter.com/${data.username}/status/${data.tweetId}`;
   useEffect(() => {
     if (data.suggestedKeywords === state.suggestedKeyWords) {
       setHighlightCard(!highlightCard);
@@ -62,6 +65,12 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
           ) : (
             <div />
           )}
+        </div>
+        {/*TODO FIX OPEN ON TWITTER COMPONENT*/}
+        <div className={classes.linkIconDiv}>
+          <a target="_blank" className={classes.link} href={url as string}>
+            Open on Twitter
+          </a>
         </div>
         <div
           className={
@@ -98,21 +107,11 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
             </AccountNameContainer>
             <TwitterIcon className={classes.cardsIcon} />
           </TwitterContentContainer>
-          <Linkify
-            componentDecorator={(
-              decoratedHref: string,
-              decoratedText: string,
-              key: Key
-            ) => (
-              <SecureLink target="_blank" href={decoratedHref} key={key}>
-                {decoratedText}
-              </SecureLink>
-            )}
-          >
+          <LinkParser>
             <Typography variant="body2">
               {decodeHTML(data.text as string)}
             </Typography>
-          </Linkify>
+          </LinkParser>
           {!data.photos?.length ||
           data.photos?.some((photo: any) => photo?.url === null) ? (
             <div />

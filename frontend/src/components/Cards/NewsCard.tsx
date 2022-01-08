@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Key } from 'react';
 import { Typography, Avatar } from '@material-ui/core';
+import Linkify from 'react-linkify';
+import { SecureLink } from 'react-secure-link';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import NewsIcon from '@mui/icons-material/Article';
 import {
@@ -10,6 +12,7 @@ import {
   CardsContainer,
 } from './CardsStyles';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
+import LinkParser from '../Common/LinkParser';
 import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
 import { Article, CollectionArticle } from '../../types.generated';
 import FactCheckButton from '../FactCheck/FactCheckButton';
@@ -81,7 +84,9 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
             <NewsIcon className={classes.cardsIcon} />
           </NewsAPITitleContainer>
           <div className={classes.descriptionContainer}>
-            <Typography variant="body2">{data.description}</Typography>
+            <LinkParser>
+              <Typography variant="body2">{data.description}</Typography>
+            </LinkParser>
           </div>
           {!data.urlToImage ? (
             <a
