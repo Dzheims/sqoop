@@ -23,34 +23,20 @@ const fabButtonStyle = {
 } as React.CSSProperties;
 
 interface NewContentsProps {
-  setHasNewUnreads: React.Dispatch<React.SetStateAction<boolean>>;
-  refObject: React.RefObject<HTMLDivElement>;
+  onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const NewUnreadsButton: React.FC<NewContentsProps> = ({
-  setHasNewUnreads,
-  refObject,
+  onClick,
 }: NewContentsProps) => {
   const classes = useStyles();
-
-  const scrollToTop = () => {
-    if (refObject.current) {
-      refObject.current.scrollTo({
-        top: refObject.current.offsetTop,
-        behavior: 'smooth',
-      });
-    }
-  };
 
   return (
     <div className={classes.fabButtonContainer}>
       <Fab
         style={fabButtonStyle}
         variant="extended"
-        onClick={() => {
-          setHasNewUnreads(false);
-          scrollToTop();
-        }}
+        onClick={onClick}
         size="small"
       >
         New Unreads

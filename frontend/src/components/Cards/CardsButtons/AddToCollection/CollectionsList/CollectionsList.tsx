@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  Divider,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   ListSubheader,
+  ListItemIcon,
   Typography,
 } from '@mui/material';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import CollectionsIcon from '@mui/icons-material/CollectionsBookmark';
 import { useGetCollectionsListQuery } from './query.generated';
 import currentUserId from '../../../../../authentication/currentUserId';
 import Error from '../../../../Common/Error';
@@ -18,23 +19,26 @@ import Loader from '../../../../Common/Loader';
 import { useCollectionsListState } from './CollectionsListState';
 import { useNavDrawerState } from '../../../../SideNavigation/SideNavigationDrawerState';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   div: {
-    width: '300px',
+    width: '250px',
     display: 'flex',
     flexDirection: 'column',
   },
   button: {
     borderRadius: '8px',
+    marginBottom: '5px',
     '&:hover': {
-      color: 'white',
-      backgroundColor: theme.palette.secondary.main,
+      border: '1px solid #f04b4c',
+      backgroundColor: '#f7fafc',
+      color: '#f04b4c',
     },
   },
   selectedButton: {
+    marginBottom: '5px',
     borderRadius: '8px',
     color: 'white',
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#f04b4c',
   },
   listContainer: {
     padding: '10px',
@@ -64,6 +68,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     marginTop: '15px',
   },
+  icons: {
+    color: 'gray',
+  },
+  selectedIcon: {
+    color: 'white',
+  },
 }));
 
 const CollectionsList = () => {
@@ -72,6 +82,7 @@ const CollectionsList = () => {
     useCollectionsListState();
   const [selectedButton, setSelectedButton] = useState(false);
   const { drawerState, setDrawerState } = useNavDrawerState();
+  const iconSize = { height: '18px', width: '18px' };
 
   const handleClick = (currentDrawer: string) => {
     setDrawerState({
@@ -140,6 +151,7 @@ const CollectionsList = () => {
           {data?.collections?.map((value) => (
             <div>
               <ListItem
+                disablePadding
                 className={
                   collectionListState.collectionId === value.id
                     ? classes.selectedButton
@@ -155,10 +167,19 @@ const CollectionsList = () => {
                     handleSelectButton();
                   }}
                 >
+                  <ListItemIcon>
+                    <CollectionsIcon
+                      sx={iconSize}
+                      className={
+                        collectionListState.collectionId === value.id
+                          ? classes.selectedIcon
+                          : classes.icons
+                      }
+                    />
+                  </ListItemIcon>
                   <ListItemText primary={value.title} />
                 </ListItemButton>
               </ListItem>
-              <Divider />
             </div>
           ))}
         </div>

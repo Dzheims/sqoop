@@ -5,9 +5,9 @@ import { SecureLink } from 'react-secure-link';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import NewsIcon from '@mui/icons-material/Article';
 import {
-  AccountNameContainer,
+  SourceNameContainer,
   NewsAPIContentContainer,
-  NewsAPITitleContainer,
+  TitleContainer,
   useStyles,
   CardsContainer,
 } from './CardsStyles';
@@ -66,7 +66,7 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
               : classes.cardsContentContainer
           }
         >
-          <NewsAPITitleContainer>
+          <TitleContainer>
             <Avatar
               style={{
                 backgroundColor: randomColor(data.sourceName as string),
@@ -76,13 +76,13 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
             >
               {data.sourceName?.charAt(0)}
             </Avatar>
-            <AccountNameContainer>
+            <SourceNameContainer>
               <Typography style={{ fontWeight: 600 }}>
                 {truncateName(data.sourceName as string, 18)}
               </Typography>
-            </AccountNameContainer>
+            </SourceNameContainer>
             <NewsIcon className={classes.cardsIcon} />
-          </NewsAPITitleContainer>
+          </TitleContainer>
           <div className={classes.descriptionContainer}>
             <LinkParser>
               <Typography variant="body2">{data.description}</Typography>

@@ -20,9 +20,10 @@ const VeraFilesData: React.FC<SearchQueryProps> = ({
     });
   if (error)
     return (
-      <NoContents
-        header="Sorry,"
-        subHeader={`No search results found on ${keyword}. Try other keywords.`}
+      <Error
+        header="Oops!"
+        subHeader="Something went wrong"
+        refetchQueries={refetch()}
       />
     );
   if (loading)

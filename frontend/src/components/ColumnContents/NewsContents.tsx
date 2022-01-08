@@ -23,15 +23,29 @@ const NewsContents: React.FC<NewsAPIDataProps> = ({
     }
   }, [data]);
 
+  const scrollToTop = () => {
+    if (ref.current)
+      ref.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+  };
+
   return (
-    <div>
+    <div ref={ref}>
       {hasNewUnreads ? (
-        <NewUnreadsButton setHasNewUnreads={setHasNewUnreads} refObject={ref} />
+        <NewUnreadsButton
+          onClick={() => {
+            setHasNewUnreads(false);
+            scrollToTop();
+          }}
+        />
       ) : (
         <div />
       )}
       {data?.topHeadlines?.map((value, index) => (
-        <div key={index} ref={ref}>
+        <div key={index}>
           <NewsCards data={value} />
         </div>
       ))}

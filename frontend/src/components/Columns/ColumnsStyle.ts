@@ -6,7 +6,6 @@ type BoardColumnContentStylesProps = {
   isDragging: boolean;
 };
 type DefaultColumnContentStylesProps = {
-  isDragging: boolean;
   feedType: string;
 };
 
@@ -80,15 +79,14 @@ export const useStyles = makeStyles(() => ({
 }));
 
 export const ItemContainer = styled.div`
-  background-color: ${(isDraggingOver: BoardColumnContentStylesProps) =>
-    isDraggingOver ? '#f7fafc' : null};
+  background-color: '#f7fafc';
   transition: background-color 0.2s ease;
   padding: 5px;
   height: 84%;
   overflow: auto;
 `;
 export const DefaultItemContainer = styled.div<DefaultColumnContentStylesProps>`
-  background-color: ${(props) => (props.isDragging ? '#f7fafc' : null)};
+  background-color: '#f7fafc';
   transition: background-color 0.2s ease;
   padding: 5px;
   height: ${(props) => (props.feedType === 'Twitter Feed' ? '88%' : '79%')};

@@ -128,9 +128,6 @@ export const useStyles = makeStyles(() => ({
   titleLink: {
     marginLeft: '10px',
   },
-  claimant: {
-    padding: '10px',
-  },
   cardsContentContainer: {
     padding: '15px',
   },
@@ -167,14 +164,15 @@ export const ResultsContainer = styled.div<BoardColumnContentStylesProps>`
   min-height: 10px;
 `;
 
-export const TwitterTitleContainer = styled.div`
+export const TwitterSourceNameContainer = styled.div`
   display: flex;
 `;
 
-export const NewsAPITitleContainer = styled.div`
+export const TitleContainer = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 10px;
+  justify-content: center;
 `;
 export const NewsAPIContentContainer = styled.div`
   margin-top: 10px;
@@ -182,22 +180,15 @@ export const NewsAPIContentContainer = styled.div`
   padding: 0px 0px 5px 0px;
 `;
 
-export const TwitterContentContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-`;
-
-export const AccountNameContainer = styled.div`
+export const SourceNameContainer = styled.div`
   display: block;
   padding: 5px;
 `;
 
 export const CardsContainer = styled.div`
-  // border: thin solid lightgray;
-  // padding: 15px;
+  padding: 5px 0 5px 0;
   margin-bottom: 5px;
   background-color: white;
-  // overflow: hidden;
 `;
 export const ContentContainer = styled.div`
   margin-top: 10px;

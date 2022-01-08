@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Typography, Avatar } from '@material-ui/core';
 import { decodeHTML } from 'entities';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
-import { CardsContainer, useStyles, ContentContainer } from './CardsStyles';
+import {
+  CardsContainer,
+  useStyles,
+  ContentContainer,
+  TitleContainer,
+  SourceNameContainer,
+} from './CardsStyles';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
 import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
 import { CollectionVeraFile, VeraFiles } from '../../types.generated';
@@ -38,13 +44,16 @@ const VeraFilesCard: React.FC<VeraFactCheckProps> = ({
               : classes.cardsContentContainer
           }
         >
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <FactCheckIcon
-              style={{
-                color: '#00acee',
-              }}
+          <TitleContainer>
+            <Avatar
+              className={classes.profileAvatars}
+              src="https://verafiles.org/application/files/5016/0125/5608/verafiles-win8.png"
             />
-          </div>
+            <SourceNameContainer>
+              <Typography style={{ fontWeight: 600 }}>Vera Files</Typography>
+            </SourceNameContainer>
+            <FactCheckIcon className={classes.cardsIcon} />
+          </TitleContainer>
           <ContentContainer>
             <div
               style={{
