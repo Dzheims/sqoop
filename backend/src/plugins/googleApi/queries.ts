@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-interface googleFactCheckParams {
+export interface googleFactCheckParams {
   keyword: string;
 }
 

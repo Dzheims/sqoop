@@ -1,5 +1,10 @@
 import * as cheerio from 'cheerio';
 const fetch = require('node-fetch');
+import {
+  resolvers as googleApiResolver,
+  googleFactCheckParams,
+} from '../googleApi/queries';
+import { Claim } from '../googleApi/models';
 
 interface veraFilesParams {
   keyword: string;
@@ -20,7 +25,46 @@ interface veraFiles {
 
 export const resolvers = {
   Query: {
+    // UNABLE TO SCRAPE IN VERAFILES.ORG DUE TO DDoS PROTECTION USE API INSTEAD WITH VERA RESULTS ALONE
     veraFilesFactCheck: async (_: any, args: veraFilesParams, context: any) => {
+      let { keyword } = args;
+      let veraKeyword: googleFactCheckParams = {
+        keyword: `site:verafiles.org ${keyword}`,
+      };
+      const result: Claim[] =
+        await googleApiResolver.Query.googleFactCheckSearch(
+          _,
+          veraKeyword,
+          context
+        );
+
+      const veraFiles = result.map((claim: Claim, index) => {
+        const {
+          text: description,
+          publisherName: author,
+          url,
+          title,
+          reviewDate: date,
+          textualRating: category,
+        } = claim;
+
+        return {
+          id: index,
+          author,
+          description,
+          title,
+          date,
+          category,
+          url,
+        };
+      });
+      return veraFiles;
+    },
+    veraFilesFactCheck2: async (
+      _: any,
+      args: veraFilesParams,
+      context: any
+    ) => {
       let { keyword } = args;
       const { jwtClaims } = context;
       // if (!jwtClaims) throw new Error();
