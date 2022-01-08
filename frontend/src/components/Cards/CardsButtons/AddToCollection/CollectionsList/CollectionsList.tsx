@@ -11,8 +11,6 @@ import {
 } from '@mui/material';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import FeedIcon from '@mui/icons-material/Feed';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import CollectionsIcon from '@mui/icons-material/CollectionsBookmark';
 import { useGetCollectionsListQuery } from './query.generated';
 import currentUserId from '../../../../../authentication/currentUserId';
@@ -84,6 +82,7 @@ const CollectionsList = () => {
     useCollectionsListState();
   const [selectedButton, setSelectedButton] = useState(false);
   const { drawerState, setDrawerState } = useNavDrawerState();
+  const iconSize = { height: '18px', width: '18px' };
 
   const handleClick = (currentDrawer: string) => {
     setDrawerState({
@@ -138,47 +137,6 @@ const CollectionsList = () => {
       </div>
     );
 
-  const iconSize = { height: '18px', width: '18px' };
-  const getTypeIcons = (typeName: string | undefined, collectionId: number) => {
-    switch (typeName) {
-      case 'NewsFeed':
-        return (
-          <FeedIcon
-            sx={iconSize}
-            className={
-              collectionListState.collectionId === collectionId
-                ? classes.selectedIcon
-                : classes.icons
-            }
-          />
-        );
-      case 'TwitterFeed':
-        return (
-          <TwitterIcon
-            sx={iconSize}
-            className={
-              collectionListState.collectionId === collectionId
-                ? classes.selectedIcon
-                : classes.icons
-            }
-          />
-        );
-      case 'Collection':
-        return (
-          <CollectionsIcon
-            sx={iconSize}
-            className={
-              collectionListState.collectionId === collectionId
-                ? classes.selectedIcon
-                : classes.icons
-            }
-          />
-        );
-      default:
-        return <div />;
-    }
-  };
-
   const handleSelectButton = () => {
     setSelectedButton(!selectedButton);
   };
@@ -210,7 +168,14 @@ const CollectionsList = () => {
                   }}
                 >
                   <ListItemIcon>
-                    {getTypeIcons(value.__typename, value.id)}
+                    <CollectionsIcon
+                      sx={iconSize}
+                      className={
+                        collectionListState.collectionId === value.id
+                          ? classes.selectedIcon
+                          : classes.icons
+                      }
+                    />
                   </ListItemIcon>
                   <ListItemText primary={value.title} />
                 </ListItemButton>
