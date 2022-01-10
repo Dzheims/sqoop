@@ -149,7 +149,11 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
       { query: GET_COLUMNS_QUERY },
       {
         query: GET_COLLECTIONS_LIST_QUERY,
-        variables: { condition: { userId: userId } },
+        variables: {
+          condition: {
+            userId: currentUserId(),
+          },
+        },
       },
     ],
   });
@@ -203,83 +207,81 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
 
   return (
     <CollectionsListStateProvider value={{ collectionId: 0 }}>
-      <NavDrawerStateProvider value={{ isOpen: false, current: '' }}>
-        <ColumnWrapper>
-          {data.getColumnResult?.flatMap((value, index) => (
-            <div
-              key={value.createdAt}
-              id={new Date(value.createdAt).toUTCString()}
-              className={classes.columnHighlightBorder}
-              tabIndex={-1}
-            >
-              <ColumnContainer>
-                <div className={classes.titleContainer}>
-                  <div className={classes.columnHeader}>
-                    <div>{getIcon(value)}</div>
-                    <Title>{value.title}</Title>
-                  </div>
-                  <IconButton
-                    data-testid={value.title}
-                    onClick={() => {
-                      handleDelete({
-                        title: value.title,
-                        id: value.id,
-                        type: value.__typename,
-                      });
-                    }}
-                  >
-                    <CloseIcon
-                      sx={{ height: '20px', width: '20px' }}
-                      className={classes.iconButton}
-                    />
-                  </IconButton>
+      <ColumnWrapper>
+        {data.getColumnResult?.flatMap((value, index) => (
+          <div
+            key={value.createdAt}
+            id={new Date(value.createdAt).toUTCString()}
+            className={classes.columnHighlightBorder}
+            tabIndex={-1}
+          >
+            <ColumnContainer>
+              <div className={classes.titleContainer}>
+                <div className={classes.columnHeader}>
+                  <div>{getIcon(value)}</div>
+                  <Title>{value.title}</Title>
                 </div>
-                <ScrollContainer className="scroll-container">
-                  <div className={classes.chipsContainer}>
-                    {getFiltersList(value).map((filter: string) => (
-                      <Chip
-                        className={classes.chips}
-                        variant="outlined"
-                        label={filter}
-                      />
-                    ))}
-                  </div>
-                </ScrollContainer>
-                <ItemContainer key={index} className={classes.itemContainer}>
-                  {getFeedType(value)}
-                </ItemContainer>
-              </ColumnContainer>
-            </div>
-          ))}
-        </ColumnWrapper>
-        <Dialog
-          data-testid="warning"
-          open={warningDelete}
-          onClose={handleCloseDialog}
-        >
-          <DialogTitle className={classes.dialogTitle}>Warning!</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete <strong>{columnTitle}</strong>?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button data-testid="cancel-delete" onClick={handleCloseDialog}>
-              Cancel
-            </Button>
-            <Button
-              data-testid="agree-delete"
-              onClick={() => {
-                setWarningDelete(false);
-                setProceedDelete(true);
-              }}
-              autoFocus
-            >
-              Agree
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </NavDrawerStateProvider>
+                <IconButton
+                  data-testid={value.title}
+                  onClick={() => {
+                    handleDelete({
+                      title: value.title,
+                      id: value.id,
+                      type: value.__typename,
+                    });
+                  }}
+                >
+                  <CloseIcon
+                    sx={{ height: '20px', width: '20px' }}
+                    className={classes.iconButton}
+                  />
+                </IconButton>
+              </div>
+              <ScrollContainer className="scroll-container">
+                <div className={classes.chipsContainer}>
+                  {getFiltersList(value).map((filter: string) => (
+                    <Chip
+                      className={classes.chips}
+                      variant="outlined"
+                      label={filter}
+                    />
+                  ))}
+                </div>
+              </ScrollContainer>
+              <ItemContainer key={index} className={classes.itemContainer}>
+                {getFeedType(value)}
+              </ItemContainer>
+            </ColumnContainer>
+          </div>
+        ))}
+      </ColumnWrapper>
+      <Dialog
+        data-testid="warning"
+        open={warningDelete}
+        onClose={handleCloseDialog}
+      >
+        <DialogTitle className={classes.dialogTitle}>Warning!</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete <strong>{columnTitle}</strong>?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button data-testid="cancel-delete" onClick={handleCloseDialog}>
+            Cancel
+          </Button>
+          <Button
+            data-testid="agree-delete"
+            onClick={() => {
+              setWarningDelete(false);
+              setProceedDelete(true);
+            }}
+            autoFocus
+          >
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
     </CollectionsListStateProvider>
   );
 };
