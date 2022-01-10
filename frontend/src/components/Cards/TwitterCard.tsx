@@ -66,12 +66,6 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
             <div />
           )}
         </div>
-        {/*TODO FIX OPEN ON TWITTER COMPONENT*/}
-        <div className={classes.linkIconDiv}>
-          <a target="_blank" className={classes.link} href={url as string}>
-            Open on Twitter
-          </a>
-        </div>
         <div
           className={
             data.__typename === 'CollectionTweet'
@@ -79,6 +73,16 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
               : classes.cardsContentContainer
           }
         >
+          {/*TODO FIX OPEN ON TWITTER COMPONENT*/}
+          <div className={classes.linkIconDiv}>
+            <a
+              target="_blank"
+              className={classes.openOnTwitterLink}
+              href={url as string}
+            >
+              Open on Twitter
+            </a>
+          </div>
           <TitleContainer>
             <Avatar
               alt={data.name as string}

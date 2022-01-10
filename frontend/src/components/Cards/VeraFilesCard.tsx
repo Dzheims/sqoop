@@ -15,6 +15,7 @@ import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectio
 import { CollectionVeraFile, VeraFiles } from '../../types.generated';
 import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
 import { useCollectionsListState } from './CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
+import VeraFilesLogo from '../../assets/veraFilesLogo.png';
 
 interface VeraFactCheckProps {
   data: VeraFiles | CollectionVeraFile;
@@ -45,39 +46,43 @@ const VeraFilesCard: React.FC<VeraFactCheckProps> = ({
           }
         >
           <TitleContainer>
-            <Avatar
-              className={classes.profileAvatars}
-              src="https://verafiles.org/application/files/5016/0125/5608/verafiles-win8.png"
-            />
+            <Avatar className={classes.profileAvatars} src={VeraFilesLogo} />
             <SourceNameContainer>
               <Typography style={{ fontWeight: 600 }}>Vera Files</Typography>
             </SourceNameContainer>
             <FactCheckIcon className={classes.cardsIcon} />
           </TitleContainer>
           <ContentContainer>
-            <div
-              style={{
-                backgroundImage: `url(${String(data.imageUrl)})`,
-              }}
-              className={classes.imageContainer}
-            />
+            {data.imageUrl !== null ? (
+              <div>
+                <div
+                  style={{
+                    backgroundImage: `url(${String(data.imageUrl)})`,
+                  }}
+                  className={classes.imageContainer}
+                />
+                <Typography className={classes.description}>
+                  {data.description}
+                </Typography>
+              </div>
+            ) : (
+              <Typography className={classes.description}>
+                {data.description}
+              </Typography>
+            )}
+          </ContentContainer>
+          <div style={{ marginTop: '10px' }}>
             <a
               className={classes.link}
               target="_blank"
               rel="noreferrer"
               href={data.url as string}
             >
-              <Typography color="primary" className={classes.description}>
+              <Typography variant="body2" className={classes.titleLink}>
                 {decodeHTML(data.title as string)}
               </Typography>
             </a>
-          </ContentContainer>
-          <Typography
-            style={{ fontWeight: 600, padding: '10px' }}
-            variant="body2"
-          >
-            By {decodeHTML(data.author as string)}
-          </Typography>
+          </div>
           <Typography className={classes.date}>
             {formatTimeAndDate(data.date)}
           </Typography>

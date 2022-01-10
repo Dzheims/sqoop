@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
   },
   dialogTitle: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
   },
 }));
 

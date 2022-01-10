@@ -138,6 +138,12 @@ export const useStyles = makeStyles(() => ({
     width: 'auto',
     overflow: 'hidden',
   },
+  openOnTwitterLink: {
+    textDecoration: 'none',
+    color: '#0036e7',
+    fontSize: '13px',
+    marginBottom: '5px',
+  },
 }));
 
 export const Item = styled.div`
