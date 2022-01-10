@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
   featureSubtitle: {
     marginTop: '10px',
     color: '#808080',
+    fontWeight: 400,
   },
   button: {
     marginTop: '10px',
@@ -50,9 +51,8 @@ const Features = () => {
           <Typography className={classes.text} variant="h4">
             View News Contents
           </Typography>
-          <Typography className={classes.featureSubtitle} variant="subtitle1">
-            Sqoop is a Newsroom Content Discovery and Management Tool that aims
-            to provide its users a convenient way ...
+          <Typography className={classes.featureSubtitle} variant="h6">
+            Catch the latest News and Tweets across verified media accounts.
           </Typography>
         </Grid>
         <Grid xs={6}>
@@ -71,9 +71,8 @@ const Features = () => {
           <Typography className={classes.text} variant="h4">
             Create Custom Feeds & Collections
           </Typography>
-          <Typography className={classes.featureSubtitle} variant="subtitle1">
-            Sqoop is a Newsroom Content Discovery and Management Tool that aims
-            to provide its users a convenient way ...
+          <Typography className={classes.featureSubtitle} variant="h6">
+            Take control of the contents you see.
           </Typography>
         </Grid>
       </div>
@@ -82,9 +81,8 @@ const Features = () => {
           <Typography className={classes.text} variant="h4">
             Save Contents to Collections
           </Typography>
-          <Typography className={classes.featureSubtitle} variant="subtitle1">
-            Sqoop is a Newsroom Content Discovery and Management Tool that aims
-            to provide its users a convenient way ...
+          <Typography className={classes.featureSubtitle} variant="h6">
+            Add content to a collection for future reference.
           </Typography>
         </Grid>
         <Grid xs={6}>
@@ -105,11 +103,10 @@ const Features = () => {
         </Grid>
         <Grid xs={6}>
           <Typography className={classes.text} variant="h4">
-            View Claims for Fact Check
+            Read Claim Reviews
           </Typography>
-          <Typography className={classes.featureSubtitle} variant="subtitle1">
-            Sqoop is a Newsroom Content Discovery and Management Tool that aims
-            to provide its users a convenient way ...
+          <Typography className={classes.featureSubtitle} variant="h6">
+            Cross-examine claims for fact-checking.
           </Typography>
         </Grid>
       </div>

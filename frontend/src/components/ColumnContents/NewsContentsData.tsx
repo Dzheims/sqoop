@@ -46,7 +46,7 @@ const NewsContentsData: React.FC<NewsApiColumnDataProps> = ({
     return (
       <NoContents
         header="Sorry,"
-        subHeader="No contents found in the last 7 days."
+        subHeader="No contents found. Try search feature to track back on contents in the last 30 days."
       />
     );
 

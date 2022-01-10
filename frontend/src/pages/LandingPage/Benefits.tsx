@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
-import Image from '../../assets/sqoopLogo.png';
+import Benefit1 from '../../assets/benefit1.png';
+import Benefit2 from '../../assets/benefit2.png';
+import Benefit3 from '../../assets/benefit3.png';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -16,18 +18,18 @@ const useStyles = makeStyles(() => ({
     color: '#575757',
   },
   image: {
-    height: '40px',
-    width: '110px',
-    marginBottom: '20px',
+    height: '130px',
+    width: '130px',
+    marginBottom: '10px',
   },
   sectionContentContainer: {
     display: 'flex',
     flexDirection: 'column',
-    height: '300px',
+    height: '280px',
     width: '280px',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '20px',
+    padding: '30px',
     backgroundColor: '#ffffff',
     // border: '1px solid #eeeeee',
     borderRadius: '10px',
@@ -52,25 +54,25 @@ const Benefits = () => {
     <div className={classes.root}>
       <Grid xs={4} className={classes.grid}>
         <div className={classes.sectionContentContainer}>
-          <img className={classes.image} src={Image} alt="" />
-          <Typography className={classes.text} variant="h5" align="center">
-            View news contents in one place
+          <img className={classes.image} src={Benefit1} alt="" />
+          <Typography className={classes.text} variant="h6" align="center">
+            Save time in monitoring online
           </Typography>
         </div>
       </Grid>
       <Grid xs={4} className={classes.grid}>
         <div className={classes.sectionContentContainer}>
-          <img className={classes.image} src={Image} alt="" />
-          <Typography className={classes.text} variant="h5" align="center">
-            Take control of the contents you see
+          <img className={classes.image} src={Benefit2} alt="" />
+          <Typography className={classes.text} variant="h6" align="center">
+            Keep track of your stories of interest
           </Typography>
         </div>
       </Grid>
       <Grid xs={4} className={classes.grid}>
         <div className={classes.sectionContentContainer}>
-          <img className={classes.image} src={Image} alt="" />
-          <Typography className={classes.text} variant="h5" align="center">
-            Avoid misinformation or fake news
+          <img className={classes.image} src={Benefit3} alt="" />
+          <Typography className={classes.text} variant="h6" align="center">
+            Fight misinformation
           </Typography>
         </div>
       </Grid>

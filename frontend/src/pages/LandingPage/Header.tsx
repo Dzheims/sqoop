@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
   },
   sectionContentContainer: {
     display: 'flex',
-    height: '600px',
+    height: '580px',
     alignItems: 'center',
   },
   headerMainTitle: {
@@ -19,6 +19,7 @@ const useStyles = makeStyles(() => ({
   headerMainSubtitle: {
     marginTop: '10px',
     color: '#808080',
+    fontWeight: 400,
   },
   button: {
     marginTop: '10px',
@@ -27,13 +28,13 @@ const useStyles = makeStyles(() => ({
   },
   headerMainImage: {
     marginLeft: '20px',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     display: 'flex',
   },
   image: {
-    height: '550px',
-    width: '550px',
+    height: '525px',
+    width: '525px',
   },
 }));
 
@@ -50,15 +51,11 @@ const Header = () => {
             color="primary"
             variant="h2"
           >
-            Stay Updated. <br /> Verify Information. <br /> You Sqoop.
+            Never miss a thing. <br /> Sqoop everything.
           </Typography>
-          <Typography
-            className={classes.headerMainSubtitle}
-            variant="subtitle1"
-          >
-            Sqoop is a Newsroom Content Discovery and Management Tool
-            <br />
-            that aims to provide its users a convenient way ...
+          <Typography className={classes.headerMainSubtitle} variant="h6">
+            A content discovery and management tool to conveniently monitor,
+            track and manage overflooding information.
           </Typography>
           <Button
             variant="contained"

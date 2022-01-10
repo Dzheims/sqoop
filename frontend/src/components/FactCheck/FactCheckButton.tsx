@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
   },
   factCheckButton: {
-    marginTop: '10px',
     textTransform: 'none',
     borderRadius: '12px',
     fontSize: '12px',
@@ -28,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   onClickFactCheckButton: {
-    marginTop: '10px',
     textTransform: 'none',
     borderRadius: '12px',
     fontSize: '12px',

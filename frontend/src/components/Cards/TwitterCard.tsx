@@ -1,6 +1,4 @@
 import { useState, Key, useEffect } from 'react';
-import Linkify from 'react-linkify';
-import { SecureLink } from 'react-secure-link';
 import { decodeHTML } from 'entities';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -9,7 +7,9 @@ import {
   Avatar,
   ImageList,
   ImageListItem,
+  Tooltip,
 } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import {
   SourceNameContainer,
   TitleContainer,
@@ -24,7 +24,6 @@ import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectio
 import { useDrawerState } from '../FactCheck/FactCheckDrawerState';
 import { CollectionTweet, Tweet, TwitterPhoto } from '../../types.generated';
 import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
-import theme from '../../theme';
 import { useCollectionsListState } from './CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
 
 interface TwitterDataProps {
@@ -73,8 +72,7 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
               : classes.cardsContentContainer
           }
         >
-          {/*TODO FIX OPEN ON TWITTER COMPONENT*/}
-          <div className={classes.linkIconDiv}>
+          {/* <div className={classes.linkIconDiv}>
             <a
               target="_blank"
               className={classes.openOnTwitterLink}
@@ -82,7 +80,7 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
             >
               Open on Twitter
             </a>
-          </div>
+          </div> */}
           <TitleContainer>
             <Avatar
               alt={data.name as string}
@@ -137,6 +135,14 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
           </Typography>
           <div className={classes.buttonsContainer}>
             <FactCheckButton suggestedKeywords={data.suggestedKeywords} />
+            <Tooltip title="Open on Twitter" arrow>
+              <IconButton href={url as string} target="_blank">
+                <OpenInNewIcon
+                  className={classes.openOnTwitterIcon}
+                  fontSize="small"
+                />
+              </IconButton>
+            </Tooltip>
             <AddToCollectionButton
               data={
                 {
