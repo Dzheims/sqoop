@@ -63,7 +63,8 @@ interface CollectionContentProps {
 
 const AddToCollectionButton = ({ data }: CollectionContentProps) => {
   const classes = useStyles();
-  const { collectionListState } = useCollectionsListState();
+  const { collectionListState, collectionListSetState } =
+    useCollectionsListState();
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -111,6 +112,10 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
             },
             onCompleted: () => {
               setIsSubmitting(false);
+              collectionListSetState({
+                ...collectionListState,
+                collectionId: null,
+              });
             },
             refetchQueries: [
               {
@@ -146,6 +151,10 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
             },
             onCompleted: () => {
               setIsSubmitting(false);
+              collectionListSetState({
+                ...collectionListState,
+                collectionId: null,
+              });
             },
             refetchQueries: [
               {
@@ -183,6 +192,10 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
             },
             onCompleted: () => {
               setIsSubmitting(false);
+              collectionListSetState({
+                ...collectionListState,
+                collectionId: null,
+              });
             },
             refetchQueries: [
               {
@@ -224,6 +237,10 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
           },
           onCompleted: () => {
             setIsSubmitting(false);
+            collectionListSetState({
+              ...collectionListState,
+              collectionId: null,
+            });
           },
           refetchQueries: [
             {
@@ -236,7 +253,7 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
   );
 
   useEffect(() => {
-    if (isSubmitting) {
+    if (isSubmitting && data.collectionId) {
       if (data.__typename === 'CollectionTweet') saveTweetToCollection();
 
       if (data.__typename === 'CollectionArticle') saveArticleToCollection();
@@ -275,6 +292,7 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
           <DialogActions>
             <Button onClick={handleClickClose}>Cancel</Button>
             <Button
+              disabled={!data.collectionId}
               onClick={() => {
                 handleClickClose();
                 setIsSubmitting(true);

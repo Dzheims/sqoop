@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
 
 export interface CollectionsListState {
-  collectionId: number;
+  collectionId: number | null;
 }
 
 export const CollectionsListContext = React.createContext({
