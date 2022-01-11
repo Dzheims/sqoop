@@ -158,7 +158,7 @@ const AddTwitterFeedForm = ({ snackbarStateChanger }: ParentState) => {
   useEffect(() => {
     if (isSubmitting)
       setTitleError(validateTitle(twitterFeedForm.twitterFeed.title, error));
-  }, [titleError, error]);
+  }, [titleError, error, isSubmitting, twitterFeedForm]);
 
   const handleSubmit = () => {
     setIsSubmitting(true);

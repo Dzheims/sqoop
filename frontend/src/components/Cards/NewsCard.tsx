@@ -41,6 +41,7 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
   }, [state.suggestedKeyWords]);
 
   const randomColor = (name: string) => {
+    if (!name) return '#0xffffff';
     let hex = Math.floor((name.charCodeAt(0) / 250) * 0xffffff);
     let color = '#' + hex.toString(16);
     return color;
