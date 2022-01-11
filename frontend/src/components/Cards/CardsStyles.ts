@@ -138,6 +138,12 @@ export const useStyles = makeStyles(() => ({
     width: 'auto',
     overflow: 'hidden',
   },
+  openOnTwitterIcon: {
+    color: 'gray',
+    '&:hover': {
+      color: theme.palette.secondary.main,
+    },
+  },
 }));
 
 export const Item = styled.div`

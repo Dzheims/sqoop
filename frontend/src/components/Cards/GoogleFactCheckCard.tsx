@@ -14,6 +14,7 @@ import { formatTimeAndDate } from '../Common/Functions/Functions';
 import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
 import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
 import { useCollectionsListState } from './CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
+import GoogleLogo from '../../assets/googleLogo.png';
 
 interface GoogleFactCheckProps {
   data: Claim | CollectionGoogleFactCheck;
@@ -44,10 +45,7 @@ const GoogleFactCheckCard: React.FC<GoogleFactCheckProps> = ({
           }
         >
           <TitleContainer>
-            <Avatar
-              className={classes.profileAvatars}
-              src="https://www.dtl.coventry.domains/wp-content/uploads/2020/07/Google-Logo.png"
-            />
+            <Avatar className={classes.profileAvatars} src={GoogleLogo} />
             <SourceNameContainer>
               <Typography style={{ fontWeight: 600 }}>
                 Google Fact Check

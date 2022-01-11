@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
+    marginTop: '50px',
   },
   image: {
     maxWidth: '150px',

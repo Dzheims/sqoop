@@ -11,6 +11,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
+import { Tooltip } from '@material-ui/core';
 import CloseIcon from '@mui/icons-material/Close';
 import {
   DeleteArticleContentMutation,
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
   },
   dialogTitle: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
   },
 }));
 
@@ -163,17 +164,19 @@ const RemoveFromCollectionButton = ({ data }: CollectionContentProps) => {
   return (
     <div>
       <div className={classes.root}>
-        <IconButton
-          onClick={() => {
-            handleDelete();
-          }}
-          data-testid="remove-from-collections"
-        >
-          <CloseIcon
-            sx={{ height: '15px', width: '15px' }}
-            className={classes.icon}
-          />
-        </IconButton>
+        <Tooltip title="Remove from collection" arrow>
+          <IconButton
+            onClick={() => {
+              handleDelete();
+            }}
+            data-testid="remove-from-collections"
+          >
+            <CloseIcon
+              sx={{ height: '15px', width: '15px' }}
+              className={classes.icon}
+            />
+          </IconButton>
+        </Tooltip>
       </div>
       <Dialog
         data-testid="warning"

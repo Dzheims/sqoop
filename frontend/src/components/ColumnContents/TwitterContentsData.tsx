@@ -42,7 +42,7 @@ const TwitterContentsData: React.FC<TwitterApiColumnDataProps> = ({
     return (
       <NoContents
         header="Sorry,"
-        subHeader="No contents found in the last 7 days."
+        subHeader="No contents found in the last 7 days. Try search feature to track back on contents in the last 30 days"
       />
     );
 

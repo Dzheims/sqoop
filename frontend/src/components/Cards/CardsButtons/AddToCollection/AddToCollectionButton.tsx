@@ -12,6 +12,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
+import { Tooltip } from '@material-ui/core';
 import CollectionsList from './CollectionsList/CollectionsList';
 import {
   SaveTweetToCollectionMutation,
@@ -250,12 +251,17 @@ const AddToCollectionButton = ({ data }: CollectionContentProps) => {
   return (
     <div>
       <div className={classes.root}>
-        <IconButton onClick={handleClickOpen} data-testid="save-to-collections">
-          <AddIcon
-            fontSize="small"
-            className={isOpen ? classes.selectedIcon : classes.icon}
-          />
-        </IconButton>
+        <Tooltip title="Save to collection" arrow>
+          <IconButton
+            onClick={handleClickOpen}
+            data-testid="save-to-collections"
+          >
+            <AddIcon
+              fontSize="small"
+              className={isOpen ? classes.selectedIcon : classes.icon}
+            />
+          </IconButton>
+        </Tooltip>
       </div>
       <Dialog open={isOpen} onClose={handleClickClose}>
         <DialogTitle className={classes.dialogTitle}>

@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
   },
   featureTitleContainer: {
-    marginTop: '50px',
+    margin: '50px 0 50px 0',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -60,6 +60,7 @@ const useStyles = makeStyles(() => ({
   featureSubtitle: {
     marginTop: '10px',
     color: '#808080',
+    fontWeight: 400,
   },
 }));
 
@@ -80,12 +81,9 @@ const LandingPage = () => {
             <Typography
               className={classes.sectionTitle}
               variant="h4"
-              color="primary"
+              color="secondary"
             >
-              Why Sqoop?
-            </Typography>
-            <Typography className={classes.featureSubtitle} variant="subtitle1">
-              The benefits of Sqoop...
+              Never miss a beat
             </Typography>
           </div>
           <Benefits />
@@ -97,10 +95,11 @@ const LandingPage = () => {
               variant="h4"
               color="primary"
             >
-              Our platform features make it easier
+              Be on top of everything you need to know
             </Typography>
-            <Typography className={classes.featureSubtitle} variant="subtitle1">
-              Shows how Sqoop works ...
+            <Typography className={classes.featureSubtitle} variant="h6">
+              Sqoop assists you with tools to keep track of overflooding
+              contents.
             </Typography>
           </div>
           <Features />
@@ -108,7 +107,7 @@ const LandingPage = () => {
         <Grid item xs={12}>
           <div className={classes.adContainer}>
             <Typography className={classes.adTitle} variant="h4">
-              Conquer Information Overload and Misinformation with Sqoop
+              Conquer Information Overload with Sqoop
             </Typography>
             <Button
               variant="contained"
