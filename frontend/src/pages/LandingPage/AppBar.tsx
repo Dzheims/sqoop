@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
     boxShadow: 'none',
     position: 'fixed',
     padding: '0 5%',
+    display: 'flex',
   },
   logo: {
     height: '40px',

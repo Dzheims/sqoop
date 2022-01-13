@@ -1,25 +1,51 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles, Button, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Grid, Typography } from '@material-ui/core';
 import Image from '../../assets/sqoopHeaderImage.png';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    padding: '0 8%',
     backgroundColor: '#ffffff',
-  },
-  sectionContentContainer: {
-    display: 'flex',
-    height: '580px',
     alignItems: 'center',
+    justifyContent: 'center',
+    [theme.breakpoints.down('sm')]: {
+      padding: '25px 25px 0 25px',
+      height: 'auto',
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: '0 100px 0 100px',
+      height: '550px',
+    },
+  },
+  headerText: {
+    [theme.breakpoints.down('sm')]: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+    },
   },
   headerMainTitle: {
     fontWeight: 500,
+    [theme.breakpoints.down('sm')]: {
+      alignItems: 'center',
+      textAlign: 'center',
+    },
   },
   headerMainSubtitle: {
     marginTop: '10px',
     color: '#808080',
     fontWeight: 400,
+    [theme.breakpoints.down('sm')]: {
+      alignItems: 'center',
+      textAlign: 'center',
+    },
+  },
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
   },
   button: {
     marginTop: '10px',
@@ -27,14 +53,17 @@ const useStyles = makeStyles(() => ({
     boxShadow: 'none',
   },
   headerMainImage: {
-    marginLeft: '20px',
-    justifyContent: 'flex-end',
     alignItems: 'center',
-    display: 'flex',
   },
   image: {
-    height: '525px',
-    width: '525px',
+    [theme.breakpoints.down('sm')]: {
+      height: '425px',
+      width: '425px',
+    },
+    [theme.breakpoints.up('md')]: {
+      height: '525px',
+      width: '525px',
+    },
   },
 }));
 
@@ -44,37 +73,39 @@ const Header = () => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.sectionContentContainer}>
-        <Grid xs={6}>
-          <Typography
-            className={classes.headerMainTitle}
-            color="primary"
-            variant="h2"
-          >
-            Never miss a thing. <br /> Sqoop everything.
-          </Typography>
-          <Typography className={classes.headerMainSubtitle} variant="h6">
-            A content discovery and management tool to conveniently monitor,
-            track and manage overflooding information.
-          </Typography>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="large"
-            className={classes.button}
-            onClick={() => {
-              history.push('/signup');
-            }}
-          >
-            Get Started - it&apos;s free!
-          </Button>
+      <Grid container spacing={2}>
+        <Grid xs={12} sm={12} md={6} className={classes.container}>
+          <div className={classes.headerText}>
+            <Typography
+              className={classes.headerMainTitle}
+              color="primary"
+              variant="h2"
+            >
+              Never miss a thing. Sqoop everything.
+            </Typography>
+            <Typography className={classes.headerMainSubtitle} variant="h6">
+              A content discovery and management tool to conveniently monitor,
+              track and manage overflooding information.
+            </Typography>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="large"
+              className={classes.button}
+              onClick={() => {
+                history.push('/signup');
+              }}
+            >
+              Get Started - it&apos;s free!
+            </Button>
+          </div>
         </Grid>
-        <Grid xs={6}>
-          <div className={classes.headerMainImage}>
+        <Grid xs={12} sm={12} md={6} className={classes.container}>
+          <div>
             <img className={classes.image} src={Image} alt="" />
           </div>
         </Grid>
-      </div>
+      </Grid>
     </div>
   );
 };

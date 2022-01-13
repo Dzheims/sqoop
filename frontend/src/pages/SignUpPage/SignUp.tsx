@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     display: 'flex',
-    alignItems: 'baseline',
+    alignItems: 'center',
     flexDirection: 'column',
-    margin: '80px 60px 0px 60px',
+    justifyContent: 'center',
   },
   form: {
     width: '80%',
@@ -45,6 +45,11 @@ const useStyles = makeStyles((theme) => ({
   },
   welcome: {
     fontWeight: 500,
+    textAlign: 'left',
+  },
+  welcomeContainer: {
+    alignItems: 'left',
+    width: '80%',
   },
   successIcon: { margin: theme.spacing(2, 0, 4) },
   box: {
@@ -57,11 +62,13 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #000',
     padding: theme.spacing(4),
   },
-  divBox: {
+  formContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    textAlign: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    margin: '0 30px 0px 30px',
   },
 }));
 
@@ -173,80 +180,88 @@ const SignUp = () => {
 
   return (
     <Grid container component="main" className={classes.root}>
-      <Grid item xs={false} sm={5} md={7} className={classes.image} />
-      <Grid item xs={12} sm={7} md={5}>
-        <div className={classes.paper}>
-          <Typography className={classes.welcome} color="primary" variant="h3">
-            Welcome to <br /> Sqoop
-          </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              id="username"
-              label="Username"
-              placeholder="Username"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              autoFocus
-              onChange={onUserNameChange}
-              error={setErrorInForm(errors?.userName || '')}
-              helperText={errors?.userName}
-            />
-            <TextField
-              inputProps={{ 'data-testid': 'Password' }}
-              label="Password"
-              type="password"
-              placeholder="Password"
-              id="password"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              onChange={onPasswordChange}
-              error={setErrorInForm(errors?.password || '')}
-              helperText={
-                isSubmitting ? errors?.password : passwordStrengthIndicator()
-              }
-            />
-            <TextField
-              label="Confirm Password"
-              type="password"
-              placeholder="Confirm Password"
-              id="confirm password"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              onChange={onConfirmPasswordChange}
-              error={setErrorInForm(errors?.confirmedPassword || '')}
-              helperText={errors?.confirmedPassword}
-            />
-            <Button
-              data-testid="btn-signup"
-              fullWidth
-              variant="contained"
-              color="secondary"
-              className={classes.submit}
-              onClick={handleSubmit}
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={12} sm={8} md={5}>
+        <div className={classes.formContainer}>
+          <div className={classes.welcomeContainer}>
+            <Typography
+              className={classes.welcome}
+              color="primary"
+              variant="h3"
             >
-              {mutationLoading && <MutationLoader color="inherit" />}
-              {mutationLoading ? 'Creating Account...' : 'Create Account'}
-            </Button>
-            <Modal open={successAlert}>
-              <SignUpSuccessAlertBox
-                userName={signupInput.userName}
-                password={signupInput.password}
+              Welcome to <br /> Sqoop
+            </Typography>
+          </div>
+          <div className={classes.paper}>
+            <form className={classes.form} noValidate>
+              <TextField
+                id="username"
+                label="Username"
+                placeholder="Username"
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                autoFocus
+                onChange={onUserNameChange}
+                error={setErrorInForm(errors?.userName || '')}
+                helperText={errors?.userName}
               />
-            </Modal>
-            <Grid container>
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  Already have an account? Sign In
-                </Link>
+              <TextField
+                inputProps={{ 'data-testid': 'Password' }}
+                label="Password"
+                type="password"
+                placeholder="Password"
+                id="password"
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                onChange={onPasswordChange}
+                error={setErrorInForm(errors?.password || '')}
+                helperText={
+                  isSubmitting ? errors?.password : passwordStrengthIndicator()
+                }
+              />
+              <TextField
+                label="Confirm Password"
+                type="password"
+                placeholder="Confirm Password"
+                id="confirm password"
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                onChange={onConfirmPasswordChange}
+                error={setErrorInForm(errors?.confirmedPassword || '')}
+                helperText={errors?.confirmedPassword}
+              />
+              <Button
+                data-testid="btn-signup"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+                onClick={handleSubmit}
+              >
+                {mutationLoading && <MutationLoader color="inherit" />}
+                {mutationLoading ? 'Creating Account...' : 'Create Account'}
+              </Button>
+              <Modal open={successAlert}>
+                <SignUpSuccessAlertBox
+                  userName={signupInput.userName}
+                  password={signupInput.password}
+                />
+              </Modal>
+              <Grid container>
+                <Grid item>
+                  <Link href="/signin" variant="body2">
+                    Already have an account? Sign In
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
+            </form>
+          </div>
         </div>
       </Grid>
     </Grid>
