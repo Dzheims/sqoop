@@ -84,15 +84,15 @@ export const resolvers = (getNamedType: any) => {
           [collectionId]
         );
         const { rows: collectionArticles } = await pgClient.query(
-          `SELECT * FROM collection_articles WHERE collection_id = $1  LIMIT 1`,
+          `SELECT * FROM collection_articles WHERE collection_id = $1`,
           [collectionId]
         );
         const { rows: collectionVeraFile } = await pgClient.query(
-          `SELECT * FROM collection_vera_files WHERE collection_id = $1  LIMIT 1`,
+          `SELECT * FROM collection_vera_files WHERE collection_id = $1`,
           [collectionId]
         );
         const { rows: collectionGoogleFactCheck } = await pgClient.query(
-          `SELECT * FROM collection_google_fact_check WHERE collection_id = $1  LIMIT 1`,
+          `SELECT * FROM collection_google_fact_check WHERE collection_id = $1`,
           [collectionId]
         );
         const result = camelcaseKeys(
