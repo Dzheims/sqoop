@@ -67,29 +67,33 @@ export const resolvers = (getNamedType: any) => {
           ON
             collection_tweets.id = collection_tweet_photos.collection_tweet_id
           WHERE
-            collection_id = ${collectionId}
+            collection_id = $1
           GROUP BY
             collection_tweets.id,
             collection_tweets.tweet_id,
             collection_tweets.author_id,
             collection_tweets.published_at,
-	          collection_tweets.created_at,
+            collection_tweets.created_at,
             collection_tweets.text,
             collection_tweets.name,
             collection_tweets.profile_image_url,
             collection_tweets.username,
             collection_tweets.verified,
             collection_tweets.suggested_keywords,
-            collection_tweets.collection_id`
+            collection_tweets.collection_id`,
+          [collectionId]
         );
         const { rows: collectionArticles } = await pgClient.query(
-          `SELECT * FROM collection_articles WHERE collection_id = ${collectionId}`
+          `SELECT * FROM collection_articles WHERE collection_id = $1  LIMIT 1`,
+          [collectionId]
         );
         const { rows: collectionVeraFile } = await pgClient.query(
-          `SELECT * FROM collection_vera_files WHERE collection_id = ${collectionId}`
+          `SELECT * FROM collection_vera_files WHERE collection_id = $1  LIMIT 1`,
+          [collectionId]
         );
         const { rows: collectionGoogleFactCheck } = await pgClient.query(
-          `SELECT * FROM collection_google_fact_check WHERE collection_id = ${collectionId}`
+          `SELECT * FROM collection_google_fact_check WHERE collection_id = $1  LIMIT 1`,
+          [collectionId]
         );
         const result = camelcaseKeys(
           [
