@@ -8,7 +8,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Grid from '@material-ui/core/Grid';
 import Cookies from 'js-cookie';
 import Typography from '@material-ui/core/Typography';
-import Welcome from '../../assets/welcome.png';
+import Welcome from '../../assets/welcome.webp';
 import AUTH_TOKEN from '../../constants';
 import {
   SigninMutation,

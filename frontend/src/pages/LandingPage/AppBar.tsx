@@ -6,7 +6,7 @@ import {
   Toolbar,
   Button,
 } from '@material-ui/core';
-import Logo from '../../assets/sqoopLogo.png';
+import Logo from '../../assets/sqoopLogo.webp';
 
 const useStyles = makeStyles(() => ({
   appBar: {

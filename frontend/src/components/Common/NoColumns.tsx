@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
 import theme from '../../theme';
-import NoColumnsImage from '../../assets/noColumns.png';
+import NoColumnsImage from '../../assets/noColumns.webp';
 import { useNavDrawerState } from '../SideNavigation/SideNavigationDrawerState';
 
 const useStyles = makeStyles(() => ({

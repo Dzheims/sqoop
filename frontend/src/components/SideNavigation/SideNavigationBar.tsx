@@ -27,7 +27,7 @@ import ColumnsListData from '../SideNavigationDrawer/ColumnNavigation/ColumnsLis
 import { useNavDrawerState } from './SideNavigationDrawerState';
 import AddColumn from '../SideNavigationDrawer/AddColumn/AddColumn';
 import MyAccountPopover from './MyAccountPopover';
-import Icon from '../../assets/sqoopIcon.png';
+import Icon from '../../assets/sqoopIcon.webp';
 
 interface DrawerState {
   current: string;

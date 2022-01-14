@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Grid, Typography } from '@material-ui/core';
-import Image from '../../assets/sqoopHeaderImage.png';
+import Image from '../../assets/sqoopHeaderImage.webp';
 
 const useStyles = makeStyles((theme) => ({
   root: {

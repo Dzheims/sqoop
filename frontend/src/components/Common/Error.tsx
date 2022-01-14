@@ -2,7 +2,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
-import ErrorImage from '../../assets/error.png';
+import ErrorImage from '../../assets/error.webp';
 import theme from '../../theme';
 
 const useStyles = makeStyles(() => ({

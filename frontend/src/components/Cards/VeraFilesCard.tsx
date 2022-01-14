@@ -15,7 +15,7 @@ import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectio
 import { CollectionVeraFile, VeraFiles } from '../../types.generated';
 import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
 import { useCollectionsListState } from './CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
-import VeraFilesLogo from '../../assets/veraFilesLogo.png';
+import VeraFilesLogo from '../../assets/veraFilesLogo.webp';
 
 interface VeraFactCheckProps {
   data: VeraFiles | CollectionVeraFile;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
-import ViewNewsContents from '../../assets/viewNewsContents.png';
-import CreateCustomFeeds from '../../assets/createCustomFeedsAndCollections.png';
-import SaveContentsToCollections from '../../assets/saveContentsToCollections.png';
-import FactCheckClaims from '../../assets/factCheckClaims.png';
+import ViewNewsContents from '../../assets/viewNewsContents.webp';
+import CreateCustomFeeds from '../../assets/createCustomFeedsAndCollections.webp';
+import SaveContentsToCollections from '../../assets/saveContentsToCollections.webp';
+import FactCheckClaims from '../../assets/factCheckClaims.webp';
 
 const useStyles = makeStyles((theme) => ({
   root: {

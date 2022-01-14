@@ -14,7 +14,7 @@ import { formatTimeAndDate } from '../Common/Functions/Functions';
 import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
 import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
 import { useCollectionsListState } from './CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
-import GoogleLogo from '../../assets/googleLogo.png';
+import GoogleLogo from '../../assets/googleLogo.webp';
 
 interface GoogleFactCheckProps {
   data: Claim | CollectionGoogleFactCheck;

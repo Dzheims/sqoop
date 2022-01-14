@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
-import Benefit1 from '../../assets/benefit1.png';
-import Benefit2 from '../../assets/benefit2.png';
-import Benefit3 from '../../assets/benefit3.png';
+import Benefit1 from '../../assets/benefit1.webp';
+import Benefit2 from '../../assets/benefit2.webp';
+import Benefit3 from '../../assets/benefit3.webp';
 
 const useStyles = makeStyles((theme) => ({
   root: {
