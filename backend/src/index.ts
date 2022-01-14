@@ -33,6 +33,7 @@ app
   .use(
     postgraphile(process.env.DATABASE_URL, 'public', {
       watchPg: Environment.isDev,
+      retryOnInitFail: Environment.isProd,
       dynamicJson: true,
       ignoreRBAC: false,
       ignoreIndexes: false,
@@ -55,9 +56,9 @@ app
         '../../frontend',
         'schema.graphql'
       ),
-      enhanceGraphiql: true,
+      enhanceGraphiql: Environment.isDev,
       allowExplain: (req) => {
-        return true;
+        return Environment.isDev;
       },
       disableQueryLog: Environment.isDev,
       simpleCollections: 'both',
