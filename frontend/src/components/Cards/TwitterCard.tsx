@@ -16,6 +16,7 @@ import {
   TwitterSourceNameContainer,
   useStyles,
   CardsContainer,
+  iconSize,
 } from './CardsStyles';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import LinkParser from '../Common/LinkParser';
@@ -107,7 +108,7 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
                 {'@' + data.username}
               </Typography>
             </SourceNameContainer>
-            <TwitterIcon className={classes.cardsIcon} />
+            <TwitterIcon className={classes.cardsIcon} style={iconSize} />
           </TitleContainer>
           <LinkParser>
             <Typography variant="body2">

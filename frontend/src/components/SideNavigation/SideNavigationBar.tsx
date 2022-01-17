@@ -196,11 +196,11 @@ const SideNavigationBar = () => {
 
   return (
     <>
-      <NavDrawer
-        drawerStateProps={drawerState.isOpen}
-        childComponent={drawerChild}
-      />
       <div>
+        <NavDrawer
+          drawerStateProps={drawerState.isOpen}
+          childComponent={drawerChild}
+        />
         <NavigationBarContainer>
           <div className={classes.sqoopIconContainer}>
             <img className={classes.sqoopIcon} src={Icon} alt="logo" />

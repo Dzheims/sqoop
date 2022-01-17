@@ -8,6 +8,7 @@ import {
   ContentContainer,
   TitleContainer,
   SourceNameContainer,
+  iconSize,
 } from './CardsStyles';
 import { CollectionGoogleFactCheck, Claim } from '../../types.generated';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
@@ -51,7 +52,7 @@ const GoogleFactCheckCard: React.FC<GoogleFactCheckProps> = ({
                 Google Fact Check
               </Typography>
             </SourceNameContainer>
-            <FactCheckIcon className={classes.cardsIcon} />
+            <FactCheckIcon className={classes.cardsIcon} style={iconSize} />
           </TitleContainer>
           <ContentContainer>
             <Typography className={classes.description}>{data.text}</Typography>

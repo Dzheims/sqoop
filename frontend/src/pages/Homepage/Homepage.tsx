@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     scrollBehavior: 'smooth',
   },
   columnContainers: {
-    margin: '5px',
     display: 'flex',
     overflowX: 'auto',
     '&::-webkit-scrollbar': {

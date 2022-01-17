@@ -6,26 +6,26 @@ export const iconStyle = { height: '18px', width: '18px', marginRight: '5px' };
 
 export const useStyles = makeStyles(() => ({
   icons: {
-    height: '35px',
-    width: '35px',
+    height: '25px',
+    width: '25px',
     color: 'white',
     '&:hover': {
       color: theme.palette.secondary.main,
     },
   },
   selectedIcons: {
-    height: '35px',
-    width: '35px',
+    height: '25px',
+    width: '25px',
     color: theme.palette.secondary.main,
   },
   avatars: {
-    height: '35px',
-    width: '35px',
+    height: '25px',
+    width: '25px',
   },
   drawerPaper: {
     width: '285px',
     backgroundColor: '#f7fafc',
-    marginLeft: '55px',
+    marginLeft: '40px',
     zIndex: 200,
     display: 'flex',
   },
@@ -109,14 +109,14 @@ export const useStyles = makeStyles(() => ({
     backgroundColor: '#f7fafc',
   },
   sqoopIcon: {
-    height: '30px',
-    width: '30px',
+    height: '20px',
+    width: '20px',
   },
   sqoopIconContainer: {
     alignItems: 'center',
     display: 'flex',
-    height: '55px',
-    width: '55px',
+    height: '40px',
+    width: '40px',
     justifyContent: 'center',
     position: 'absolute',
     top: 0,
@@ -127,7 +127,7 @@ export const useStyles = makeStyles(() => ({
 export const NavigationBarContainer = styled.div`
   position: fixed;
   height: 100%;
-  width: 55px;
+  width: 40px;
   background-color: ${theme.palette.primary.main};
   overflow-x: hidden;
   z-index: 300;
@@ -136,13 +136,12 @@ export const NavigationBarContainer = styled.div`
   align-items: space-between;
   justify-content: center;
   display: flex;
-  margin-left: '10px';
 `;
 export const IconContainer = styled.div`
-  width: 60px;
+  width: 40px;
   align-items: center;
   display: flex;
-  justify: center;
+  justify-content: center;
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
   transition: all 0.5s ease;
@@ -150,19 +149,20 @@ export const IconContainer = styled.div`
 export const AccountAvatarContainer = styled.div`
   align-items: center;
   display: flex;
-  height: 55px;
-  width: 55px;
+  height: 40px;
+  width: 40px;
   position: absolute;
+  justify-content: center;
   bottom: 0;
   margin-bottom: 20px;
-  justify-content: center;
 `;
 export const MenuContainer = styled.div`
   align-items: center;
   display: flex;
   height: 150px;
-  padding: 5px;
-  width: 45px;
+  width: 40px;
+  position: absolute;
+  justify-content: center;
   flex-direction: column;
   z-index: 300;
 `;

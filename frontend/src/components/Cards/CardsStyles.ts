@@ -29,13 +29,12 @@ export const useStyles = makeStyles(() => ({
     marginRight: '10px',
   },
   cardsIcon: {
-    fontSize: '5px',
     marginLeft: 'auto',
     color: '#00acee',
   },
   verifiedIcon: {
-    height: '18px',
-    width: '18px',
+    height: '15px',
+    width: '15px',
     marginLeft: '5px',
   },
   imageContainer: {
@@ -146,6 +145,8 @@ export const useStyles = makeStyles(() => ({
   },
 }));
 
+export const iconSize = { height: '20px', width: '20px' };
+
 export const Item = styled.div`
   padding: 0px 15px 15px 15px;
   background-color: ${(isDragging: BoardColumnContentStylesProps) =>
@@ -172,6 +173,7 @@ export const ResultsContainer = styled.div<BoardColumnContentStylesProps>`
 
 export const TwitterSourceNameContainer = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 export const TitleContainer = styled.div`

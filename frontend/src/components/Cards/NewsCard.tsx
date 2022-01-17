@@ -10,6 +10,7 @@ import {
   TitleContainer,
   useStyles,
   CardsContainer,
+  iconSize,
 } from './CardsStyles';
 import { formatTimeAndDate, truncateName } from '../Common/Functions/Functions';
 import LinkParser from '../Common/LinkParser';
@@ -82,7 +83,7 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                 {truncateName(data.sourceName as string, 18)}
               </Typography>
             </SourceNameContainer>
-            <NewsIcon className={classes.cardsIcon} />
+            <NewsIcon className={classes.cardsIcon} style={iconSize} />
           </TitleContainer>
           <div className={classes.descriptionContainer}>
             <LinkParser>

@@ -9,6 +9,7 @@ import {
   ContentContainer,
   TitleContainer,
   SourceNameContainer,
+  iconSize,
 } from './CardsStyles';
 import { formatTimeAndDate } from '../Common/Functions/Functions';
 import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
@@ -50,7 +51,7 @@ const VeraFilesCard: React.FC<VeraFactCheckProps> = ({
             <SourceNameContainer>
               <Typography style={{ fontWeight: 600 }}>Vera Files</Typography>
             </SourceNameContainer>
-            <FactCheckIcon className={classes.cardsIcon} />
+            <FactCheckIcon className={classes.cardsIcon} style={iconSize} />
           </TitleContainer>
           <ContentContainer>
             {data.imageUrl !== null ? (

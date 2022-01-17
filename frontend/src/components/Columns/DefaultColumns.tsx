@@ -18,7 +18,6 @@ import { Category } from '../../types.generated';
 const useStyles = makeStyles((theme) => ({
   defaultFeeds: {
     display: 'flex',
-    marginLeft: '7px',
   },
   buttonContainer: {
     display: 'flex',
