@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
     height: '75px',
     flexDirection: 'column',
     [theme.breakpoints.down('sm')]: {
-      margin: '100px 0 10px 0',
+      margin: '50px 0 0 0',
+      padding: '20px',
     },
     [theme.breakpoints.up('md')]: {
       margin: '50px 0 10px 0',
@@ -32,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     height: '50px',
     backgroundColor: '#f7fafc',
-    width: '100%',
   },
   adContainer: {
     display: 'flex',
@@ -41,17 +41,30 @@ const useStyles = makeStyles((theme) => ({
     height: '100px',
     backgroundColor: '#ffffff',
     flexDirection: 'column',
+    padding: '10px',
     margin: '30px 0 50px',
   },
   sectionTitle: {
     fontWeight: 500,
     textAlign: 'center',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '30px',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '40px',
+    },
   },
   adTitle: {
     fontWeight: 500,
     color: '#0036e7',
     marginBottom: '20px',
     textAlign: 'center',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '30px',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '40px',
+    },
   },
   button: {
     textTransform: 'none',
@@ -68,6 +81,12 @@ const useStyles = makeStyles((theme) => ({
     color: '#808080',
     fontWeight: 400,
     textAlign: 'center',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '16px',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '20px',
+    },
   },
 }));
 
@@ -81,30 +100,22 @@ const LandingPage = () => {
       <Toolbar />
       <Header />
       <div className={classes.benefitsTitleContainer}>
-        <Typography
-          className={classes.sectionTitle}
-          variant="h4"
-          color="secondary"
-        >
+        <Typography className={classes.sectionTitle} color="secondary">
           Never miss a beat
         </Typography>
       </div>
       <Benefits />
       <div className={classes.featureTitleContainer}>
-        <Typography
-          className={classes.sectionTitle}
-          variant="h4"
-          color="primary"
-        >
+        <Typography className={classes.sectionTitle} color="primary">
           Be on top of everything you need to know
         </Typography>
-        <Typography className={classes.featureSubtitle} variant="h6">
+        <Typography className={classes.featureSubtitle}>
           Sqoop assists you with tools to keep track of overflooding contents.
         </Typography>
       </div>
       <Features />
       <div className={classes.adContainer}>
-        <Typography className={classes.adTitle} variant="h4">
+        <Typography className={classes.adTitle}>
           Conquer Information Overload with Sqoop
         </Typography>
         <Button

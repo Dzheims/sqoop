@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
       display: 'flex',
       flexDirection: 'column',
+      marginTop: '20px',
     },
   },
   headerMainTitle: {
@@ -31,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       alignItems: 'center',
       textAlign: 'center',
+      fontSize: '40px',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '60px',
     },
   },
   headerMainSubtitle: {
@@ -40,6 +45,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       alignItems: 'center',
       textAlign: 'center',
+      fontSize: '16px',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '20px',
     },
   },
   container: {
@@ -57,8 +66,8 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     [theme.breakpoints.down('sm')]: {
-      height: '425px',
-      width: '425px',
+      height: '335px',
+      width: '335px',
     },
     [theme.breakpoints.up('md')]: {
       height: '525px',
@@ -76,14 +85,10 @@ const Header = () => {
       <Grid container spacing={2}>
         <Grid xs={12} sm={12} md={6} className={classes.container}>
           <div className={classes.headerText}>
-            <Typography
-              className={classes.headerMainTitle}
-              color="primary"
-              variant="h2"
-            >
+            <Typography className={classes.headerMainTitle} color="primary">
               Never miss a thing. Sqoop everything.
             </Typography>
-            <Typography className={classes.headerMainSubtitle} variant="h6">
+            <Typography className={classes.headerMainSubtitle}>
               A content discovery and management tool to conveniently monitor,
               track and manage overflooding information.
             </Typography>

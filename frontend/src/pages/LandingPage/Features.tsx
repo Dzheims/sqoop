@@ -12,13 +12,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     height: 'auto',
     [theme.breakpoints.down('sm')]: {
-      padding: '25px 25px 50px 25px',
-      // display: 'flex',
-      // flexDirection: 'column',
+      padding: '10px 25px 50px 25px',
     },
     [theme.breakpoints.up('md')]: {
       padding: '20px 100px 20px 100px',
-      // height: '400px',
     },
   },
   container: {
@@ -31,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     color: '#575757',
     [theme.breakpoints.down('sm')]: {
       textAlign: 'center',
+      fontSize: '30px',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '40px',
     },
   },
   textContainer: {
@@ -39,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
       display: 'flex',
       flexDirection: 'column',
+      padding: '10px',
+      marginBottom: '10px',
     },
   },
   featureSubtitle: {
@@ -47,6 +50,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
     [theme.breakpoints.down('sm')]: {
       textAlign: 'center',
+      fontSize: '16px',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '20px',
     },
   },
   button: {
@@ -60,13 +67,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column-reverse',
-      margin: '50px 0 50px 0',
     },
   },
   image: {
     [theme.breakpoints.down('sm')]: {
-      height: '350px',
-      width: '350px',
+      height: '335px',
+      width: '335px',
     },
     [theme.breakpoints.up('md')]: {
       height: '450px',
@@ -83,10 +89,8 @@ const Features = () => {
       <Grid container spacing={2} className={classes.featureContainer}>
         <Grid xs={12} sm={12} md={6} className={classes.container}>
           <div className={classes.textContainer}>
-            <Typography className={classes.text} variant="h4">
-              View News Contents
-            </Typography>
-            <Typography className={classes.featureSubtitle} variant="h6">
+            <Typography className={classes.text}>View News Contents</Typography>
+            <Typography className={classes.featureSubtitle}>
               Catch the latest News and Tweets across verified media accounts.
             </Typography>
           </div>
@@ -105,10 +109,10 @@ const Features = () => {
         </Grid>
         <Grid xs={12} sm={12} md={6} className={classes.container}>
           <div className={classes.textContainer}>
-            <Typography className={classes.text} variant="h4">
+            <Typography className={classes.text}>
               Create Custom Feeds & Collections
             </Typography>
-            <Typography className={classes.featureSubtitle} variant="h6">
+            <Typography className={classes.featureSubtitle}>
               Take control of the contents you see.
             </Typography>
           </div>
@@ -117,10 +121,10 @@ const Features = () => {
       <Grid container spacing={2} className={classes.featureContainer}>
         <Grid xs={12} sm={12} md={6} className={classes.container}>
           <div className={classes.textContainer}>
-            <Typography className={classes.text} variant="h4">
+            <Typography className={classes.text}>
               Save Contents to Collections
             </Typography>
-            <Typography className={classes.featureSubtitle} variant="h6">
+            <Typography className={classes.featureSubtitle}>
               Save contents to a collection for future reference.
             </Typography>
           </div>
@@ -143,10 +147,8 @@ const Features = () => {
         </Grid>
         <Grid xs={12} sm={12} md={6} className={classes.container}>
           <div className={classes.textContainer}>
-            <Typography className={classes.text} variant="h4">
-              Read Claim Reviews
-            </Typography>
-            <Typography className={classes.featureSubtitle} variant="h6">
+            <Typography className={classes.text}>Read Claim Reviews</Typography>
+            <Typography className={classes.featureSubtitle}>
               Cross-examine claims for fact-checking.
             </Typography>
           </div>

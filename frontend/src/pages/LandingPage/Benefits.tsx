@@ -31,14 +31,20 @@ const useStyles = makeStyles((theme) => ({
   sectionContentContainer: {
     display: 'flex',
     flexDirection: 'column',
-    height: '280px',
-    width: '280px',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '30px',
     backgroundColor: '#ffffff',
     borderRadius: '10px',
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)',
+    [theme.breakpoints.down('sm')]: {
+      height: '240px',
+      width: '240px',
+    },
+    [theme.breakpoints.up('md')]: {
+      height: '280px',
+      width: '280px',
+    },
   },
   button: {
     marginTop: '10px',
