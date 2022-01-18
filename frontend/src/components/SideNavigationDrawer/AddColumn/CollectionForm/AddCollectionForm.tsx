@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import {
@@ -12,10 +11,7 @@ import CREATE_COLLECTION from './query';
 import currentUserId from '../../../../authentication/currentUserId';
 import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import { GET_COLLECTIONS_LIST_QUERY } from '../../../Cards/CardsButtons/AddToCollection/CollectionsList/query';
-import {
-  NavDrawerState,
-  useNavDrawerState,
-} from '../../../SideNavigation/SideNavigationDrawerState';
+import { useNavDrawerState } from '../../../SideNavigation/SideNavigationDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
 import { scrollToElement } from '../../../Common/Functions/Functions';
 import MutationLoader from '../../../Common/MutationLoader';
@@ -55,7 +51,6 @@ interface ParentState {
 }
 
 const AddCollectionForm = ({ snackbarStateChanger }: ParentState) => {
-  const history = useHistory();
   const classes = useStyles();
   const { drawerState, setDrawerState } = useNavDrawerState();
 
