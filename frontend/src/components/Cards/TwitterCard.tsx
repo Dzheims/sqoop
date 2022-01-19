@@ -1,4 +1,7 @@
-import { useState, Key, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import React, { useState, useEffect } from 'react';
 import { decodeHTML } from 'entities';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -22,7 +25,7 @@ import LinkParser from '../Common/LinkParser';
 import FactCheckButton from '../FactCheck/FactCheckButton';
 import AddToCollectionButton from './CardsButtons/AddToCollection/AddToCollectionButton';
 import { useDrawerState } from '../FactCheck/FactCheckDrawerState';
-import { CollectionTweet, Tweet, TwitterPhoto } from '../../types.generated';
+import { CollectionTweet, Tweet } from '../../types.generated';
 import RemoveFromCollectionButton from './CardsButtons/RemoveFromCollection/RemoveFromCollectionButton';
 import { useCollectionsListState } from './CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
 
@@ -39,7 +42,9 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
   const [highlightCard, setHighlightCard] = useState<boolean>(false);
 
   const { __typename, ...collectionTweet } = data as Tweet;
-  const url = `https://twitter.com/${data.username}/status/${data.tweetId}`;
+  const url = `https://twitter.com/${data.username as string}/status/${
+    data.tweetId as string
+  }`;
   useEffect(() => {
     if (data.suggestedKeywords === state.suggestedKeyWords) {
       setHighlightCard(!highlightCard);
@@ -72,15 +77,6 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
               : classes.cardsContentContainer
           }
         >
-          {/* <div className={classes.linkIconDiv}>
-            <a
-              target="_blank"
-              className={classes.openOnTwitterLink}
-              href={url as string}
-            >
-              Open on Twitter
-            </a>
-          </div> */}
           <TitleContainer>
             <Avatar
               alt={data.name as string}
@@ -104,7 +100,7 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
                 )}
               </TwitterSourceNameContainer>
               <Typography className={classes.userName}>
-                {'@' + data.username}
+                {`@${data.username as string}`}
               </Typography>
             </SourceNameContainer>
             <TwitterIcon className={classes.cardsIcon} />
@@ -125,7 +121,7 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
             >
               {data.photos?.map((photo: any) => (
                 <ImageListItem key={photo?.mediaKey} cols={1}>
-                  <img src={photo?.url as string} alt={photo?.type as string} />
+                  <img src={photo.url as string} alt={photo.type as string} />
                 </ImageListItem>
               ))}
             </ImageList>
@@ -136,7 +132,7 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
           <div className={classes.buttonsContainer}>
             <FactCheckButton suggestedKeywords={data.suggestedKeywords} />
             <Tooltip title="Open on Twitter" arrow>
-              <IconButton href={url as string} target="_blank">
+              <IconButton href={url} target="_blank" rel="noreferrer">
                 <OpenInNewIcon
                   className={classes.openOnTwitterIcon}
                   fontSize="small"
@@ -149,7 +145,7 @@ const TwitterCard: React.FC<TwitterDataProps> = ({
                   ...collectionTweet,
                   __typename: 'CollectionTweet',
                   collectionId: collectionListState.collectionId,
-                } as CollectionTweet
+                } as unknown as CollectionTweet
               }
             />
           </div>

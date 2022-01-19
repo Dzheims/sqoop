@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, InputBase, Paper, Typography } from '@material-ui/core';
 import {
   Box,
@@ -74,6 +74,8 @@ const Search = () => {
             }
           />
         );
+      default:
+        return <div />;
     }
   };
 
@@ -96,11 +98,6 @@ const Search = () => {
       },
     },
   ];
-
-  useEffect(() => {
-    keyword;
-    search;
-  });
 
   return (
     <div className={classes.root}>

@@ -35,6 +35,7 @@ module.exports = {
       },
     ],
     'no-underscore-dangle': ['error', { allow: ['__typename'] }],
+    'react/jsx-no-duplicate-props': [1, { ignoreCase: false }],
   },
   overrides: [
     {

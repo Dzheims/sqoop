@@ -8,3 +8,5 @@ export const GET_COLLECTIONS_LIST_QUERY = gql`
     }
   }
 `;
+
+export default GET_COLLECTIONS_LIST_QUERY;
