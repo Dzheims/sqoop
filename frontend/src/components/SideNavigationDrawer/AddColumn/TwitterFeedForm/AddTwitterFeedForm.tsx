@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Button, Typography } from '@material-ui/core';
 import { Autocomplete, TextField } from '@mui/material';
@@ -14,10 +13,7 @@ import { CREATE_TWITTER_FEED } from './query';
 import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import accountSources from './SourcesList';
 import currentUserId from '../../../../authentication/currentUserId';
-import {
-  NavDrawerState,
-  useNavDrawerState,
-} from '../../../SideNavigation/SideNavigationDrawerState';
+import { useNavDrawerState } from '../../../SideNavigation/SideNavigationDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
 import { scrollToElement } from '../../../Common/Functions/Functions';
 import MutationLoader from '../../../Common/MutationLoader';
@@ -58,9 +54,7 @@ interface ParentState {
 }
 
 const AddTwitterFeedForm = ({ snackbarStateChanger }: ParentState) => {
-  const history = useHistory();
   const classes = useStyles();
-  const [source, setSource] = useState({ label: '', username: '' });
   const { drawerState, setDrawerState } = useNavDrawerState();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -200,7 +194,6 @@ const AddTwitterFeedForm = ({ snackbarStateChanger }: ParentState) => {
         disableClearable
         // value={source}
         onChange={(event, newValue) => {
-          setSource(newValue);
           onSourcesChange(newValue.username);
         }}
         size="small"

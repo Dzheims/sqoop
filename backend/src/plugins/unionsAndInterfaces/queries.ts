@@ -1,5 +1,3 @@
-import { collectionContent } from './schema';
-
 const camelcaseKeys = require('camelcase-keys');
 
 interface columnProps {
@@ -11,7 +9,11 @@ interface columnProps {
   sources: String;
 }
 
-export const resolvers = (getNamedType: any) => {
+interface collectionContentParams {
+  collectionId: number;
+}
+
+export const resolvers = () => {
   return {
     ColumnResult: {
       __resolveType(column: columnProps) {
@@ -50,7 +52,11 @@ export const resolvers = (getNamedType: any) => {
         );
         return result;
       },
-      collectionContents: async (_: any, args: any, context: any) => {
+      collectionContents: async (
+        _: any,
+        args: collectionContentParams,
+        context: any
+      ) => {
         const { pgClient, jwtClaims } = context;
         if (!jwtClaims) throw new Error('Unauthorized user');
 

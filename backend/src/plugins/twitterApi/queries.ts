@@ -1,4 +1,3 @@
-import { Client } from 'pg';
 import keyword_extractor from 'keyword-extractor';
 const camelcaseKeys = require('camelcase-keys');
 const fetch = require('node-fetch');
@@ -7,6 +6,13 @@ require('dotenv').config();
 interface searchParams {
   keyword: string;
   sources: string[] | string;
+}
+
+interface searchAllTweetsParams {
+  keyword: string;
+  sources: string;
+  fromDate: string;
+  toDate: string;
 }
 
 interface tweetLookupParams {
@@ -197,7 +203,11 @@ export const resolvers = {
       });
       return camelcaseKeys(searchTweets);
     },
-    searchAllTweets: async (_: any, args: any, context: any) => {
+    searchAllTweets: async (
+      _: any,
+      args: searchAllTweetsParams,
+      context: any
+    ) => {
       const { keyword, sources, fromDate, toDate } = args;
       const { pgClient, jwtClaims } = context;
       if (!jwtClaims) throw new Error('Unauthorized user');

@@ -45,8 +45,8 @@ const TwitterContents: React.FC<TwitterAPIDataProps> = ({
       ) : (
         <div />
       )}
-      {data?.searchTweets?.map((value, index) => (
-        <div key={index}>
+      {data?.searchTweets?.map((value) => (
+        <div key={value.publishedAt as string}>
           <TwitterCards data={value} />
         </div>
       ))}

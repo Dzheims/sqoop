@@ -4,7 +4,6 @@ import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { Box } from '@mui/material';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Grid from '@material-ui/core/Grid';
 import Cookies from 'js-cookie';
 import Typography from '@material-ui/core/Typography';

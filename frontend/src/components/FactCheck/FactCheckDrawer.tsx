@@ -1,17 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import FactCheckIcon from '@mui/icons-material/ManageSearch';
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, Drawer, IconButton } from '@material-ui/core';
+import { Drawer, IconButton } from '@material-ui/core';
 import FactCheckDrawerContent from './FactCheckDrawerContent';
-import FactCheckButton from './FactCheckButton';
 import { useDrawerState } from './FactCheckDrawerState';
 import { Title } from '../Columns/ColumnsStyle';
 

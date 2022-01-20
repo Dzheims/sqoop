@@ -1,7 +1,6 @@
-import { useState, useEffect, Key } from 'react';
+/* eslint-disable @typescript-eslint/naming-convention */
+import React, { useState, useEffect } from 'react';
 import { Typography, Avatar } from '@material-ui/core';
-import Linkify from 'react-linkify';
-import { SecureLink } from 'react-secure-link';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import NewsIcon from '@mui/icons-material/Article';
 import {
@@ -43,8 +42,8 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
 
   const randomColor = (name: string) => {
     if (!name) return '#0xffffff';
-    let hex = Math.floor((name.charCodeAt(0) / 250) * 0xffffff);
-    let color = '#' + hex.toString(16);
+    const hex = Math.floor((name.charCodeAt(0) / 250) * 0xffffff);
+    const color = `#${hex.toString(16)}`;
     return color;
   };
 
@@ -93,8 +92,9 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
           {!data.urlToImage ? (
             <a
               target="_blank"
+              rel="noreferrer"
               className={classes.link}
-              href={data?.url as string}
+              href={data.url as string}
             >
               <Typography variant="body2">{data.title}</Typography>
             </a>
@@ -109,8 +109,9 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                 <div className={classes.linkIconDiv}>
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     className={classes.link}
-                    href={data?.url as string}
+                    href={data.url as string}
                   >
                     <OpenInNewIcon className={classes.linkIcon} />
                   </a>
@@ -118,8 +119,9 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
               </div>
               <a
                 target="_blank"
+                rel="noreferrer"
                 className={classes.link}
-                href={data?.url as string}
+                href={data.url as string}
               >
                 <Typography className={classes.description}>
                   {data.title}
@@ -131,17 +133,14 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
             {formatTimeAndDate(data.publishedAt)}
           </Typography>
           <div className={classes.buttonsContainer}>
-            <FactCheckButton
-              // setHighlightCard={setHighlightCard}
-              suggestedKeywords={data.suggestedKeywords}
-            />
+            <FactCheckButton suggestedKeywords={data.suggestedKeywords} />
             <AddToCollectionButton
               data={
                 {
                   ...collectionArticle,
                   __typename: 'CollectionArticle',
                   collectionId: collectionListState.collectionId,
-                } as CollectionArticle
+                } as unknown as CollectionArticle
               }
             />
           </div>

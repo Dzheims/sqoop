@@ -1,23 +1,12 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import {
-  ColumnContainer,
-  Title,
-  ItemContainer,
-  ColumnWrapper,
-  useStyles,
-} from './ColumnsStyle';
+import React, { useEffect, useState } from 'react';
 import { Chip } from '@material-ui/core';
 import CloseIcon from '@mui/icons-material/Close';
 import FeedIcon from '@mui/icons-material/Feed';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
-import NewsContentsData from '../ColumnContents/NewsContentsData';
-import TwitterContentsData from '../ColumnContents/TwitterContentsData';
-import { GetColumnsQuery } from './query.generated';
-import { Category } from '../../types.generated';
 import {
   Button,
   Dialog,
@@ -25,9 +14,20 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  IconButton,
 } from '@mui/material';
-import { IconButton } from '@mui/material';
+import ScrollContainer from 'react-indiana-drag-scroll';
 import { useMutation } from '@apollo/client';
+import {
+  ColumnContainer,
+  Title,
+  ItemContainer,
+  ColumnWrapper,
+  useStyles,
+} from './ColumnsStyle';
+import NewsContentsData from '../ColumnContents/NewsContentsData';
+import TwitterContentsData from '../ColumnContents/TwitterContentsData';
+import { Category, ColumnResult } from '../../types.generated';
 import {
   DeleteTwitterMutation,
   DeleteTwitterMutationVariables,
@@ -35,6 +35,7 @@ import {
   DeleteNewsMutationVariables,
   DeleteCollectionMutation,
   DeleteCollectionMutationVariables,
+  GetColumnsQuery,
 } from './query.generated';
 import {
   DELETE_TWITTER_MUTATION,
@@ -46,30 +47,33 @@ import { GET_COLLECTIONS_LIST_QUERY } from '../Cards/CardsButtons/AddToCollectio
 import CollectionContentsData from '../ColumnContents/CollectionContentsData';
 import currentUserId from '../../authentication/currentUserId';
 import { CollectionsListStateProvider } from '../Cards/CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
-import { NavDrawerStateProvider } from '../SideNavigation/SideNavigationDrawerState';
-import ScrollContainer from 'react-indiana-drag-scroll';
 
-const getFeedType = (value: any) => {
+const getFeedType = (value: ColumnResult) => {
   switch (value.__typename) {
     case 'NewsFeed':
       return (
         <NewsContentsData
-          keyword={value.keyword}
-          country={value.country}
+          keyword={value.keyword as string}
+          country={value.country as string}
           category={value.category as Category}
-          sources={value.sources}
+          sources={value.sources as string}
         />
       );
     case 'TwitterFeed':
       return (
-        <TwitterContentsData keyword={value.keyword} sources={value.sources} />
+        <TwitterContentsData
+          keyword={value.keyword as string}
+          sources={value.sources as string}
+        />
       );
     case 'Collection':
       return <CollectionContentsData collectionId={value.id} />;
+    default:
+      return <div />;
   }
 };
 
-const getIcon = (value: any) => {
+const getIcon = (value: ColumnResult) => {
   const iconStyle = { color: '#0036e7', height: '18px', width: '18px' };
   switch (value.__typename) {
     case 'NewsFeed':
@@ -78,6 +82,8 @@ const getIcon = (value: any) => {
       return <TwitterIcon style={iconStyle} />;
     case 'Collection':
       return <CollectionsBookmarkIcon style={iconStyle} />;
+    default:
+      return <div />;
   }
 };
 
@@ -94,7 +100,6 @@ interface DeleteColumnProps {
 const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
   const classes = useStyles();
   const [proceedDelete, setProceedDelete] = useState(false);
-  const [userId] = useState(currentUserId());
   const [warningDelete, setWarningDelete] = useState(false);
   const [columnTitle, setColumnTitle] = useState('');
   const [deleteColumn, setDeleteColumn] = useState<DeleteColumnProps>({
@@ -112,7 +117,7 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
         id: deleteColumn.id,
       },
     },
-    onCompleted: ({}) => {
+    onCompleted: () => {
       setProceedDelete(false);
     },
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
@@ -127,7 +132,7 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
         id: deleteColumn.id,
       },
     },
-    onCompleted: ({}) => {
+    onCompleted: () => {
       setProceedDelete(false);
     },
     refetchQueries: [{ query: GET_COLUMNS_QUERY }],
@@ -142,7 +147,7 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
         id: deleteColumn.id,
       },
     },
-    onCompleted: ({}) => {
+    onCompleted: () => {
       setProceedDelete(false);
     },
     refetchQueries: [
@@ -172,14 +177,14 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     }
   }, [proceedDelete]);
 
-  const handleDelete = (props: DeleteColumnProps) => {
+  const handleDelete = ({ title, id, type }: DeleteColumnProps) => {
     setDeleteColumn({
       ...deleteColumn,
-      title: props.title,
-      id: props.id,
-      type: props.type,
+      title,
+      id,
+      type,
     });
-    setColumnTitle(props.title);
+    setColumnTitle(title);
     setWarningDelete(true);
   };
 
@@ -187,7 +192,7 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
     setWarningDelete(false);
   };
 
-  const getFiltersList = (value: any) => {
+  const getFiltersList = (value: ColumnResult) => {
     switch (value.__typename) {
       case 'NewsFeed':
         return [
@@ -201,8 +206,9 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
           value.keyword ? value.keyword : 'No Keyword',
           value.sources ? value.sources : 'All Sources',
         ];
+      default:
+        return [];
     }
-    return [];
   };
 
   return (
@@ -210,7 +216,7 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
       <ColumnWrapper>
         {data.getColumnResult?.flatMap((value, index) => (
           <div
-            key={value.createdAt}
+            key={value.createdAt as string}
             id={new Date(value.createdAt).toUTCString()}
             className={classes.columnHighlightBorder}
             tabIndex={-1}
@@ -218,7 +224,7 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
             <ColumnContainer>
               <div className={classes.titleContainer}>
                 <div className={classes.columnHeader}>
-                  <div>{getIcon(value)}</div>
+                  <div>{getIcon(value as ColumnResult)}</div>
                   <Title>{value.title}</Title>
                 </div>
                 <IconButton
@@ -239,17 +245,19 @@ const Column: React.FC<ColumnDataProps> = ({ data }: ColumnDataProps) => {
               </div>
               <ScrollContainer className="scroll-container">
                 <div className={classes.chipsContainer}>
-                  {getFiltersList(value).map((filter: string) => (
-                    <Chip
-                      className={classes.chips}
-                      variant="outlined"
-                      label={filter}
-                    />
-                  ))}
+                  {getFiltersList(value as ColumnResult).map(
+                    (filter: string) => (
+                      <Chip
+                        className={classes.chips}
+                        variant="outlined"
+                        label={filter}
+                      />
+                    )
+                  )}
                 </div>
               </ScrollContainer>
               <ItemContainer key={index} className={classes.itemContainer}>
-                {getFeedType(value)}
+                {getFeedType(value as ColumnResult)}
               </ItemContainer>
             </ColumnContainer>
           </div>

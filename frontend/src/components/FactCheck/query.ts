@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const VERA_FACTCHECK_SEARCH_QUERY = gql`
-  query veraFactCheckSearchResult($keyword: String) {
+  query veraFactCheckSearchResult($keyword: String!) {
     veraFilesFactCheck(keyword: $keyword) {
       id
       author
@@ -17,7 +17,7 @@ export const VERA_FACTCHECK_SEARCH_QUERY = gql`
   }
 `;
 export const GOOGLE_FACTCHECK_SEARCH_QUERY = gql`
-  query googleFactCheckSearchResult($keyword: String) {
+  query googleFactCheckSearchResult($keyword: String!) {
     googleFactCheckSearch(keyword: $keyword) {
       claimDate
       claimant

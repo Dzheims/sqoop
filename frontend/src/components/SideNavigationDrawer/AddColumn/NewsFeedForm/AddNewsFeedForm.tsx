@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Box,
@@ -23,10 +22,7 @@ import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import countries from './CountriesList';
 import currentUserId from '../../../../authentication/currentUserId';
 import NewsSourcesData from './NewsSourcesData';
-import {
-  NavDrawerState,
-  useNavDrawerState,
-} from '../../../SideNavigation/SideNavigationDrawerState';
+import { useNavDrawerState } from '../../../SideNavigation/SideNavigationDrawerState';
 import { validateTitle } from '../FormValidation/FormValidation';
 import { scrollToElement } from '../../../Common/Functions/Functions';
 import MutationLoader from '../../../Common/MutationLoader';
@@ -76,12 +72,6 @@ interface ParentState {
 
 const AddNewsFeedForm = ({ snackbarStateChanger }: ParentState) => {
   const classes = useStyles();
-  const history = useHistory();
-  const [country, setCountry] = useState({ code: '', label: '' });
-  const [newsSource, setNewsSource] = useState({
-    name: '',
-    id: '',
-  });
   const { drawerState, setDrawerState } = useNavDrawerState();
 
   const newsSourcesData = [
@@ -292,7 +282,6 @@ const AddNewsFeedForm = ({ snackbarStateChanger }: ParentState) => {
         disableClearable
         defaultValue={countries[0]}
         onChange={(event, newValue) => {
-          setCountry(newValue);
           onCountryChange(newValue.code);
         }}
         size="small"
@@ -337,7 +326,6 @@ const AddNewsFeedForm = ({ snackbarStateChanger }: ParentState) => {
         disableClearable
         defaultValue={newsSourcesData[0]}
         onChange={(event, newValue) => {
-          setNewsSource({ name: newValue.name, id: newValue.id });
           onSourcesChange(newValue.id);
         }}
         size="small"

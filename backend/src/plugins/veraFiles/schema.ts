@@ -18,7 +18,7 @@ export const veraFiles = gql`
 export const typeDefs = gql`
   ${veraFiles}
   extend type Query {
-    veraFilesFactCheck(keyword: String): [VeraFiles!]!
+    veraFilesFactCheck(keyword: String!): [VeraFiles!]!
   }
 `;
 

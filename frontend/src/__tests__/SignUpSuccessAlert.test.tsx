@@ -4,7 +4,6 @@ import { MockedProvider } from '@apollo/client/testing';
 import SuccessBox from '../pages/SignUpPage/SignUpSuccessAlert';
 
 let documentBody: RenderResult;
-const mockHistoryPush = jest.fn();
 
 describe('Success Box', () => {
   beforeEach(() => {

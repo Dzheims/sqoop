@@ -1,6 +1,5 @@
 import camelcaseKeys from 'camelcase-keys';
 import keyword_extractor from 'keyword-extractor';
-import { article } from './schema';
 const fetch = require('node-fetch');
 
 interface topHeadlinesParams {
@@ -51,11 +50,11 @@ export const resolvers = {
 
       const queryParams = new URLSearchParams();
       queryParams.set('country', !country || !country.length ? 'ph' : country);
+      queryParams.set('category', category || 'general');
       if (sources) {
         queryParams.set('country', '');
-        category = '';
+        queryParams.set('category', '');
       }
-      queryParams.set('category', category || 'general');
       queryParams.set('sources', sources || '');
       queryParams.set('q', keyword || '');
       const response = await fetch(

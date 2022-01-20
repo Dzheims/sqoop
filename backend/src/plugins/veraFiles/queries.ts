@@ -5,22 +5,10 @@ import {
   googleFactCheckParams,
 } from '../googleApi/queries';
 import { Claim } from '../googleApi/models';
+import { VeraFiles } from './models';
 
 interface veraFilesParams {
   keyword: string;
-}
-
-interface veraFiles {
-  id: Number;
-  author: string;
-  description: string;
-  title: string;
-  date: string | undefined;
-  dateText: string;
-  category: string;
-  url: string | undefined;
-  imageStyle: string | undefined;
-  imageUrl: string | undefined;
 }
 
 export const resolvers = {
@@ -79,7 +67,7 @@ export const resolvers = {
       if (result.status === 'error') {
         return result;
       }
-      const contents: veraFiles[] = [];
+      const contents: VeraFiles[] = [];
       const $ = cheerio.load(result, {
         xml: {
           normalizeWhitespace: true,

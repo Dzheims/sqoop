@@ -44,8 +44,8 @@ const NewsContents: React.FC<NewsAPIDataProps> = ({
       ) : (
         <div />
       )}
-      {data?.topHeadlines?.map((value, index) => (
-        <div key={index}>
+      {data?.topHeadlines?.map((value) => (
+        <div key={value.publishedAt as string}>
           <NewsCards data={value} />
         </div>
       ))}
