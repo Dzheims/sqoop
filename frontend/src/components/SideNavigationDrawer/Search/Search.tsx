@@ -49,6 +49,9 @@ const Search = () => {
   });
 
   const getSearchResults = (searchType: string) => {
+    if (!keyword.replace(/\s/g, '')) {
+      return <div />;
+    }
     switch (searchType) {
       case 'Twitter':
         return (
