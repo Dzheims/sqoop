@@ -12,6 +12,7 @@ import currentUserId from '../../../../authentication/currentUserId';
 import { GET_COLUMNS_QUERY } from '../../../Columns/query';
 import { GET_COLLECTIONS_LIST_QUERY } from '../../../Cards/CardsButtons/AddToCollection/CollectionsList/query';
 import { useNavDrawerState } from '../../../SideNavigation/SideNavigationDrawerState';
+import { useSuccessAlertState } from '../../../SideNavigation/OnCreateSuccessSnackbarState';
 import { validateTitle } from '../FormValidation/FormValidation';
 import { scrollToElement } from '../../../Common/Functions/Functions';
 import MutationLoader from '../../../Common/MutationLoader';
@@ -40,19 +41,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface SuccessAlert {
-  type: string;
-  feedTitle: string;
-  success: boolean;
-}
-
-interface ParentState {
-  snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
-}
-
-const AddCollectionForm = ({ snackbarStateChanger }: ParentState) => {
+const AddCollectionForm = () => {
   const classes = useStyles();
   const { drawerState, setDrawerState } = useNavDrawerState();
+  const { setSnackbarState } = useSuccessAlertState();
 
   const [collectionForm, setCollectionForm] = useState<CollectionInput>({
     title: '',
@@ -90,7 +82,7 @@ const AddCollectionForm = ({ snackbarStateChanger }: ParentState) => {
           },
         },
         onCompleted: ({ createCollection }) => {
-          snackbarStateChanger({
+          setSnackbarState({
             type: 'Collection',
             feedTitle: createCollection?.collection?.title as string,
             success: true,

@@ -13,6 +13,7 @@ import FactCheckDrawer from '../../components/FactCheck/FactCheckDrawer';
 import { DrawerStateProvider } from '../../components/FactCheck/FactCheckDrawerState';
 import { CollectionsListStateProvider } from '../../components/Cards/CardsButtons/AddToCollection/CollectionsList/CollectionsListState';
 import { NavDrawerStateProvider } from '../../components/SideNavigation/SideNavigationDrawerState';
+import { SuccessAlertProvider } from '../../components/SideNavigation/OnCreateSuccessSnackbarState';
 import DefaultColumns from '../../components/Columns/DefaultColumns';
 
 const useStyles = makeStyles((theme) => ({
@@ -116,47 +117,51 @@ const Homepage = () => {
     <div className={classes.root}>
       <DrawerStateProvider value={{ suggestedKeyWords: [], open: false }}>
         <CollectionsListStateProvider value={{ collectionId: 0 }}>
-          <NavDrawerStateProvider value={{ isOpen: false, current: '' }}>
-            <NavigationBar />
-            <Toolbar />
-            <FactCheckDrawer />
-            <div style={{ overflow: 'hidden' }}>
-              <div
-                ref={ref}
-                className={classes.columnContainers}
-                onScroll={onScroll}
-              >
-                <DefaultColumns />
-                <ColumnData />
-                {!isFirstElement && (
-                  <Fab
-                    onClick={() => buttonScroll(-320)}
-                    style={{
-                      opacity: 0.9,
-                      position: 'fixed',
-                      left: 65,
-                      top: '50%',
-                    }}
-                  >
-                    <ArrowLeftIcon className={classes.arrowIcon} />
-                  </Fab>
-                )}
-                {!isLastElement && (
-                  <Fab
-                    onClick={() => buttonScroll(320)}
-                    style={{
-                      opacity: 0.9,
-                      position: 'fixed',
-                      right: 15,
-                      top: '50%',
-                    }}
-                  >
-                    <ArrowRightIcon className={classes.arrowIcon} />
-                  </Fab>
-                )}
+          <SuccessAlertProvider
+            value={{ type: '', feedTitle: '', success: false }}
+          >
+            <NavDrawerStateProvider value={{ isOpen: false, current: '' }}>
+              <NavigationBar />
+              <Toolbar />
+              <FactCheckDrawer />
+              <div style={{ overflow: 'hidden' }}>
+                <div
+                  ref={ref}
+                  className={classes.columnContainers}
+                  onScroll={onScroll}
+                >
+                  <DefaultColumns />
+                  <ColumnData />
+                  {!isFirstElement && (
+                    <Fab
+                      onClick={() => buttonScroll(-320)}
+                      style={{
+                        opacity: 0.9,
+                        position: 'fixed',
+                        left: 65,
+                        top: '50%',
+                      }}
+                    >
+                      <ArrowLeftIcon className={classes.arrowIcon} />
+                    </Fab>
+                  )}
+                  {!isLastElement && (
+                    <Fab
+                      onClick={() => buttonScroll(320)}
+                      style={{
+                        opacity: 0.9,
+                        position: 'fixed',
+                        right: 15,
+                        top: '50%',
+                      }}
+                    >
+                      <ArrowRightIcon className={classes.arrowIcon} />
+                    </Fab>
+                  )}
+                </div>
               </div>
-            </div>
-          </NavDrawerStateProvider>
+            </NavDrawerStateProvider>
+          </SuccessAlertProvider>
         </CollectionsListStateProvider>
       </DrawerStateProvider>
     </div>

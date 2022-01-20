@@ -23,6 +23,7 @@ import countries from './CountriesList';
 import currentUserId from '../../../../authentication/currentUserId';
 import NewsSourcesData from './NewsSourcesData';
 import { useNavDrawerState } from '../../../SideNavigation/SideNavigationDrawerState';
+import { useSuccessAlertState } from '../../../SideNavigation/OnCreateSuccessSnackbarState';
 import { validateTitle } from '../FormValidation/FormValidation';
 import { scrollToElement } from '../../../Common/Functions/Functions';
 import MutationLoader from '../../../Common/MutationLoader';
@@ -60,19 +61,10 @@ interface FormsDisabled {
   sources: boolean;
 }
 
-interface SuccessAlert {
-  type: string;
-  feedTitle: string;
-  success: boolean;
-}
-
-interface ParentState {
-  snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
-}
-
-const AddNewsFeedForm = ({ snackbarStateChanger }: ParentState) => {
+const AddNewsFeedForm = () => {
   const classes = useStyles();
   const { drawerState, setDrawerState } = useNavDrawerState();
+  const { setSnackbarState } = useSuccessAlertState();
 
   const newsSourcesData = [
     {
@@ -201,7 +193,7 @@ const AddNewsFeedForm = ({ snackbarStateChanger }: ParentState) => {
       },
     },
     onCompleted: ({ createNewsFeed }) => {
-      snackbarStateChanger({
+      setSnackbarState({
         type: 'News feed',
         feedTitle: createNewsFeed?.newsFeed?.title as string,
         success: true,

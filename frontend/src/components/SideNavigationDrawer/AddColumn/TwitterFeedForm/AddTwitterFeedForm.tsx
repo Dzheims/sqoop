@@ -17,6 +17,7 @@ import { useNavDrawerState } from '../../../SideNavigation/SideNavigationDrawerS
 import { validateTitle } from '../FormValidation/FormValidation';
 import { scrollToElement } from '../../../Common/Functions/Functions';
 import MutationLoader from '../../../Common/MutationLoader';
+import { useSuccessAlertState } from '../../../SideNavigation/OnCreateSuccessSnackbarState';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -43,19 +44,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface SuccessAlert {
-  type: string;
-  feedTitle: string;
-  success: boolean;
-}
-
-interface ParentState {
-  snackbarStateChanger: Dispatch<SetStateAction<SuccessAlert>>;
-}
-
-const AddTwitterFeedForm = ({ snackbarStateChanger }: ParentState) => {
+const AddTwitterFeedForm = () => {
   const classes = useStyles();
   const { drawerState, setDrawerState } = useNavDrawerState();
+  const { setSnackbarState } = useSuccessAlertState();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [titleError, setTitleError] = useState<string>('');
@@ -128,7 +120,7 @@ const AddTwitterFeedForm = ({ snackbarStateChanger }: ParentState) => {
       },
     },
     onCompleted: ({ createTwitterFeed }) => {
-      snackbarStateChanger({
+      setSnackbarState({
         type: 'Twitter feed',
         feedTitle: createTwitterFeed?.twitterFeed?.title as string,
         success: true,

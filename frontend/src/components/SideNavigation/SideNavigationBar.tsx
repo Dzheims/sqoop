@@ -25,6 +25,7 @@ import Search from '../SideNavigationDrawer/Search/Search';
 import NavDrawer from './SideNavigationDrawer';
 import ColumnsListData from '../SideNavigationDrawer/ColumnNavigation/ColumnsListData';
 import { useNavDrawerState } from './SideNavigationDrawerState';
+import { useSuccessAlertState } from './OnCreateSuccessSnackbarState';
 import AddColumn from '../SideNavigationDrawer/AddColumn/AddColumn';
 import MyAccountPopover from './MyAccountPopover';
 import Icon from '../../assets/sqoopIcon.webp';
@@ -43,11 +44,7 @@ interface SuccessAlert {
 const SideNavigationBar = () => {
   const classes = useStyles();
   const { drawerState, setDrawerState } = useNavDrawerState();
-  const [successAlert, setSuccessAlert] = useState<SuccessAlert>({
-    type: '',
-    feedTitle: '',
-    success: false,
-  });
+  const { snackbarState, setSnackbarState } = useSuccessAlertState();
 
   const buttonOnSelectHandler = (
     title: string,
@@ -147,11 +144,11 @@ const SideNavigationBar = () => {
       case 'Navigation':
         return <ColumnsListData />;
       case 'News Feed':
-        return <AddNewsFeedForm snackbarStateChanger={setSuccessAlert} />;
+        return <AddNewsFeedForm />;
       case 'Twitter Feed':
-        return <AddTwitterFeedForm snackbarStateChanger={setSuccessAlert} />;
+        return <AddTwitterFeedForm />;
       case 'Collection':
-        return <AddCollectionForm snackbarStateChanger={setSuccessAlert} />;
+        return <AddCollectionForm />;
       default:
         return <div />;
     }
@@ -191,7 +188,7 @@ const SideNavigationBar = () => {
     reason?: string
   ) => {
     if (reason === 'clickaway') return;
-    setSuccessAlert({ ...successAlert, success: false });
+    setSnackbarState({ ...snackbarState, success: false });
   };
 
   return (
@@ -240,7 +237,7 @@ const SideNavigationBar = () => {
       </div>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        open={successAlert.success}
+        open={snackbarState.success}
         autoHideDuration={7000}
         onClose={handleSnackbarClose}
       >
@@ -257,7 +254,7 @@ const SideNavigationBar = () => {
             </IconButton>
           }
         >
-          {successAlert.type} <strong>{successAlert.feedTitle}</strong> was
+          {snackbarState.type} <strong>{snackbarState.feedTitle}</strong> was
           created
         </Alert>
       </Snackbar>
