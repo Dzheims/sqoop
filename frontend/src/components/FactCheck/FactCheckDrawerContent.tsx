@@ -102,6 +102,9 @@ const FactCheckDrawerContent = ({
   const [currentSearch, setCurrentSearch] = useState('Google Fact Check');
 
   const getSearch = (searchType: string) => {
+    if (!searchKey.replace(/\s/g, '')) {
+      return <div />;
+    }
     if (searchType === 'Google Fact Check')
       return <GoogleFactCheckData keyword={searchKey} />;
     if (searchType === 'Vera Files')
