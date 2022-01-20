@@ -38,7 +38,7 @@ export const typeDefs = gql`
   ${claimReview}
   ${publisher}
   extend type Query {
-    googleFactCheckSearch(keyword: String): [Claim!]!
+    googleFactCheckSearch(keyword: String!): [Claim!]!
   }
 `;
 
