@@ -230,7 +230,10 @@ const AddNewsFeedForm = ({ snackbarStateChanger }: ParentState) => {
 
   const handleSubmit = () => {
     setIsSubmitting(true);
-    if (newsFeedForm.newsFeed.title) {
+    if (
+      newsFeedForm.newsFeed.title &&
+      newsFeedForm.newsFeed.title.replace(/\s/g, '')
+    ) {
       createFeed();
     }
   };

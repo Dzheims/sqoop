@@ -124,11 +124,11 @@ const AddCollectionForm = ({ snackbarStateChanger }: ParentState) => {
 
   useEffect(() => {
     if (isSubmitting) setTitleError(validateTitle(collectionForm.title, error));
-  }, [isSubmitting, error]);
+  }, [isSubmitting, error, collectionForm]);
 
   const handleSubmit = () => {
     setIsSubmitting(true);
-    if (collectionForm.title) {
+    if (collectionForm.title && collectionForm.title.replace(/\s/g, '')) {
       createNewCollection();
     }
   };

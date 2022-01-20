@@ -6,7 +6,7 @@ export interface TitleError {
 }
 
 export function validateTitle(title: string, error: ApolloError | undefined) {
-  if (!title) {
+  if (!title || !title.replace(/\s/g, '')) {
     return 'Title must not be empty';
   }
   if (

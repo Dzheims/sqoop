@@ -156,7 +156,10 @@ const AddTwitterFeedForm = ({ snackbarStateChanger }: ParentState) => {
 
   const handleSubmit = () => {
     setIsSubmitting(true);
-    if (twitterFeedForm.twitterFeed.title) {
+    if (
+      twitterFeedForm.twitterFeed.title &&
+      twitterFeedForm.twitterFeed.title.replace(/\s/g, '')
+    ) {
       createFeed();
     }
   };
