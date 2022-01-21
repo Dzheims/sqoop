@@ -44,7 +44,7 @@ describe('News Feed Form', () => {
     const sourcesTextfield = documentBody.getByRole('textbox', {
       name: 'Sources',
     });
-    expect(sourcesTextfield).toHaveValue('');
+    expect(sourcesTextfield).toHaveValue('All Accounts');
     sourcesTextfield.focus();
     fireEvent.change(sourcesTextfield, {
       target: { value: 'CHED' },
