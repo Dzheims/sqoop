@@ -101,16 +101,16 @@ describe('Vera contents', () => {
     );
     expect(title).toBeInTheDocument();
   });
-  it('checks content text data 2', async () => {
-    const author = await documentBody.findAllByText('By VERA FILES');
-    expect(author[0]).toBeInTheDocument();
-  });
-  // it('checks content text data 3', async () => {
-  //   const description = await documentBody.findByText(
-  //     'Maling ipinahayag ni Pangulo Rodrigo Duterte nang…'
-  //   );
-  //   expect(description).toBeInTheDocument();
+  // it('checks content text data 2', async () => {
+  //   const author = await documentBody.findAllByText('By VERA FILES');
+  //   expect(author[0]).toBeInTheDocument();
   // });
+  it('checks content text data 3', async () => {
+    const description = await documentBody.findByText(
+      'Maling ipinahayag ni Pangulo Rodrigo Duterte nang…'
+    );
+    expect(description).toBeInTheDocument();
+  });
   it('checks content text data 4', async () => {
     const date = await documentBody.findByText('8:30:00 PM Mon May 31 2021');
     expect(date).toBeInTheDocument();

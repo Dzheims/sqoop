@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react';
+import { decodeHTML } from 'entities';
 import { Typography, Avatar } from '@material-ui/core';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import {
@@ -55,7 +56,9 @@ const GoogleFactCheckCard: React.FC<GoogleFactCheckProps> = ({
             <FactCheckIcon className={classes.cardsIcon} style={iconSize} />
           </TitleContainer>
           <ContentContainer>
-            <Typography className={classes.description}>{data.text}</Typography>
+            <Typography className={classes.description}>
+              {decodeHTML(data.text as string)}
+            </Typography>
             {data.claimant !== null ? (
               <Typography className={classes.date} variant="body2">
                 Claim by {data.claimant}
@@ -76,7 +79,7 @@ const GoogleFactCheckCard: React.FC<GoogleFactCheckProps> = ({
             href={data.url as string}
           >
             <Typography className={classes.titleLink} variant="body2">
-              {data.title}
+              {decodeHTML(data.title as string)}
             </Typography>
           </a>
           <Typography className={classes.date}>

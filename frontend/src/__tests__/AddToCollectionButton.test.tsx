@@ -83,7 +83,7 @@ const tweet: CollectionTweet = {
   verified: true,
   nodeId: '',
   id: 0,
-  collectionId: 0,
+  collectionId: 1,
   createdAt: '',
   photosConnection,
 };
@@ -102,7 +102,7 @@ const googleFactCheck: CollectionGoogleFactCheck = {
   languageCode: 'en',
   nodeId: '',
   id: 0,
-  collectionId: 0,
+  collectionId: 1,
   createdAt: '',
 };
 
@@ -122,7 +122,7 @@ const veraFiles: CollectionVeraFile = {
     'Virologists as gatekeepers: Local scientists prepare for the next pandemic',
   url: 'https://verafiles.org/articles/virologists-gatekeepers-local-scientists-prepare-next-pandem',
   nodeId: '',
-  collectionId: 0,
+  collectionId: 1,
   createdAt: '',
 };
 
