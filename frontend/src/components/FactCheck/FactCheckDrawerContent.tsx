@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
   resultsContainer: {
     overflow: 'auto',
-    height: '50vh',
+    maxHeight: '50vh',
     padding: '5px',
     '&::-webkit-scrollbar': {
       width: '0.4em',

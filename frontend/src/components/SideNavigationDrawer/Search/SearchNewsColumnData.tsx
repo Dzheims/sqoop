@@ -6,6 +6,7 @@ import Error from '../../Common/Error';
 import NoContents from '../../Common/NoContents';
 import CardLoaderSkeleton from '../../Common/Skeletons/CardLoaderSkeleton';
 import NewsCards from '../../Cards/NewsCard';
+import useStyles from './SearchStyles';
 
 interface SearchNewsColumnDataProps {
   keyword: string;
@@ -20,6 +21,7 @@ const SearchNewsColumnData: React.FC<SearchNewsColumnDataProps> = ({
   from,
   to,
 }: SearchNewsColumnDataProps) => {
+  const classes = useStyles();
   const { data, loading, error, refetch } =
     useQuery<SearchNewsApiContentsQuery>(SEARCH_NEWS_API_CONTENTS_QUERY, {
       variables: { keyword, sources, from, to },
@@ -50,7 +52,7 @@ const SearchNewsColumnData: React.FC<SearchNewsColumnDataProps> = ({
     );
 
   return (
-    <div>
+    <div className={classes.results}>
       {data?.searchArticles?.map((value) => (
         <NewsCards data={value} />
       ))}

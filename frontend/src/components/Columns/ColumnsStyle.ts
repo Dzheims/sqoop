@@ -92,16 +92,6 @@ export const DefaultItemContainer = styled.div<DefaultColumnContentStylesProps>`
   height: ${(props) => (props.feedType === 'Twitter Feed' ? '88%' : '79%')};
   overflow: auto;
 `;
-export const ResultsContainer = styled.div<BoardColumnContentStylesProps>`
-  background-color: ${(isDraggingOver: BoardColumnContentStylesProps) =>
-    isDraggingOver ? '#f7fafc' : null};
-  transition: background-color 0.2s ease;
-  padding: 5px;
-  overflow: auto;
-  margin-top: 5px;
-  max-height: 360px;
-  min-height: 10px;
-`;
 export const Title = styled.h2`
   font: 18px sans-serif;
   // margin-bottom: 5px;

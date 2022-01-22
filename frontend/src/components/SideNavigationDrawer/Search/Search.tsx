@@ -14,7 +14,6 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import useStyles from './SearchStyles';
 import SearchNewsColumnData from './SearchNewsColumnData';
-import { ResultsContainer } from '../../Columns/ColumnsStyle';
 import NewsSourcesData from '../AddColumn/NewsFeedForm/NewsSourcesData';
 import TwitterSourcesData from '../AddColumn/TwitterFeedForm/TwitterSourcesData';
 import {
@@ -277,21 +276,9 @@ const Search = () => {
         </Accordion>
       </div>
       {search ? (
-        <DragDropContext onDragEnd={() => {}}>
-          <Droppable droppableId="droppable">
-            {(provided, snapshot) => (
-              <div className={classes.container}>
-                <ResultsContainer
-                  className={classes.resultsContainer}
-                  {...provided.droppableProps}
-                  isDragging={snapshot.isDraggingOver}
-                >
-                  {getSearchResults(currentSearch)}
-                </ResultsContainer>
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <div className={classes.resultsContainer}>
+          {getSearchResults(currentSearch)}
+        </div>
       ) : (
         <div />
       )}

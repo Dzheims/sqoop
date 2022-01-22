@@ -37,6 +37,8 @@ const useStyles = makeStyles((theme) => ({
     justify: 'space-between',
   },
   resultsContainer: {
+    height: '100vh',
+    overflow: 'auto',
     '&::-webkit-scrollbar': {
       width: '0.4em',
     },
@@ -44,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'rgba(0,0,0,.1)',
       borderRadius: 8,
     },
+  },
+  results: {
+    padding: '5px',
   },
   formControl: {
     minWidth: 120,
@@ -77,10 +82,6 @@ const useStyles = makeStyles((theme) => ({
   optionsUsername: { fontSize: '14px', color: 'gray' },
   options: {
     display: 'block',
-  },
-  container: {
-    minHeight: '20px',
-    maxHeight: '375px',
   },
   formMessage: {
     color: 'gray',

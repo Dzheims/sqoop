@@ -6,6 +6,7 @@ import Error from '../../Common/Error';
 import NoContents from '../../Common/NoContents';
 import CardLoaderSkeleton from '../../Common/Skeletons/CardLoaderSkeleton';
 import TwitterCards from '../../Cards/TwitterCard';
+import useStyles from './SearchStyles';
 
 interface SearchTwitterColumnDataProps {
   keyword: string;
@@ -20,6 +21,7 @@ const SearchAllTweetsColumnData: React.FC<SearchTwitterColumnDataProps> = ({
   fromDate,
   toDate,
 }: SearchTwitterColumnDataProps) => {
+  const classes = useStyles();
   const { data, loading, error, refetch } = useQuery<SearchAllTweetsQuery>(
     SEARCH_TWITTER_CONTENTS_QUERY,
     { variables: { keyword, sources, fromDate, toDate } }
@@ -50,7 +52,7 @@ const SearchAllTweetsColumnData: React.FC<SearchTwitterColumnDataProps> = ({
     );
 
   return (
-    <div>
+    <div className={classes.results}>
       {data?.searchAllTweets?.map((value) => (
         <TwitterCards data={value} />
       ))}

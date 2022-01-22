@@ -48,10 +48,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#f7fafc',
     zIndex: 200,
     display: 'flex',
+    overflow: 'hidden',
   },
   drawer: {
     width: '280',
-    height: '560px',
+    maxHeight: '100vh',
     backgroundColor: '#f7fafc',
     margin: '10px',
     borderRadius: '4px',
