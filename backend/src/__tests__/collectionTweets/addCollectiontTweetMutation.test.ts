@@ -31,7 +31,7 @@ describe('test create collection tweet mutation', () => {
   });
   test('check if an invalid mutation', () => {
     const mutation = gql`
-      mutation TESTMUTATION($input: CreateCollectionTweetInput!) {
+      mutation TESTMUTATION($input: CreateCollectionTweetInput) {
         createCollectionTweet(input: $input) {
           collectionTweet {
             id

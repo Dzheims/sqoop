@@ -12,7 +12,7 @@ describe('test tweetLookup schema', () => {
     const query = gql`
       query TESTQUERY {
         tweetLookup(id: "1445740660384927745") {
-          createdAt
+          publishedAt
           authorId
           tweetId
           name
@@ -68,7 +68,7 @@ describe('mock tweetLookup query', () => {
     const fixture = {
       data: {
         tweetLookup: {
-          createdAt: '2021-10-06T13:20:08.000Z',
+          publishedAt: '2021-10-06T13:20:08.000Z',
           authorId: '15448383',
           tweetId: '1445740660384927745',
           name: 'Inquirer',
@@ -92,7 +92,7 @@ describe('mock tweetLookup query', () => {
     const query = gql`
       query TESTQUERY {
         tweetLookup(id: "1445740660384927745") {
-          createdAt
+          publishedAt
           authorId
           tweetId
           name

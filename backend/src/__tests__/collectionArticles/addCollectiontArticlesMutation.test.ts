@@ -41,7 +41,7 @@ describe('test create collection articles mutation', () => {
   });
   test('check if an invalid mutation', () => {
     const mutation = gql`
-      mutation TESTMUTATION($input: CreateCollectionArticleInput!) {
+      mutation TESTMUTATION($input: CreateCollectionArticleInput) {
         createCollectionArticle(input: $input) {
           collectionArticle {
             description
@@ -58,7 +58,6 @@ describe('test create collection articles mutation', () => {
     const input = {
       input: {
         collectionArticle: {
-          collectionId: null,
           title: null,
           description: 'covid 19',
           publishedAt: '2021-10-12T10:19:00Z',

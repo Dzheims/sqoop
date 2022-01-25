@@ -2,7 +2,7 @@ import { userSchema } from '../helpers/setupEasyGraphqlTester';
 import { gql } from 'graphile-utils';
 const EasyGraphQLTester = require('easygraphql-tester');
 
-describe('test tweetLookup schema', () => {
+describe('test searchTweets schema', () => {
   let tester: any;
   beforeAll(() => {
     tester = new EasyGraphQLTester(userSchema);
@@ -11,10 +11,8 @@ describe('test tweetLookup schema', () => {
   test('check if valid query', () => {
     const query = gql`
       query TESTQUERY {
-        tweetLookup(id: "1445740660384927745") {
-          createdAt
+        searchTweets(keyword: "omicron") {
           authorId
-          tweetId
           name
           photos {
             mediaKey
@@ -22,10 +20,12 @@ describe('test tweetLookup schema', () => {
             url
           }
           profileImageUrl
+          publishedAt
           suggestedKeywords
-          text
+          tweetId
           username
           verified
+          text
         }
       }
     `;
@@ -34,7 +34,7 @@ describe('test tweetLookup schema', () => {
   test('check if an invalid query', () => {
     const query = gql`
       query TESTQUERY {
-        searchTweet {
+        searchTweets {
           id
           content
         }
@@ -44,7 +44,7 @@ describe('test tweetLookup schema', () => {
   });
 });
 
-describe('mock tweetLookup query', () => {
+describe('mock searchTweet query', () => {
   let tester: any;
   beforeAll(() => {
     tester = new EasyGraphQLTester(userSchema);
@@ -59,7 +59,7 @@ describe('mock tweetLookup query', () => {
           {
             authorId: '15448383',
             tweetId: '1445742618583834632',
-            createdAt: '2021-09-02T12:15:00.000Z',
+            publishedAt: '2021-09-02T12:15:00.000Z',
             name: 'ABS-CBN News',
             photos: null,
             text: 'The towns of Baggao and Solana in Cagayan province were placed on a 14-day ECQ, the most restrictive form of quarantine, starting Tuesday following the increase in COVID-19 cases in these areas, officials said. https://t.co/edmVwpm8M9',
@@ -71,7 +71,7 @@ describe('mock tweetLookup query', () => {
           {
             authorId: '15872418',
             tweetId: '1430319232193990660',
-            createdAt: '2021-09-02T12:06:32.000Z',
+            publishedAt: '2021-09-02T12:06:32.000Z',
             name: 'Rappler',
             photos: [
               {
@@ -94,7 +94,7 @@ describe('mock tweetLookup query', () => {
           {
             authorId: '330826792',
             tweetId: '1430319009832923136',
-            createdAt: '2021-09-02T12:03:36.000Z',
+            publishedAt: '2021-09-02T12:03:36.000Z',
             name: 'Rappler',
             photos: null,
             text: 'President Rodrigo Duterte confirmed that he will launch a vice presidential bid in next year\'s national elections. He said he will continue his "crusade" against illegal drugs, insurgency, and criminality if he wins.\n\n#INQAsks: Do you want Duterte to run for VP in 2022? https://t.co/WRg5IsJpQ3',
@@ -112,7 +112,7 @@ describe('mock tweetLookup query', () => {
         searchTweets {
           authorId
           tweetId
-          createdAt
+          publishedAt
           name
           photos {
             mediaKey
@@ -142,13 +142,13 @@ describe('mock tweetLookup query', () => {
     expect(searchTweets[1]).toBeObject();
   });
 
-  test('return tweets from based on keywords', async () => {
+  test('return search tweets', async () => {
     const fixture = {
       data: {
         searchTweets: [
           {
             authorId: '330826792',
-            createdAt: '2021-09-15T08:22:39.000Z',
+            publishedAt: '2021-09-15T08:22:39.000Z',
             name: 'Rappler',
             photos: [
               {
@@ -165,7 +165,7 @@ describe('mock tweetLookup query', () => {
           },
           {
             authorId: '192849591',
-            createdAt: '2021-09-15T08:20:22.000Z',
+            publishedAt: '2021-09-15T08:20:22.000Z',
             name: 'Presidential Communications Operations Office',
             photos: null,
             profileImageUrl:
@@ -176,7 +176,7 @@ describe('mock tweetLookup query', () => {
           },
           {
             authorId: '2811559122',
-            createdAt: '2021-09-15T08:18:12.000Z',
+            publishedAt: '2021-09-15T08:18:12.000Z',
             name: 'CNN Philippines',
             photos: [
               {
@@ -199,7 +199,7 @@ describe('mock tweetLookup query', () => {
       query TESTQUERY {
         searchTweets(keyword: "COVID") {
           authorId
-          createdAt
+          publishedAt
           name
           photos {
             mediaKey
@@ -220,7 +220,7 @@ describe('mock tweetLookup query', () => {
     expect(searchTweets[0].authorId).toBe('330826792');
     expect(searchTweets[0].username).toBe('rapplerdotcom');
     expect(searchTweets[1]).toBeObject();
-    expect(searchTweets[1].createdAt).toBe('2021-09-15T08:20:22.000Z');
+    expect(searchTweets[1].publishedAt).toBe('2021-09-15T08:20:22.000Z');
     expect(searchTweets[1].photos).toBeNull();
     expect(searchTweets[2].name).toBe('CNN Philippines');
     expect(searchTweets[2].text).toBe(
@@ -234,7 +234,7 @@ describe('mock tweetLookup query', () => {
         searchTweets: [
           {
             authorId: '2811559122',
-            createdAt: '2021-09-15T11:45:24.000Z',
+            publishedAt: '2021-09-15T11:45:24.000Z',
             name: 'CNN Philippines',
             photos: null,
             profileImageUrl:
@@ -245,7 +245,7 @@ describe('mock tweetLookup query', () => {
           },
           {
             authorId: '2811559122',
-            createdAt: '2021-09-15T11:44:56.000Z',
+            publishedAt: '2021-09-15T11:44:56.000Z',
             name: 'CNN Philippines',
             photos: null,
             profileImageUrl:
@@ -256,7 +256,7 @@ describe('mock tweetLookup query', () => {
           },
           {
             authorId: '2811559122',
-            createdAt: '2021-09-15T11:44:40.000Z',
+            publishedAt: '2021-09-15T11:44:40.000Z',
             name: 'CNN Philippines',
             photos: null,
             profileImageUrl:
@@ -273,7 +273,7 @@ describe('mock tweetLookup query', () => {
       query TESTQUERY {
         searchTweets(sources: "cnnphilippines") {
           authorId
-          createdAt
+          publishedAt
           name
           photos {
             mediaKey
@@ -292,7 +292,7 @@ describe('mock tweetLookup query', () => {
     } = await tester.mock({ query, fixture });
     expect(searchTweets).toBeArray();
     expect(searchTweets[0].authorId).toBe('2811559122');
-    expect(searchTweets[0].createdAt).toBe('2021-09-15T11:45:24.000Z');
+    expect(searchTweets[0].publishedAt).toBe('2021-09-15T11:45:24.000Z');
     expect(searchTweets[0].photos).toBeNull();
     expect(searchTweets[1]).toBeObject();
     expect(searchTweets[1].profileImageUrl).toBe(
