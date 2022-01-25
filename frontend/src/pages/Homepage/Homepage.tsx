@@ -3,8 +3,8 @@ import { useHistory, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Toolbar } from '@material-ui/core';
 import Fab from '@mui/material/Fab';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import LeftScroll from '@mui/icons-material/ArrowBackIos';
+import RightScroll from '@mui/icons-material/ArrowForwardIos';
 import Cookies from 'js-cookie';
 import { ColumnData } from '../../components/Columns/ColumnData';
 import NavigationBar from '../../components/SideNavigation/SideNavigationBar';
@@ -34,7 +34,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   arrowIcon: {
-    color: theme.palette.primary.main,
+    color: 'gray',
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
+  },
+  scrollButton: {
+    opacity: 0.5,
+    '&:hover': {
+      opacity: 1,
+    },
   },
 }));
 
@@ -134,28 +143,27 @@ const Homepage = () => {
                   <ColumnData />
                   {!isFirstElement && (
                     <Fab
+                      size="small"
                       onClick={() => buttonScroll(-320)}
                       style={{
-                        opacity: 0.9,
                         position: 'fixed',
-                        left: 65,
+                        left: 55,
                         top: '50%',
+                        paddingLeft: '10px',
                       }}
+                      className={classes.scrollButton}
                     >
-                      <ArrowLeftIcon className={classes.arrowIcon} />
+                      <LeftScroll className={classes.arrowIcon} />
                     </Fab>
                   )}
                   {!isLastElement && (
                     <Fab
+                      size="small"
                       onClick={() => buttonScroll(320)}
-                      style={{
-                        opacity: 0.9,
-                        position: 'fixed',
-                        right: 15,
-                        top: '50%',
-                      }}
+                      style={{ position: 'fixed', right: 15, top: '50%' }}
+                      className={classes.scrollButton}
                     >
-                      <ArrowRightIcon className={classes.arrowIcon} />
+                      <RightScroll className={classes.arrowIcon} />
                     </Fab>
                   )}
                 </div>
