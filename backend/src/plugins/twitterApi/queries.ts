@@ -48,7 +48,7 @@ export const resolvers = {
       if (!jwtClaims) throw new Error('Unauthorized user');
 
       await pgClient.query(
-        `DELETE FROM twitter_recent_search_requests WHERE keyword = $1 AND sources = $2 AND created_at < Now() - INTERVAL '15 MINUTES'`,
+        `DELETE FROM twitter_recent_search_requests WHERE keyword = $1 AND sources = $2 AND created_at < Now() - INTERVAL '3 MINUTES'`,
         [keyword || '', sources || '']
       );
 
