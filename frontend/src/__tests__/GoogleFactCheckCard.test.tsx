@@ -47,16 +47,8 @@ describe('Google Fact Check Cards', () => {
     const text = await documentBody.findByText('The Quint Info Rating: False');
     expect(text).toBeInTheDocument();
   });
-  test('check claim date', async () => {
-    const text = await documentBody.findByText(
-      'Claim Date 10:30:47 AM Tue Oct 12 2021'
-    );
-    expect(text).toBeInTheDocument();
-  });
   test('check review date', async () => {
-    const text = await documentBody.findByText(
-      'Review Date 10:49:17 AM Tue Nov 30 2021'
-    );
+    const text = await documentBody.findByText('10:49:17 AM Tue Nov 30 2021');
     expect(text).toBeInTheDocument();
   });
 });

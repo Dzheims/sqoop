@@ -68,7 +68,7 @@ describe('News Feed Form', () => {
     const countryTextfield = screen.getByRole('textbox', {
       name: 'Country',
     });
-    expect(countryTextfield).toHaveValue('');
+    expect(countryTextfield).toHaveValue('Philippines');
     countryTextfield.focus();
     fireEvent.change(countryTextfield, {
       target: { value: 'states' },
@@ -91,7 +91,7 @@ describe('News Feed Form', () => {
     const sourcesTextfield = screen.getByRole('textbox', {
       name: 'Sources',
     });
-    expect(sourcesTextfield).toHaveValue('');
+    expect(sourcesTextfield).toHaveValue('All Sources');
     sourcesTextfield.focus();
     await wait();
     fireEvent.change(sourcesTextfield, {

@@ -100,9 +100,7 @@ describe('Google Fact Check contents', () => {
     expect(description).toBeInTheDocument();
   });
   it('checks content text data 4', async () => {
-    const date = await documentBody.findByText(
-      'Review Date 2:00:31 AM Sat Aug 14 2021'
-    );
+    const date = await documentBody.findByText('2:00:31 AM Sat Aug 14 2021');
     expect(date).toBeInTheDocument();
   });
   it('checks content text data 5', async () => {

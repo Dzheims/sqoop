@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, { useState, useEffect } from 'react';
+import { decodeHTML } from 'entities';
 import { Typography, Avatar } from '@material-ui/core';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import NewsIcon from '@mui/icons-material/Article';
@@ -86,7 +87,9 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
           </TitleContainer>
           <div className={classes.descriptionContainer}>
             <LinkParser>
-              <Typography variant="body2">{data.description}</Typography>
+              <Typography variant="body2">
+                {decodeHTML(data.description as string)}
+              </Typography>
             </LinkParser>
           </div>
           {!data.urlToImage ? (
@@ -96,7 +99,9 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
               className={classes.link}
               href={data.url as string}
             >
-              <Typography variant="body2">{data.title}</Typography>
+              <Typography variant="body2">
+                {decodeHTML(data.title as string)}
+              </Typography>
             </a>
           ) : (
             <NewsAPIContentContainer>
@@ -124,7 +129,7 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                 href={data.url as string}
               >
                 <Typography className={classes.description}>
-                  {data.title}
+                  {decodeHTML(data.title as string)}
                 </Typography>
               </a>
             </NewsAPIContentContainer>

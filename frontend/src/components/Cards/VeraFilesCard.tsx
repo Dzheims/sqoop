@@ -63,12 +63,12 @@ const VeraFilesCard: React.FC<VeraFactCheckProps> = ({
                   className={classes.imageContainer}
                 />
                 <Typography className={classes.description}>
-                  {data.description}
+                  {decodeHTML(data.description as string)}
                 </Typography>
               </div>
             ) : (
               <Typography className={classes.description}>
-                {data.description}
+                {decodeHTML(data.description as string)}
               </Typography>
             )}
           </ContentContainer>

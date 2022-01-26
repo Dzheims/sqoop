@@ -48,7 +48,7 @@ describe('test delete twitter feed', () => {
   });
 });
 
-describe('mock deleteCollection mutation', () => {
+describe('mock deleteTwitterFeed mutation', () => {
   let tester: any;
   beforeAll(() => {
     tester = new EasyGraphQLTester(userSchema);
@@ -56,7 +56,7 @@ describe('mock deleteCollection mutation', () => {
   afterAll(() => {
     tester.clearFixture();
   });
-  test('delete collection', async () => {
+  test('delete twitter feed', async () => {
     const fixture = {
       data: {
         deleteTwitterFeed: {

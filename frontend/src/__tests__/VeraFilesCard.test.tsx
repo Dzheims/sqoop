@@ -30,12 +30,6 @@ describe('Google Fact Check Cards', () => {
       </MockedProvider>
     );
   });
-  test('check author', async () => {
-    const text = await documentBody.findByText(
-      'By Klaire Ting and Nica Rhiana Hanopol'
-    );
-    expect(text).toBeInTheDocument();
-  });
   test('check date', async () => {
     const text = await documentBody.findByText('11:54:00 AM Tue Nov 30 2021');
     expect(text).toBeInTheDocument();
