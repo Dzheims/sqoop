@@ -79,7 +79,7 @@ const GoogleFactCheckCard: React.FC<GoogleFactCheckProps> = ({
             href={data.url as string}
           >
             <Typography className={classes.titleLink} variant="body2">
-              {decodeHTML(data.title as string)}
+              {data.title !== null ? decodeHTML(data.title as string) : ''}
             </Typography>
           </a>
           <Typography className={classes.date}>
