@@ -88,7 +88,9 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
           <div className={classes.descriptionContainer}>
             <LinkParser>
               <Typography variant="body2">
-                {decodeHTML(data.description as string)}
+                {data.description !== null
+                  ? decodeHTML(data.description as string)
+                  : ''}
               </Typography>
             </LinkParser>
           </div>
@@ -129,7 +131,7 @@ const NewsCard: React.FC<NewsDataProps> = ({ data }: NewsDataProps) => {
                 href={data.url as string}
               >
                 <Typography className={classes.description}>
-                  {decodeHTML(data.title as string)}
+                  {data.title !== null ? decodeHTML(data.title as string) : ''}
                 </Typography>
               </a>
             </NewsAPIContentContainer>
