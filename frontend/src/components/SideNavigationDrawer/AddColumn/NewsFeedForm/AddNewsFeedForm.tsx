@@ -233,7 +233,7 @@ const AddNewsFeedForm = () => {
   return (
     <div className={classes.formContainer}>
       <Typography className={classes.formMessage}>
-        Discover news contents in the last 7 days.
+        Discover current top and breaking headlines.
       </Typography>
       <TextField
         id="FeedTitle"
